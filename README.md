@@ -1,0 +1,32 @@
+phpbb-ext-f1webtip
+==================
+
+# phpBB 3.1 F1Webtip Extension
+
+F1Webtip is an Extension for [phpBB 3.1] (https://www.phpbb.com/)
+
+
+## Description
+
+With this mod you can add a Formula 1 tip game to your phpBB3.1 forum.
+Your forum users can tip race results and collect points.
+Current season standings ( users / drivers / teams ) are listet on a statistic page and on the user profile.
+
+
+## Installation
+
+Clone into phpBB/ext/drdeath/f1webtip:
+
+    git clone https://github.com/DrDeath/phpbb-ext-f1webtip.git phpBB/ext/drdeath/f1webtip
+
+Go to "ACP" > "Customise" > "Extensions" and enable the "phpBB 3.1 F1Webtip Extension" extension.
+
+## Collaborate
+
+* Create a issue in the [tracker](https://github.com/DrDeath/phpbb-ext-f1webtip/issues)
+* Note the restrictions for [branch names](https://wiki.phpbb.com/Git#Branch_Names) and [commit messages](https://wiki.phpbb.com/Git#Commit_Messages) are similar to phpBB3
+* Submit a [pull-request](https://github.com/DrDeath/phpbb-ext-f1webtip/pulls)
+
+## License
+
+[GPLv2](license.txt)

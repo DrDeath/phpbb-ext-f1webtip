@@ -1,0 +1,18 @@
+imports:
+    - { resource: tables.yml }
+
+services:
+    drdeath.f1webtip.controller:
+        class: drdeath\f1webtip\controller\main
+        arguments:
+            - @config
+            - @controller.helper
+            - @template
+            - @user
+    drdeath.f1webtip.listener:
+        class: drdeath\f1webtip\event\main_listener
+        arguments:
+            - @controller.helper
+            - @template
+        tags:
+            - { name: event.listener }

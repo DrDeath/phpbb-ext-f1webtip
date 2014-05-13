@@ -18,6 +18,8 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
+	'F1WEBTIP_PAGE'					=> 'F1 WebTip',
+
 	'LOG_FORMEL_TIP_GIVEN'			=> 'Formula 1 webtip for race %s added.',
 	'LOG_FORMEL_TIP_EDITED'			=> 'Formula 1 webtip for race %s edited.',
 	'LOG_FORMEL_TIP_NOT_VALID'		=> 'Formula 1 webtip for race %s not valid. Tip rejected.',
@@ -41,10 +43,10 @@ $lang = array_merge($lang, array(
 	'LOG_FORMEL_DRIVER_DELETED'		=> 'Formula 1 driver ID %s deleted.',
 	'LOG_FORMEL_CRON'				=> 'Formula 1 WebTip Cronjob was executed.',
 
-	'ACP_FORMEL_SETTINGS'			=> 'Settings',
-	'ACP_FORMEL_DRIVERS'			=> 'Drivers',
-	'ACP_FORMEL_TEAMS'				=> 'Teams',
-	'ACP_FORMEL_RACES'				=> 'Races',
+	'ACP_FORMEL_SETTINGS'			=> 'F1 Settings',
+	'ACP_FORMEL_DRIVERS'			=> 'F1 Drivers',
+	'ACP_FORMEL_TEAMS'				=> 'F1 Teams',
+	'ACP_FORMEL_RACES'				=> 'F1 Races',
 
 	'ACP_F1WEBTIP_TITLE'			=> 'F1 WebTip Module',
 	'ACP_F1WEBTIP'					=> 'Settings',

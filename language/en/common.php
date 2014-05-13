@@ -18,10 +18,6 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'F1WEBTIP_PAGE'			=> 'F1 WebTip',
-	'F1WEBTIP_HELLO'		=> 'Hello %s!',
-	'F1WEBTIP_GOODBYE'		=> 'Goodbye %s!',
-
 	'LOG_FORMEL_TIP_GIVEN'			=> 'Formula 1 webtip for race %s added.',
 	'LOG_FORMEL_TIP_EDITED'			=> 'Formula 1 webtip for race %s edited.',
 	'LOG_FORMEL_TIP_NOT_VALID'		=> 'Formula 1 webtip for race %s not valid. Tip rejected.',
@@ -44,19 +40,17 @@ $lang = array_merge($lang, array(
 	'LOG_FORMEL_DRIVER_EDITED'		=> 'Formula 1 driver ID %s edited.',
 	'LOG_FORMEL_DRIVER_DELETED'		=> 'Formula 1 driver ID %s deleted.',
 	'LOG_FORMEL_CRON'				=> 'Formula 1 WebTip Cronjob was executed.',
-	
-	'ACP_FORMEL_SETTINGS'			=> 'BLUBB Settings',
+
+	'ACP_FORMEL_SETTINGS'			=> 'Settings',
 	'ACP_FORMEL_DRIVERS'			=> 'Drivers',
 	'ACP_FORMEL_TEAMS'				=> 'Teams',
 	'ACP_FORMEL_RACES'				=> 'Races',
-
 
 	'ACP_F1WEBTIP_TITLE'			=> 'F1 WebTip Module',
 	'ACP_F1WEBTIP'					=> 'Settings',
 	'ACP_F1WEBTIP_GOODBYE'			=> 'Should say goodbye?',
 	'ACP_F1WEBTIP_SETTING_SAVED'	=> 'Settings have been saved successfully!',
-	
-	
+
 	'ACP_F1_MANAGEMENT'								=> 'Formula 1 WebTip',
 	'ACP_F1_SETTINGS'								=> 'Formula 1 Settings',
 	'ACP_F1_SETTINGS_EXPLAIN'						=> 'Here you can edit your Formula 1 WebTipps settings',

@@ -18,7 +18,7 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array('\phpbb\db\migration\data\v310\alpha2');
+		return array('\phpbb\db\migration\data\v310\beta3');
 	}
 
 	public function update_data()
@@ -26,7 +26,7 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 		return array(
 			// Set the current version
 			array('config.add', array('drdeath_f1webtip_version', '0.1.0')),
-			
+
 			// now populate some default config data
 			array('config.add', array('drdeath_f1webtip_mod_id', '2')),
 			array('config.add', array('drdeath_f1webtip_deadline_offset', '600')),
@@ -51,46 +51,51 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 			array('config.add', array('drdeath_f1webtip_race_img_height', '120')),
 			array('config.add', array('drdeath_f1webtip_race_img_width', '210')),
 			array('config.add', array('drdeath_f1webtip_show_in_profile', '1')),
-			array('config.add', array('drdeath_f1webtip_show_in_viewtopic', '1')),		
+			array('config.add', array('drdeath_f1webtip_show_in_viewtopic', '1')),
 			array('config.add', array('drdeath_f1webtip_show_gfx', '1')),
 			array('config.add', array('drdeath_f1webtip_show_gfxr', '1')),
-			array('config.add', array('drdeath_f1webtip_show_countdown', '1')),			
-			array('config.add', array('drdeath_f1webtip_show_avatar', '1')),	
+			array('config.add', array('drdeath_f1webtip_show_countdown', '1')),
+			array('config.add', array('drdeath_f1webtip_show_avatar', '1')),
 			array('config.add', array('drdeath_f1webtip_guest_viewing', '0')),
-			array('config.add', array('drdeath_f1webtip_reminder_enabled', '0')),	
+			array('config.add', array('drdeath_f1webtip_reminder_enabled', '0')),
 			array('config.add', array('drdeath_f1webtip_reminder_last_run', '0')),
 			array('config.add', array('drdeath_f1webtip_season', '0')),
-					
+
 			// Maybe we remove this function "Header Banner"
 			array('config.add', array('drdeath_f1webtip_show_headbanner', '1')),
 			array('config.add', array('drdeath_f1webtip_head_height', '60')),
 			array('config.add', array('drdeath_f1webtip_head_width', '468')),
 			array('config.add', array('drdeath_f1webtip_headbanner1_img', 'images/formel/formel_webtipp.jpg')),
 			array('config.add', array('drdeath_f1webtip_headbanner2_img', 'images/formel/formel_rules.jpg')),
-			array('config.add', array('drdeath_f1webtip_headbanner3_img', 'images/formel/formel_stats.jpg')),			
+			array('config.add', array('drdeath_f1webtip_headbanner3_img', 'images/formel/formel_stats.jpg')),
 			array('config.add', array('drdeath_f1webtip_headbanner1_url', 'formel.php')),
 			array('config.add', array('drdeath_f1webtip_headbanner2_url', 'formel.php?mode=rules')),
-			array('config.add', array('drdeath_f1webtip_headbanner3_url', 'formel.php?mode=stats')),			
+			array('config.add', array('drdeath_f1webtip_headbanner3_url', 'formel.php?mode=stats')),
 
-			
+
 
 			// Alright, now lets add some modules to the ACP
+			array('module.add', array(
+ 				'acp',
+ 				'ACP_CAT_DOT_MODS',
+ 				'ACP_F1WEBTIP_TITLE'
+ 			)),
 			array('module.add', array(
 				'acp',
 				'ACP_F1WEBTIP_TITLE',
 				array(
 					'module_basename'	=> '\drdeath\f1webtip\acp\main_module',
-					'modes'				=> array('races','teams','drivers'),
+					'modes'				=> array('settings','races','teams','drivers'),
 				),
 			)),
 
-			
+
 			// Now to add some permission settings
 			array('permission.add', array('a_formel_races')), // New global admin permission a_formel_races
 			array('permission.add', array('a_formel_teams')), // New global admin permission a_formel_teams
 			array('permission.add', array('a_formel_drivers')), // New global admin permission a_formel_drivers
 			array('permission.add', array('a_formel_settings')), // New global admin permission a_formel_settings
-			
+
 			// How about we give some default permissions then as well?
 			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_races')), // Give ROLE_ADMIN_FULL a_formel_races permission
 			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_teams')), // Give ROLE_ADMIN_FULL a_formel_teams permission
@@ -98,8 +103,8 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_settings')), // Give ROLE_ADMIN_FULL a_formel_settings permission
 		);
 	}
-	
-	
+
+
 	public function update_schema()
 	{
 		return array(
@@ -141,7 +146,7 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 						'race_laps'			=> array('UINT', 0),
 						'race_distance'		=> array('VCHAR:8', ''),
 						'race_debut'		=> array('UINT', 0),
-						'race_mail'			=> array('BOOL', 0),			
+						'race_mail'			=> array('BOOL', 0),
 						),
 					'PRIMARY_KEY'	=> 'race_id',
 				),
@@ -167,12 +172,12 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 						),
 					'PRIMARY_KEY'	=> 'tip_id',
 				),
-				
-			),	
+
+			),
 		);
 	}
-	
-	
+
+
 	public function revert_schema()
 	{
 		return array(
@@ -185,5 +190,5 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 			),
 		);
 	}
-	
+
 }

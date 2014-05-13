@@ -1,9 +1,9 @@
 <?php
 /**
 *
-* @package phpbb3f1webtipp
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License
-* language/en/mods/acp_permissions
+* @package phpBB Extension - DrDeath F1WebTip
+* @copyright (c) 2013 phpBB Group
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
 
@@ -37,9 +37,9 @@ if (empty($lang) || !is_array($lang))
 // F1 WebTip permissions
 $lang = array_merge($lang, array(
 	'ACL_A_FORMEL_SETTINGS'	=> 'Can alter Formular 1 settings',
-	'ACL_A_FORMEL_DRIVERS'	=> 'Can alter Formular 1 driver', 
-	'ACL_A_FORMEL_TEAMS'	=> 'Can alter Formular 1 teams', 
-	'ACL_A_FORMEL_RACES'	=> 'Can alter Formular 1 races', 
+	'ACL_A_FORMEL_DRIVERS'	=> 'Can alter Formular 1 driver',
+	'ACL_A_FORMEL_TEAMS'	=> 'Can alter Formular 1 teams',
+	'ACL_A_FORMEL_RACES'	=> 'Can alter Formular 1 races',
 ));
 
 ?>

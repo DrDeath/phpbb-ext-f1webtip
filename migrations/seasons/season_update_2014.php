@@ -30,9 +30,8 @@ class season_update_2014 extends \phpbb\db\migration\migration
 			)),
 			// Set the current version
 			array('config.update', array(
-				'drdeath_f1webtip_season', '2014')),		
-		
-
+				'drdeath_f1webtip_season', '2014'
+			)),		
 		);
 	}
 
@@ -44,89 +43,81 @@ class season_update_2014 extends \phpbb\db\migration\migration
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager;
 		
-		if ($this->db_tools->sql_table_exists($this->table_prefix . 'f1webtip_drivers'))
+		$table_drivers 	= $this->table_prefix . 'f1webtip_drivers';
+		$table_teams	= $this->table_prefix . 'f1webtip_teams';
+		$table_races 	= $this->table_prefix . 'f1webtip_races';
+
+
+		if ($this->db_tools->sql_table_exists($table_drivers))
 		{
 				// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
-				$db->sql_query('TRUNCATE TABLE ' . $this->table_prefix . 'f1webtip_drivers');
+				$db->sql_query('TRUNCATE TABLE ' . $table_drivers);
 				
 				$sql_ary = array();
 
 				# -- Team 1 Red Bull Racing
 				$sql_ary[] = array('driver_id' => 1,  'driver_name' => 'Vettel, Sebastian', 	'driver_img' => '', 'driver_team' => 1,);
-				$sql_ary[] = array('driver_id' => 2,  'driver_name' => 'Webber, Mark',			'driver_img' => '',	'driver_team' => 1,);
-				$sql_ary[] = array('driver_id' => 26, 'driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 1,);
-				# -- Team 2 McLaren Mercedes
-				$sql_ary[] = array('driver_id' => 3,  'driver_name' => 'Hamilton, Lewis',		'driver_img' => '',	'driver_team' => 2,);
-				$sql_ary[] = array('driver_id' => 4,  'driver_name' => 'Button, Jenson',		'driver_img' => '',	'driver_team' => 2,);
-				$sql_ary[] = array('driver_id' => 27, 'driver_name' => 'Paffett, Gary',			'driver_img' => '',	'driver_team' => 2,);
-				$sql_ary[] = array('driver_id' => 28, 'driver_name' => 'Rosa de la, Pedro',		'driver_img' => '',	'driver_team' => 2,);
+				$sql_ary[] = array('driver_id' => 3,  'driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 1,);
+				# -- Team 2 Mercedes F1 Team
+				$sql_ary[] = array('driver_id' => 6,  'driver_name' => 'Rosberg, Nico',			'driver_img' => '',	'driver_team' => 2,);
+				$sql_ary[] = array('driver_id' => 44, 'driver_name' => 'Hamilton, Lewis',		'driver_img' => '',	'driver_team' => 2,);
 				# -- Team 3 Scuderia Ferrari
-				$sql_ary[] = array('driver_id' => 5,  'driver_name' => 'Alonso, Fernando',		'driver_img' => '',	'driver_team' => 3,);
-				$sql_ary[] = array('driver_id' => 6,  'driver_name' => 'Massa, Felipe',			'driver_img' => '',	'driver_team' => 3,);
-				$sql_ary[] = array('driver_id' => 29, 'driver_name' => 'Bianchi, Jules',		'driver_img' => '',	'driver_team' => 3,);
-				# -- Team 4 Mercedes GP F1 Team
-				$sql_ary[] = array('driver_id' => 7,  'driver_name' => 'Schumacher, Michael',	'driver_img' => '',	'driver_team' => 4,);
-				$sql_ary[] = array('driver_id' => 8,  'driver_name' => 'Rosberg, Nico',			'driver_img' => '',	'driver_team' => 4,);
-				# -- Team 5 Lotus Renault GP
-				$sql_ary[] = array('driver_id' => 9,  'driver_name' => 'Heidfeld, Nick',		'driver_img' => '',	'driver_team' => 5,);
-				$sql_ary[] = array('driver_id' => 10, 'driver_name' => 'Petrow, Witali',		'driver_img' => '',	'driver_team' => 5,);
-				$sql_ary[] = array('driver_id' => 30, 'driver_name' => 'Grosjean, Romain',		'driver_img' => '',	'driver_team' => 5,);
-				$sql_ary[] = array('driver_id' => 31, 'driver_name' => 'Senna, Bruno',			'driver_img' => '',	'driver_team' => 5,);
-				# -- Team 6 Williams
-				$sql_ary[] = array('driver_id' => 11, 'driver_name' => 'Barrichello, Rubens',	'driver_img' => '',	'driver_team' => 6,);
-				$sql_ary[] = array('driver_id' => 12, 'driver_name' => 'Maldonado, Pastor',		'driver_img' => '',	'driver_team' => 6,);
-				$sql_ary[] = array('driver_id' => 32, 'driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 6,);
-				# -- Team 7 Force India F1 Team
-				$sql_ary[] = array('driver_id' => 14, 'driver_name' => 'Sutil, Adrian',			'driver_img' => '',	'driver_team' => 7,);
-				$sql_ary[] = array('driver_id' => 15, 'driver_name' => 'Resta di, Paul',		'driver_img' => '',	'driver_team' => 7,);
-				$sql_ary[] = array('driver_id' => 33, 'driver_name' => 'Hülkenberg, Nico',		'driver_img' => '',	'driver_team' => 7,);
-				# -- Team 8 Sauber F1 Team
-				$sql_ary[] = array('driver_id' => 16, 'driver_name' => 'Kobayashi, Kamui',		'driver_img' => '',	'driver_team' => 8,);
-				$sql_ary[] = array('driver_id' => 17, 'driver_name' => 'Pérez Mendoza, Sergio',	'driver_img' => '',	'driver_team' => 8,);
-				$sql_ary[] = array('driver_id' => 34, 'driver_name' => 'Gutierrez, Esteban',	'driver_img' => '',	'driver_team' => 8,);
-				# -- Team 9 Scuderia Toro Rosso
-				$sql_ary[] = array('driver_id' => 18, 'driver_name' => 'Buemi, Sébastien',		'driver_img' => '',	'driver_team' => 9,);
-				$sql_ary[] = array('driver_id' => 19, 'driver_name' => 'Alguersuari, Jaime',	'driver_img' => '',	'driver_team' => 9,);
-				# -- Team 10 Team Lotus
-				$sql_ary[] = array('driver_id' => 20, 'driver_name' => 'Trulli, Jarno',			'driver_img' => '',	'driver_team' => 10,);
-				$sql_ary[] = array('driver_id' => 21, 'driver_name' => 'Kovalainen, Heikkio',	'driver_img' => '',	'driver_team' => 10,);
-				# -- Team 11 HRT F1 Team
-				$sql_ary[] = array('driver_id' => 22, 'driver_name' => 'Karthikeyan, Narain',	'driver_img' => '',	'driver_team' => 11,);
-				$sql_ary[] = array('driver_id' => 23, 'driver_name' => 'Liuzzi, Vitantonio',	'driver_img' => '',	'driver_team' => 11,);
-				# -- Team 12 Marussia Virgin Racing
-				$sql_ary[] = array('driver_id' => 24, 'driver_name' => "D'Ambrosio, Jérôme",	'driver_img' => '',	'driver_team' => 12,);
-				$sql_ary[] = array('driver_id' => 25, 'driver_name' => 'Glock, Timo',			'driver_img' => '',	'driver_team' => 12,);
+				$sql_ary[] = array('driver_id' => 14, 'driver_name' => 'Alonso, Fernando',		'driver_img' => '',	'driver_team' => 3,);
+				$sql_ary[] = array('driver_id' => 7,  'driver_name' => 'Räikkönen, Kimi',		'driver_img' => '',	'driver_team' => 3,);
+				# -- Team 4 Lotus F1 Team
+				$sql_ary[] = array('driver_id' => 13, 'driver_name' => 'Maldonado, Pastor',		'driver_img' => '',	'driver_team' => 4,);
+				$sql_ary[] = array('driver_id' => 8,  'driver_name' => 'Grosjean, Romain',		'driver_img' => '',	'driver_team' => 4,);
+				# -- Team 5 McLaren Mercedes
+				$sql_ary[] = array('driver_id' => 22, 'driver_name' => 'Button, Jenson',		'driver_img' => '',	'driver_team' => 5,);
+				$sql_ary[] = array('driver_id' => 20, 'driver_name' => 'Magnussen, Kevin',		'driver_img' => '',	'driver_team' => 5,);
+				# -- Team 6 Force India F1 Team
+				$sql_ary[] = array('driver_id' => 11, 'driver_name' => 'Perez, Sergio',			'driver_img' => '',	'driver_team' => 6,);
+				$sql_ary[] = array('driver_id' => 27, 'driver_name' => 'Hülkenberg, Nico',		'driver_img' => '',	'driver_team' => 6,);
+				# -- Team 7 Sauber F1 Team
+				$sql_ary[] = array('driver_id' => 21, 'driver_name' => 'Gutierrez, Esteban',	'driver_img' => '',	'driver_team' => 7,);
+				$sql_ary[] = array('driver_id' => 99, 'driver_name' => 'Sutil, Adrian',			'driver_img' => '',	'driver_team' => 7,);
+				# -- Team 8 Scuderia Toro Rosso
+				$sql_ary[] = array('driver_id' => 25, 'driver_name' => 'Vergne, Jean-Eric',		'driver_img' => '',	'driver_team' => 8,);
+				$sql_ary[] = array('driver_id' => 26, 'driver_name' => 'Kwjat, Daniil',			'driver_img' => '',	'driver_team' => 8,);
+				# -- Team 9 Williams F1 Team
+				$sql_ary[] = array('driver_id' => 19, 'driver_name' => 'Massa, Felipe',			'driver_img' => '',	'driver_team' => 9,);
+				$sql_ary[] = array('driver_id' => 77, 'driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 9,);
+				# -- Team 10 Marussia F1 Team
+				$sql_ary[] = array('driver_id' => 4,  'driver_name' => 'Chilton, Max',			'driver_img' => '',	'driver_team' => 10,);
+				$sql_ary[] = array('driver_id' => 17, 'driver_name' => 'Bianchi, Jules',		'driver_img' => '',	'driver_team' => 10,);
+				# -- Team 11 Caterham F1 Team
+				$sql_ary[] = array('driver_id' => 9,  'driver_name' => 'Ericsson, Marcus',		'driver_img' => '',	'driver_team' => 11,);
+				$sql_ary[] = array('driver_id' => 10, 'driver_name' => 'Kobayashi, Kamui',		'driver_img' => '',	'driver_team' => 11,);
 
-				$db->sql_multi_insert($this->table_prefix . 'f1webtip_drivers', $sql_ary);
+				$db->sql_multi_insert($table_drivers, $sql_ary);
 		}
 		
-		if ($this->db_tools->sql_table_exists($this->table_prefix . 'f1webtip_teams'))
+		if ($this->db_tools->sql_table_exists($table_teams))
 		{
 				// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
-				$db->sql_query('TRUNCATE TABLE ' . $this->table_prefix . 'f1webtip_teams');
+				$db->sql_query('TRUNCATE TABLE ' . $table_teams);
 
 				$sql_ary = array();
 
 				$sql_ary[] = array('team_id' => 1,  'team_name' => 'Red Bull Racing', 			'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 2,  'team_name' => 'McLaren Mercedes', 			'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 2,  'team_name' => 'Mercedes F1 Team', 			'team_img' => '', 'team_car' => '',);
 				$sql_ary[] = array('team_id' => 3,  'team_name' => 'Scuderia Ferrari', 			'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 4,  'team_name' => 'Mercedes GP F1 Team',	 	'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 5,  'team_name' => 'Lotus Renault GP', 			'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 6,  'team_name' => 'Williams', 					'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 7,  'team_name' => 'Force India F1 Team', 		'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 8,  'team_name' => 'Sauber F1 Team', 			'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 9,  'team_name' => 'Scuderia Toro Rosso', 		'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 10, 'team_name' => 'Team Lotus', 				'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 11, 'team_name' => 'HRT F1 Team', 				'team_img' => '', 'team_car' => '',);
-				$sql_ary[] = array('team_id' => 12, 'team_name' => 'Marussia Virgin Racing', 	'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 4,  'team_name' => 'Lotus F1 Team',	 			'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 5,  'team_name' => 'McLaren Mercedes', 			'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 6,  'team_name' => 'Force India F1 Team', 		'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 7,  'team_name' => 'Sauber F1 Team', 			'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 8,  'team_name' => 'Scuderia Toro Rosso', 		'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 9,  'team_name' => 'Williams F1 Team', 			'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 10, 'team_name' => 'Marussia F1 Team', 			'team_img' => '', 'team_car' => '',);
+				$sql_ary[] = array('team_id' => 11, 'team_name' => 'Caterham F1 Team', 			'team_img' => '', 'team_car' => '',);
 
-				$db->sql_multi_insert($this->table_prefix . 'f1webtip_teams ', $sql_ary);
+				$db->sql_multi_insert($table_teams, $sql_ary);
 		}
 
-		if ($this->db_tools->sql_table_exists($this->table_prefix . 'f1webtip_races'))
+		if ($this->db_tools->sql_table_exists($table_races))
 		{
 			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
-			$db->sql_query('TRUNCATE TABLE ' . $this->table_prefix . 'f1webtip_races');
+			$db->sql_query('TRUNCATE TABLE ' . $table_races);
 
 			$sql_ary = array();
 
@@ -150,9 +141,8 @@ class season_update_2014 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('race_id' => 19, 'race_name' => 'Brasilien / São Paulo', 		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1415548800, 'race_length' => '4,309', 'race_laps' => 71, 'race_distance' => '305,909', 'race_debut' => 1973,);
 			$sql_ary[] = array('race_id' => 18, 'race_name' => 'Arabische Emirate / Abu Dhabi', 'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1416574800, 'race_length' => '5,554', 'race_laps' => 55, 'race_distance' => '305,361', 'race_debut' => 2009,);
 
-			$db->sql_multi_insert($this->table_prefix . 'f1webtip_races ', $sql_ary);
+			$db->sql_multi_insert($table_races, $sql_ary);
 		}
-		
 		
 		return;
 	}

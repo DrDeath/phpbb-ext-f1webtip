@@ -60,18 +60,12 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 			array('config.add', array('drdeath_f1webtip_reminder_enabled', '0')),
 			array('config.add', array('drdeath_f1webtip_reminder_last_run', '0')),
 			array('config.add', array('drdeath_f1webtip_season', '0')),
-
-			// Maybe we remove this function "Header Banner"
 			array('config.add', array('drdeath_f1webtip_show_headbanner', '1')),
 			array('config.add', array('drdeath_f1webtip_head_height', '60')),
 			array('config.add', array('drdeath_f1webtip_head_width', '468')),
-			array('config.add', array('drdeath_f1webtip_headbanner1_img', 'images/formel/formel_webtipp.jpg')),
-			array('config.add', array('drdeath_f1webtip_headbanner2_img', 'images/formel/formel_rules.jpg')),
-			array('config.add', array('drdeath_f1webtip_headbanner3_img', 'images/formel/formel_stats.jpg')),
-			array('config.add', array('drdeath_f1webtip_headbanner1_url', 'formel.php')),
-			array('config.add', array('drdeath_f1webtip_headbanner2_url', 'formel.php?mode=rules')),
-			array('config.add', array('drdeath_f1webtip_headbanner3_url', 'formel.php?mode=stats')),
-
+			array('config.add', array('drdeath_f1webtip_headbanner1_img', 'f1webtip_index.jpg')),
+			array('config.add', array('drdeath_f1webtip_headbanner2_img', 'f1webtip_rules.jpg')),
+			array('config.add', array('drdeath_f1webtip_headbanner3_img', 'f1webtip_stats.jpg')),
 
 
 			// Alright, now lets add some modules to the ACP

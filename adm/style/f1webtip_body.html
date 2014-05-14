@@ -103,11 +103,38 @@
 					    <input type="radio" class="radio" name="show_avatar" value="0" <!-- IF not SHOW_AVATAR -->checked="checked"<!-- ENDIF --> /> {L_NO}</td>
 				</tr>
 				<tr class="row3">
+					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_SHOW_HEADBANNER}:</strong><br />{L_ACP_F1_SETTINGS_SHOW_HEADBANNER_EXPLAIN}</td>
+					<td><input type="radio" class="radio" name="show_headbanner" value="1" <!-- IF SHOW_HEADBANNER -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
+						<input type="radio" class="radio" name="show_headbanner" value="0" <!-- IF not SHOW_HEADBANNER -->checked="checked"<!-- ENDIF --> /> {L_NO}</td>
+				</tr>
+				<!-- BEGIN headbanner_on -->
+				<tr class="row1">
+					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT}:</strong><br />{L_ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT_EXPLAIN}</td>
+					<td><input type="text" class="post" maxsize="64" size="8" name="head_height" value="{HEADBANNER_IMG_HEIGHT}" /></td>
+				</tr>
+				<tr class="row2">
+					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_HEADBANNER_IMG_WIDTH}:</strong><br />{L_ACP_F1_SETTINGS_HEADBANNER_IMG_WIDTH_EXPLAIN}</td>
+					<td><input type="text" class="post" maxsize="64" size="8" name="head_width" value="{HEADBANNER_IMG_WIDTH}" /></td>
+				</tr>
+				<tr class="row1">
+					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_HEADBANNER1_IMG}:</strong><br />{L_ACP_F1_SETTINGS_HEADBANNER1_IMG_EXPLAIN}</td>
+					<td><input type="text" class="post" maxsize="255" size="30" name="headbanner1_img" value="{HEADBANNER1_IMG}" /></td>
+				</tr>
+				<tr class="row1">
+					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_HEADBANNER2_IMG}:</strong><br />{L_ACP_F1_SETTINGS_HEADBANNER2_IMG_EXPLAIN}</td>
+					<td><input type="text" class="post" maxsize="255" size="30" name="headbanner2_img" value="{HEADBANNER2_IMG}" /></td>
+				</tr>
+				<tr class="row1">
+					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_HEADBANNER3_IMG}:</strong><br />{L_ACP_F1_SETTINGS_HEADBANNER3_IMG_EXPLAIN}</td>
+					<td><input type="text" class="post" maxsize="255" size="30" name="headbanner3_img" value="{HEADBANNER3_IMG}" /></td>
+				</tr>
+				<!-- END headbanner_on -->
+				<tr class="row3">
 					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_SHOW_GFXR}:</strong><br />{L_ACP_F1_SETTINGS_SHOW_GFXR_EXPLAIN}</td>
 					<td><input type="radio" class="radio" name="show_gfxr" value="1" <!-- IF SHOW_GFXR -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
 						<input type="radio" class="radio" name="show_gfxr" value="0" <!-- IF not SHOW_GFXR -->checked="checked"<!-- ENDIF --> /> {L_NO}</td>
 				</tr>
-				</tr>
+
 				<!-- BEGIN gfxr_on -->
 				<tr class="row1">
 					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_NO_RACE_IMG}:</strong><br />{L_ACP_F1_SETTINGS_NO_RACE_IMG_EXPLAIN}</td>
@@ -127,7 +154,7 @@
 					<td><input type="radio" class="radio" name="show_gfx" value="1" <!-- IF SHOW_GFX -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
 						<input type="radio" class="radio" name="show_gfx" value="0" <!-- IF not SHOW_GFX -->checked="checked"<!-- ENDIF --> /> {L_NO}</td>
 				</tr>
-				</tr>
+
 				<!-- BEGIN gfx_on -->
 				<tr class="row1">
 					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_NO_CAR_IMG}:</strong><br />{L_ACP_F1_SETTINGS_NO_CAR_IMG_EXPLAIN}</td>

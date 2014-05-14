@@ -148,7 +148,15 @@ class main_module
 					$config->set('drdeath_f1webtip_points_tired', 		$request->variable('points_tired', 		'0'));
 					$config->set('drdeath_f1webtip_points_safety_car', 	$request->variable('points_safety_car', '0'));
 			
-					$config->set('drdeath_f1webtip_show_avatar', 		$request->variable('show_avatar', '0'));
+					$config->set('drdeath_f1webtip_show_avatar', 		$request->variable('show_avatar', 		'0'));
+					
+					$config->set('drdeath_f1webtip_show_headbanner', 	$request->variable('show_headbanner', 	'0'));
+					$config->set('drdeath_f1webtip_head_height', 		$request->variable('head_height', 		$config['drdeath_f1webtip_head_height']));
+					$config->set('drdeath_f1webtip_head_width', 		$request->variable('head_width', 		$config['drdeath_f1webtip_head_width']));
+					$config->set('drdeath_f1webtip_headbanner1_img', 	$request->variable('headbanner1_img', 	$config['drdeath_f1webtip_headbanner1_img']));
+					$config->set('drdeath_f1webtip_headbanner2_img', 	$request->variable('headbanner2_img', 	$config['drdeath_f1webtip_headbanner2_img']));
+					$config->set('drdeath_f1webtip_headbanner3_img', 	$request->variable('headbanner3_img', 	$config['drdeath_f1webtip_headbanner3_img']));
+					
 					$config->set('drdeath_f1webtip_show_gfxr', 			$request->variable('show_gfxr', 		'0'));
 					$config->set('drdeath_f1webtip_no_race_img', 		$request->variable('no_race_img', 		$config['drdeath_f1webtip_no_race_img']));
 					$config->set('drdeath_f1webtip_race_img_height', 	$request->variable('race_img_height', 	$config['drdeath_f1webtip_race_img_height']));
@@ -267,7 +275,11 @@ class main_module
 				$forums_combo	.= $combo_forums_entries;
 				$forums_combo	.= '</select>';
 			
-			
+				if ($config['drdeath_f1webtip_show_headbanner'])
+				{
+					$template->assign_block_vars('headbanner_on', array());
+				}
+							
 				if ($config['drdeath_f1webtip_show_gfxr'])
 				{
 					$template->assign_block_vars('gfxr_on', array());
@@ -297,7 +309,14 @@ class main_module
 					'POINTS_FASTEST'					=> $config['drdeath_f1webtip_points_fastest'],
 					'POINTS_TIRED'						=> $config['drdeath_f1webtip_points_tired'],
 					'POINTS_SAFETY_CAR'					=> $config['drdeath_f1webtip_points_safety_car'],
-				
+
+					'SHOW_HEADBANNER'					=> $config['drdeath_f1webtip_show_headbanner'],
+					'HEADBANNER_IMG_HEIGHT'				=> $config['drdeath_f1webtip_head_height'],
+					'HEADBANNER_IMG_WIDTH'				=> $config['drdeath_f1webtip_head_width'],
+					'HEADBANNER1_IMG'					=> $config['drdeath_f1webtip_headbanner1_img'],
+					'HEADBANNER2_IMG'					=> $config['drdeath_f1webtip_headbanner2_img'],	
+					'HEADBANNER3_IMG'					=> $config['drdeath_f1webtip_headbanner3_img'],
+							
 					'SHOW_GFXR'							=> $config['drdeath_f1webtip_show_gfxr'],			
 					'NO_RACE_IMG'						=> $config['drdeath_f1webtip_no_race_img'],
 					'RACE_IMG_HEIGHT'					=> $config['drdeath_f1webtip_race_img_height'],

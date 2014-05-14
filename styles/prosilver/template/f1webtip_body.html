@@ -16,7 +16,8 @@
 			<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
 				<div>
 					<br/>
-					<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_RULES}'" value="Dummy Button to Rules" /><br/>
+					<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_RULES}'" value="{L_FORMEL_RULES}" />&nbsp;&nbsp;
+					<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_STATISTICS}'" value="{L_FORMEL_STATISTICS}" />&nbsp;&nbsp;<br/>
 					<br/>
 				</div>
 			</form>
@@ -98,6 +99,163 @@
 	<span class="corners-bottom"><span></span></span></div>
 </div>
 <!-- ENDIF -->
+
+<!-- IF S_STATS -->
+<h2>{L_FORMEL_STATS_TITLE}</h2>
+
+<div class="forumbg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+		<div style="text-align: center;">
+			<!-- BEGIN head_on -->
+			<br/>
+			<img src="{HEADER_IMG}" width="{HEADER_WIDTH}" height="{HEADER_HEIGHT}" alt="" />
+			<!-- END head_on -->
+			<br/><br/>
+			<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
+				<div>
+					<input class="button1" type="button" onclick="window.location.href='{U_BACK_TO_TIPP}'" value="{L_FORMEL_BACK_TO_TIPP}" />&nbsp;&nbsp;
+					<input class="button1" type="submit" name="show_users" value="{L_FORMEL_USER_STATS}" />&nbsp;&nbsp;
+					<input class="button1" type="submit" name="show_drivers" value="{L_FORMEL_DRIVER_STATS}" />&nbsp;&nbsp;
+					<input class="button1" type="submit" name="show_teams" value="{L_FORMEL_TEAM_STATS}" />
+				</div>
+			</form>
+			<br/>&nbsp;
+		</div>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+
+<h2><strong>{L_STAT_TABLE_TITLE}</strong></h2>
+
+<div class="forumbg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+		<table class="table1">
+			<!-- BEGIN top_tippers -->
+			<!-- IF top_tippers.S_ROW_COUNT == 0 -->
+			<thead>
+				<tr>
+					<th ><strong>{L_FORMEL_PLACE}</strong></th>
+					<th align="center" colspan="<!-- IF top_tippers.S_AVATAR_SWITCH == true -->2<!-- ELSE -->1<!-- ENDIF -->"><strong>Name</strong></th>
+					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- ENDIF -->
+				<!-- IF top_tippers.S_ROW_COUNT < 3 -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td align="center" valign="middle"><span class="gen">{top_tippers.RANK}</span></td>
+					<!-- IF top_tippers.S_AVATAR_SWITCH == true -->
+					<td style="width: {top_tippers.TIPPER_AVATAR_WIDTH}px; height: {top_tippers.TIPPER_AVATAR_HEIGHT}; text-align: center;" valign="middle">{top_tippers.TIPPER_AVATAR}</td>
+					<!-- ENDIF -->
+					<td style="white-space:nowrap;" align="center" valign="middle"><span class="gen">{top_tippers.TIPPER_NAME}</span></td>
+					<td align="center" valign="middle" ><span class="gen">{top_tippers.TIPPER_POINTS}</span></td>
+				</tr>
+			<!-- END top_tippers -->
+
+			<!-- BEGIN top_drivers_gfx -->
+			<!-- IF top_drivers_gfx.S_ROW_COUNT == 0 -->
+			<thead>
+				<tr>
+					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
+					<th style="width: 50%;" align="center" colspan="4"><strong>Name</strong></th>
+					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- ENDIF -->
+				<!-- IF top_drivers_gfx.S_ROW_COUNT < 3 -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td align="center" valign="middle">{top_drivers_gfx.RANK}</td>
+					<td valign="middle" align="center">&nbsp;{top_drivers_gfx.WM_DRIVERTEAM}&nbsp;</td>
+					<td valign="middle" align="center">&nbsp;{top_drivers_gfx.WM_DRIVERCAR}&nbsp;</td>
+					<td valign="middle" align="center">&nbsp;{top_drivers_gfx.WM_DRIVERIMG}&nbsp;</td>
+					<td align="left" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_drivers_gfx.WM_DRIVERNAME}</td>
+					<td align="center" valign="middle">{top_drivers_gfx.WM_POINTS}</td>
+				</tr>
+			<!-- END top_drivers_gfx -->
+
+			<!-- BEGIN top_drivers -->
+			<!-- IF top_drivers.S_ROW_COUNT == 0 -->
+			<thead>
+				<tr>
+					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
+					<th style="width: 50%;" align="center"><strong>Name</strong></th>
+					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- ENDIF -->
+				<!-- IF top_drivers.S_ROW_COUNT < 3 -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td align="center">{top_drivers.RANK}</td>
+					<td align="left" style="width: 50%; white-space: nowrap;">&nbsp;{top_drivers.WM_DRIVERNAME}</td>
+					<td align="center">{top_drivers.WM_POINTS}</td>
+				</tr>
+			<!-- END top_drivers -->
+
+			<!-- BEGIN top_teams_gfx -->
+			<!-- IF top_teams_gfx.S_ROW_COUNT == 0 -->
+			<thead>
+				<tr>
+					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
+					<th style="width: 50%;" align="center" colspan="3"><strong>Name</strong></th>
+					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- ENDIF -->
+				<!-- IF top_teams_gfx.S_ROW_COUNT < 3 -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td align="center" valign="middle">{top_teams_gfx.RANK}</td>
+					<td align="center" valign="middle">{top_teams_gfx.WM_TEAMIMG}</td>
+					<td align="center" valign="middle">{top_teams_gfx.WM_TEAMCAR}</td>
+					<td align="left" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_teams_gfx.WM_TEAMNAME}</td>
+					<td align="center" valign="middle">{top_teams_gfx.WM_POINTS}</td>
+				</tr>
+			<!-- END top_teams_gfx -->
+
+			<!-- BEGIN top_teams -->
+			<!-- IF top_teams.S_ROW_COUNT == 0 -->
+			<thead>
+				<tr>
+					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
+					<th style="width: 50%;" align="center"><strong>Name</strong></th>
+					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- ENDIF -->
+				<!-- IF top_teams.S_ROW_COUNT < 3 -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td align="center" valign="middle">{top_teams.RANK}</td>
+					<td align="left" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_teams.WM_TEAMNAME}</td>
+					<td align="center" valign="middle">{top_teams.WM_POINTS}</td>
+				</tr>
+			<!-- END top_teams -->
+			</tbody>
+		</table>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+
 
 <!--
 Please leave the copyright information at the bottom of your page for our mod.

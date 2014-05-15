@@ -2,33 +2,133 @@
 
 <!-- IF S_INDEX -->
 
-<h2>{L_FORMEL_TITLE}</h2>
+<script type="text/javascript">
+// <![CDATA[
+function showtipps(showtipps)
+{
+	window.open(showtipps, "_showtipps", "width=400, height=630, resizable=yes");
+}
+// ]]>
+</script>
 
-<div class="forumbg">
-	<div class="inner"><span class="corners-top"><span></span></span>
+<form id="countdown" action="{U_FORM_ACTION}" method="post" enctype="multipart/form-data">
+	<h2>{L_FORMEL_TITLE}</h2>
 
-		<div style="text-align: center;">
-			<!-- BEGIN head_on -->
-			<br/>
-			<img src="{HEADER_IMG}" width="{HEADER_WIDTH}" height="{HEADER_HEIGHT}" alt="" />
-			<!-- END head_on -->
-			<br/>
-			<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
-				<div>
-					<br/>
-					<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_RULES}'" value="{L_FORMEL_RULES}" />&nbsp;&nbsp;
-					{U_FORMEL_FORUM}
-					<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_STATISTICS}'" value="{L_FORMEL_STATISTICS}" />&nbsp;&nbsp;
-					<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_CALL_MOD}'"   value="{L_FORMEL_CALL_MOD}" />
-					<br/>
-					<br/>
-				</div>
-			</form>
-		</div>
+	<div class="forumbg">
+		<div class="inner"><span class="corners-top"><span></span></span>
 
-	<span class="corners-bottom"><span></span></span></div>
-</div>
+			<div style="text-align: center;">
+				<!-- BEGIN head_on -->
+				<br/>
+				<img src="{HEADER_IMG}" width="{HEADER_WIDTH}" height="{HEADER_HEIGHT}" alt="" />
+				<!-- END head_on -->
+				<br/>
+				<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
+					<div>
+						<br/>
+						<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_RULES}'" value="{L_FORMEL_RULES}" />&nbsp;&nbsp;
+						{U_FORMEL_FORUM}
+						<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_STATISTICS}'" value="{L_FORMEL_STATISTICS}" />&nbsp;&nbsp;
+						<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_CALL_MOD}'"   value="{L_FORMEL_CALL_MOD}" />
+						<br/>
+						<br/>
+					</div>
+				</form>
+			</div>
 
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<div class="responsive-hide navbar bg2" style=" margin-top: 3px;">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+			<div class="navbar bg2" style="float: left; margin-top: 3px; margin-right: 15px; border-right-width: 1px; border-right-style: solid; border-right-color: #FFFFFF; width: 30%;">
+				<table cellspacing="1">
+					<thead>
+						<tr>
+							<th colspan="2" align="center">&nbsp;{L_FORMEL_TOP_NAME}&nbsp;</th>
+							<th align="center">&nbsp;{L_FORMEL_TOP_POINTS}&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- BEGIN top_tippers -->
+						<!-- IF top_tippers.S_ROW_COUNT is even -->
+						<tr class="bg1">
+						<!-- ELSE -->
+						<tr class="bg2">
+						<!-- ENDIF -->
+							<td class="bg2" align="center">&nbsp;{top_tippers.RANK}&nbsp;</td>
+							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{top_tippers.TIPPER_NAME}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{top_tippers.TIPPER_POINTS}&nbsp;</td>
+						</tr>
+						<!-- END top_tippers -->
+						<tr>
+							<td valign="middle" colspan="3" align="center"><small>[<a href="{U_TOP_MORE_USERS}">{L_FORMEL_TOP_MORE}</a>]</small></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="navbar bg2" style="float: right; margin-top: 3px; margin-left: 15px; border-left-width: 1px; border-left-style: solid; border-left-color: #FFFFFF; width: 30%;">
+				<table cellspacing="1">
+					<thead>
+						<tr>
+							<th colspan="2" align="center">&nbsp;{L_FORMEL_TOP_TEAMS}&nbsp;</th>
+							<th align="center">&nbsp;{L_FORMEL_TOP_POINTS}&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- BEGIN top_teams -->
+						<!-- IF top_teams.S_ROW_COUNT is even -->
+						<tr class="bg1">
+						<!-- ELSE -->
+						<tr class="bg2">
+						<!-- ENDIF -->
+							<td class="bg2" align="center">&nbsp;{top_teams.RANK}&nbsp;</td>
+							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{top_teams.WM_TEAMNAME}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{top_teams.WM_POINTS}&nbsp;</td>
+						</tr>
+						<!-- END top_teams -->
+						<tr>
+							<td valign="middle" colspan="3" align="center"><small>[<a href="{U_TOP_MORE_TEAMS}">{L_FORMEL_TOP_MORE}</a>]</small></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="navbar bg2" style=" margin-top: 3px;">
+				<table cellspacing="1">
+					<thead>
+						<tr>
+							<th colspan="2" align="center">&nbsp;{L_FORMEL_TOP_DRIVER}&nbsp;</th>
+							<th align="center">&nbsp;{L_FORMEL_TOP_POINTS}&nbsp;</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- BEGIN top_drivers -->
+						<!-- IF top_drivers.S_ROW_COUNT is even -->
+						<tr class="bg1">
+						<!-- ELSE -->
+						<tr class="bg2">
+						<!-- ENDIF -->
+							<td class="bg2" align="center">&nbsp;{top_drivers.RANK}&nbsp;</td>
+							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{top_drivers.WM_DRIVERNAME}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{top_drivers.WM_POINTS}&nbsp;</td>
+						</tr>
+						<!-- END top_drivers -->
+						<tr>
+							<td valign="middle" colspan="3" align="center"><small>[<a href="{U_TOP_MORE_DRIVERS}">{L_FORMEL_TOP_MORE}</a>]</small></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<p style="clear:both;" />
+
+</form>
 <!-- ENDIF -->
 
 

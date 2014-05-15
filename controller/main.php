@@ -54,10 +54,37 @@ class main
 			WHERE user_id = ' . (int) $user_id . '
 				AND user_id <> ' . ANONYMOUS;
 		$result = $db->sql_query($sql);
-		
+
 		return ($row = $db->sql_fetchrow($result)) ? $row : false;
 	}
-	
+
+
+	/**
+	* get_formel_races
+	*
+	* Get all formel races data
+	* Returns all races in $races
+	*/
+	protected function get_formel_races()
+	{
+		global $db, $phpbb_container;
+
+		$table_races	= $phpbb_container->getParameter('tables.f1webtip.races');
+		$races 			= array();
+
+		$sql = 'SELECT *
+			FROM ' . $table_races . '
+			ORDER BY race_time ASC';
+		$result = $db->sql_query($sql);
+
+		$races = $db->sql_fetchrowset($result);
+
+		$db->sql_freeresult($result);
+
+		return $races;
+	}
+
+
 	/**
 	* get_formel_teams
 	*
@@ -84,7 +111,7 @@ class main
 
 		return $teams;
 	}
-	
+
 	/**
 	* get_formel_drivers
 	*
@@ -96,12 +123,12 @@ class main
 		global $db;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper;
 		global $config, $phpEx, $phpbb_root_path;
-		
+
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
 		$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 
 		$teams 			= $this->get_formel_teams();
-		
+
 		$table_drivers	= $phpbb_container->getParameter('tables.f1webtip.drivers');
 		$drivers 		= array();
 
@@ -131,7 +158,42 @@ class main
 
 		return $drivers;
 	}
-	
+
+	/**
+	* get_formel_drivers_data
+	*
+	* Get all active formel drivers data for combobox
+	* Returns all active drivers in array $drivers
+	*/
+	protected function get_formel_drivers_data()
+	{
+		global $db, $phpbb_container;
+
+		$table_drivers	= $phpbb_container->getParameter('tables.f1webtip.drivers');
+		$drivers 		= array();
+
+		$sql = 'SELECT *
+			FROM ' . $table_drivers . '
+			WHERE driver_disabled <> 1
+			ORDER BY driver_name ASC';
+		$result = $db->sql_query($sql);
+
+		$counter = 1;
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$drivers[$counter] = $row;
+			++$counter;
+		}
+
+		$drivers['0']['driver_id']   = '0';
+		$drivers['0']['driver_name'] = $user->lang['FORMEL_DEFINE'];
+
+		$db->sql_freeresult($result);
+
+		return $drivers;
+	}
+
 	/**
 	* f1webtip controller for route /f1webtip/{name}
 	*
@@ -140,13 +202,13 @@ class main
 	*/
 	public function handle($name)
 	{
-	
+
 		global $db, $user, $auth, $template, $cache, $request;
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper;
 
 		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
-		
+
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
 		$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 		// Determine board url - we may need it later
@@ -160,14 +222,14 @@ class main
 		$corrected_path = $phpbb_path_helper->get_web_root_path();
 
 		$web_path = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? $board_url : $corrected_path;
-		
+
 		// Short names for the tables
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
 		$table_teams	= $phpbb_container->getParameter('tables.f1webtip.teams');
 		$table_drivers 	= $phpbb_container->getParameter('tables.f1webtip.drivers');
 		$table_wm 		= $phpbb_container->getParameter('tables.f1webtip.wm');
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
-		
+
 		// Get formel config
 		$formel_guests_allowed	= ($config['drdeath_f1webtip_guest_viewing'] == '1') ? true : false;
 		$formel_forum_id 		= $config['drdeath_f1webtip_forum_id'];
@@ -178,7 +240,7 @@ class main
 		//
 		// Check all permission to access the f1webtip
 		//
-				
+
 		//If user is a bot.... redirect to the index.
 		if ($this->user->data['is_bot'])
 		{
@@ -196,17 +258,17 @@ class main
 			}
 		}
 		// At this point we have no bots, only registered user and if guest viewing is allowed we have also guests here.
-		
+
 		// Check if user has one of the formular 1 admin permission.
 		// If user has one or more of these permissions, he gets also formular 1 moderator permissions.
-		$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');	
-		
+		$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
+
 		//Is the user member of the restricted group?
 		$is_in_group = group_memberships($formel_group_id, $this->user->data['user_id'], true);
-		
+
 		// Debug
 		// echo "is in group -> " . $is_in_group . " is admin -> " . $is_admin . " user id -> " . $this->user->data['user_id'] . " Moderator ID -> " . $formel_mod_id;
-		
+
 		// Check for : restricted group access - admin access - formular 1 moderator access
 		if ($formel_group_id <> 0 && !$is_in_group && $is_admin <> 1 && $this->user->data['user_id'] <> $formel_mod_id)
 		{
@@ -214,16 +276,17 @@ class main
 			trigger_error($auth_msg);
 		}
 
-
-		
+		//
 		// Creating breadcrumps
+		//
 		$this->template->assign_block_vars('navlinks', array(
 			'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'index')),
 			'FORUM_NAME' => $this->user->lang['F1WEBTIP_PAGE'],
 		   ));
 
+		// Salting the form...yumyum ...
+		add_form_key('drdeath/f1webtip');
 
-		
 		//
 		// Switch to the selected modes....
 		//
@@ -234,9 +297,9 @@ class main
 			###       RULES        ####
 			###########################
 			case 'rules':
-			
+
 				$page_title = $user->lang['FORMEL_TITLE'];
-				
+
 				// Creating breadcrumps rules
 				$this->template->assign_block_vars('navlinks', array(
 					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'rules')),
@@ -339,13 +402,13 @@ class main
 
 					'EXT_PATH'					=> $ext_path,
 					'EXT_PATH_IMAGES'			=> $ext_path . 'images/',
-				));	
-			
+				));
+
 			break;
 
 			###########################
 			###       STATS        ####
-			###########################		
+			###########################
 			case 'stats':
 
 				$page_title = $user->lang['FORMEL_TITLE'];
@@ -355,26 +418,28 @@ class main
 					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'stats')),
 					'FORUM_NAME' => $this->user->lang['FORMEL_STATISTICS'],
 				   ));
-				   
+
 				// Check buttons & data
 				$show_drivers 	= $request->is_set_post('show_drivers');
 				$show_teams 	= $request->is_set_post('show_teams');
 
+				$mode = $request->variable('mode', '');
+
 				// Show teams toplist
-				if ($show_teams)
+				if ($show_teams || $mode == 'teams')
 				{
 					$stat_table_title = $user->lang['FORMEL_TEAM_STATS'];
-					
+
 					// Get all teams
 					$teams = $this->get_formel_teams();
-					
+
 					// Get all wm points and fill Top10 teams
 					$sql = 'SELECT sum(wm_points) AS total_points, wm_team
 						FROM ' . $table_wm . '
 						GROUP BY wm_team
 						ORDER BY total_points DESC';
 					$result = $db->sql_query($sql);
-				
+
 					//Stop! we have to recalc the team WM points... maybe we have some penalty !
 					$recalc_teams = array();
 
@@ -405,8 +470,8 @@ class main
 						$wm_teamimg 	= $team['team_img'];
 						$wm_teamcar 	= $team['team_car'];
 						$wm_points		= $team['total_points'];
-						$wm_teamimg 	= ( $wm_teamimg == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $phpbb_root_path . 'images/formel/' . $wm_teamimg . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />';
-						$wm_teamcar 	= ( $wm_teamcar == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_car_img']  . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />' : '<img src="' . $phpbb_root_path . 'images/formel/' . $wm_teamcar . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />';
+						$wm_teamimg 	= ( $wm_teamimg == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/' . $wm_teamimg . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />';
+						$wm_teamcar 	= ( $wm_teamcar == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_car_img']  . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />' : '<img src="' . $ext_path . 'images/' . $wm_teamcar . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />';
 
 						if ($config['drdeath_f1webtip_show_gfx'] == 1)
 						{
@@ -430,17 +495,17 @@ class main
 						}
 					}
 
-					$db->sql_freeresult($result);		
+					$db->sql_freeresult($result);
 
 				}
 				// Show drivers toplist
-				else if ($show_drivers)
+				else if ($show_drivers || $mode == 'drivers')
 				{
 					$stat_table_title = $user->lang['FORMEL_DRIVER_STATS'];
-					
+
 					// Get all data
 					$drivers 	= $this->get_formel_drivers();
-					
+
 					//Get all first place winner, count all first places,  grep all gold medals...  Marker for first place: 25 WM Points
 					$sql = 'SELECT 	count(wm_driver) as gold_medals,
 									wm_driver
@@ -465,7 +530,7 @@ class main
 
 					//Stop! we have to recalc the driver WM points... maybe we have some penalty !
 					$recalc_drivers = array();
-				
+
 					while ($row = $db->sql_fetchrow($result))
 					{
 						$recalc_drivers[$row['wm_driver']]['total_points'] 	= $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'];
@@ -516,7 +581,7 @@ class main
 					}
 
 					$db->sql_freeresult($result);
-					
+
 				}
 				// Show users toplist
 				else
@@ -557,7 +622,7 @@ class main
 								{
 									$tip_user_avatar = '<img src="' . $corrected_path . 'styles/prosilver/theme/images/no_avatar.gif" alt="" />';
 								}
-								
+
 								$show_avatar_switch 	= true;
 						}
 
@@ -592,23 +657,234 @@ class main
 					'L_STAT_TABLE_TITLE' 	=> $stat_table_title,
 					'U_FORMEL' 				=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'U_BACK_TO_TIPP' 		=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					
+
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
 					)
 				);
 
 			break;
-			
+
 			###########################
 			###       INDEX        ####
 			###########################
-			case 'index':	
+			case 'index':
 			default:
-		
+
 				$page_title 	= $user->lang['FORMEL_TITLE'];
-				
+
+				// Check buttons & data
+				$next 			= $request->is_set_post('next');
+				$prev 			= $request->is_set_post('prev');
+				$place_my_tipp 	= $request->is_set_post('place_my_tipp');
+				$edit_my_tipp 	= $request->is_set_post('edit_my_tipp');
+				$del_tipp 		= $request->is_set_post('del_tipp');
+
+				$race_offset 	= $request->variable('race_offset'	, 0);
+				$race_id 		= $request->variable('race_id'		, 0);
 				$user_id 		= $this->user->data['user_id'];
+				$tipp_time 		= $request->variable('tipp_time'	, 0);
+				$my_tipp_array 	= array();
+				$my_tipp 		= '';
+
+				//Define some vars
+				$driver_team_name = $driverteamname = $gfxdrivercar = $gfxdrivercombo = $single_fastest	= $single_tired	= $single_safety_car = '';
+
+				// Check if the user want to see prev/next race
+				if ($next)
+				{
+					++$race_offset;
+				}
+				else if ($prev)
+				{
+					--$race_offset;
+				}
+
+				// Delete a tip
+				if ($del_tipp)
+				{
+					// Check the salt... yumyum
+					if (!check_form_key('drdeath/f1webtip'))
+					{
+						trigger_error('FORM_INVALID');
+					}
+
+					$sql = 'DELETE
+						FROM ' . $table_tips . '
+						WHERE tipp_user = ' . (int) $user_id . '
+							AND tipp_race = ' . (int) $race_id;
+					$db->sql_query($sql);
+
+					$tipp_msg = sprintf($user->lang['FORMEL_TIPP_DELETED'], '<a href="' . append_sid("{$phpbb_root_path}formel.$phpEx") . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
+					trigger_error( $tipp_msg);
+
+					add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_DELETED', $race_id);
+				}
+
+				// Get all races
+				$races = $this->get_formel_races();
+				$current_time = time();
+
+				// Get all teams
+				$teams = $this->get_formel_teams();
+
+				// Get all drivers
+				$drivers = $this->get_formel_drivers();
+				$driver_combodata = $this->get_formel_drivers_data();
+
+				//
+				// Get all tips and fill top10
+				//
+				$sql = 'SELECT sum(tip_points) AS total_points, tip_user
+					FROM ' . $table_tips . '
+					GROUP BY tip_user
+					ORDER BY total_points DESC LIMIT 5';
+				$result = $db->sql_query($sql);
+
+				$rank = $real_rank  = 0;
+				$previous_points = false;
+
+				while ($row = $db->sql_fetchrow($result))
+				{
+					++$real_rank;
+
+					if ($row['total_points'] <> $previous_points)
+					{
+						$rank = $real_rank;
+						$previous_points = $row['total_points'];
+					}
+
+					$tipp_user_row		= $this->get_formel_userdata($row['tip_user']);
+					$tipp_username_link	= get_username_string('full', $tipp_user_row['user_id'], $tipp_user_row['username'], $tipp_user_row['user_colour']);
+
+					$template->assign_block_vars('top_tippers', array(
+						'TIPPER_NAME' 	=> $tipp_username_link,
+						'RANK'			=> $rank,
+						'TIPPER_POINTS' => $row['total_points'],
+						)
+					);
+				}
+
+				$db->sql_freeresult($result);
+
+				//
+				//Get all first place winner, count all first places,  grep all gold medals...  Marker for first place: 25 WM Points
+				//
+				$sql = 'SELECT 	count(wm_driver) as gold_medals,
+								wm_driver
+						FROM 	' . $table_wm . '
+						WHERE 	wm_points = 25
+						GROUP BY wm_driver
+						ORDER BY gold_medals DESC';
+				$result = $db->sql_query($sql);
+
+				// Now put the gold medals into the $drivers array
+				while ($row = $db->sql_fetchrow($result))
+				{
+					$drivers[$row['wm_driver']]['gold_medals']	= $row['gold_medals'];
+				}
+
+				// Get all wm points and fill top10 drivers
+				$sql = 'SELECT sum(wm_points) AS total_points, wm_driver
+					FROM ' . $table_wm . '
+					GROUP BY wm_driver
+					ORDER BY total_points DESC';
+				$result = $db->sql_query($sql);
+
+				//Stop! we have to recalc the driver WM points... maybe we have some penalty !
+				$recalc_drivers = array();
+
+				while ($row = $db->sql_fetchrow($result))
+				{
+					$recalc_drivers[$row['wm_driver']]['total_points'] 	= $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'];
+					$recalc_drivers[$row['wm_driver']]['gold_medals']	= (isset($drivers[$row['wm_driver']]['gold_medals'])) ? $drivers[$row['wm_driver']]['gold_medals'] : 0;
+					$recalc_drivers[$row['wm_driver']]['driver_name']	= $drivers[$row['wm_driver']]['driver_name'];
+				}
+
+				// re-sort the drivers. Big points first ;-)
+				arsort($recalc_drivers);
+
+				$rank = $limit = 0;
+				$previous_points = false;
+
+				foreach ($recalc_drivers as $driver_id => $driver)
+				{
+					if ($limit == 5)
+					{
+						break;
+					}
+
+					++$rank;
+
+					$wm_drivername = $driver['driver_name'];
+
+					$template->assign_block_vars('top_drivers', array(
+						'RANK'			=> $rank,
+						'WM_DRIVERNAME'	=> $wm_drivername,
+						'WM_POINTS'		=> $driver['total_points'],
+						)
+					);
+
+					++$limit;
+				}
+
+				$db->sql_freeresult($result);
+
+				//
+				// Get all wm points and fill top10 teams
+				//
+				$sql = 'SELECT sum(wm_points) AS total_points, wm_team
+					FROM ' . $table_wm . '
+					GROUP BY wm_team
+					ORDER BY total_points DESC';
+				$result = $db->sql_query($sql);
+
+				//Stop! we have to recalc the team WM points... maybe we have some penalty !
+				$recalc_teams = array();
+
+				while ($row = $db->sql_fetchrow($result))
+				{
+					$recalc_teams[$row['wm_team']]['total_points'] 	= $row['total_points'] - $teams[$row['wm_team']]['team_penalty'];
+					$recalc_teams[$row['wm_team']]['team_name']		= $teams[$row['wm_team']]['team_name'];
+					$recalc_teams[$row['wm_team']]['team_img']		= $teams[$row['wm_team']]['team_img'];
+					$recalc_teams[$row['wm_team']]['team_car']		= $teams[$row['wm_team']]['team_car'];
+				}
+
+				// re-sort the teams. Big points first ;-)
+				arsort($recalc_teams);
+
+				$rank = $real_rank = $limit = 0;
+				$previous_points = false;
+
+				foreach ($recalc_teams as $team_id => $team)
+				{
+					if ($limit == 5)
+					{
+						break;
+					}
+
+					++$real_rank;
+
+					if ($team['total_points'] <> $previous_points)
+					{
+						$rank = $real_rank;
+						$previous_points = $team['total_points'];
+					}
+
+					$wm_teamname = $team['team_name'];
+					$template->assign_block_vars('top_teams', array(
+						'RANK'			=> $rank,
+						'WM_TEAMNAME'	=> $wm_teamname,
+						'WM_POINTS'		=> $team['total_points'],
+						)
+					);
+
+					++$limit;
+				}
+
+				$db->sql_freeresult($result);
+
+
 
 				// Forum button
 				$discuss_button = '';
@@ -632,13 +908,13 @@ class main
 
 					$template->assign_block_vars('tipp_moderator', array());
 				}
-						
+
 				// Show headerbanner ?
 				if ($config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('head_on', array());
 				}
-			
+
 				$this->template->assign_vars(array(
 					'S_INDEX'							=> true,
 					'U_ACTION'							=> $this->u_action,
@@ -646,15 +922,18 @@ class main
 					'U_FORMEL_FORUM'					=> $discuss_button,
 					'U_FORMEL_RULES' 					=> $this->helper->route('f1webtip_controller', array('name' => 'rules')),
 					'U_FORMEL_STATISTICS'				=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
+					'U_TOP_MORE_USERS'					=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'users')),
+					'U_TOP_MORE_DRIVERS'				=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'drivers')),
+					'U_TOP_MORE_TEAMS'					=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'teams')),
 					'HEADER_IMG' 						=> $ext_path . 'images/' . $config['drdeath_f1webtip_headbanner1_img'],
 					'HEADER_HEIGHT' 					=> $config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 						=> $config['drdeath_f1webtip_head_width'],
 					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
-				
+
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
 				));
-				
+
 			break;
 		}
 		page_header($page_title);

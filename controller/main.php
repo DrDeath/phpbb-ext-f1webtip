@@ -145,6 +145,8 @@ class main
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper;
 
+		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+		
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
 		$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 		// Determine board url - we may need it later
@@ -165,6 +167,66 @@ class main
 		$table_drivers 	= $phpbb_container->getParameter('tables.f1webtip.drivers');
 		$table_wm 		= $phpbb_container->getParameter('tables.f1webtip.wm');
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
+		
+		// Get formel config
+		$formel_guests_allowed	= ($config['drdeath_f1webtip_guest_viewing'] == '1') ? true : false;
+		$formel_forum_id 		= $config['drdeath_f1webtip_forum_id'];
+		$formel_group_id 		= $config['drdeath_f1webtip_restrict_to'];
+		$formel_mod_id 			= $config['drdeath_f1webtip_mod_id'];
+
+
+		//
+		// Check all permission to access the f1webtip
+		//
+				
+		//If user is a bot.... redirect to the index.
+		if ($this->user->data['is_bot'])
+		{
+			redirect(append_sid("{$phpbb_root_path}index.$phpEx"));
+		}
+
+		// If guest viewing is not allowed...
+		if (!$formel_guests_allowed)
+		{
+			// Check if the user ist logged in.
+			if (!$this->user->data['is_registered'])
+			{
+				// Not logged in ? Redirect to the loginbox.
+				login_box('', $user->lang['LOGIN_INFO']);
+			}
+		}
+		// At this point we have no bots, only registered user and if guest viewing is allowed we have also guests here.
+		
+		// Check if user has one of the formular 1 admin permission.
+		// If user has one or more of these permissions, he gets also formular 1 moderator permissions.
+		$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');	
+		
+		//Is the user member of the restricted group?
+		$is_in_group = group_memberships($formel_group_id, $this->user->data['user_id'], true);
+		
+		// Debug
+		// echo "is in group -> " . $is_in_group . " is admin -> " . $is_admin . " user id -> " . $this->user->data['user_id'] . " Moderator ID -> " . $formel_mod_id;
+		
+		// Check for : restricted group access - admin access - formular 1 moderator access
+		if ($formel_group_id <> 0 && !$is_in_group && $is_admin <> 1 && $this->user->data['user_id'] <> $formel_mod_id)
+		{
+			$auth_msg = sprintf($user->lang['FORMEL_ACCESS_DENIED'], '<a href="' . append_sid($phpbb_root_path . "ucp.$phpEx?i=groups") . '" class="gen">', '</a>', '<a href="' . append_sid($phpbb_root_path . "index.$phpEx") . '" class="gen">', '</a>');
+			trigger_error($auth_msg);
+		}
+
+
+		
+		// Creating breadcrumps
+		$this->template->assign_block_vars('navlinks', array(
+			'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'index')),
+			'FORUM_NAME' => $this->user->lang['F1WEBTIP_PAGE'],
+		   ));
+
+
+		
+		//
+		// Switch to the selected modes....
+		//
 
 		switch ($name)
 		{
@@ -175,11 +237,6 @@ class main
 			
 				$page_title = $user->lang['FORMEL_TITLE'];
 				
-				// Creating breadcrumps index
-				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					'FORUM_NAME' => $this->user->lang['F1WEBTIP_PAGE'],
-				   ));
 				// Creating breadcrumps rules
 				$this->template->assign_block_vars('navlinks', array(
 					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'rules')),
@@ -293,18 +350,12 @@ class main
 
 				$page_title = $user->lang['FORMEL_TITLE'];
 
-				// Creating breadcrumps index
-				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					'FORUM_NAME' => $this->user->lang['F1WEBTIP_PAGE'],
-				   ));
 				// Creating breadcrumps rules
 				$this->template->assign_block_vars('navlinks', array(
 					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'stats')),
 					'FORUM_NAME' => $this->user->lang['FORMEL_STATISTICS'],
 				   ));
 				   
-
 				// Check buttons & data
 				$show_drivers 	= $request->is_set_post('show_drivers');
 				$show_teams 	= $request->is_set_post('show_teams');
@@ -557,28 +608,48 @@ class main
 		
 				$page_title 	= $user->lang['FORMEL_TITLE'];
 				
-				// Creating breadcrumps
-				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					'FORUM_NAME' => $this->user->lang['F1WEBTIP_PAGE'],
-				   ));
-				
+				$user_id 		= $this->user->data['user_id'];
+
+				// Forum button
+				$discuss_button = '';
+
+				if ($formel_forum_id)
+				{
+					$formel_forum_url	= append_sid($phpbb_root_path . "viewforum.$phpEx?f=$formel_forum_id");
+					$formel_forum_name	= $user->lang['FORMEL_FORUM'];
+					$discuss_button		= '<input class="button1" type="button" onclick="window.location.href=\'' . $formel_forum_url . '\'" value="' . $formel_forum_name . '" />&nbsp;&nbsp;';
+				}
+
+				// Moderator switch and options
+				$u_call_mod = append_sid($phpbb_root_path . "ucp.$phpEx?i=pm&amp;mode=compose&amp;u=$formel_mod_id");
+				$l_call_mod = $user->lang['FORMEL_CALL_MOD'];
+
+				//Check if user is formel moderator or has admin access
+				if ($user_id == $formel_mod_id || ($is_admin == 1))
+				{
+					$u_call_mod = $this->helper->route('f1webtip_controller', array('name' => 'results'));
+					$l_call_mod = $user->lang['FORMEL_MOD_BUTTON_TEXT'];
+
+					$template->assign_block_vars('tipp_moderator', array());
+				}
+						
 				// Show headerbanner ?
 				if ($config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('head_on', array());
 				}
 			
-
-				   
 				$this->template->assign_vars(array(
 					'S_INDEX'							=> true,
 					'U_ACTION'							=> $this->u_action,
+					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
+					'U_FORMEL_FORUM'					=> $discuss_button,
 					'U_FORMEL_RULES' 					=> $this->helper->route('f1webtip_controller', array('name' => 'rules')),
 					'U_FORMEL_STATISTICS'				=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
 					'HEADER_IMG' 						=> $ext_path . 'images/' . $config['drdeath_f1webtip_headbanner1_img'],
 					'HEADER_HEIGHT' 					=> $config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 						=> $config['drdeath_f1webtip_head_width'],
+					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
 				
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',

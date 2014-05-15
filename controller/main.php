@@ -59,6 +59,80 @@ class main
 	}
 	
 	/**
+	* get_formel_teams
+	*
+	* Get all formel teams data
+	* Returns all teams in array $teams
+	*/
+	protected function get_formel_teams()
+	{
+		global $db, $phpbb_container;
+
+		$table_teams	= $phpbb_container->getParameter('tables.f1webtip.teams');
+		$teams 			= array();
+
+		$sql = 'SELECT *
+			FROM ' . $table_teams;
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			$teams[$row['team_id']] = $row;
+		}
+
+		$db->sql_freeresult($result);
+
+		return $teams;
+	}
+	
+	/**
+	* get_formel_drivers
+	*
+	* Get all formel drivers data
+	* Returns all driver with assigned driver, car and team images in array $drivers
+	*/
+	protected function get_formel_drivers()
+	{
+		global $db;
+		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper;
+		global $config, $phpEx, $phpbb_root_path;
+		
+		// Define the ext path. We will use it later for assigning the correct path to our local immages
+		$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
+
+		$teams 			= $this->get_formel_teams();
+		
+		$table_drivers	= $phpbb_container->getParameter('tables.f1webtip.drivers');
+		$drivers 		= array();
+
+		$sql = 'SELECT *
+			FROM ' . $table_drivers . '
+			ORDER BY driver_id ASC';
+		$result = $db->sql_query($sql);
+
+		while ($row = $db->sql_fetchrow($result))
+		{
+			if ($row['driver_team'] <> 0)
+			{
+				$drivercar = ($teams[$row['driver_team']]['team_car'] <> '') ? '<img src="' . $ext_path . 'images/' . $teams[$row['driver_team']]['team_car'] . '" width="' . $config['drdeath_f1webtip_car_img_width'] . '" height="' . $config['drdeath_f1webtip_car_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_car_img'] . '" width="' . $config['drdeath_f1webtip_car_img_width'] . '" height="' . $config['drdeath_f1webtip_car_img_height'] . '" alt="" />';
+			}
+			else
+			{
+				$drivercar = '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_car_img'] . '" width="' . $config['drdeath_f1webtip_car_img_width'] . '" height="' . $config['drdeath_f1webtip_car_img_height'] . '" alt="" />';
+			}
+
+			$row['driver_img'] 			= ($row['driver_img'] == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_driver_img'] . '" width="' . $config['drdeath_f1webtip_driver_img_width'] . '" height="' . $config['drdeath_f1webtip_driver_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/' . $row['driver_img'] . '" width="' . $config['drdeath_f1webtip_driver_img_width'] . '" height="' . $config['drdeath_f1webtip_driver_img_height'] . '" alt="" />';
+			$row['driver_car'] 			= $drivercar;
+			$row['driver_team_name'] 	= $teams[$row['driver_team']]['team_name'];
+			$drivers[$row['driver_id']]	= $row;
+		}
+
+		$db->sql_freeresult($result);
+
+		return $drivers;
+	}
+	
+	/**
 	* f1webtip controller for route /f1webtip/{name}
 	*
 	* @param string		$name
@@ -238,14 +312,160 @@ class main
 				// Show teams toplist
 				if ($show_teams)
 				{
-					//todo
 					$stat_table_title = $user->lang['FORMEL_TEAM_STATS'];
+					
+					// Get all teams
+					$teams = $this->get_formel_teams();
+					
+					// Get all wm points and fill Top10 teams
+					$sql = 'SELECT sum(wm_points) AS total_points, wm_team
+						FROM ' . $table_wm . '
+						GROUP BY wm_team
+						ORDER BY total_points DESC';
+					$result = $db->sql_query($sql);
+				
+					//Stop! we have to recalc the team WM points... maybe we have some penalty !
+					$recalc_teams = array();
+
+					while ($row = $db->sql_fetchrow($result))
+					{
+						$recalc_teams[$row['wm_team']]['total_points'] 	= $row['total_points'] - $teams[$row['wm_team']]['team_penalty'];
+						$recalc_teams[$row['wm_team']]['team_name']		= $teams[$row['wm_team']]['team_name'];
+						$recalc_teams[$row['wm_team']]['team_img']		= $teams[$row['wm_team']]['team_img'];
+						$recalc_teams[$row['wm_team']]['team_car']		= $teams[$row['wm_team']]['team_car'];
+					}
+					// re-sort the teams. Big points first ;-)
+					arsort($recalc_teams);
+
+					$rank = $real_rank  = 0;
+					$previous_points = false;
+
+					foreach ($recalc_teams as $team_id => $team)
+					{
+						++$real_rank;
+
+						if ($team['total_points'] <> $previous_points)
+						{
+							$rank = $real_rank;
+							$previous_points = $team['total_points'];
+						}
+
+						$wm_teamname	= $team['team_name'];
+						$wm_teamimg 	= $team['team_img'];
+						$wm_teamcar 	= $team['team_car'];
+						$wm_points		= $team['total_points'];
+						$wm_teamimg 	= ( $wm_teamimg == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $phpbb_root_path . 'images/formel/' . $wm_teamimg . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />';
+						$wm_teamcar 	= ( $wm_teamcar == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_car_img']  . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />' : '<img src="' . $phpbb_root_path . 'images/formel/' . $wm_teamcar . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />';
+
+						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						{
+							$template->assign_block_vars('top_teams_gfx', array(
+								'RANK' 			=> $rank,
+								'WM_TEAMNAME' 	=> $wm_teamname,
+								'WM_TEAMIMG' 	=> $wm_teamimg,
+								'WM_TEAMCAR' 	=> $wm_teamcar,
+								'WM_POINTS' 	=> $wm_points,
+								)
+							);
+						}
+						else
+						{
+							$template->assign_block_vars('top_teams', array(
+								'RANK' 			=> $rank,
+								'WM_TEAMNAME' 	=> $wm_teamname,
+								'WM_POINTS' 	=> $wm_points,
+								)
+							);
+						}
+					}
+
+					$db->sql_freeresult($result);		
+
 				}
 				// Show drivers toplist
 				else if ($show_drivers)
 				{
-					//todo
 					$stat_table_title = $user->lang['FORMEL_DRIVER_STATS'];
+					
+					// Get all data
+					$drivers 	= $this->get_formel_drivers();
+					
+					//Get all first place winner, count all first places,  grep all gold medals...  Marker for first place: 25 WM Points
+					$sql = 'SELECT 	count(wm_driver) as gold_medals,
+									wm_driver
+							FROM 	' . $table_wm . '
+							WHERE 	wm_points = 25
+							GROUP BY wm_driver
+							ORDER BY gold_medals DESC';
+					$result = $db->sql_query($sql);
+
+					// Now put the gold medals into the $drivers array
+					while ($row = $db->sql_fetchrow($result))
+					{
+						$drivers[$row['wm_driver']]['gold_medals']	= $row['gold_medals'];
+					}
+
+					// Get all wm points and fill top10 drivers
+					$sql = 'SELECT sum(wm_points) AS total_points, wm_driver, wm_team
+						FROM ' . $table_wm . '
+						GROUP BY wm_driver
+						ORDER BY total_points DESC';
+					$result = $db->sql_query($sql);
+
+					//Stop! we have to recalc the driver WM points... maybe we have some penalty !
+					$recalc_drivers = array();
+				
+					while ($row = $db->sql_fetchrow($result))
+					{
+						$recalc_drivers[$row['wm_driver']]['total_points'] 	= $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'];
+						$recalc_drivers[$row['wm_driver']]['gold_medals']	= (isset($drivers[$row['wm_driver']]['gold_medals'])) ? $drivers[$row['wm_driver']]['gold_medals'] : 0;
+						$recalc_drivers[$row['wm_driver']]['driver_name']	= $drivers[$row['wm_driver']]['driver_name'];
+						$recalc_drivers[$row['wm_driver']]['driver_img']	= $drivers[$row['wm_driver']]['driver_img'];
+						$recalc_drivers[$row['wm_driver']]['driver_car']	= $drivers[$row['wm_driver']]['driver_car'];
+						$recalc_drivers[$row['wm_driver']]['team_img']		= $teams[$row['wm_team']]['team_img'];
+					}
+
+					// re-sort the drivers. Big points first ;-)
+					arsort($recalc_drivers);
+
+					$rank = 0;
+					$previous_points = false;
+
+					foreach ($recalc_drivers as $driver_id => $driver)
+					{
+						++$rank;
+
+						$wm_drivername 	= $driver['driver_name'];
+						$wm_driverimg 	= $driver['driver_img'];
+						$wm_drivercar 	= $driver['driver_car'];
+						$wm_driverteam 	= $driver['team_img'];
+						$wm_driverteam 	= ( $wm_driverteam == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/' . $wm_driverteam . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />';
+
+						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						{
+							$template->assign_block_vars('top_drivers_gfx', array(
+								'RANK' 				=> $rank,
+								'WM_DRIVERNAME' 	=> $wm_drivername,
+								'WM_DRIVERIMG' 		=> $wm_driverimg,
+								'WM_DRIVERCAR' 		=> $wm_drivercar,
+								'WM_DRIVERTEAM' 	=> $wm_driverteam,
+								'WM_POINTS' 		=> $driver['total_points'],
+								)
+							);
+						}
+						else
+						{
+							$template->assign_block_vars('top_drivers', array(
+								'RANK' 				=> $rank,
+								'WM_DRIVERNAME' 	=> $wm_drivername,
+								'WM_POINTS' 		=> $driver['total_points'],
+								)
+							);
+						}
+					}
+
+					$db->sql_freeresult($result);
+					
 				}
 				// Show users toplist
 				else

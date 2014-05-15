@@ -137,7 +137,10 @@
 			<thead>
 				<tr>
 					<th ><strong>{L_FORMEL_PLACE}</strong></th>
-					<th align="center" colspan="<!-- IF top_tippers.S_AVATAR_SWITCH == true -->2<!-- ELSE -->1<!-- ENDIF -->"><strong>Name</strong></th>
+					<!-- IF top_tippers.S_AVATAR_SWITCH == true -->
+					<th align="center"><strong>{L_USER_AVATAR}</strong></th>
+					<!-- ENDIF -->
+					<th align="center"><strong>{L_USERNAME}</strong></th>
 					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
 				</tr>
 			</thead>
@@ -162,7 +165,10 @@
 			<thead>
 				<tr>
 					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
-					<th style="width: 50%;" align="center" colspan="4"><strong>Name</strong></th>
+					<th align="center"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE}</strong></th>
+					<th align="center"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMCAR}</strong></th>
+					<th align="center"><strong>{L_ACP_F1_DRIVERS_DRIVERIMAGE}</strong></th>
+					<th style="width: 50%;" align="center" ><strong>{L_ACP_F1_DRIVERS_DRIVERNAME}</strong></th>
 					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
 				</tr>
 			</thead>
@@ -177,7 +183,7 @@
 					<td valign="middle" align="center">&nbsp;{top_drivers_gfx.WM_DRIVERTEAM}&nbsp;</td>
 					<td valign="middle" align="center">&nbsp;{top_drivers_gfx.WM_DRIVERCAR}&nbsp;</td>
 					<td valign="middle" align="center">&nbsp;{top_drivers_gfx.WM_DRIVERIMG}&nbsp;</td>
-					<td align="left" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_drivers_gfx.WM_DRIVERNAME}</td>
+					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_drivers_gfx.WM_DRIVERNAME}</td>
 					<td align="center" valign="middle">{top_drivers_gfx.WM_POINTS}</td>
 				</tr>
 			<!-- END top_drivers_gfx -->
@@ -209,7 +215,9 @@
 			<thead>
 				<tr>
 					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
-					<th style="width: 50%;" align="center" colspan="3"><strong>Name</strong></th>
+					<th align="center"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE}</strong></th>
+					<th align="center"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMCAR}</strong></th>
+					<th style="width: 50%;" align="center"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMNAME}</strong></th>
 					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
 				</tr>
 			</thead>
@@ -223,7 +231,7 @@
 					<td align="center" valign="middle">{top_teams_gfx.RANK}</td>
 					<td align="center" valign="middle">{top_teams_gfx.WM_TEAMIMG}</td>
 					<td align="center" valign="middle">{top_teams_gfx.WM_TEAMCAR}</td>
-					<td align="left" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_teams_gfx.WM_TEAMNAME}</td>
+					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_teams_gfx.WM_TEAMNAME}</td>
 					<td align="center" valign="middle">{top_teams_gfx.WM_POINTS}</td>
 				</tr>
 			<!-- END top_teams_gfx -->
@@ -233,7 +241,7 @@
 			<thead>
 				<tr>
 					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
-					<th style="width: 50%;" align="center"><strong>Name</strong></th>
+					<th style="width: 50%;" align="center"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMNAME}</strong></th>
 					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
 				</tr>
 			</thead>
@@ -245,7 +253,7 @@
 				<tr class="bg2">
 				<!-- ENDIF -->
 					<td align="center" valign="middle">{top_teams.RANK}</td>
-					<td align="left" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_teams.WM_TEAMNAME}</td>
+					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{top_teams.WM_TEAMNAME}</td>
 					<td align="center" valign="middle">{top_teams.WM_POINTS}</td>
 				</tr>
 			<!-- END top_teams -->

@@ -72,6 +72,7 @@ $lang = array_merge($lang, array(
 	'FORMEL_TOP_DRIVER'				=> 'Top drivers',
 	'FORMEL_TOP_TEAMS'				=> 'Top teams',
 	'FORMEL_NO_TIPPS'				=> 'No tips made',
+	'FORMEL_NO_RESULTS'				=> 'No results available',
 	'FORMEL_TIPPS_MADE'				=> 'Placed tips: ',
 	'FORMEL_BACK_TO_TIPP'			=> 'Back to tip',
 	'FORMEL_USER_STATS'				=> 'User',

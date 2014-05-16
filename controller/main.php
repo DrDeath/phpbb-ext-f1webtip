@@ -494,6 +494,31 @@ class main
 							);
 						}
 					}
+					
+					// Do we have some team points yet?
+					if ($real_rank == 0)
+					{
+						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						{
+							$template->assign_block_vars('top_teams_gfx', array(
+								'RANK' 			=> '',
+								'WM_TEAMNAME' 	=> $user->lang['FORMEL_NO_RESULTS'],
+								'WM_TEAMIMG' 	=> '',
+								'WM_TEAMCAR' 	=> '',
+								'WM_POINTS' 	=> '',
+								)
+							);
+						}
+						else
+						{
+							$template->assign_block_vars('top_teams', array(
+								'RANK' 				=> '',
+								'WM_TEAMNAME'		=> $user->lang['FORMEL_NO_RESULTS'],
+								'WM_POINTS' 		=> '',
+								)
+							);
+						}
+					}
 
 					$db->sql_freeresult($result);
 
@@ -579,6 +604,32 @@ class main
 							);
 						}
 					}
+					
+					// Do we have some driver points yet?
+					if ($rank == 0)
+					{
+						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						{
+							$template->assign_block_vars('top_drivers_gfx', array(
+								'RANK' 				=> '',
+								'WM_DRIVERNAME' 	=> $user->lang['FORMEL_NO_RESULTS'],
+								'WM_DRIVERIMG' 		=> '',
+								'WM_DRIVERCAR' 		=> '',
+								'WM_DRIVERTEAM' 	=> '',
+								'WM_POINTS' 		=> '',
+								)
+							);
+						}
+						else
+						{
+							$template->assign_block_vars('top_drivers', array(
+								'RANK' 				=> '',
+								'WM_DRIVERNAME'		=> $user->lang['FORMEL_NO_RESULTS'],
+								'WM_POINTS' 		=> '',
+								)
+							);
+						}
+					}
 
 					$db->sql_freeresult($result);
 
@@ -634,6 +685,27 @@ class main
 							'TIPPER_NAME'			=> $tip_username_link,
 							'RANK'					=> ($rank == 1 || $rank == 2 || $rank == 3) ? "<b>" . $rank . "</b>" : $rank,
 							'TIPPER_POINTS'			=> $row['total_points'],
+							)
+						);
+					}
+					
+					// Do we have some user tips yet?
+					if ($real_rank == 0)
+					{
+						$show_avatar_switch 		= false;
+						
+						if ($config['drdeath_f1webtip_show_avatar'] == 1)
+						{
+							$show_avatar_switch 	= true;
+						}
+						
+						$template->assign_block_vars('top_tippers', array(
+							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
+							'TIPPER_AVATAR'			=> '',
+							'TIPPER_AVATAR_WIDTH'	=> '',
+							'TIPPER_AVATAR_HEIGHT'	=> '',
+							'TIPPER_NAME' 			=> $user->lang['FORMEL_NO_TIPPS'],
+							'TIPPER_POINTS' 		=> '',
 							)
 						);
 					}
@@ -765,6 +837,17 @@ class main
 					);
 				}
 
+				// Do we have some user tips yet?
+				if ($real_rank == 0)
+				{
+					$template->assign_block_vars('top_tippers', array(
+						'TIPPER_NAME' 	=> $user->lang['FORMEL_NO_TIPPS'],
+						'RANK'			=> '',
+						'TIPPER_POINTS' => '0',
+						)
+					);
+				}
+
 				$db->sql_freeresult($result);
 
 				//
@@ -827,6 +910,17 @@ class main
 
 					++$limit;
 				}
+				
+				// Do we have some driver points yet?
+				if ($rank == 0)
+				{
+					$template->assign_block_vars('top_drivers', array(
+						'RANK' 				=> '',
+						'WM_DRIVERNAME'		=> $user->lang['FORMEL_NO_RESULTS'],
+						'WM_POINTS' 		=> '0',
+						)
+					);
+				}
 
 				$db->sql_freeresult($result);
 
@@ -880,6 +974,17 @@ class main
 					);
 
 					++$limit;
+				}
+				
+				// Do we have some team points yet?
+				if ($real_rank == 0)
+				{
+					$template->assign_block_vars('top_teams', array(
+						'RANK' 				=> '',
+						'WM_TEAMNAME'		=> $user->lang['FORMEL_NO_RESULTS'],
+						'WM_POINTS' 		=> '0',
+						)
+					);
 				}
 
 				$db->sql_freeresult($result);

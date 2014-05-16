@@ -254,12 +254,12 @@ function showtipps(showtipps)
 				<!-- ELSE -->
 				<tr class="bg2">
 				<!-- ENDIF -->
-					<td align="center" valign="middle"><span class="gen">{top_tippers.RANK}</span></td>
+					<td align="center" valign="middle">{top_tippers.RANK}</td>
 					<!-- IF top_tippers.S_AVATAR_SWITCH == true -->
 					<td style="width: {top_tippers.TIPPER_AVATAR_WIDTH}px; height: {top_tippers.TIPPER_AVATAR_HEIGHT}; text-align: center;" valign="middle">{top_tippers.TIPPER_AVATAR}</td>
 					<!-- ENDIF -->
-					<td style="white-space:nowrap;" align="center" valign="middle"><span class="gen">{top_tippers.TIPPER_NAME}</span></td>
-					<td align="center" valign="middle" ><span class="gen">{top_tippers.TIPPER_POINTS}</span></td>
+					<td style="white-space:nowrap;" align="center" valign="middle">{top_tippers.TIPPER_NAME}</td>
+					<td align="center" valign="middle" >{top_tippers.TIPPER_POINTS}</td>
 				</tr>
 			<!-- END top_tippers -->
 
@@ -296,7 +296,7 @@ function showtipps(showtipps)
 			<thead>
 				<tr>
 					<th align="center"><strong>{L_FORMEL_PLACE}</strong></th>
-					<th style="width: 50%;" align="center"><strong>Name</strong></th>
+					<th align="center" style="width: 50%;" ><strong>Name</strong></th>
 					<th align="center"><strong>{L_FORMEL_TOP_POINTS}</strong></th>
 				</tr>
 			</thead>
@@ -308,7 +308,7 @@ function showtipps(showtipps)
 				<tr class="bg2">
 				<!-- ENDIF -->
 					<td align="center">{top_drivers.RANK}</td>
-					<td align="left" style="width: 50%; white-space: nowrap;">&nbsp;{top_drivers.WM_DRIVERNAME}</td>
+					<td align="center" style="width: 50%; white-space: nowrap;">&nbsp;{top_drivers.WM_DRIVERNAME}</td>
 					<td align="center">{top_drivers.WM_POINTS}</td>
 				</tr>
 			<!-- END top_drivers -->

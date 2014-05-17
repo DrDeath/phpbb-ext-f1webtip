@@ -19,7 +19,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'F1WEBTIP_PAGE'					=> 'F1 WebTip',
-	
+
 	'FORMEL_TITLE'					=> 'Formula 1 WebTip',
 	'FORMEL_CURRENT_RACE'			=> 'Current race',
 	'FORMEL_CURRENT_QUALI'			=> 'Qualification',
@@ -46,7 +46,7 @@ $lang = array_merge($lang, array(
 	'FORMEL_DELETE'					=> 'Delete',
 	'FORMEL_PACE'					=> 'Fastest lap',
 	'FORMEL_TIRED'					=> 'Tired count',
-	'FORMEL_SAFETYCAR'				=> 'Safety Car deployments',
+	'FORMEL_SAFETYCAR'				=> 'Safety Cars',
 	'FORMEL_NO_TIPP'				=> 'No tip found',
 	'FORMEL_YOUR_TIPP'				=> 'Your tip',
 	'FORMEL_YOUR_POINTS'			=> 'Your points',

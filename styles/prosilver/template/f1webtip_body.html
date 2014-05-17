@@ -318,7 +318,7 @@ function showtipps(showtipps)
 							</tbody>
 						</table>
 					</td>
-					<td class="responsive-hide" valign="top" style="width: 33%;">
+					<td class="responsive-show-inline" valign="top" style="width: 33%;">
 						<table class="table1" style="width: 100%;">
 							<thead>
 								<tr>
@@ -413,8 +413,8 @@ function showtipps(showtipps)
 								<tr class="bg2">
 								<!-- ENDIF -->
 									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{users_tipp.L_PLACE}:</strong></span></td>
-									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{users_tipp.DRIVERCOMBO}&nbsp;</span></td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{users_tipp.SINGLE_POINTS}&nbsp;</span></td>
+									<td style="width: 50%; white-space:nowrap;" align="left"><span class="gen">&nbsp;{users_tipp.DRIVERCOMBO}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{users_tipp.SINGLE_POINTS}&nbsp;</span></td>
 								</tr>
 								<!-- END users_tipp -->
 								<!-- BEGIN gfx_users_tipp -->
@@ -429,41 +429,41 @@ function showtipps(showtipps)
 										<span class="gen">&nbsp;{gfx_users_tipp.DRIVERCOMBO}</span>
 										<span class="gen">{gfx_users_tipp.DRIVERTEAMNAME}</span>
 									</td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{gfx_users_tipp.SINGLE_POINTS}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{gfx_users_tipp.SINGLE_POINTS}&nbsp;</span></td>
 								</tr>
 								<!-- END gfx_users_tipp -->
 								<!-- BEGIN extended_users_tipp -->
 								<tr class="bg1">
 									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_PACE}:</strong></span></td>
 									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_users_tipp.DRIVERCOMBO}&nbsp;</span></td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_FASTEST}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_FASTEST}&nbsp;</span></td>
 								</tr>
 								<tr class="bg1">
 									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></span></td>
 									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_users_tipp.TIREDCOMBO}&nbsp;</span></td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_TIRED}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_TIRED}&nbsp;</span></td>
 								</tr>
 								<tr class="bg1">
 									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></span></td>
 									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_users_tipp.SAFETYCARCOMBO}&nbsp;</span></td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_SAFETY_CAR}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_SAFETY_CAR}&nbsp;</span></td>
 								</tr>
 								<!-- END extended_users_tipp -->
 								<!-- BEGIN extended_users_tipp_gfx -->
 								<tr class="bg1">
 									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_PACE}:</strong></span></td>
 									<td style="width: 60%;" align="left"><span class="gen">&nbsp;{extended_users_tipp_gfx.DRIVERCOMBO}&nbsp;</span></td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_FASTEST}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_FASTEST}&nbsp;</span></td>
 								</tr>
 								<tr class="bg1">
 									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></span></td>
 									<td style="width: 60%;" align="left"><span class="gen">&nbsp;{extended_users_tipp_gfx.TIREDCOMBO}&nbsp;</span></td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_TIRED}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_TIRED}&nbsp;</span></td>
 								</tr>
 								<tr class="bg1">
 									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></span></td>
 									<td style="width: 60%;" align="left"><span class="gen">&nbsp;{extended_users_tipp_gfx.SAFETYCARCOMBO}&nbsp;</span></td>
-									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_SAFETY_CAR}&nbsp;</span></td>
+									<td class="responsive-hide" style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_SAFETY_CAR}&nbsp;</span></td>
 								</tr>
 								<!-- END extended_users_tipp_gfx -->
 								<!-- BEGIN add_tipp -->
@@ -498,14 +498,14 @@ function showtipps(showtipps)
 								<!-- BEGIN extended_results -->
 								<tr class="bg1">
 									<td style="width: 40%;" align="right"><span class="gen" style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
-									<td style="width: 50%;" align="left">&nbsp;</td>
+									<td class="responsive-hide" style="width: 50%;" align="left">&nbsp;</td>
 									<td style="width: 10%;" align="center"><span class="gen" style="color:#009900"><strong>&nbsp;{extended_results.YOUR_POINTS}</strong></span></td>
 								</tr>
 								<!-- END extended_results -->
 								<!-- BEGIN extended_results_gfx -->
 								<tr class="bg1">
 									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen" style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
-									<td style="width: 60%;" align="left">&nbsp;</td>
+									<td class="responsive-hide" style="width: 60%;" align="left">&nbsp;</td>
 									<td style="width: 10%;" align="center"><span class="gen" style="color:#009900"><strong>&nbsp;{extended_results_gfx.YOUR_POINTS}</strong></span></td>
 								</tr>
 								<!-- END extended_results_gfx -->

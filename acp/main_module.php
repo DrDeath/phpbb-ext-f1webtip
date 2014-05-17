@@ -19,31 +19,31 @@ class main_module
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_log;
 
-		$ext_path = $phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true);	
-		
+		$ext_path = $phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true);
+
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
 		$table_teams	= $phpbb_container->getParameter('tables.f1webtip.teams');
 		$table_drivers 	= $phpbb_container->getParameter('tables.f1webtip.drivers');
 		$table_wm 		= $phpbb_container->getParameter('tables.f1webtip.wm');
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
-		
+
 		$user->add_lang('acp/common');
-		
+
 		$this->tpl_name = 'f1webtip_body';
 
-		add_form_key('drdeath/f1webtip');		
-		
+		add_form_key('drdeath/f1webtip');
+
 		// What are we working on?
 		switch ($mode)
 		{
-		
+
 			###########################
 			###      SETTINGS      ####
 			###########################
 			case 'settings':
-			
+
 				$this->page_title = $user->lang('ACP_F1_SETTINGS');
-			
+
 				//
 				// Reset F1 Season
 				//
@@ -100,11 +100,11 @@ class main_module
 							, 'confirm_body.html');
 					}
 				}
-			
+
 				//
 				// Submit button pushed
 				//
-			
+
 				if ($request->is_set_post('submit'))
 				{
 					if (!check_form_key('drdeath/f1webtip'))
@@ -113,7 +113,7 @@ class main_module
 					}
 
 					$config->set('drdeath_f1webtip_mod_id', 			$request->variable('mod_id', 			'0'));
-				
+
 					// WebTip visible for guests can only be activated, if the F1 WebTip is not restricted to a specific group
 					if ($request->variable('restrict_to', 	'0') == 0)
 					{
@@ -127,11 +127,11 @@ class main_module
 					$config->set('drdeath_f1webtip_restrict_to', 		$request->variable('restrict_to', 		'0'));
 					$config->set('drdeath_f1webtip_deadline_offset', 	$request->variable('deadline_offset', 	'0'));
 					$config->set('drdeath_f1webtip_event_change', 		$request->variable('event_change', 		'0'));
-					$config->set('drdeath_f1webtip_forum_id', 			$request->variable('forum_id', 			'0'));		
+					$config->set('drdeath_f1webtip_forum_id', 			$request->variable('forum_id', 			'0'));
 					$config->set('drdeath_f1webtip_show_in_profile', 	$request->variable('show_in_profile', 	'0'));
 					$config->set('drdeath_f1webtip_show_in_viewtopic', 	$request->variable('show_in_viewtopic', '0'));
 					$config->set('drdeath_f1webtip_show_countdown', 	$request->variable('show_countdown', 	'0'));
-				
+
 					// Cron Reminder can only be activated, if the F1 WebTip is restricted to a specific group
 					if ($request->variable('restrict_to', 	'0') == 0)
 					{
@@ -147,20 +147,20 @@ class main_module
 					$config->set('drdeath_f1webtip_points_fastest', 	$request->variable('points_fastest', 	'0'));
 					$config->set('drdeath_f1webtip_points_tired', 		$request->variable('points_tired', 		'0'));
 					$config->set('drdeath_f1webtip_points_safety_car', 	$request->variable('points_safety_car', '0'));
-			
+
 					$config->set('drdeath_f1webtip_show_avatar', 		$request->variable('show_avatar', 		'0'));
-					
+
 					$config->set('drdeath_f1webtip_show_headbanner', 	$request->variable('show_headbanner', 	'0'));
 					$config->set('drdeath_f1webtip_head_height', 		$request->variable('head_height', 		$config['drdeath_f1webtip_head_height']));
 					$config->set('drdeath_f1webtip_head_width', 		$request->variable('head_width', 		$config['drdeath_f1webtip_head_width']));
 					$config->set('drdeath_f1webtip_headbanner1_img', 	$request->variable('headbanner1_img', 	$config['drdeath_f1webtip_headbanner1_img']));
 					$config->set('drdeath_f1webtip_headbanner2_img', 	$request->variable('headbanner2_img', 	$config['drdeath_f1webtip_headbanner2_img']));
 					$config->set('drdeath_f1webtip_headbanner3_img', 	$request->variable('headbanner3_img', 	$config['drdeath_f1webtip_headbanner3_img']));
-					
+
 					$config->set('drdeath_f1webtip_show_gfxr', 			$request->variable('show_gfxr', 		'0'));
 					$config->set('drdeath_f1webtip_no_race_img', 		$request->variable('no_race_img', 		$config['drdeath_f1webtip_no_race_img']));
 					$config->set('drdeath_f1webtip_race_img_height', 	$request->variable('race_img_height', 	$config['drdeath_f1webtip_race_img_height']));
-					$config->set('drdeath_f1webtip_race_img_width', 	$request->variable('race_img_width', 	$config['drdeath_f1webtip_race_img_width']));			
+					$config->set('drdeath_f1webtip_race_img_width', 	$request->variable('race_img_width', 	$config['drdeath_f1webtip_race_img_width']));
 					$config->set('drdeath_f1webtip_show_gfx', 			$request->variable('show_gfx', 			'0'));
 					$config->set('drdeath_f1webtip_no_car_img', 		$request->variable('no_car_img', 		$config['drdeath_f1webtip_no_car_img']));
 					$config->set('drdeath_f1webtip_car_img_height', 	$request->variable('car_img_height', 	$config['drdeath_f1webtip_car_img_height']));
@@ -169,16 +169,16 @@ class main_module
 					$config->set('drdeath_f1webtip_driver_img_height', 	$request->variable('driver_img_height',	$config['drdeath_f1webtip_driver_img_height']));
 					$config->set('drdeath_f1webtip_driver_img_width', 	$request->variable('driver_img_width', 	$config['drdeath_f1webtip_driver_img_width']));
 					$config->set('drdeath_f1webtip_no_team_img', 		$request->variable('no_team_img', 		$config['drdeath_f1webtip_no_team_img']));
-					$config->set('drdeath_f1webtip_team_img_height', 	$request->variable('team_img_height', 	$config['drdeath_f1webtip_team_img_height']));	
+					$config->set('drdeath_f1webtip_team_img_height', 	$request->variable('team_img_height', 	$config['drdeath_f1webtip_team_img_height']));
 					$config->set('drdeath_f1webtip_team_img_width', 	$request->variable('team_img_width', 	$config['drdeath_f1webtip_team_img_width']));
-															
+
 					trigger_error($user->lang('ACP_F1WEBTIP_SETTING_SAVED') . adm_back_link($this->u_action));
 				}
-			
+
 				//
 				// Generate a moderator list for the F1 WebTip Forum
 				//
-			
+
 				//Get all possible forum moderators
 				$sql = 'SELECT u.username, u.user_id
 					FROM	' . MODERATOR_CACHE_TABLE . ' mc, ' . USER_GROUP_TABLE . ' ug, 	' . USERS_TABLE. ' u
@@ -195,8 +195,8 @@ class main_module
 					$selected = ($row['user_id'] == $config['drdeath_f1webtip_mod_id']) ? 'selected' : '';
 					$combo_mod_entries .= '<option value="' . $row['user_id'] . '" ' . $selected . '>' . $row['username'] . '</option>';
 				}
-			
-			
+
+
 				// If no normal moderator was found, select all possible founders.
 				if (empty($combo_mod_entries))
 				{
@@ -212,19 +212,19 @@ class main_module
 						$combo_mod_entries .= '<option value="' . $row['user_id'] . '" ' . $selected . '>' . $row['username'] . '</option>';
 					}
 				}
-			
+
 				// Generate possible moderator combobox
 				$mods_combo		 = '<select name="mod_id">';
 				$mods_combo		.= $combo_mod_entries;
 				$mods_combo		.= '</select>';
-			
-			
+
+
 				//
 				// Get all group data
 				// Don't select the default phpBB3 groups
 				// If choosen "deactivated" - all "registered user" have access.
 				//
-			
+
 				$combo_groups_entries = '';
 
 				$sql = 'SELECT *
@@ -235,23 +235,23 @@ class main_module
 				while ($row = $db->sql_fetchrow($result))
 				{
 					$selected = ($row['group_id'] == $config['drdeath_f1webtip_restrict_to']) ? 'selected' : '';
-					$combo_groups_entries .= '<option value="' . $row['group_id'] . '" ' . $selected . '>' . $row['group_name'] . '</option>';	
+					$combo_groups_entries .= '<option value="' . $row['group_id'] . '" ' . $selected . '>' . $row['group_name'] . '</option>';
 				}
 
-				$db->sql_freeresult($result);	
-			
+				$db->sql_freeresult($result);
+
 				// Generate groups combobox
 				$selected = ($config['drdeath_f1webtip_restrict_to'] == 0) ? 'selected' : '';
 				$group_combo	 = '<select name="restrict_to">';
 				$group_combo	.= '<option value="0" ' . $selected . '>' . $user->lang['ACP_F1_SETTINGS_DEACTIVATED'] . '</option>';
 				$group_combo	.= $combo_groups_entries;
 				$group_combo	.= '</select>';
-			
-			
+
+
 				//
 				// Get all forum data - Don't select categories or links
 				//
-				
+
 				$combo_forums_entries = '';
 
 				$sql = 'SELECT forum_id, forum_name, forum_type
@@ -274,22 +274,22 @@ class main_module
 				$forums_combo	.= '<option value="0" ' . $selected . '>' . $user->lang['ACP_F1_SETTINGS_DEACTIVATED'] . '</option>';
 				$forums_combo	.= $combo_forums_entries;
 				$forums_combo	.= '</select>';
-			
+
 				if ($config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('headbanner_on', array());
 				}
-							
+
 				if ($config['drdeath_f1webtip_show_gfxr'])
 				{
 					$template->assign_block_vars('gfxr_on', array());
 				}
-			
+
 				if ($config['drdeath_f1webtip_show_gfx'])
 				{
 					$template->assign_block_vars('gfx_on', array());
 				}
-			
+
 				$template->assign_vars(array(
 					'S_SETTING'							=> true,
 					'U_ACTION'							=> $this->u_action,
@@ -303,7 +303,7 @@ class main_module
 					'SHOW_VIEWTOPIC'					=> $config['drdeath_f1webtip_show_in_viewtopic'],
 					'SHOW_COUNTDOWN'					=> $config['drdeath_f1webtip_show_countdown'],
 					'REMINDER_ENABLED'					=> $config['drdeath_f1webtip_reminder_enabled'],
-				
+
 					'POINTS_MENTIONED'					=> $config['drdeath_f1webtip_points_mentioned'],
 					'POINTS_PLACED'						=> $config['drdeath_f1webtip_points_placed'],
 					'POINTS_FASTEST'					=> $config['drdeath_f1webtip_points_fastest'],
@@ -314,14 +314,14 @@ class main_module
 					'HEADBANNER_IMG_HEIGHT'				=> $config['drdeath_f1webtip_head_height'],
 					'HEADBANNER_IMG_WIDTH'				=> $config['drdeath_f1webtip_head_width'],
 					'HEADBANNER1_IMG'					=> $config['drdeath_f1webtip_headbanner1_img'],
-					'HEADBANNER2_IMG'					=> $config['drdeath_f1webtip_headbanner2_img'],	
+					'HEADBANNER2_IMG'					=> $config['drdeath_f1webtip_headbanner2_img'],
 					'HEADBANNER3_IMG'					=> $config['drdeath_f1webtip_headbanner3_img'],
-							
-					'SHOW_GFXR'							=> $config['drdeath_f1webtip_show_gfxr'],			
+
+					'SHOW_GFXR'							=> $config['drdeath_f1webtip_show_gfxr'],
 					'NO_RACE_IMG'						=> $config['drdeath_f1webtip_no_race_img'],
 					'RACE_IMG_HEIGHT'					=> $config['drdeath_f1webtip_race_img_height'],
 					'RACE_IMG_WIDTH'					=> $config['drdeath_f1webtip_race_img_width'],
-				
+
 					'SHOW_GFX'							=> $config['drdeath_f1webtip_show_gfx'],
 					'NO_CAR_IMG'						=> $config['drdeath_f1webtip_no_car_img'],
 					'CAR_IMG_HEIGHT'					=> $config['drdeath_f1webtip_car_img_height'],
@@ -332,18 +332,18 @@ class main_module
 					'NO_TEAM_IMG'						=> $config['drdeath_f1webtip_no_team_img'],
 					'TEAM_IMG_HEIGHT'					=> $config['drdeath_f1webtip_team_img_height'],
 					'TEAM_IMG_WIDTH'					=> $config['drdeath_f1webtip_team_img_width'],
-				
+
 					'SHOW_AVATAR'						=> $config['drdeath_f1webtip_show_avatar'],
 				));
-			
+
 			break;
-			
-			
+
+
 			##########################
 			###      DRIVERS      ####
 			##########################
 			case 'drivers':
-			
+
 				$this->page_title = $user->lang('ACP_F1_DRIVERS');
 
 				$reset_all = (isset($_POST['reset_all'])) ? true : false;
@@ -365,7 +365,7 @@ class main_module
 				//
 				// Delete a driver
 				//
-				
+
 				if ($button_del && $driver_id <> 0)
 				{
 					// Is it salty ?
@@ -383,11 +383,11 @@ class main_module
 					$error = $user->lang['ACP_F1_DRIVERS_DRIVER_DELETED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
-				
+
 				//
 				// Add a new driver
 				//
-				
+
 				// add or update the driver
 				if ($button_add && $drivername <> '')
 				{
@@ -450,11 +450,11 @@ class main_module
 					trigger_error($error . adm_back_link($this->u_action));
 				}
 
-				
+
 				//
 				// Load, add or update driver
 				//
-				
+
 				if ($button_adddriver || ($button_edit && $driver_id <> 0) || ($button_add && $drivername == ''))
 				{
 					$preselected_id = '';
@@ -546,7 +546,7 @@ class main_module
 					//
 					// Load the driver overview page
 					//
-					
+
 					// Get all teams data
 					$sql = 'SELECT *
 						FROM ' . $table_teams . '
@@ -632,19 +632,19 @@ class main_module
 						)
 					);
 				}
-				
+
 			break;
-			
-			
+
+
 			##########################
 			###       TEAMS       ####
 			##########################
 			case 'teams':
-			
+
 				$this->page_title = $user->lang('ACP_F1_TEAMS');
-				
+
 				$lang = 'ACP_F1_TEAMS';
-				
+
 				// Check buttons & data
 				$button_addteam 	= $request->is_set_post('addteam');
 				$button_add 		= $request->is_set_post('add');
@@ -655,13 +655,13 @@ class main_module
 				$teamcar 			= $request->variable('teamcar'		,	''	,	true	);
 				$teamname 			= $request->variable('teamname'	,	''	,	true	);
 				$team_id 			= $request->variable('team_id'		,	0	);
-				$team_penalty		= $request->variable('team_penalty',	0.0	);				
+				$team_penalty		= $request->variable('team_penalty',	0.0	);
 
 
 				//
 				// Delete a team
 				//
-				
+
 				if ($button_del && $team_id <> 0)
 				{
 					// Is it salty ?
@@ -683,7 +683,7 @@ class main_module
 				//
 				// Add a new team
 				//
-				
+
 				if ($button_add && $teamname <> '')
 				{
 					// Is it salty ?
@@ -745,7 +745,7 @@ class main_module
 				//
 				// Load, add or update team
 				//
-				
+
 				if ($button_addteam || ($button_edit && $team_id <> 0) || ($button_add && $teamname == ''))
 				{
 					if ($button_add && $teamname == '')
@@ -871,17 +871,17 @@ class main_module
 						)
 					);
 				}
-			
+
 			break;
-			
-			
+
+
 			##########################
 			###       RACES       ####
 			##########################
 			case 'races':
 
 				$this->page_title = $user->lang('ACP_F1_RACES');
-			
+
 				// Check buttons & data
 				$button_addrace = $request->is_set_post('addrace');
 				$button_add 	= $request->is_set_post('add');
@@ -907,7 +907,7 @@ class main_module
 				//
 				// Delete a race
 				//
-			
+
 				if ($button_del && $race_id <> 0)
 				{
 					// Is it salty ?
@@ -925,19 +925,19 @@ class main_module
 					$error = $user->lang['ACP_F1_RACES_RACE_DELETED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
-				
-				
+
+
 				//
 				// Add a new race
 				//
-			
+
 				// Check if a race location is given
 				if ($button_add && $racename == '')
 				{
 					$error  = $user->lang['ACP_F1_RACES_ERROR_RACENAME'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
-			
+
 				// add or update the race
 				if ($button_add && $racename <> '')
 				{
@@ -1007,11 +1007,11 @@ class main_module
 					$error = $user->lang['ACP_F1_RACES_RACE_UPDATED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
-							
+
 				//
 				// Load add oder edit race
 				//
-			
+
 				if ($button_addrace || ($button_edit && $race_id <> 0) || ($button_add && $racename == ''))
 				{
 					$title_exp 	= $user->lang['ACP_F1_RACES_TITEL_ADD_RACE_EXPLAIN'];
@@ -1100,7 +1100,7 @@ class main_module
 					$c_minute 	= str_replace("value=\"" . $b_minute . "\">", "value=\"" . $b_minute . "\" SELECTED>" ,$c_minute);
 					$c_second 	= str_replace("value=\"" . $b_second . "\">", "value=\"" . $b_second . "\" SELECTED>" ,$c_second);
 
-					$racetime_combos = $c_day . '&nbsp;.&nbsp;' . $c_month . '&nbsp;.&nbsp;' . $c_year . '&nbsp;&nbsp;&nbsp;' . $c_hour . '&nbsp;:&nbsp;' . $c_minute . '&nbsp;:&nbsp;' . $c_second;
+					$racetime_combos = $c_day . '&nbsp;.&nbsp;' . $c_month . '&nbsp;.&nbsp;' . $c_year . '<br/><br/>&nbsp;' . $c_hour . '&nbsp;:&nbsp;' . $c_minute . '&nbsp;:&nbsp;' . $c_second;
 
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfxr'] == 1)
@@ -1129,7 +1129,7 @@ class main_module
 					//
 					// Load the race page
 					//
-				
+
 					// Get all race data
 					$sql = 'SELECT *
 							FROM ' . $table_races . '
@@ -1179,7 +1179,7 @@ class main_module
 						'COLSPAN' 		=> $colspan,
 						)
 					);
-				}	
+				}
 
 			break;
 		}

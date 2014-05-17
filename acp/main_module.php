@@ -17,7 +17,7 @@ class main_module
 	{
 		global $db, $user, $auth, $template, $cache, $request;
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
-		global $phpbb_container, $phpbb_extension_manager;
+		global $phpbb_container, $phpbb_extension_manager, $phpbb_log;
 
 		$ext_path = $phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true);	
 		

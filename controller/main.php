@@ -167,7 +167,7 @@ class main
 	*/
 	protected function get_formel_drivers_data()
 	{
-		global $db, $phpbb_container;
+		global $db, $phpbb_container, $user;
 
 		$table_drivers	= $phpbb_container->getParameter('tables.f1webtip.drivers');
 		$drivers 		= array();
@@ -195,6 +195,31 @@ class main
 	}
 
 	/**
+	* checkarrayforvalue
+	*
+	* Checks if a driver is already in the array. (0 is an undefined driver)
+	* Returns true or false
+	* If returns true, the tip is invalid.
+	*/
+	protected function checkarrayforvalue($value, $array)
+	{
+		$ret = false;
+
+		if ($value <> 0)
+		{
+			for ($i = 0; $i < count($array); ++$i)
+			{
+				if ($value == $array[$i])
+				{
+					$ret = true;
+				}
+			}
+		}
+
+		return $ret;
+	}
+
+	/**
 	* f1webtip controller for route /f1webtip/{name}
 	*
 	* @param string		$name
@@ -205,7 +230,7 @@ class main
 
 		global $db, $user, $auth, $template, $cache, $request;
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
-		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper;
+		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
 
 		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 
@@ -761,6 +786,8 @@ class main
 
 				//Define some vars
 				$driver_team_name = $driverteamname = $gfxdrivercar = $gfxdrivercombo = $single_fastest	= $single_tired	= $single_safety_car = '';
+				
+				$current_time = time();
 
 				// Check if the user want to see prev/next race
 				if ($next)
@@ -783,19 +810,80 @@ class main
 
 					$sql = 'DELETE
 						FROM ' . $table_tips . '
-						WHERE tipp_user = ' . (int) $user_id . '
-							AND tipp_race = ' . (int) $race_id;
+						WHERE tip_user = ' . (int) $user_id . '
+							AND tip_race = ' . (int) $race_id;
 					$db->sql_query($sql);
 
-					$tipp_msg = sprintf($user->lang['FORMEL_TIPP_DELETED'], '<a href="' . append_sid("{$phpbb_root_path}formel.$phpEx") . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
-					trigger_error( $tipp_msg);
-
 					add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_DELETED', $race_id);
+
+					$tipp_msg = sprintf($user->lang['FORMEL_TIPP_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
+					trigger_error( $tipp_msg);
+				}
+				
+				// Add or edit a tip
+				if (($place_my_tipp || $edit_my_tipp) && $tipp_time - $config['drdeath_f1webtip_deadline_offset'] >= time())
+				{
+					// Check the salt... yumyum
+					if (!check_form_key('drdeath/f1webtip'))
+					{
+						trigger_error('FORM_INVALID');
+					}
+
+					for ($i = 0; $i < 10; ++$i)
+					{
+						$value = $request->variable('place' . ( $i + 1 ), 0);
+
+						if ($this->checkarrayforvalue($value, $my_tipp_array))
+						{
+							add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_NOT_VALID', $race_id);
+
+							$tipp_msg = sprintf($user->lang['FORMEL_DUBLICATE_VALUES'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
+							trigger_error($tipp_msg);
+						}
+
+						$my_tipp_array[$i] = $value;
+					}
+
+					$my_tipp_array['10'] 	= $request->variable('place11', 0); //['10'] --> fastest driver
+					$my_tipp_array['11'] 	= $request->variable('place12', 0); //['11'] --> tired count
+					$my_tipp_array['12'] 	= $request->variable('place13', 0); //['12'] --> count of safety car deployments
+
+					$my_tipp 				= implode(",", $my_tipp_array);
+
+					if ($place_my_tipp)
+					{
+						$sql_ary = array(
+							'tip_user'		=> (int) $user_id,
+							'tip_race'		=> (int) $race_id,
+							'tip_result'	=> $my_tipp,
+							'tip_points'	=> 0,
+						);
+
+						$db->sql_query('INSERT INTO ' . $table_tips . ' ' . $db->sql_build_array('INSERT', $sql_ary));
+
+						add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_GIVEN', $race_id);
+					}
+					else
+					{
+						$sql_ary = array(
+							'tip_result'	=> $my_tipp,
+						);
+
+						$sql = 'UPDATE ' . $table_tips . '
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
+							WHERE tip_user = ' . (int) $user_id . '
+								AND tip_race = ' . (int) $race_id;
+						$db->sql_query($sql);
+
+						add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_EDITED', $race_id);
+					}
+
+					$tipp_msg = sprintf($user->lang['FORMEL_ACCEPTED_TIPP'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
+					trigger_error( $tipp_msg);
 				}
 
 				// Get all races
 				$races = $this->get_formel_races();
-				$current_time = time();
 
 				// Get all teams
 				$teams = $this->get_formel_teams();
@@ -989,6 +1077,620 @@ class main
 
 				$db->sql_freeresult($result);
 
+				//
+				// Find current race
+				//
+				for ($i = 0; $i < count($races); ++$i)
+				{
+					if ($races[$i]['race_time'] > $current_time - $config['drdeath_f1webtip_event_change'])
+					{
+						// Check for a overflow
+						$race_offset = ($i + $race_offset == count($races)) ? 0 - $i  : $race_offset;
+						$race_offset = ($i + $race_offset < 0) ? count($races) - 1 - $i : $race_offset;
+
+						// Define current race incl. user given offset
+						$chosen_race = $i + $race_offset;
+
+						$user_tipp_points = 0;
+						$race_id = (int) $races[$chosen_race]['race_id'];
+						$user_id = $this->user->data['user_id'];
+
+						//Countdown data
+						if ($config['drdeath_f1webtip_show_countdown'] == 1)
+						{
+							$event_stop	= date($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset']);
+							$b_day		= $user->format_date($event_stop, 'd');
+							$b_month	= $user->format_date($event_stop, 'n');
+							$b_year		= $user->format_date($event_stop, 'Y');
+							$b_hour		= $user->format_date($event_stop, 'H');
+							$b_minute	= $user->format_date($event_stop, 'i');
+							$b_second	= $user->format_date($event_stop, 's');
+
+							switch ($b_month)
+							{
+								case 1:
+										$b_month = 'January';
+								break;
+
+								case 2:
+										$b_month = 'February';
+								break;
+
+								case 3:
+										$b_month = 'March';
+								break;
+
+								case 4:
+										$b_month = 'April';
+								break;
+
+								case 5:
+										$b_month = 'May';
+								break;
+
+								case 6:
+										$b_month = 'June';
+								break;
+
+								case 7:
+										$b_month = 'July';
+								break;
+
+								case 8:
+										$b_month = 'August';
+								break;
+
+								case 9:
+										$b_month = 'September';
+								break;
+
+								case 10:
+										$b_month = 'October';
+								break;
+
+								case 11:
+										$b_month = 'November';
+								break;
+
+								case 12:
+										$b_month = 'December';
+								break;
+							}
+
+							$stop = $b_month . ' ' . $b_day . ', ' . $b_year . ' ' . $b_hour . ':' . $b_minute . ':' . $b_second;
+
+							$countdown = "<script type=\"text/javascript\">
+										// <![CDATA[
+										var eventdate = new Date('" . $stop . "');
+										function toSt(n)
+										{
+																	s=''
+																	if(n<10) s+='0'
+																	return s+n.toString();
+										}
+										function countdown()
+										{
+											d=new Date();
+											count=Math.floor((eventdate.getTime()-d.getTime())/1000);
+											if(count<=0)
+											{
+												var time_event = document.getElementById('time_event');
+												var event_time = document.getElementById('event_time');
+												time_event.style.display = 'none';
+												event_time.style.display = '';
+												return;
+											}
+											secs_count = toSt(count%60);
+											count=Math.floor(count/60);
+											mins_count = toSt(count%60);
+											count=Math.floor(count/60);
+											hours_count = toSt(count%24);
+											count=Math.floor(count/24);
+											days_count = count;
+											document.getElementById('countdown').days.value = days_count;
+											document.getElementById('countdown').hours.value = hours_count;
+											document.getElementById('countdown').mins.value = mins_count;
+											document.getElementById('countdown').secs.value = secs_count;
+											window.setTimeout('countdown()',500);
+										}
+										// ]]>
+										</script>";
+						}
+
+						// Get race image and data
+						$race_img = $races[$chosen_race]['race_img'];
+						$race_img = ($race_img == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_race_img'] . '" width="' . $config['drdeath_f1webtip_race_img_width'] . '" height="' . $config['drdeath_f1webtip_race_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/' . $race_img . '" width="' . $config['drdeath_f1webtip_race_img_width'] . '" height="' . $config['drdeath_f1webtip_race_img_height'] . '" alt="" />';
+
+						$template->assign_block_vars('racerow', array(
+							'RACEIMG' 		=> $race_img,
+							'RACENAME' 		=> $races[$chosen_race]['race_name'],
+							'RACELENGTH' 	=> $races[$chosen_race]['race_length'] . ' km',
+							'RACEDEBUT' 	=> $races[$chosen_race]['race_debut'],
+							'RACEDISTANCE' 	=> $races[$chosen_race]['race_distance'] . ' km',
+							'RACELAPS' 		=> $races[$chosen_race]['race_laps'],
+							'RACETIME' 		=> $user->format_date($races[$chosen_race]['race_time']),
+							'RACEDEAD' 		=> $user->format_date($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset']),
+							)
+						);
+
+						if ($config['drdeath_f1webtip_show_gfxr'] == 1)
+						{
+							$template->assign_block_vars('racerow.racegfx', array());
+						}
+
+						// Find current tippers and their points
+						// Get tip data
+						$sql = 'SELECT *
+							FROM ' . $table_tips . '
+							WHERE tip_race = ' . (int) $race_id . '
+								ORDER BY tip_points DESC';
+						$result = $db->sql_query($sql);
+
+						$tippers_active = $db->sql_affectedrows($result);
+						$cur_counter = 1;
+
+						while ($row = $db->sql_fetchrow($result))
+						{
+							$current_tippers_userdata 	= $this->get_formel_userdata($row['tip_user']);
+							$current_tipp_id 			= $row['tip_id'];
+							$current_tippers_username 	= get_username_string('username', $row['tip_user'], $current_tippers_userdata['username'], $current_tippers_userdata['user_colour'] );
+							$current_tippers_colour		= get_username_string('colour'  , $row['tip_user'], $current_tippers_userdata['username'], $current_tippers_userdata['user_colour'] );
+							$separator 					= ($cur_counter == $tippers_active) ? '': ', ';
+
+							$template->assign_block_vars('tipps_made', array(
+								'USERTIPP' 		=> $this->helper->route('f1webtip_controller', array('name' => 'usertipp', 'mode' => 'teams', 'tipp' => $current_tipp_id, 'race' => $chosen_race)),
+								'SEPARATOR' 	=> $separator,
+								'USERNAME' 		=> $current_tippers_username . ' (' . $row['tip_points'] . ')',
+								'STYLE'			=> ($current_tippers_colour) ? ' style="color: ' . $current_tippers_colour . '; font-weight: bold;"' : '',
+								)
+							);
+
+							++$cur_counter;
+						}
+
+						if ($tippers_active == 0)
+						{
+							$template->assign_block_vars('no_tipps_made', array());
+						}
+
+						$db->sql_freeresult($result);
+
+						// Get tip data
+						$sql = 'SELECT *
+							FROM ' . $table_tips . '
+							WHERE tip_race = ' . (int) $race_id . '
+								AND tip_user = ' . (int) $user_id;
+						$result = $db->sql_query($sql);
+
+						$tipp_active 		= $db->sql_affectedrows($result);
+						$delete_button 		= '';
+						$tipp_button 		= $user->lang['FORMEL_ADD_TIPP'];
+						$tipp_button_name 	= 'place_my_tipp';
+						$tipp_data 			= $db->sql_fetchrowset($result);
+
+						$db->sql_freeresult($result);
+
+						// Check if a tip has been made before
+						if ($tipp_active > 0)
+						{
+							$tipp_button		= $user->lang['FORMEL_EDIT_TIPP'];
+							$tipp_button_name	= 'edit_my_tipp';
+							$delete_button		= '&nbsp;<input class="button1" type="submit" name="del_tipp" value="' . $user->lang['FORMEL_DEL_TIPP'] . '" />';
+							$tipp_array			= explode(",", $tipp_data['0']['tip_result']);
+							$user_tipp_points	= $tipp_data['0']['tip_points'];
+
+							for ($i = 0; $i < count($tipp_array) - 3; ++$i)
+							{
+								$results		= explode(",", $races[$chosen_race]['race_result']);
+								$position		= ($i == 0) ? $user->lang['FORMEL_RACE_WINNER'] : $i + 1 . '. ' . $user->lang['FORMEL_PLACE'];
+								$box_name		= 'place' . ($i + 1);
+								$single_points	= '';
+
+								if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+								{
+									//Actual race is over
+									$driverid 			= (isset($drivers[$tipp_array[$i]]['driver_id']))			?	$drivers[$tipp_array[$i]]['driver_id']			:	'';
+									$drivercombo 		= (isset($drivers[$tipp_array[$i]]['driver_name']))			?	$drivers[$tipp_array[$i]]['driver_name']		:	'';
+									$driverteamname 	= (isset($drivers[$tipp_array[$i]]['driver_team_name']))	?	$drivers[$tipp_array[$i]]['driver_team_name']	:	'';
+									$gfxdrivercar 		= (isset($drivers[$tipp_array[$i]]['driver_car']))			?	$drivers[$tipp_array[$i]]['driver_car']			:	'';
+									$gfxdrivercombo 	= (isset($drivers[$tipp_array[$i]]['driver_img']))			?	$drivers[$tipp_array[$i]]['driver_img']			:	'';
+
+									//Recalc tip points for every single placed tip
+									if (isset($results[$i]))
+									{
+										if ($driverid == $results[$i])
+										{
+											$single_points += $config['drdeath_f1webtip_points_placed'];
+										}
+									}
+
+									for ($j = 0; $j < count($tipp_array) - 3; ++$j)
+									{
+										if (isset($results[$j]))
+										{
+											if ($driverid == $results[$j])
+											{
+												$single_points += $config['drdeath_f1webtip_points_mentioned'];
+											}
+										}
+									}
+
+									if ($single_points == 0)
+									{
+										$single_points='';
+									}
+									// End recalc
+								}
+								else
+								{
+									//Actual race is not over
+									$drivercombo = '<select name="' . $box_name . '" size="1">';
+
+									for ($k = 0; $k < count($driver_combodata); ++$k)
+									{
+										$this_driver_id 	 = $driver_combodata[$k]['driver_id'];
+										$this_driver_name 	 = $driver_combodata[$k]['driver_name'];
+										$selected 			 = ($this_driver_id == $tipp_array[$i]) ? 'selected' : '';
+										$drivercombo 		.= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
+									}
+
+									$drivercombo .= '</select>';
+								}
+
+								if ($config['drdeath_f1webtip_show_gfx'] == 1)
+								{
+									//Layout cosmetic
+									if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+									{
+										//Race is over - Show driverimage and so on
+										$template->assign_block_vars('gfx_users_tipp', array(
+											'L_PLACE'			=>	'&nbsp;' . $position . '<br />',
+											'DRIVERCOMBO'		=>	$drivercombo . '<br />',
+											'DRIVERTEAMNAME'	=>	'&nbsp;' . $driverteamname,
+											'GFXDRIVERCOMBO'	=>	$gfxdrivercombo,
+											'GXFDRIVERCAR'		=>	$gfxdrivercar,
+											'SINGLE_POINTS'		=>	$single_points,
+											)
+										);
+									}
+									else
+									{
+										// Race is not over - Show position instead of driverimage
+										$template->assign_block_vars('gfx_users_tipp', array(
+											'L_PLACE'			=>	'',
+											'DRIVERCOMBO'		=>	$drivercombo,
+											'DRIVERTEAMNAME'	=>	$driverteamname,
+											'GFXDRIVERCOMBO'	=>	$position,
+											'GXFDRIVERCAR'		=>	$gfxdrivercar,
+											'SINGLE_POINTS'		=>	$single_points,
+											)
+										);
+									}
+								}
+								else
+								{
+									$template->assign_block_vars('users_tipp', array(
+										'L_PLACE'		=>	$position,
+										'DRIVERCOMBO'	=>	$drivercombo,
+										'SINGLE_POINTS'	=>	$single_points,
+										)
+									);
+								}
+							}
+
+							if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+							{
+								//Actual Race is over
+								$single_fastest		= '';
+								$single_tired		= '';
+								$single_safety_car 	= '';
+
+								$drivercombo	= (isset($drivers[$tipp_array['10']]['driver_name'])) ? $drivers[$tipp_array['10']]['driver_name'] : '';
+								$tiredcombo		= (isset($tipp_array['11'])) ? $tipp_array['11'] : '';
+								$safetycarcombo	= (isset($tipp_array['12'])) ? $tipp_array['12'] : '';
+
+								//Recalc tip points for fastest driver
+								if (isset($results['10']) && $results['10'] <> 0)
+								{
+									if ($tipp_array['10'] == $results['10'])
+									{
+										$single_fastest += $config['drdeath_f1webtip_points_fastest'];
+									}
+								}
+
+								//Recalc tip points for tired count
+								if (isset($results['11']))
+								{
+									if ($tipp_array['11'] == $results['11'])
+									{
+										$single_tired += $config['drdeath_f1webtip_points_tired'];
+									}
+								}
+
+								//Recalc tip points for correct count of safety car deployments
+								if (isset($results['12']))
+								{
+									if ($tipp_array['12'] == $results['12'])
+									{
+										$single_safety_car += $config['drdeath_f1webtip_points_safety_car'];
+									}
+								}
+							}
+							else
+							{
+								//Actual Race is not over
+
+								//Fastest Driver DropDown
+								$drivercombo = '<select name="place11" size="1">';
+
+								for ($k = 0; $k < count($driver_combodata); ++$k)
+								{
+									$this_driver_id		 = $driver_combodata[$k]['driver_id'];
+									$this_driver_name	 = $driver_combodata[$k]['driver_name'];
+									$selected			 = ($this_driver_id == $tipp_array['10']) ? 'selected' : '';
+									$drivercombo		.= '<option value="' . $this_driver_id . '" ' . $selected .'>' . $this_driver_name . '</option>';
+								}
+
+								$drivercombo .= '</select>';
+
+								//Count Tired DropDown
+								$tiredcombo = '<select name="place12" size="1">';
+
+								//We have 11 Teams with 2 cars each --> 22 drivers
+								for ($k = 0; $k < 23; ++$k)
+								{
+									$selected 			 = ($k == $tipp_array['11']) ? 'selected' : '';
+									$tiredcombo 		.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
+								}
+
+								$tiredcombo .= '</select>';
+
+								//Count Safety Car Deployments DropDown
+								$safetycarcombo = '<select name="place13" size="1">';
+
+								//We assume to have no more then 10 safety car placed in a normal race ;-)
+								for ($k = 0; $k < 11; ++$k)
+								{
+									$selected 			 = ( $k == $tipp_array['12']) ? 'selected' : '';
+									$safetycarcombo 	.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
+								}
+
+								$safetycarcombo .= '</select>';
+							}
+
+
+							if ($config['drdeath_f1webtip_show_gfx'] == 1)
+							{
+								$template->assign_block_vars('extended_users_tipp_gfx', array(
+									'TIREDCOMBO'		=> $tiredcombo,
+									'DRIVERCOMBO'		=> $drivercombo,
+									'SAFETYCARCOMBO'	=> $safetycarcombo,
+									'GFXDRIVERCOMBO'	=> $gfxdrivercombo,
+									'SINGLE_FASTEST'	=> $single_fastest,
+									'SINGLE_TIRED'		=> $single_tired,
+									'SINGLE_SAFETY_CAR'	=> $single_safety_car,
+									)
+								);
+							}
+							else
+							{
+								$template->assign_block_vars('extended_users_tipp', array(
+									'TIREDCOMBO'		=> $tiredcombo,
+									'DRIVERCOMBO'		=> $drivercombo,
+									'SAFETYCARCOMBO'	=> $safetycarcombo,
+									'GFXDRIVERCOMBO'	=> $gfxdrivercombo,
+									'SINGLE_FASTEST'	=> $single_fastest,
+									'SINGLE_TIRED'		=> $single_tired,
+									'SINGLE_SAFETY_CAR'	=> $single_safety_car,
+									)
+								);
+							}
+						}
+
+						// What to do if the user has no tip so far
+						else
+						{
+							//Guests are not allowed to place a tip.
+							if ($this->user->data['is_registered'])
+							{
+								if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] > $current_time)
+								{
+									//Actual Race is not over
+									for ($i = 0; $i < 10; ++$i)
+									{
+										$position = ($i == 0) ? $user->lang['FORMEL_RACE_WINNER'] : $i + 1 . '. ' . $user->lang['FORMEL_PLACE'];
+										$box_name = 'place' . ($i + 1);
+
+										$drivercombo = '<select name="' . $box_name . '" size="1">';
+
+										for ($k = 0; $k < count($driver_combodata); ++$k)
+										{
+											$this_driver_id		 = $driver_combodata[$k]['driver_id'];
+											$this_driver_name	 = $driver_combodata[$k]['driver_name'];
+											$drivercombo		.= '<option value="' . $this_driver_id . '">' . $this_driver_name . '</option>';
+										}
+
+										$drivercombo .= '</select>';
+
+										$template->assign_block_vars('add_tipp', array(
+											'L_PLACE'		=> $position,
+											'DRIVERCOMBO'	=> $drivercombo,
+											)
+										);
+									}
+
+									//Fastest Driver DropDown
+									$drivercombo = '<select name="place11" size="1">';
+
+									for ($k = 0; $k < count($driver_combodata); ++$k)
+									{
+										$this_driver_id		 = $driver_combodata[$k]['driver_id'];
+										$this_driver_name	 = $driver_combodata[$k]['driver_name'];
+										$drivercombo 		.= '<option value="' . $this_driver_id . '">' . $this_driver_name . '</option>';
+									}
+
+									$drivercombo .= '</select>';
+
+									//Count Tired DropDown
+									$tiredcombo = '<select name="place12" size="1">';
+
+									//We have 11 Teams with 2 cars each --> 22 drivers
+									for ($k = 0; $k < 23; ++$k)
+									{
+										$tiredcombo .= '<option value="' . $k . '">' . $k . '</option>';
+									}
+
+									$tiredcombo .= '</select>';
+
+									//Count Safety Car Deployments DropDown
+									$safetycarcombo = '<select name="place13" size="1">';
+
+									//We assume to have no more then 10 safety car placed in a normal race ;-)
+									for ($k = 0; $k < 11; ++$k)
+									{
+										$safetycarcombo .= '<option value="' . $k . '">' . $k . '</option>';
+									}
+
+									$safetycarcombo .= '</select>';
+
+									$template->assign_block_vars('extended_add_tipp', array(
+										'TIREDCOMBO'		=> $tiredcombo,
+										'DRIVERCOMBO'		=> $drivercombo,
+										'SAFETYCARCOMBO'	=> $safetycarcombo,
+										)
+									);
+								}
+							}
+							else
+							{
+								$template->assign_block_vars('add_tipp', array(
+									'DRIVERCOMBO'	=> '<br /> ' . $user->lang['FORMEL_GUESTS_PLACE_NO_TIP'],
+									)
+								);
+							}
+						}
+
+						// Checks for a saved quali
+						if ($races[$chosen_race]['race_quali'] <> '0')
+						{
+							// Get the driver ids
+							$quali = explode(",", $races[$chosen_race]['race_quali']);
+
+							// Start output
+							for ($j = 0; $j < count($quali); ++$j)
+							{
+								$current_driver_id = $quali[$j];
+								$position = ($j == 0) ? $user->lang['FORMEL_POLE'].': ' : $j + 1 . '. ' . $user->lang['FORMEL_PLACE'] . ': ';
+
+								if ($config['drdeath_f1webtip_show_gfx'] == 1)
+								{
+									$template->assign_block_vars('qualirow_gfx', array(
+										'L_PLACE'			=> $position,
+										'DRIVERIMG'			=> (isset($drivers[$current_driver_id]['driver_img'])) 			? $drivers[$current_driver_id]['driver_img'] 		: '',
+										'DRIVERCAR'			=> (isset($drivers[$current_driver_id]['driver_car'])) 			? $drivers[$current_driver_id]['driver_car'] 		: '',
+										'DRIVERNAME'		=> (isset($drivers[$current_driver_id]['driver_name'])) 		? $drivers[$current_driver_id]['driver_name'] 		: '',
+										'DRIVERTEAMNAME'	=> (isset($drivers[$current_driver_id]['driver_team_name'])) 	? $drivers[$current_driver_id]['driver_team_name'] 	: '',
+										)
+									);
+								}
+								else
+								{
+									$template->assign_block_vars('qualirow', array(
+										'L_PLACE'			=> $position,
+										'DRIVERNAME'		=> (isset($drivers[$current_driver_id]['driver_name'])) 		? $drivers[$current_driver_id]['driver_name'] 		: '',
+										)
+									);
+								}
+							}
+						}
+						else
+						{
+							// If no quali was found
+							$template->assign_block_vars('no_quali', array());
+						}
+
+						// Checks for a saved result
+						if ($races[$chosen_race]['race_result'] <> '0')
+						{
+							// Get the driver ids
+							$results = explode(",", $races[$chosen_race]['race_result']);
+
+							// Start output
+							for ($j = 0; $j < count($results) - 3; ++$j)
+							{
+								$current_driver_id = $results[$j];
+								$position = ($j == 0) ? $user->lang['FORMEL_RACE_WINNER'].': ' : $j + 1 . '. ' . $user->lang['FORMEL_PLACE'] . ': ';
+
+								if ($config['drdeath_f1webtip_show_gfx'] == 1)
+								{
+									$template->assign_block_vars('resultsrow_gfx', array(
+										'L_PLACE'			=> $position,
+										'DRIVERIMG'			=> (isset($drivers[$current_driver_id]['driver_img'])) 			? $drivers[$current_driver_id]['driver_img'] 		: '',
+										'DRIVERCAR'			=> (isset($drivers[$current_driver_id]['driver_car'])) 			? $drivers[$current_driver_id]['driver_car'] 		: '',
+										'DRIVERNAME'		=> (isset($drivers[$current_driver_id]['driver_name'])) 		? $drivers[$current_driver_id]['driver_name'] 		: '',
+										'DRIVERTEAMNAME'	=> (isset($drivers[$current_driver_id]['driver_team_name'])) 	? $drivers[$current_driver_id]['driver_team_name'] 	: '',
+										)
+									);
+								}
+								else
+								{
+									$template->assign_block_vars('resultsrow', array(
+										'L_PLACE'			=> $position,
+										'DRIVERNAME'		=> (isset($drivers[$current_driver_id]['driver_name'])) 		? $drivers[$current_driver_id]['driver_name'] 		: '',
+										)
+									);
+								}
+							}
+
+							if ($config['drdeath_f1webtip_show_gfx'] == 1)
+							{
+								$template->assign_block_vars('extended_results_gfx', array(
+									'PACE'				=> (isset($drivers[$results['10']]['driver_name']))	? $drivers[$results['10']]['driver_name'] 	: '',
+									'TIRED'				=> (isset($results['11'])) 							? $results['11'] 							: '',
+									'SAFETYCAR'			=> (isset($results['12'])) 							? $results['12'] 							: '',
+									'YOUR_POINTS'		=> $user_tipp_points,
+									)
+								);
+							}
+							else
+							{
+								$template->assign_block_vars('extended_results', array(
+									'PACE'				=> (isset($drivers[$results['10']]['driver_name']))	? $drivers[$results['10']]['driver_name'] 	: '',
+									'TIRED'				=> (isset($results['11'])) 							? $results['11'] 							: '',
+									'SAFETYCAR'			=> (isset($results['12'])) 							? $results['12'] 							: '',
+									'YOUR_POINTS'		=> $user_tipp_points,
+									)
+								);
+							}
+						}
+						else
+						{
+							// If no result was found
+							$template->assign_block_vars('no_results', array());
+						}
+
+						// Game over
+						if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+						{
+							$template->assign_block_vars('game_over', array());
+						}
+						else
+						{
+							//Check if it is a registered user. Guests are not allowed to place, edit or delete a tip.
+							if ($this->user->data['is_registered'])
+							{
+								$template->assign_block_vars('place_tipp', array(
+									'DELETE_TIPP'	=> $delete_button,
+									'L_PLACE_TIPP'	=> $tipp_button,
+									'PLACE_TIPP'	=> $tipp_button_name,
+									)
+								);
+							}
+						}
+
+						break;
+					}
+				}
 
 
 				// Forum button
@@ -1022,6 +1724,8 @@ class main
 
 				$this->template->assign_vars(array(
 					'S_INDEX'							=> true,
+					'S_COUNTDOWN'						=> ($config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
+					'S_FORM_ACTION'						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'U_ACTION'							=> $this->u_action,
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
 					'U_FORMEL_FORUM'					=> $discuss_button,
@@ -1034,6 +1738,10 @@ class main
 					'HEADER_HEIGHT' 					=> $config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 						=> $config['drdeath_f1webtip_head_width'],
 					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
+					'RACE_ID'							=> (isset($races[$chosen_race]['race_id']))   ? $races[$chosen_race]['race_id']   : 1,
+					'RACE_TIME'							=> (isset($races[$chosen_race]['race_time'])) ? $races[$chosen_race]['race_time'] : 1,
+					'RACE_OFFSET'						=> $race_offset,
+					'COUNTDOWN'							=> (isset($countdown)) ? $countdown : '',
 
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',

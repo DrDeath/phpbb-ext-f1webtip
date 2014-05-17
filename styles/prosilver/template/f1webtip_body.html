@@ -20,20 +20,15 @@ function showtipps(showtipps)
 			<div style="text-align: center;">
 				<!-- BEGIN head_on -->
 				<br/>
-				<img src="{HEADER_IMG}" width="{HEADER_WIDTH}" height="{HEADER_HEIGHT}" alt="" />
+				<a href="{HEADER_URL}"><img src="{HEADER_IMG}" width="{HEADER_WIDTH}" height="{HEADER_HEIGHT}" alt="" /></a><br/>
 				<!-- END head_on -->
 				<br/>
-				<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
-					<div>
-						<br/>
-						<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_RULES}'" value="{L_FORMEL_RULES}" />&nbsp;&nbsp;
-						{U_FORMEL_FORUM}
-						<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_STATISTICS}'" value="{L_FORMEL_STATISTICS}" />&nbsp;&nbsp;
-						<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_CALL_MOD}'"   value="{L_FORMEL_CALL_MOD}" />
-						<br/>
-						<br/>
-					</div>
-				</form>
+				<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_RULES}'" 		value="{L_FORMEL_RULES}" />&nbsp;&nbsp;
+				{U_FORMEL_FORUM}
+				<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_STATISTICS}'" value="{L_FORMEL_STATISTICS}" />&nbsp;&nbsp;
+				<input class="button1" type="button" onclick="window.location.href='{U_FORMEL_CALL_MOD}'"   value="{L_FORMEL_CALL_MOD}" />
+				<br/>
+				<br/>
 			</div>
 
 		<span class="corners-bottom"><span></span></span></div>
@@ -128,7 +123,416 @@ function showtipps(showtipps)
 
 	<p style="clear:both;" />
 
+	<!-- BEGIN racerow -->
+	<h2>{L_FORMEL_CURRENT_RACE}:&nbsp;&nbsp;&nbsp;{racerow.RACENAME}</h2>
+
+	<div >
+
+		<div class="forumbg">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+					<br/>
+					<!-- BEGIN racegfx -->
+					<div style="text-align: center;">
+						{racerow.RACEIMG}
+						<br/><br/>
+					</div>
+					<!-- END racegfx -->
+
+					<div class="column1" style="text-align: center;">
+						<input class="button1" type="submit" name="prev" value="{L_FORMEL_PREV_RACE}" />
+						<br/><br/>
+					</div>
+
+					<div class="column2" style="text-align: center;">
+						<input class="button1" type="submit" name="next" value="{L_FORMEL_NEXT_RACE}" />
+						<br/><br/>
+					</div>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+		<div class="responsive-hide forumbg">
+			<div class="inner"><span class="corners-top"><span></span></span>
+
+				<ul class="topiclist">
+					<li class="header">
+						<dl>
+							<dt style="padding: 2px 10px; font-size : 1.2em;">{racerow.RACENAME}</dt>
+						</dl>
+					</li>
+				</ul>
+				<ul class="topiclist forums">
+					<li class="row">
+						<dl style="font-size : 1.1em; font-weight: bold;">
+							<dt style="padding: 2px 10px;">
+								{L_FORMEL_RACETIME}:
+							</dt>
+							<dd style="padding: 2px 10px;">
+								{racerow.RACETIME}
+							</dd>
+						</dl>
+					</li>
+					<li class="row">
+						<dl style="font-size : 1.1em; font-weight: bold;">
+							<dt style="padding: 2px 10px; ">
+								{L_FORMEL_RACEDEAD}:
+							</dt>
+							<dd style="padding: 2px 10px; color : #ff0000;">
+								{racerow.RACEDEAD}
+							</dd>
+						</dl>
+					</li>
+					<!-- IF S_COUNTDOWN == true -->
+					<li class="row">
+						<dl style="font-size : 1.1em; font-weight: bold;">
+							<dt style="padding: 2px 10px; white-space:nowrap;">{L_FORMEL_COUNTDOWN_DEADLINE}</dt>
+							<dd id="time_event" style="display: ; padding: 2px 10px; white-space:nowrap;">
+								{L_DAYS}&nbsp;<input name="days" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />
+								<span style="display:" id="time_string">{L_HOURS}
+									<input name="hours" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />:
+									<input name="mins" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />:
+									<input name="secs" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />
+								</span>
+							</dd>
+							<dd id="event_time" style="display:none ; padding: 2px 10px;">
+								{L_FORMEL_DEADLINE_REACHED}
+							</dd>
+						</dl>
+					</li>
+					<!-- ENDIF -->
+					<li class="row">
+						<dl style="font-size : 1.1em; font-weight: bold;">
+							<dt style="padding: 2px 10px;">
+								{L_FORMEL_RACELENGTH}:
+							</dt>
+							<dd style="padding: 2px 10px;">
+								{racerow.RACELENGTH}
+							</dd>
+						</dl>
+						<dl style="font-size : 1.1em; font-weight: bold;">
+							<dt style="padding: 2px 10px;">
+								{L_FORMEL_RACELAPS}:
+							</dt>
+							<dd style="padding: 2px 10px;">
+								{racerow.RACELAPS}
+							</dd>
+						</dl>
+						<dl style="font-size : 1.1em; font-weight: bold;">
+							<dt style="padding: 2px 10px;">
+								{L_FORMEL_RACEDISTANCE}:
+							</dt>
+							<dd style="padding: 2px 10px;">
+								{racerow.RACEDISTANCE}
+							</dd>
+						</dl>
+						<dl style="font-size : 1.1em; font-weight: bold;">
+							<dt style="padding: 2px 10px;">
+								{L_FORMEL_RACEDEBUT}:
+							</dt>
+							<dd style="padding: 2px 10px;">
+								{racerow.RACEDEBUT}
+							</dd>
+						</dl>
+					</li>
+				</ul>
+				<!-- IF S_COUNTDOWN == true -->
+					<script type="text/javascript">countdown();</script>
+				<!-- ENDIF -->
+				<br/>
+
+			<span class="corners-bottom"><span></span></span></div>
+		</div>
+
+	</div>
+
+	<p style="clear: both;" />
+
+
+	<!-- END racerow -->
+
+	<div><img src="{EXT_PATH_IMAGES}spacer.gif" alt="" width="264" height="4"/></div>
+
+	<div class="navbar bg3">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+			{L_FORMEL_TIPPS_MADE}
+			<!-- BEGIN tipps_made -->
+			<a href="javascript:void(0)" onclick="javascript:showtipps('{tipps_made.USERTIPP}')" {tipps_made.STYLE}>{tipps_made.USERNAME}</a>{tipps_made.SEPARATOR}
+			<!-- END tipps_made -->
+			<!-- BEGIN no_tipps_made -->
+			{L_FORMEL_NO_TIPPS}
+			<!-- END no_tipps_made -->
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
+	<div><img src="{EXT_PATH_IMAGES}spacer.gif" alt="" width="264" height="4"/></div>
+
+	<div class="navbar ucprowbg">
+		<div class="inner"><span class="corners-top"><span></span></span>
+
+			<table width="100%" cellpadding="0" cellspacing="1">
+				<tr>
+					<td class="responsive-hide" valign="top" style="width: 33%;">
+						<table class="table1" width="100%" >
+							<thead>
+								<tr>
+									 <th colspan="2" align="center" ><strong>{L_FORMEL_CURRENT_QUALI}</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- BEGIN no_quali -->
+								<tr class="bg1">
+									 <td colspan="2" align="center"><span class="gen">{L_FORMEL_NO_QUALI}</span></td>
+								</tr>
+								<!-- END no_quali -->
+								<!-- BEGIN qualirow_gfx -->
+								<!-- IF qualirow_gfx.S_ROW_COUNT < 10 -->
+								<tr class="bg1">
+								<!-- ELSEIF qualirow_gfx.S_ROW_COUNT < 16 -->
+								<tr class="bg2">
+								<!-- ELSE -->
+								<tr class="bg3">
+								<!-- ENDIF -->
+									<td align="center" style="width: 30%;">{qualirow_gfx.DRIVERIMG}</td>
+									<td align="left" style="width: 70%; white-space:nowrap;">
+										<strong>&nbsp;{qualirow_gfx.L_PLACE}&nbsp;</strong><br />
+										&nbsp;{qualirow_gfx.DRIVERNAME}&nbsp;<br />
+										&nbsp;{qualirow_gfx.DRIVERTEAMNAME}&nbsp;
+									</td>
+								</tr>
+								<!-- END qualirow_gfx -->
+								<!-- BEGIN qualirow -->
+								<!-- IF qualirow.S_ROW_COUNT < 10 -->
+								<tr class="bg1">
+								<!-- ELSEIF qualirow.S_ROW_COUNT < 16 -->
+								<tr class="bg2">
+								<!-- ELSE -->
+								<tr class="bg3">
+								<!-- ENDIF -->
+									 <td align="right" style="width: 50%;" ><strong>&nbsp;{qualirow.L_PLACE}&nbsp;</strong></td>
+									 <td align="left" style="width: 50%; white-space:nowrap;">&nbsp;{qualirow.DRIVERNAME}&nbsp;</td>
+								</tr>
+								<!-- END qualirow -->
+							</tbody>
+						</table>
+					</td>
+					<td class="responsive-hide" valign="top" style="width: 33%;">
+						<table class="table1" style="width: 100%;">
+							<thead>
+								<tr>
+									<th colspan="2" align="center" ><strong>{L_FORMEL_CURRENT_RESULT}</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- BEGIN no_results -->
+								<tr class="bg1">
+									<td colspan="2" align="center">{L_FORMEL_NO_RESULTS}</td>
+								</tr>
+								<!-- END no_results -->
+								<!-- BEGIN resultsrow_gfx -->
+								<!-- IF resultsrow_gfx.S_ROW_COUNT < 3 -->
+								<tr class="bg1">
+								<!-- ELSE -->
+								<tr class="bg2">
+								<!-- ENDIF -->
+									<td align="center" style="width: 30%;">&nbsp;{resultsrow_gfx.DRIVERIMG}&nbsp;</td>
+									<td align="left" style="width: 70%; white-space:nowrap;">
+										<strong>&nbsp;{resultsrow_gfx.L_PLACE}</strong><br />
+										&nbsp;{resultsrow_gfx.DRIVERNAME}&nbsp;<br />
+										&nbsp;{resultsrow_gfx.DRIVERTEAMNAME}&nbsp;
+									</td>
+								</tr>
+								<!-- END resultsrow_gfx -->
+								<!-- BEGIN resultsrow -->
+								<!-- IF resultsrow.S_ROW_COUNT < 3 -->
+								<tr class="bg1">
+								<!-- ELSE -->
+								<tr class="bg2">
+								<!-- ENDIF -->
+									<td align="right" style="width: 50%;" ><strong>&nbsp;{resultsrow.L_PLACE}</strong></td>
+									<td align="left" style="width: 50%; white-space:nowrap;">&nbsp;{resultsrow.DRIVERNAME}&nbsp;</td>
+								</tr>
+								<!-- END resultsrow -->
+								<!-- BEGIN extended_results -->
+								<tr class="bg1">
+									<td align="right" style="width: 50%;" >&nbsp;<strong>{L_FORMEL_PACE}:</strong></td>
+									<td align="left" style="width: 50%;" >&nbsp;{extended_results.PACE}&nbsp;</td>
+								</tr>
+								<tr class="bg1">
+									<td align="right" style="width: 50%;" >&nbsp;<strong>{L_FORMEL_TIRED}:</strong></td>
+									<td align="left" style="width: 50%;" >&nbsp;{extended_results.TIRED}&nbsp;</td>
+								</tr>
+								<tr class="bg1">
+									<td align="right" style="width: 50%;" >&nbsp;<strong>{L_FORMEL_SAFETYCAR}:</strong></td>
+									<td align="left" style="width: 50%;" >&nbsp;{extended_results.SAFETYCAR}&nbsp;</td>
+								</tr>
+								<!-- END extended_results -->
+								<!-- BEGIN extended_results_gfx -->
+								<tr class="bg1">
+									<td align="right" style="width: 30%; white-space:nowrap;">&nbsp;<strong>{L_FORMEL_PACE}:</strong></td>
+									<td align="left" style="width: 70%;" >&nbsp;{extended_results_gfx.PACE}&nbsp;</td>
+								</tr>
+								<tr class="bg1">
+									<td align="right" style="width: 30%; white-space:nowrap;">&nbsp;<strong>{L_FORMEL_TIRED}:</strong></td>
+									<td align="left" style="width: 70%;" >&nbsp;{extended_results_gfx.TIRED}&nbsp;</td>
+								</tr>
+								<tr class="bg1">
+									<td align="right" style="width: 30%;">&nbsp;<strong>{L_FORMEL_SAFETYCAR}:</strong></td>
+									<td align="left" style="width: 70%;" >&nbsp;{extended_results_gfx.SAFETYCAR}&nbsp;</td>
+								</tr>
+								<!-- END extended_results_gfx -->
+								<!-- BEGIN extended_results -->
+								<tr class="bg1">
+									<td style="width: 50%;">&nbsp;</td>
+									<td style="width: 50%;">&nbsp;</td>
+								</tr>
+								<!-- END extended_results -->
+								<!-- BEGIN extended_results_gfx -->
+								<tr class="bg1">
+									<td style="width: 50%;">&nbsp;</td>
+									<td style="width: 50%;">&nbsp;</td>
+								</tr>
+								<!-- END extended_results_gfx -->
+							</tbody>
+						</table>
+					</td>
+					<td valign="top" style="width: 33%;">
+						<table class="table1" style="width: 100%;">
+							<thead>
+								<tr>
+									<th colspan="3" align="center" ><strong>{L_FORMEL_YOUR_TIPP}</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- BEGIN users_tipp -->
+								<!-- IF users_tipp.S_ROW_COUNT < 3 -->
+								<tr class="bg1">
+								<!-- ELSE -->
+								<tr class="bg2">
+								<!-- ENDIF -->
+									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{users_tipp.L_PLACE}:</strong></span></td>
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{users_tipp.DRIVERCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{users_tipp.SINGLE_POINTS}&nbsp;</span></td>
+								</tr>
+								<!-- END users_tipp -->
+								<!-- BEGIN gfx_users_tipp -->
+								<!-- IF gfx_users_tipp.S_ROW_COUNT < 3 -->
+								<tr class="bg1">
+								<!-- ELSE -->
+								<tr class="bg2">
+								<!-- ENDIF -->
+									<td style="width: 30%;" align="right"><span class="gen"><strong>&nbsp;{gfx_users_tipp.GFXDRIVERCOMBO}&nbsp;</strong></span></td>
+									<td style="width: 60%; white-space:nowrap;" align="left">
+										<span class="gen"><strong>{gfx_users_tipp.L_PLACE}</strong></span>
+										<span class="gen">&nbsp;{gfx_users_tipp.DRIVERCOMBO}</span>
+										<span class="gen">{gfx_users_tipp.DRIVERTEAMNAME}</span>
+									</td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{gfx_users_tipp.SINGLE_POINTS}&nbsp;</span></td>
+								</tr>
+								<!-- END gfx_users_tipp -->
+								<!-- BEGIN extended_users_tipp -->
+								<tr class="bg1">
+									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_PACE}:</strong></span></td>
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_users_tipp.DRIVERCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_FASTEST}&nbsp;</span></td>
+								</tr>
+								<tr class="bg1">
+									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></span></td>
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_users_tipp.TIREDCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_TIRED}&nbsp;</span></td>
+								</tr>
+								<tr class="bg1">
+									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></span></td>
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_users_tipp.SAFETYCARCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp.SINGLE_SAFETY_CAR}&nbsp;</span></td>
+								</tr>
+								<!-- END extended_users_tipp -->
+								<!-- BEGIN extended_users_tipp_gfx -->
+								<tr class="bg1">
+									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_PACE}:</strong></span></td>
+									<td style="width: 60%;" align="left"><span class="gen">&nbsp;{extended_users_tipp_gfx.DRIVERCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_FASTEST}&nbsp;</span></td>
+								</tr>
+								<tr class="bg1">
+									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></span></td>
+									<td style="width: 60%;" align="left"><span class="gen">&nbsp;{extended_users_tipp_gfx.TIREDCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_TIRED}&nbsp;</span></td>
+								</tr>
+								<tr class="bg1">
+									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></span></td>
+									<td style="width: 60%;" align="left"><span class="gen">&nbsp;{extended_users_tipp_gfx.SAFETYCARCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="center"><span class="gen">&nbsp;{extended_users_tipp_gfx.SINGLE_SAFETY_CAR}&nbsp;</span></td>
+								</tr>
+								<!-- END extended_users_tipp_gfx -->
+								<!-- BEGIN add_tipp -->
+								<!-- IF add_tipp.S_ROW_COUNT < 3 -->
+								<tr class="bg1">
+								<!-- ELSE -->
+								<tr class="bg2">
+								<!-- ENDIF -->
+									<td style="width: 40%;" align="right"><span class="gen"><strong>&nbsp;{add_tipp.L_PLACE}&nbsp;</strong></span></td>
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{add_tipp.DRIVERCOMBO}</span></td>
+									<td style="width: 10%;" align="left">&nbsp;</td>
+								</tr>
+								<!-- END add_tipp -->
+								<!-- BEGIN extended_add_tipp -->
+								<tr class="bg1">
+									<td style="width: 40%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_PACE}:</strong></span></td>
+
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_add_tipp.DRIVERCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="left">&nbsp;</td>
+								</tr>
+								<tr class="bg1">
+									<td style="width: 40%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></span></td>
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_add_tipp.TIREDCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="left">&nbsp;</td>
+								</tr>
+								<tr class="bg1">
+									<td style="width: 40%; white-space:nowrap;" align="right"><span class="gen"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></span></td>
+									<td style="width: 50%;" align="left"><span class="gen">&nbsp;{extended_add_tipp.SAFETYCARCOMBO}&nbsp;</span></td>
+									<td style="width: 10%;" align="left">&nbsp;</td>
+								</tr>
+								<!-- END extended_add_tipp -->
+								<!-- BEGIN extended_results -->
+								<tr class="bg1">
+									<td style="width: 40%;" align="right"><span class="gen" style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
+									<td style="width: 50%;" align="left">&nbsp;</td>
+									<td style="width: 10%;" align="center"><span class="gen" style="color:#009900"><strong>&nbsp;{extended_results.YOUR_POINTS}</strong></span></td>
+								</tr>
+								<!-- END extended_results -->
+								<!-- BEGIN extended_results_gfx -->
+								<tr class="bg1">
+									<td style="width: 30%; white-space:nowrap;" align="right"><span class="gen" style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
+									<td style="width: 60%;" align="left">&nbsp;</td>
+									<td style="width: 10%;" align="center"><span class="gen" style="color:#009900"><strong>&nbsp;{extended_results_gfx.YOUR_POINTS}</strong></span></td>
+								</tr>
+								<!-- END extended_results_gfx -->
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<input type="hidden" name="race_offset" value="{RACE_OFFSET}" />
+			<input type="hidden" name="race_id" value="{RACE_ID}" />
+			<input type="hidden" name="tipp_time" value="{RACE_TIME}" />
+			{S_FORM_TOKEN}
+
+			<!-- BEGIN place_tipp -->
+			<div style="text-align: center;"><input class="button1" type="submit" name="{place_tipp.PLACE_TIPP}" value="{place_tipp.L_PLACE_TIPP}" />{place_tipp.DELETE_TIPP}</div>
+			<!-- END place_tipp -->
+			<!-- BEGIN game_over -->
+			<div style="text-align: center;">{L_FORMEL_GAME_OVER}</div>
+			<!-- END game_over -->
+
+		<span class="corners-bottom"><span></span></span></div>
+	</div>
+
 </form>
+
+
 <!-- ENDIF -->
 
 

@@ -522,7 +522,7 @@ class main
 							);
 						}
 					}
-					
+
 					// Do we have some team points yet?
 					if ($real_rank == 0)
 					{
@@ -632,7 +632,7 @@ class main
 							);
 						}
 					}
-					
+
 					// Do we have some driver points yet?
 					if ($rank == 0)
 					{
@@ -716,17 +716,17 @@ class main
 							)
 						);
 					}
-					
+
 					// Do we have some user tips yet?
 					if ($real_rank == 0)
 					{
 						$show_avatar_switch 		= false;
-						
+
 						if ($config['drdeath_f1webtip_show_avatar'] == 1)
 						{
 							$show_avatar_switch 	= true;
 						}
-						
+
 						$template->assign_block_vars('top_tippers', array(
 							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
 							'TIPPER_AVATAR'			=> '',
@@ -768,7 +768,7 @@ class main
 
 			###########################
 			###      RESULTS       ####
-			###########################			
+			###########################
 			case 'results':
 
 				// Set template vars
@@ -841,7 +841,7 @@ class main
 					'S_FORM_ACTION'					=> $this->helper->route('f1webtip_controller', array('name' => 'addresults')),
 					'U_FORMEL'						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'U_FORMEL_RESULTS'				=> $this->helper->route('f1webtip_controller', array('name' => 'results')),
-					
+
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
 					)
@@ -852,7 +852,7 @@ class main
 
 			###########################
 			###    	ADDRESULTS     ####
-			###########################				
+			###########################
 			case 'addresults':
 
 				// Set template vars
@@ -1410,9 +1410,177 @@ class main
 					'U_FORMEL' 						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'U_FORMEL_RESULTS' 				=> $this->helper->route('f1webtip_controller', array('name' => 'results')),
 					'RACE_ID' 						=> $race_id,
-					
+
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
+					)
+				);
+
+			break;
+
+
+			###########################
+			###       USERTIP      ####
+			###########################
+			case 'usertipp':
+
+				// Set template vars
+				$page_title = $user->lang['FORMEL_TITLE'];
+
+				// Check buttons & data
+				$tipp_id = $request->variable('tipp',	0);
+				$race_id = $request->variable('race',	0);
+
+				// Get current race and time
+				$race 			= $this->get_formel_races();
+				$results		= explode(",", $race[$race_id]['race_result']);
+				$current_time	= time();
+
+				// Get current tip
+				$sql = 'SELECT *
+					FROM ' . $table_tips . '
+					WHERE tip_id = ' . (int) $tipp_id;
+				$result = $db->sql_query($sql);
+
+				$tipp_active = $db->sql_affectedrows($result);
+
+				// Do the work only if there is a tip
+				if ($tipp_active)
+				{
+					$tippdata = $db->sql_fetchrowset($result);
+					$tipp_userdata = $this->get_formel_userdata($tippdata['0']['tip_user']);
+					$db->sql_freeresult($result);
+
+					// Get all drivers
+					$sql = 'SELECT *
+						FROM ' . $table_drivers . '
+						ORDER BY driver_id ASC';
+					$result = $db->sql_query($sql);
+
+					while ($row = $db->sql_fetchrow($result))
+					{
+						$driver_name[$row['driver_id']] = $row['driver_name'];
+					}
+
+					$db->sql_freeresult($result);
+
+					// Get all tip points
+					$sql = 'SELECT sum(tip_points) AS total_points
+						FROM ' . $table_tips . '
+						WHERE tip_user = ' . (int) $tipp_userdata['user_id'];
+					$result = $db->sql_query($sql);
+
+					while ($row = $db->sql_fetchrow($result))
+					{
+						$tipper_all_points = $row['total_points'];
+					}
+
+					$db->sql_freeresult($result);
+
+					// Build output
+
+					$tipp_array 		= array();
+					$tipper_name 		= get_username_string('username', $tipp_userdata['user_id'], $tipp_userdata['username'], $tipp_userdata['user_colour']);
+					$tipp_user_colour	= get_username_string('colour', $tipp_userdata['user_id'], $tipp_userdata['username'], $tipp_userdata['user_colour']);
+					$tipper_style		= ($tipp_user_colour) ? ' style="color: ' . $tipp_user_colour . '; font-weight: bold;"' : '' ;
+					$tipper_link 		= ($tipper_name <> $user->lang['GUEST']) ? '<a href="' . append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=viewprofile&amp;u=' . (int) $tipp_userdata['user_id']) . '"' . $tipper_style . ' onclick="window.open(this.href); return false">' . $tipper_name . '</a>' : $tipper_name;
+					$tipper_points 		= $tippdata['0']['tip_points'];
+					$tipp_array 		= explode(',', $tippdata['0']['tip_result']);
+					$is_hidden			= ($race[$race_id]['race_time'] - $config['drdeath_f1webtip_deadline_offset']  <= $current_time ) ? false : true ;
+
+					for ($i = 0; $i < count($tipp_array) - 3; ++$i)
+					{
+						$position 		= ($i == 0) ? $user->lang['FORMEL_RACE_WINNER'] : $i + 1 . '. ' . $user->lang['FORMEL_PLACE'];
+						$driver_placed 	= (isset($driver_name[$tipp_array[$i]])) ? $driver_name[$tipp_array[$i]] : '';
+						$driverid 		= (isset($tipp_array[$i])) ? $tipp_array[$i] : '';
+
+						//Recalc Tipp Points for Place 1 - 10
+						$single_points = 0;
+
+						if (isset($results[$i]))
+						{
+							if (($driverid == $results[$i]) && $driverid <> 0)
+							{
+								$single_points += $config['drdeath_f1webtip_points_placed'];
+							}
+						}
+
+						for ($j = 0; $j < count($tipp_array) - 3; ++$j)
+						{
+							if (isset($results[$j]))
+							{
+								if (($driverid == $results[$j]) && $driverid <> 0)
+								{
+									$single_points += $config['drdeath_f1webtip_points_mentioned'];
+								}
+							}
+						}
+
+						if ($single_points == 0)
+						{
+							$single_points='';
+						}
+
+						$template->assign_block_vars('user_drivers', array(
+							'DRIVER_PLACED' 	=> ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $user->lang['FORMEL_HIDDEN'] : $driver_placed,
+							'POSITION' 			=> $position,
+							'SINGLE_POINTS' 	=> $single_points,
+							)
+						);
+					}
+
+					$fastest_driver_name 	= (isset($driver_name[$tipp_array['10']])) ? $driver_name[$tipp_array['10']] : '';
+					$tired 					= (isset($tipp_array['11'])) ? $tipp_array['11'] : '';
+					$safetycar				= (isset($tipp_array['12'])) ? $tipp_array['12'] : '';
+
+					//Recalc tip points for fastest driver and tired count
+					$single_fastest	= $single_tired = $single_safety_car = '';
+
+					if (isset($results['10']) && $results['10'] <> 0)
+					{
+						if ($tipp_array['10'] == $results['10'])
+						{
+							$single_fastest += $config['drdeath_f1webtip_points_fastest'];
+						}
+					}
+
+					if (isset($results['11']))
+					{
+						if ($tipp_array['11'] == $results['11'])
+						{
+							$single_tired += $config['drdeath_f1webtip_points_tired'];
+						}
+					}
+
+					if (isset($results['12']))
+					{
+						if ($tipp_array['12'] == $results['12'])
+						{
+							$single_safety_car += $config['drdeath_f1webtip_points_safety_car'];
+						}
+					}
+
+					$template->assign_block_vars('user_tipp', array(
+						'TIPPER' 			=> $tipper_link,
+						'POINTS' 			=> $tipper_points,
+						'ALL_POINTS' 		=> $tipper_all_points,
+						'FASTEST_DRIVER' 	=> (isset($fastest_driver_name)) 	? ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $user->lang['FORMEL_HIDDEN'] : $fastest_driver_name : '',
+						'TIRED' 			=> (isset($tired)) 					? ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $user->lang['FORMEL_HIDDEN'] : $tired : '',
+						'SAFETYCAR' 		=> (isset($safetycar)) 				? ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $user->lang['FORMEL_HIDDEN'] : $safetycar : '',
+						'SINGLE_FASTEST' 	=> (isset($single_fastest)) 		? $single_fastest : '',
+						'SINGLE_TIRED' 		=> (isset($single_tired)) 			? $single_tired : '',
+						'SINGLE_SAFETY_CAR' => (isset($single_safety_car)) 		? $single_safety_car : '',
+						)
+					);
+				}
+				else
+				{
+					$template->assign_block_vars('no_tipp', array());
+				}
+
+				// Output global values
+				$template->assign_vars(array(
+					'S_USERTIPP'		=> true,
 					)
 				);
 
@@ -1443,7 +1611,7 @@ class main
 
 				//Define some vars
 				$driver_team_name = $driverteamname = $gfxdrivercar = $gfxdrivercombo = $single_fastest	= $single_tired	= $single_safety_car = '';
-				
+
 				$current_time = time();
 
 				// Check if the user want to see prev/next race
@@ -1476,7 +1644,7 @@ class main
 					$tipp_msg = sprintf($user->lang['FORMEL_TIPP_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
 					trigger_error( $tipp_msg);
 				}
-				
+
 				// Add or edit a tip
 				if (($place_my_tipp || $edit_my_tipp) && $tipp_time - $config['drdeath_f1webtip_deadline_offset'] >= time())
 				{
@@ -1655,7 +1823,7 @@ class main
 
 					++$limit;
 				}
-				
+
 				// Do we have some driver points yet?
 				if ($rank == 0)
 				{
@@ -1720,7 +1888,7 @@ class main
 
 					++$limit;
 				}
-				
+
 				// Do we have some team points yet?
 				if ($real_rank == 0)
 				{
@@ -2406,7 +2574,7 @@ class main
 
 			break;
 		}
-		
+
 		page_header($page_title);
 		return $this->helper->render('f1webtip_body.html', $name);
 	}

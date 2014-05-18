@@ -1,3 +1,6 @@
+<!-- IF not S_USERTIPP -->
+
+
 <!-- INCLUDE overall_header.html -->
 
 
@@ -965,5 +968,85 @@ Please leave the copyright information at the bottom of your page for our mod.
 	</form>
 </div>
 <br />
-
 <!-- INCLUDE overall_footer.html -->
+
+<!-- ENDIF -->
+
+
+<!-- IF S_USERTIPP -->
+<!-- INCLUDE simple_header.html -->
+<div class="forumbg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+		<table class="table1">
+			<thead>
+				<tr>
+					<th colspan="3">
+					{L_FORMEL_TITLE}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- BEGIN user_tipp -->
+				<tr class="bg3">
+					<td colspan="3" align="center">{user_tipp.TIPPER}</td>
+				</tr>
+				<!-- END user_tipp -->
+				<!-- BEGIN user_drivers -->
+				<!-- IF user_drivers.S_ROW_COUNT < 3 -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td  class="responsive-show-inline-block" style="width: 30%;" align="right"><strong>&nbsp;{user_drivers.POSITION}:&nbsp;</strong></td>
+					<td  class="responsive-show-inline-block" style="width: 50%;">&nbsp;{user_drivers.DRIVER_PLACED}&nbsp;</td>
+					<td  class="responsive-show-inline-block" style="width: 20%;">&nbsp;{user_drivers.SINGLE_POINTS}&nbsp;</td>
+				</tr>
+				<!-- END user_drivers -->
+				<!-- BEGIN user_tipp -->
+				<tr class="bg1">
+					<td class="responsive-show-inline-block" style="width: 30%;" align="right"><strong>&nbsp;{L_FORMEL_PACE}:&nbsp;</strong></td>
+					<td class="responsive-show-inline-block" style="width: 50%;">&nbsp;{user_tipp.FASTEST_DRIVER}&nbsp;</td>
+					<td class="responsive-show-inline-block" style="width: 20%;">&nbsp;{user_tipp.SINGLE_FASTEST}&nbsp;</td>
+				</tr>
+				<tr class="bg2">
+					<td class="responsive-show-inline-block" style="width: 30%;" class="row3" align="right"><strong><span class="gen">&nbsp;{L_FORMEL_TIRED}:&nbsp;</span></strong></td>
+					<td class="responsive-show-inline-block" style="width: 50%;"><span class="gen">&nbsp;{user_tipp.TIRED}&nbsp;</span></td>
+					<td class="responsive-show-inline-block" style="width: 20%;"><span class="gen">&nbsp;{user_tipp.SINGLE_TIRED}&nbsp;</span></td>
+				</tr>
+				<tr class="bg1">
+					<td class="responsive-show-inline-block" style="width: 30%;" class="row3" align="right"><strong><span class="gen">&nbsp;{L_FORMEL_SAFETYCAR}:&nbsp;</span></strong></td>
+					<td class="responsive-show-inline-block" style="width: 50%;"><span class="gen">&nbsp;{user_tipp.SAFETYCAR}&nbsp;</span></td>
+					<td class="responsive-show-inline-block" style="width: 20%;"><span class="gen">&nbsp;{user_tipp.SINGLE_SAFETY_CAR}&nbsp;</span></td>
+				</tr>
+				<tr class="bg3">
+					<td colspan="3">&nbsp;</td>
+				</tr>
+				<tr class="bg1">
+					<td class="responsive-show-inline-block" style="width: 50%;" align="right"><strong>&nbsp;{L_FORMEL_POINTS_WON}:&nbsp;</strong></td>
+					<td class="responsive-show-inline-block" style="width: 50%;" align="right" colspan="2"><strong>&nbsp;{user_tipp.POINTS}&nbsp;</strong></td>
+				</tr>
+				<tr class="bg2">
+					<td class="responsive-show-inline-block" style="width: 50%;" align="right"><strong>&nbsp;{L_FORMEL_ALL_POINTS}:&nbsp;</strong></td>
+					<td class="responsive-show-inline-block" style="width: 50%;" align="left" colspan="2">&nbsp;{user_tipp.ALL_POINTS}&nbsp;</td>
+				</tr>
+				<!-- END user_tipp -->
+				<!-- BEGIN no_tipp -->
+				<tr>
+					<td class="row1" align="center" colspan="2"><span class="gen">&nbsp;{L_FORMEL_NO_TIPP}&nbsp;</span></td>
+				</tr>
+				<!-- END no_tipp -->
+			</tbody>
+		</table>
+		<br />
+		<div style="text-align: center;">
+			<p class="submit-buttons">
+				<input class="button1" id="submit" type="submit" onclick="javascript:window.close()" value="{L_FORMEL_CLOSE_WINDOW}" />
+			</p>
+		</div>
+		<br />
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- INCLUDE simple_footer.html -->
+<!-- ENDIF -->

@@ -1,7 +1,7 @@
 <!-- INCLUDE overall_header.html -->
 
-<!-- IF S_INDEX -->
 
+<!-- IF S_INDEX -->
 <script type="text/javascript">
 // <![CDATA[
 function showtipps(showtipps)
@@ -531,13 +531,185 @@ function showtipps(showtipps)
 	</div>
 
 </form>
+<!-- ENDIF -->
 
 
+<!-- IF S_RESULTS -->
+<h2>{L_FORMEL_RESULTS_TITLE}</h2>
+{L_FORMEL_RESULTS_TITLE_EXP}
+
+<div class="forumbg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+		<table class="table1">
+			<thead>
+				<tr>
+					<th colspan="2"><strong>{L_FORMEL_RACENAME}</strong></th>
+					<th><strong>{L_FORMEL_CURRENT_QUALI}</strong></th>
+					<th><strong>{L_FORMEL_CURRENT_RESULT}</strong></th>
+				</tr>
+			</thead>
+			<tbody>
+			<!-- BEGIN racerow_gfxr -->
+				<!-- IF racerow_gfxr.S_ROW_COUNT is even -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td style="white-space:nowrap;" align="center" valign="middle">
+						&nbsp;{racerow_gfxr.RACEIMG}&nbsp;
+					</td>
+					<td style="width: 100%; white-space:nowrap;" align="left" valign="middle">
+						<strong>{L_FORMEL_RACENAME}:</strong> {racerow_gfxr.RACENAME}<br />
+						<strong>{L_TIME}:</strong> {racerow_gfxr.RACETIME}<br />
+						<strong>{L_FORMEL_RACEDEAD}:</strong> {racerow_gfxr.RACEDEAD}
+					</td>
+					<td style="white-space:nowrap;" align="center" valign="middle">
+						<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
+							<div>
+								&nbsp;{racerow_gfxr.QUALI_BUTTONS}&nbsp;
+								<input type="hidden" name="race_id" value="{racerow_gfxr.RACEID}" />
+								{S_FORM_TOKEN}
+							</div>
+						</form>
+					</td>
+					<td style="white-space:nowrap;" align="center" valign="middle">
+						<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
+							<div>
+								&nbsp;{racerow_gfxr.RESULT_BUTTONS}&nbsp;
+								<input type="hidden" name="race_id" value="{racerow_gfxr.RACEID}" />
+								{S_FORM_TOKEN}
+							</div>
+						</form>
+					</td>
+				</tr>
+			<!-- END racerow_gfxr -->
+			<!-- BEGIN racerow -->
+				<!-- IF racerow.S_ROW_COUNT is even -->
+				<tr class="bg1">
+				<!-- ELSE -->
+				<tr class="bg2">
+				<!-- ENDIF -->
+					<td colspan="2" style="width: 100%; white-space:nowrap;" align="left" valign="middle">
+						<strong>{L_FORMEL_RACENAME}:</strong> {racerow.RACENAME}<br />
+						<strong>{L_TIME}:</strong> {racerow.RACETIME}<br />
+						<strong>{L_FORMEL_RACEDEAD}:</strong> {racerow.RACEDEAD}
+					</td>
+					<td style="white-space:nowrap;" align="center" valign="middle">
+						<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
+							<div>
+								&nbsp;{racerow.QUALI_BUTTONS}&nbsp;
+								<input type="hidden" name="race_id" value="{racerow.RACEID}" />
+								{S_FORM_TOKEN}
+							</div>
+						</form>
+					</td>
+					<td style="white-space:nowrap;" align="center" valign="middle">
+						<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
+							<div>
+								&nbsp;{racerow.RESULT_BUTTONS}&nbsp;
+								<input type="hidden" name="race_id" value="{racerow.RACEID}" />
+								{S_FORM_TOKEN}
+							</div>
+						</form>
+					</td>
+				</tr>
+			<!-- END racerow -->
+			</tbody>
+		</table>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
+<!-- ENDIF -->
+
+
+<!-- IF S_ADDRESULTS -->
+<h2>{L_FORMEL_RESULTS_TITLE}</h2>
+{L_FORMEL_RESULTS_TITLE_EXP}
+
+<div class="forumbg">
+	<div class="inner"><span class="corners-top"><span></span></span>
+
+		<form action="{S_FORM_ACTION}" method="post" enctype="multipart/form-data">
+			<table class="table1">
+				<!-- BEGIN quali -->
+				<thead>
+					<tr>
+						<th colspan="2"><strong>{L_FORMEL_RESULTS_QUALI_TITLE}</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+				<!-- END quali -->
+				<!-- BEGIN qualirow -->
+					<!-- IF qualirow.S_ROW_COUNT < 10 -->
+					<tr class="bg1">
+					<!-- ELSEIF qualirow.S_ROW_COUNT < 16 -->
+					<tr class="bg2">
+					<!-- ELSE -->
+					<tr class="bg3">
+					<!-- ENDIF -->
+						<td style="width: 50%;" align="right" valign="middle">{qualirow.L_PLACE}&nbsp;</td>
+						<td style="width: 50%;" align="left"  valign="middle">&nbsp;{qualirow.DRIVERCOMBO}</td>
+					</tr>
+				<!-- END qualirow -->
+				<!-- BEGIN quali -->
+					<tr>
+						<td style="white-space:nowrap;" class="bg3" align="center" colspan="2" valign="middle">&nbsp;<input class="button1" type="submit" name="addquali" value="{L_FORMEL_RESULTS_ADD}" />&nbsp;</td>
+					</tr>
+				<!-- END quali -->
+				<!-- BEGIN result -->
+				<thead>
+					<tr>
+						<th colspan="2"><strong>{L_FORMEL_RESULTS_RESULT_TITLE}</strong></th>
+					</tr>
+				</thead>
+				<tbody>
+				<!-- END result -->
+				<!-- BEGIN resultrow -->
+					<!-- IF resultrow.S_ROW_COUNT < 3 -->
+					<tr class="bg1">
+					<!-- ELSE -->
+					<tr class="bg3">
+					<!-- ENDIF -->
+						<td style="width: 50%;" align="right">{resultrow.L_PLACE}&nbsp;</td>
+						<td style="width: 50%;" align="left">&nbsp;{resultrow.DRIVERCOMBO}</td>
+					</tr>
+					<!-- END resultrow -->
+					<!-- BEGIN result -->
+					<tr class="bg1">
+						<td style="width: 50%;" align="right">{L_FORMEL_PACE}&nbsp;</td>
+						<td style="width: 50%;" align="left">&nbsp;{result.PACECOMBO}</td>
+					</tr>
+					<tr class="bg1">
+						<td style="width: 50%;" align="right">{L_FORMEL_TIRED}&nbsp;</td>
+						<td style="width: 50%;" align="left">&nbsp;{result.TIREDCOMBO}</td>
+					</tr>
+					<tr class="bg1">
+						<td style="width: 50%;" align="right">{L_FORMEL_SAFETYCAR}&nbsp;</td>
+						<td style="width: 50%;" align="left">&nbsp;{result.SAFETYCARCOMBO}</td>
+					</tr>
+					<tr class="bg1">
+						<td style="width: 50%;" align="right">{L_FORMEL_RACE_ABORD}&nbsp;</td>
+						<td style="width: 50%;" align="left">&nbsp;<input type="radio" name="race_abort" value="1" />&nbsp;{L_YES}&nbsp;&nbsp;<input type="radio" name="race_abort" value="0" checked />&nbsp;{L_NO}&nbsp;</td>
+					</tr>
+					<tr class="bg3">
+						<td align="center" colspan="2"><input class="button1" type="submit" name="{result.MODE}" value="{L_FORMEL_RESULTS_ADD}" /></td>
+					</tr>
+					<!-- END result -->
+				</tbody>
+			</table>
+			<div>
+				<input type="hidden" name="race_id" value="{RACE_ID}" />
+			{S_FORM_TOKEN}
+			</div>
+		</form>
+
+	<span class="corners-bottom"><span></span></span></div>
+</div>
 <!-- ENDIF -->
 
 
 <!-- IF S_RULES -->
-
 <h2>{L_FORMEL_TITLE}</h2>
 
 <div class="forumbg">

@@ -22,8 +22,9 @@ class main_listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'						=> 'load_language_on_setup',
-			'core.page_header'						=> 'add_page_header_link',
+			'core.user_setup'							=> 'load_language_on_setup',
+			'core.page_header'							=> 'add_page_header_link',
+			'core.memberlist_prepare_profile_data'	    => 'prepare_f1webtip_stats',
 		);
 	}
 
@@ -61,4 +62,74 @@ class main_listener implements EventSubscriberInterface
 			'U_F1WEBTIP_PAGE'	=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 		));
 	}
+	public function prepare_f1webtip_stats($event)
+    {
+    	global $db, $auth, $config, $template, $phpbb_container, $user;
+    	
+		if ($config['drdeath_f1webtip_show_in_profile'])
+		{
+			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
+			$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
+
+			//Is the user member of the restricted group?
+			$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
+			
+			if ($config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $user->data['user_id'] == $config['drdeath_f1webtip_mod_id'])
+			{
+				$tippers_rank   = $user->lang['FORMEL_PROFILE_NORANK'];
+				$tippers_points = 0;
+				$race_done      = 0;
+
+				$table_tips		= $phpbb_container->getParameter('tables.f1webtip.tips');
+				$table_races	= $phpbb_container->getParameter('tables.f1webtip.races');
+				
+				// Get tip data for this user
+				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
+					FROM ' . $table_tips . '
+					GROUP BY tip_user
+					ORDER BY total_points DESC';
+				$result = $db->sql_query($sql);
+
+				$rank_count = $real_rank  = 1;
+				$previous_points = false;
+
+				while ($row = $db->sql_fetchrow($result))
+				{
+					if ($row['total_points'] != $previous_points)
+					{
+						$rank_count = $real_rank;
+						$previous_points = $row['total_points'];
+					}
+
+					if ($row['tip_user'] == $member['user_id'])
+					{
+						$tippers_points = $row['total_points'];
+						$race_done      = $row['tips_made'];
+						$tippers_rank   = sprintf($user->lang['FORMEL_PROFILE_RANK'], $rank_count);
+						break;
+					}
+					$real_rank++;
+				}
+
+				$db->sql_freeresult($result);
+
+				// Count total races with existing results
+				$sql = 'SELECT *
+					FROM ' . $table_races . '
+					WHERE race_result <> 0';
+				$result = $db->sql_query($sql);
+
+				$race_total = $db->sql_affectedrows($result);
+				$db->sql_freeresult($result);
+
+				$template->assign_block_vars('f1webtip', array(
+					'TIPPER_POINTS'     => $tippers_points,
+					'TIPPER_RANK'       => $tippers_rank,
+					'RACE_DONE'         => sprintf($user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
+					'U_FORMEL_STATS'    => $this->helper->route('f1webtip_controller', array('name' => 'stats')),
+				));
+			}
+		}
+    }
+
 }

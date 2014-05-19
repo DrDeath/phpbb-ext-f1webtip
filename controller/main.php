@@ -415,7 +415,6 @@ class main
 
 				$this->template->assign_vars(array(
 					'S_RULES'					=> true,
-					'U_ACTION'					=> $this->u_action,
 					'U_FORMEL_INDEX' 			=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'FORMEL_RULES_MENTIONED' 	=> $rules_mentioned,
 					'FORMEL_RULES_PLACED' 		=> $rules_placed,
@@ -2551,7 +2550,6 @@ class main
 					'S_INDEX'							=> true,
 					'S_COUNTDOWN'						=> ($config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
 					'S_FORM_ACTION'						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					'U_ACTION'							=> $this->u_action,
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
 					'U_FORMEL_FORUM'					=> $discuss_button,
 					'U_FORMEL_RULES' 					=> $this->helper->route('f1webtip_controller', array('name' => 'rules')),

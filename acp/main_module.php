@@ -178,6 +178,8 @@ class main_module
 				//
 				// Generate a moderator list for the F1 WebTip Forum
 				//
+				
+				$combo_mod_entries = '';
 
 				//Get all possible forum moderators
 				$sql = 'SELECT u.username, u.user_id

@@ -144,7 +144,12 @@ class main_listener implements EventSubscriberInterface
 			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
 			$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
 
-			$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
+			$is_in_group = 0;
+			
+			if (isset($this->user->data['user_id']))
+			{
+				$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
+			}
 
 			if ($config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $user->data['user_id'] == $config['drdeath_f1webtip_mod_id'])
 			{

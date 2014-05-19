@@ -16,3 +16,14 @@ services:
             - @template
         tags:
             - { name: event.listener }
+    cron.task.core.email_reminder:
+        class: drdeath\f1webtip\cron\task\core\email_reminder
+        arguments:
+            - %core.root_path%
+            - %core.php_ext%
+            - @config
+            - @dbal.conn
+        calls:
+            - [set_name, [cron.task.core.email_reminder]]
+        tags:
+            - { name: cron.task }

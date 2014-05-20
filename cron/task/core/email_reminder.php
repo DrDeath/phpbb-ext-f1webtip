@@ -83,7 +83,7 @@ class email_reminder extends \phpbb\cron\task\base
 	public function should_run()
 	{
 		$check_time = (int) gmdate('mdY',time());
-		return $this->config['drdeath_f1webtip_reminder_last_run'] != $check_time;
+		return $this->config['drdeath_f1webtip_reminder_last_run'] <> $check_time;
 	}
 }
 

@@ -72,7 +72,6 @@ $lang = array_merge($lang, array(
 	'FORMEL_TOP_DRIVER'				=> 'Top drivers',
 	'FORMEL_TOP_TEAMS'				=> 'Top teams',
 	'FORMEL_NO_TIPPS'				=> 'No tips made',
-	'FORMEL_NO_RESULTS'				=> 'No results available',
 	'FORMEL_TIPPS_MADE'				=> 'Placed tips: ',
 	'FORMEL_BACK_TO_TIPP'			=> 'Back to tip',
 	'FORMEL_USER_STATS'				=> 'User',
@@ -108,8 +107,6 @@ $lang = array_merge($lang, array(
 	'FORMEL_COUNTDOWN_DEADLINE'		=> 'Countdown till deadline',
 	'FORMEL_DEADLINE_REACHED'		=> 'Deadline reached',
 
-	'INSERT_F1_FIRST_FILL'			=> 'Insert rows into the tables formel_config, formel_drivers, formel_teams and formel_races.',
-	'INSERT_F1_CONFIG'				=> 'Insert rows into the tables formel_config.',
 	'FORMEL_GUESTS_PLACE_NO_TIP'	=> '<strong>Guests cannot place a tip.</strong><br /><br />In order to place a tip you have to be registered and logged in.<br />',
 	'FORMEL_RACE_ABORD'				=> 'Race aborted (half points!)',
 
@@ -149,8 +146,6 @@ $lang = array_merge($lang, array(
 	'ACP_FORMEL_RACES'				=> 'F1 Races',
 
 	'ACP_F1WEBTIP_TITLE'			=> 'F1 WebTip Module',
-	'ACP_F1WEBTIP'					=> 'Settings',
-	'ACP_F1WEBTIP_GOODBYE'			=> 'Should say goodbye?',
 	'ACP_F1WEBTIP_SETTING_SAVED'	=> 'Settings have been saved successfully!',
 
 	'ACP_F1_MANAGEMENT'								=> 'Formula 1 WebTip',
@@ -234,10 +229,6 @@ $lang = array_merge($lang, array(
 	'ACP_F1_SETTINGS_SEASON_RESETTED'				=> 'Season resettet. Update race start times!',
 	'ACP_F1_SETTING_GUEST_VIEWING'					=> 'WebTip visible for guests',
 	'ACP_F1_SETTING_GUEST_VIEWING_EXPLAIN'			=> 'Only possible if permission for a <strong>WebTip Group</strong> is <strong>de-activated</strong>.',
-	'ACP_F1_SETTINGS_POINTS_ENABLED'				=> 'Activate Ultimate Point support',
-	'ACP_F1_SETTINGS_POINTS_ENABLED_EXPLAIN'		=> 'Here you can define whether to enable giving points for WebTips or not.<br /><strong>Hint: </strong>Only operational if you have installed the Ultimate Points MOD.',
-	'ACP_F1_SETTINGS_POINTS_VALUE'					=> 'Points for given WebTips',
-	'ACP_F1_SETTINGS_POINTS_VALUE_EXPLAIN'			=> 'Here you can define how much <strong>Points</strong> a given WebTip is worth.',
 	'ACP_F1_SETTINGS_REMINDER_ENABLED'				=> 'Activate Cronjob for reminder mails',
 	'ACP_F1_SETTINGS_REMINDER_ENABLED_EXPLAIN'		=> 'Here you can specify whether an email reminder to be sent 2-3 days prior to the start of the race.<br /><strong>Hint: </strong>Can only be activated when the WebTip was limited to a particular group.',
 

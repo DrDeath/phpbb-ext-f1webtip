@@ -911,7 +911,7 @@ class main
 						WHERE race_id = ' . (int) $race_id;
 					$db->sql_query($sql);
 
-					add_log('mod', $this->user->data['user_id'], 'LOG_FORMEL_QUALI_DELETED', $race_id);
+					$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
 
 					$tipp_msg = sprintf($user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
@@ -953,7 +953,7 @@ class main
 					$db->sql_query($sql);
 
 					// Pull out a success message
-					add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_RESULT_DELETED', $race_id);
+					$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
 
 					$tipp_msg = sprintf($user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
@@ -983,7 +983,7 @@ class main
 
 							if ($this->checkarrayforvalue($value, $quali_array))
 							{
-								add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_QUALI_NOT_VALID', $race_id);
+								$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
 
 								$quali_msg = sprintf($user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 								trigger_error($quali_msg);
@@ -1003,7 +1003,7 @@ class main
 							WHERE race_id = ' . (int) $race_id;
 						$db->sql_query($sql);
 
-						add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_QUALI_ADDED', $race_id);
+						$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
 
 						$quali_msg = sprintf($user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 						trigger_error($quali_msg);
@@ -1035,7 +1035,7 @@ class main
 
 							if ($this->checkarrayforvalue($value, $result_array))
 							{
-								add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_RESULT_NOT_VALID', $race_id);
+								$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
 
 								$result_msg = sprintf($user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 								trigger_error($result_msg);
@@ -1187,7 +1187,7 @@ class main
 						}
 						// END points calc
 
-						add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_RESULT_ADDED', $race_id);
+						$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
 
 						$result_msg = sprintf($user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 						trigger_error($result_msg);
@@ -1639,7 +1639,7 @@ class main
 							AND tip_race = ' . (int) $race_id;
 					$db->sql_query($sql);
 
-					add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_DELETED', $race_id);
+					$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_DELETED', false, array('reportee_id' => 0, $race_id));
 
 					$tipp_msg = sprintf($user->lang['FORMEL_TIPP_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
 					trigger_error( $tipp_msg);
@@ -1660,7 +1660,7 @@ class main
 
 						if ($this->checkarrayforvalue($value, $my_tipp_array))
 						{
-							add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_NOT_VALID', $race_id);
+							$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_NOT_VALID', false, array('reportee_id' => 0, $race_id));
 
 							$tipp_msg = sprintf($user->lang['FORMEL_DUBLICATE_VALUES'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
 							trigger_error($tipp_msg);
@@ -1686,7 +1686,7 @@ class main
 
 						$db->sql_query('INSERT INTO ' . $table_tips . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_GIVEN', $race_id);
+						$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_GIVEN', false, array('reportee_id' => 0, $race_id));
 					}
 					else
 					{
@@ -1700,7 +1700,7 @@ class main
 								AND tip_race = ' . (int) $race_id;
 						$db->sql_query($sql);
 
-						add_log('user', $this->user->data['user_id'], 'LOG_FORMEL_TIP_EDITED', $race_id);
+						$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_EDITED', false, array('reportee_id' => 0, $race_id));
 					}
 
 					$tipp_msg = sprintf($user->lang['FORMEL_ACCEPTED_TIPP'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');

@@ -86,7 +86,7 @@ class main_module
 								SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
 							$db->sql_query($sql);
 
-							add_log('admin', 'LOG_FORMEL_SAISON_RESET');
+							$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_SAISON_RESET');
 
 							$error = $user->lang['ACP_F1_SETTINGS_SEASON_RESETTED'];
 							trigger_error($error . adm_back_link($this->u_action));
@@ -178,7 +178,7 @@ class main_module
 				//
 				// Generate a moderator list for the F1 WebTip Forum
 				//
-				
+
 				$combo_mod_entries = '';
 
 				//Get all possible forum moderators
@@ -380,7 +380,7 @@ class main_module
 							WHERE driver_id = ' . (int) $driver_id;
 					$db->sql_query($sql);
 
-					add_log('admin', 'LOG_FORMEL_DRIVER_DELETED', $driver_id);
+					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($driver_id));
 
 					$error = $user->lang['ACP_F1_DRIVERS_DRIVER_DELETED'];
 					trigger_error($error . adm_back_link($this->u_action));
@@ -411,7 +411,7 @@ class main_module
 
 						$db->sql_query('INSERT INTO ' . $table_drivers . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						add_log('admin', 'LOG_FORMEL_DRIVER_ADDED');
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_ADDED');
 					}
 					else
 					{
@@ -445,7 +445,7 @@ class main_module
 							$db->sql_query($sql);
 						}
 
-						add_log('admin', 'LOG_FORMEL_DRIVER_EDITED', $driver_id);
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, array($driver_id));
 					}
 
 					$error = $user->lang['ACP_F1_DRIVERS_DRIVER_UPDATED'];
@@ -676,7 +676,7 @@ class main_module
 							WHERE team_id = ' . (int) $team_id;
 					$db->sql_query($sql);
 
-					add_log('admin', 'LOG_FORMEL_TEAM_DELETED', $team_id);
+					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($team_id));
 
 					$error = $user->lang['ACP_F1_TEAMS_TEAM_DELETED'];
 					trigger_error($error . adm_back_link($this->u_action));
@@ -705,7 +705,7 @@ class main_module
 
 						$db->sql_query('INSERT INTO ' . $table_teams . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						add_log('admin', 'LOG_FORMEL_TEAM_ADDED');
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_ADDED');
 					}
 					else
 					{
@@ -738,7 +738,7 @@ class main_module
 							$db->sql_query($sql);
 						}
 
-						add_log('admin', 'LOG_FORMEL_TEAM_EDITED', $team_id);
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_EDITED', false, array($team_id));
 					}
 
 					$error = $user->lang['ACP_F1_TEAMS_TEAM_UPDATED'];
@@ -922,7 +922,7 @@ class main_module
 							WHERE race_id = ' . (int) $race_id;
 					$db->sql_query($sql);
 
-					add_log('admin', 'LOG_FORMEL_RACE_DELETED', $race_id);
+					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, array($race_id));
 
 					$error = $user->lang['ACP_F1_RACES_RACE_DELETED'];
 					trigger_error($error . adm_back_link($this->u_action));
@@ -965,7 +965,7 @@ class main_module
 
 						$db->sql_query('INSERT INTO ' . $phpbb_container->getParameter('tables.f1webtip.races') . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						add_log('admin', 'LOG_FORMEL_RACE_ADDED');
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_ADDED');
 					}
 					else
 					{
@@ -1003,7 +1003,7 @@ class main_module
 							$db->sql_query($sql);
 						}
 
-						add_log('admin', 'LOG_FORMEL_RACE_EDITED', $race_id);
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_EDITED', false, array($race_id));
 					}
 
 					$error = $user->lang['ACP_F1_RACES_RACE_UPDATED'];

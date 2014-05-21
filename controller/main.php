@@ -557,6 +557,7 @@ class main
 
 					// Get all data
 					$drivers 	= $this->get_formel_drivers();
+					$teams 		= $this->get_formel_teams();
 
 					//Get all first place winner, count all first places,  grep all gold medals...  Marker for first place: 25 WM Points
 					$sql = 'SELECT 	count(wm_driver) as gold_medals,

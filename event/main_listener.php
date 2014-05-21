@@ -66,15 +66,15 @@ class main_listener implements EventSubscriberInterface
 	
 	public function prepare_f1webtip_stats($event)
     {
-    	global $db, $auth, $config, $template, $phpbb_container, $user;
-    	
+    	global $db, $auth, $config, $template, $phpbb_container, $user, $member;
+
 		if ($config['drdeath_f1webtip_show_in_profile'])
 		{
 			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
 			$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
 
 			//Is the user member of the restricted group?
-			$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
+			$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $user->data['user_id'], true);
 			
 			if ($config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $user->data['user_id'] == $config['drdeath_f1webtip_mod_id'])
 			{
@@ -136,7 +136,7 @@ class main_listener implements EventSubscriberInterface
     
 	public function modify_f1webtip_post_row($event)
     {
-    	global $db, $auth, $config, $template, $phpbb_container, $user;
+    	global $db, $auth, $config, $template, $phpbb_container, $user, $poster_id;
     	
 		if ($config['drdeath_f1webtip_show_in_viewtopic'])
 		{
@@ -144,12 +144,8 @@ class main_listener implements EventSubscriberInterface
 			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
 			$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
 
-			$is_in_group = 0;
-			
-			if (isset($this->user->data['user_id']))
-			{
-				$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
-			}
+			//Is the user member of the restricted group?
+			$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $user->data['user_id'], true);
 
 			if ($config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $user->data['user_id'] == $config['drdeath_f1webtip_mod_id'])
 			{

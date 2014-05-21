@@ -137,7 +137,7 @@ function showtipps(showtipps)
 
 					<br/>
 					<!-- BEGIN racegfx -->
-					<div style="text-align: center;">
+					<div class="responsive-hide" style="text-align: center;">
 						{racerow.RACEIMG}
 						<br/><br/>
 					</div>
@@ -156,7 +156,7 @@ function showtipps(showtipps)
 			<span class="corners-bottom"><span></span></span></div>
 		</div>
 
-		<div class="responsive-hide forumbg">
+		<div class=" forumbg">
 			<div class="inner"><span class="corners-top"><span></span></span>
 
 				<ul class="topiclist">
@@ -168,45 +168,45 @@ function showtipps(showtipps)
 				</ul>
 				<ul class="topiclist forums">
 					<li class="row">
-						<dl style="font-size : 1.1em; font-weight: bold;">
+						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt style="padding: 2px 10px;">
 								{L_FORMEL_RACETIME}:
 							</dt>
-							<dd style="padding: 2px 10px;">
+							<dd class="responsive-show-inline-block" style="padding: 2px 10px;">
 								{racerow.RACETIME}
 							</dd>
 						</dl>
 					</li>
 					<li class="row">
-						<dl style="font-size : 1.1em; font-weight: bold;">
+						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt style="padding: 2px 10px; ">
 								{L_FORMEL_RACEDEAD}:
 							</dt>
-							<dd style="padding: 2px 10px; color : #ff0000;">
+							<dd class="responsive-show-inline-block" style="padding: 2px 10px; color : #ff0000;">
 								{racerow.RACEDEAD}
 							</dd>
 						</dl>
 					</li>
 					<!-- IF S_COUNTDOWN == true -->
 					<li class="row">
-						<dl style="font-size : 1.1em; font-weight: bold;">
-							<dt style="padding: 2px 10px; white-space:nowrap;">{L_FORMEL_COUNTDOWN_DEADLINE}</dt>
-							<dd id="time_event" style="display: ; padding: 2px 10px; white-space:nowrap;">
+						<dl style="font-size : 1.0em; font-weight: bold;">
+							<dt id="time_event" style="display: ; padding: 2px 10px; white-space:nowrap;">
 								{L_DAYS}&nbsp;<input name="days" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />
 								<span style="display:" id="time_string">{L_HOURS}
 									<input name="hours" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />:
 									<input name="mins" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />:
 									<input name="secs" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />
 								</span>
-							</dd>
-							<dd id="event_time" style="display:none ; padding: 2px 10px;">
+							</dt>
+							<dt id="event_time" style="display:none ; padding: 2px 10px;">
 								{L_FORMEL_DEADLINE_REACHED}
-							</dd>
+							</dt>
+							<dd style="padding: 2px 10px; white-space:nowrap;">{L_FORMEL_COUNTDOWN_DEADLINE}</dd>
 						</dl>
 					</li>
 					<!-- ENDIF -->
-					<li class="row">
-						<dl style="font-size : 1.1em; font-weight: bold;">
+					<li class="responsive-hide row">
+						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt style="padding: 2px 10px;">
 								{L_FORMEL_RACELENGTH}:
 							</dt>
@@ -214,7 +214,7 @@ function showtipps(showtipps)
 								{racerow.RACELENGTH}
 							</dd>
 						</dl>
-						<dl style="font-size : 1.1em; font-weight: bold;">
+						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt style="padding: 2px 10px;">
 								{L_FORMEL_RACELAPS}:
 							</dt>
@@ -222,7 +222,7 @@ function showtipps(showtipps)
 								{racerow.RACELAPS}
 							</dd>
 						</dl>
-						<dl style="font-size : 1.1em; font-weight: bold;">
+						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt style="padding: 2px 10px;">
 								{L_FORMEL_RACEDISTANCE}:
 							</dt>
@@ -230,7 +230,7 @@ function showtipps(showtipps)
 								{racerow.RACEDISTANCE}
 							</dd>
 						</dl>
-						<dl style="font-size : 1.1em; font-weight: bold;">
+						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt style="padding: 2px 10px;">
 								{L_FORMEL_RACEDEBUT}:
 							</dt>

@@ -26,6 +26,7 @@ class main_listener implements EventSubscriberInterface
 			'core.page_header'							=> 'add_page_header_link',
 			'core.memberlist_prepare_profile_data'	    => 'prepare_f1webtip_stats',
 			'core.viewtopic_modify_post_row'			=> 'modify_f1webtip_post_row',
+			'core.viewonline_overwrite_location'		=> 'add_page_viewonline',
 		);
 	}
 
@@ -62,6 +63,17 @@ class main_listener implements EventSubscriberInterface
 		$this->template->assign_vars(array(
 			'U_F1WEBTIP_PAGE'	=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 		));
+	}
+	
+	public function add_page_viewonline($event)
+	{
+		global $user, $phpbb_container, $phpEx;
+
+		if (strrpos($event['row']['session_page'], 'app.' . $phpEx . '/f1webtip') === 0)
+		{
+			$event['location'] = $user->lang('VIEWING_F1WEBTIPP');
+			$event['location_url'] = $this->helper->route('f1webtip_controller', array('name' => 'index'));
+		}
 	}
 	
 	public function prepare_f1webtip_stats($event)

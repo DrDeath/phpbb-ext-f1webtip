@@ -54,8 +54,8 @@ class email_reminder extends \phpbb\cron\task\base
 	*/
 	public function run()
 	{
-		global $db, $user, $auth, $template, $cache, $request;
-		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+		global $db, $user, $template;
+		global $config, $phpbb_root_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
 
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
@@ -184,7 +184,7 @@ class email_reminder extends \phpbb\cron\task\base
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $row['username']. '!';
 					$message = sprintf($user->lang['FORMEL_LOG_ERROR'], $row['user_email']);
-					add_log('critical', 'LOG_ERROR_EMAIL', $message);
+					$phpbb_log->add('critical', $user->data['user_id'], $user->ip, 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
@@ -212,18 +212,18 @@ class email_reminder extends \phpbb\cron\task\base
 				if (!($messenger->send($used_method)))
 				{
 					$message = sprintf($user->lang['FORMEL_LOG_ERROR'], $config['board_email']);
-					add_log('critical', 'LOG_ERROR_EMAIL', $message);
+					$phpbb_log->add('critical', $user->data['user_id'], $user->ip, 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
 					$message = sprintf($user->lang['FORMEL_LOG'], $usernames) ;
-					add_log('admin', 'LOG_MASS_EMAIL', $message);
+					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_MASS_EMAIL', false, array($message));
 				}
 			}
 		}
 
 		// Log the cronjob run
-		add_log('admin', 'LOG_FORMEL_CRON');
+		$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_CRON');
 
 		return;
 	}

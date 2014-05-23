@@ -2,7 +2,7 @@
 /**
 *
 * @package phpBB Extension - DrDeath F1WebTip
-* @copyright (c) 2013 phpBB Group
+* @copyright (c) 2014 Dr.Death - www.lpi-clan.de
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
@@ -14,50 +14,50 @@ namespace drdeath\f1webtip\cron\task\core;
 */
 if (!defined('IN_PHPBB'))
 {
-    exit;
+	exit;
 }
 
 class email_reminder extends \phpbb\cron\task\base
 {
-    /* @var \phpbb\config\config */
-    protected $config;
+	/* @var \phpbb\config\config */
+	protected $config;
 
-    /* @var \phpbb\controller\helper */
-    protected $helper;
+	/* @var \phpbb\controller\helper */
+	protected $helper;
 
-    /* @var \phpbb\template\template */
-    protected $template;
+	/* @var \phpbb\template\template */
+	protected $template;
 
-    /* @var \phpbb\user */
-    protected $user;
+	/* @var \phpbb\user */
+	protected $user;
 
-    /**
-    * Constructor
-    *
-    * @param \phpbb\config\config        $config
-    * @param \phpbb\controller\helper    $helper
-    * @param \phpbb\template\template    $template
-    * @param \phpbb\user                $user
-    */
-    public function __construct(\phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\user $user)
-    {
-        $this->config = $config;
-        $this->helper = $helper;
-        $this->template = $template;
-        $this->user = $user;
-    }
+	/**
+	* Constructor
+	*
+	* @param \phpbb\config\config        $config
+	* @param \phpbb\controller\helper    $helper
+	* @param \phpbb\template\template    $template
+	* @param \phpbb\user                $user
+	*/
+	public function __construct(\phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\user $user)
+	{
+		$this->config = $config;
+		$this->helper = $helper;
+		$this->template = $template;
+		$this->user = $user;
+	}
 
-    /**
-    * Runs this cron task.
-    *
-    * @return null
-    */
-    public function run()
-    {
-        global $db, $user, $auth, $template, $cache, $request;
-        global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
-        global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
-        
+	/**
+	* Runs this cron task.
+	*
+	* @return null
+	*/
+	public function run()
+	{
+		global $db, $user, $auth, $template, $cache, $request;
+		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
+
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
 		$table_teams	= $phpbb_container->getParameter('tables.f1webtip.teams');
 		$table_drivers 	= $phpbb_container->getParameter('tables.f1webtip.drivers');
@@ -67,10 +67,9 @@ class email_reminder extends \phpbb\cron\task\base
 		// No $user filled up at this point..... now we do so...
 		$user->setup();
 		
-        // Update the last run timestamp to today (i.e. 6192013 --> 06.19.2013)
-        $check_time = (int) gmdate('mdY',time());
-        $this->config->set('drdeath_f1webtip_reminder_last_run', $check_time, true);
-
+		// Update the last run timestamp to today (i.e. 5232014 --> 05/23/2013)
+		$check_time = (int) gmdate('mdY',time());
+		$this->config->set('drdeath_f1webtip_reminder_last_run', $check_time, true);
 
 		//Mail Settings
 		$use_queue 		= false;
@@ -78,10 +77,10 @@ class email_reminder extends \phpbb\cron\task\base
 		$priority 		= MAIL_NORMAL_PRIORITY;
 
 		// Get F1 Webtip restricted group
-		$formel_group_id 		= $config['drdeath_f1webtip_restrict_to'];
+		$formel_group_id 	= $config['drdeath_f1webtip_restrict_to'];
 
 		// Uncomment the next line for sending the reminder mail to a special group. Replace 114 with the special group ID
-		// $formel_group_id		= 114;
+		// $formel_group_id	= 114;
 
 		// Time slot will be 3 days before the next race starts
 		$current_time 		= time();
@@ -102,12 +101,6 @@ class email_reminder extends \phpbb\cron\task\base
 		$races = $db->sql_fetchrowset($result);
 		$db->sql_freeresult($result);
 
-        
-        // Debug Start: Reset cron lock 
-        $config->set('cron_lock', '0');
-        $config->set('drdeath_f1webtip_reminder_last_run', '1', true);
-        // Debug End
-        
 		// If we found the race, get all data and send the mail
 		foreach ($races as $race)
 		{
@@ -118,7 +111,7 @@ class email_reminder extends \phpbb\cron\task\base
 							SET 		race_mail = 1
 							WHERE 		race_id = ' . $race_id ;
 
-//			$result_mail = $db->sql_query($sql_update);
+			$result_mail = $db->sql_query($sql_update);
 
 			// prepare some variables
 			$race_name 		= $race['race_name'];
@@ -138,8 +131,7 @@ class email_reminder extends \phpbb\cron\task\base
 
 			$subject 		= $user->lang['FORMEL_TITLE'] . " - " . $user->lang['FORMEL_CURRENT_RACE']  . " : " . $race_name;
 			$usernames 		= '';
-			
-			
+
 			include_once($phpbb_root_path . 'includes/functions_messenger.' . $phpEx);
 			$messenger = new \messenger($use_queue);
 
@@ -150,9 +142,9 @@ class email_reminder extends \phpbb\cron\task\base
 			$messenger->headers('X-AntiAbuse: User IP - ' . $user->ip);
 			$messenger->subject(htmlspecialchars_decode($subject));
 			$messenger->set_mail_priority($priority);
-			
+
 			$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
-			
+
 			// Get all the f1webtipp user (what user exactly ? All member of the restrict_to group and admin mails allowed)
 			$sql = 'SELECT 		u.user_id,
 								u.username,
@@ -225,40 +217,32 @@ class email_reminder extends \phpbb\cron\task\base
 			}
 		}
 
+		// Log the cronjob run
+		add_log('admin', 'LOG_FORMEL_CRON');
 
-        // Log the cronjob run
-        add_log('admin', 'LOG_FORMEL_CRON');
-        
-        return;
-    }
+		return;
+	}
 
-    /**
-    * Returns whether this cron task can run, given current board configuration.
-    *
-    * @return bool
-    */
-    public function is_runnable()
-    {
-    	// Debug: Is allways runnable
-        return true;
-        
-        // return (bool) $this->config['drdeath_f1webtip_reminder_enabled'];
-    }
+	/**
+	* Returns whether this cron task can run, given current board configuration.
+	*
+	* @return bool
+	*/
+	public function is_runnable()
+	{
+		return (bool) $this->config['drdeath_f1webtip_reminder_enabled'];
+	}
 
-    /**
-    * Returns whether this cron task should run now, because enough time
-    * has passed since it was last run.
-    *
-    * @return bool
-    */
-    public function should_run()
-    {
-    	// Debug: should always raun
-    	 return true;
-    	 
-        //$check_time = (int) gmdate('mdY',time());
-        //return $this->config['drdeath_f1webtip_reminder_last_run'] != $check_time;
-    }
+	/**
+	* Returns whether this cron task should run now, because enough time
+	* has passed since it was last run.
+	*
+	* @return bool
+	*/
+	public function should_run()
+	{
+		$check_time = (int) gmdate('mdY',time());
+		return $this->config['drdeath_f1webtip_reminder_last_run'] <> $check_time;
+	}
 }
-
 ?>

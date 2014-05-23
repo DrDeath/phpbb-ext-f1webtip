@@ -70,6 +70,11 @@ class email_reminder extends \phpbb\cron\task\base
 		// Update the last run timestamp to today (i.e. 5232014 --> 05/23/2013)
 		$check_time = (int) gmdate('mdY',time());
 		$this->config->set('drdeath_f1webtip_reminder_last_run', $check_time, true);
+ 
+		// Debug Start: Reset cron lock 
+		// $config->set('cron_lock', '0');
+		// $config->set('drdeath_f1webtip_reminder_last_run', '1', true);
+		// Debug End
 
 		//Mail Settings
 		$use_queue 		= false;
@@ -129,7 +134,7 @@ class email_reminder extends \phpbb\cron\task\base
 			$deadline_date 	= $b_day . '.' . $b_month . '.' . $b_year;
 			$deadline_time	= $b_hour . ':' . $b_minute;
 
-			$subject 		= $user->lang['FORMEL_TITLE'] . " - " . $user->lang['FORMEL_CURRENT_RACE']  . " : " . $race_name;
+			$subject 		= $user->lang['F1WEBTIP_PAGE'] . " - " . $race_name;
 			$usernames 		= '';
 
 			include_once($phpbb_root_path . 'includes/functions_messenger.' . $phpEx);

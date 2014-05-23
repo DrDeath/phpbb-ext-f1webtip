@@ -141,16 +141,18 @@ class email_reminder extends \phpbb\cron\task\base
 			
 			
 			include_once($phpbb_root_path . 'includes/functions_messenger.' . $phpEx);
-//			$messenger = new messenger($use_queue);
+			$messenger = new \messenger($use_queue);
 
 			$errored = false;
-//			$messenger->headers('X-AntiAbuse: Board servername - ' . $config['server_name']);
-//			$messenger->headers('X-AntiAbuse: User_id - ' . $user->data['user_id']);
-//			$messenger->headers('X-AntiAbuse: Username - ' . $user->data['username']);
-//			$messenger->headers('X-AntiAbuse: User IP - ' . $user->ip);
-//			$messenger->subject(htmlspecialchars_decode($subject));
-//			$messenger->set_mail_priority($priority);
-
+			$messenger->headers('X-AntiAbuse: Board servername - ' . $config['server_name']);
+			$messenger->headers('X-AntiAbuse: User_id - ' . $user->data['user_id']);
+			$messenger->headers('X-AntiAbuse: Username - ' . $user->data['username']);
+			$messenger->headers('X-AntiAbuse: User IP - ' . $user->ip);
+			$messenger->subject(htmlspecialchars_decode($subject));
+			$messenger->set_mail_priority($priority);
+			
+			$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
+			
 			// Get all the f1webtipp user (what user exactly ? All member of the restrict_to group and admin mails allowed)
 			$sql = 'SELECT 		u.user_id,
 								u.username,
@@ -167,13 +169,12 @@ class email_reminder extends \phpbb\cron\task\base
 
 			while ($row = $db->sql_fetchrow($result))
 			{
-
-				echo "<br/>" . $row['user_email'] . " - " . $row['username'] . "<br/>";
-/*				// Send the messages
+				// Send the messages
 				$used_lang = $row['user_lang'];
+				$mail_template_path = $ext_path . 'language/' . $used_lang . '/email/';
+				
 				$messenger->to($row['user_email'], $row['username']);
-				$messenger->template('cron_formel', $used_lang);
-
+				$messenger->template('cron_formel', $used_lang, $mail_template_path);
 				$messenger->assign_vars(array(
 					'USERNAME'		=> $row['username'],
 					'RACENAME'		=> $race_name,
@@ -192,17 +193,14 @@ class email_reminder extends \phpbb\cron\task\base
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $row['username'];
 				}
-*/
+
 			}
-/*
+
 			// Only if some emails have already been sent previously.
 			if ($usernames <> '')
 			{
-				$message = sprintf($user->lang['FORMEL_LOG'], $usernames) ;
-				add_log('admin', 'LOG_MASS_EMAIL', $message);
-
 				//send admin email
-				$used_lang 	= $user->data['user_lang'];
+				$used_lang 	= $config['default_lang'];
 				$subject 	= sprintf($user->lang['FORMEL_MAIL_ADMIN'], $race_name);
 
 				$messenger->to($config['board_email'], $config['sitename']);
@@ -219,8 +217,12 @@ class email_reminder extends \phpbb\cron\task\base
 					$message = sprintf($user->lang['FORMEL_LOG_ERROR'], $config['board_email']);
 					add_log('critical', 'LOG_ERROR_EMAIL', $message);
 				}
+				else
+				{
+					$message = sprintf($user->lang['FORMEL_LOG'], $usernames) ;
+					add_log('admin', 'LOG_MASS_EMAIL', $message);
+				}
 			}
-*/
 		}
 
 

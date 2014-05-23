@@ -1,0 +1,14 @@
+Hello {USERNAME},
+
+Please don't forget your Formular 1 WebTipp on {SITENAME}.
+
+The next race will start this weekend !!!
+
+Deadline for the race in {RACENAME} is on
+Date: 	{DEADLINEDATE}
+Time:  {DEADLINETIME}
+
+Click here to get to the WebTipp: {U_BOARD}
+
+
+{EMAIL_SIG}

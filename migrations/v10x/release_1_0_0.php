@@ -9,11 +9,11 @@
 
 namespace drdeath\f1webtip\migrations\v10x;
 
-class release_0_1_0 extends \phpbb\db\migration\migration
+class release_1_0_0 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['drdeath_f1webtip_version']) && version_compare($this->config['drdeath_f1webtip_version'], '0.1.0', '>=');
+		return isset($this->config['drdeath_f1webtip_version']) && version_compare($this->config['drdeath_f1webtip_version'], '1.0.0', '>=');
 	}
 
 	static public function depends_on()
@@ -25,7 +25,7 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 	{
 		return array(
 			// Set the current version
-			array('config.add', array('drdeath_f1webtip_version', '0.1.0')),
+			array('config.add', array('drdeath_f1webtip_version', '1.0.0')),
 
 			// now populate some default config data
 			array('config.add', array('drdeath_f1webtip_mod_id', '2')),
@@ -85,16 +85,16 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 
 
 			// Now to add some permission settings
-			array('permission.add', array('a_formel_races')), // New global admin permission a_formel_races
-			array('permission.add', array('a_formel_teams')), // New global admin permission a_formel_teams
-			array('permission.add', array('a_formel_drivers')), // New global admin permission a_formel_drivers
-			array('permission.add', array('a_formel_settings')), // New global admin permission a_formel_settings
+			array('permission.add', array('a_formel_races')),		// New global admin permission a_formel_races
+			array('permission.add', array('a_formel_teams')),		// New global admin permission a_formel_teams
+			array('permission.add', array('a_formel_drivers')),		// New global admin permission a_formel_drivers
+			array('permission.add', array('a_formel_settings')),	// New global admin permission a_formel_settings
 
 			// How about we give some default permissions then as well?
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_races')), // Give ROLE_ADMIN_FULL a_formel_races permission
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_teams')), // Give ROLE_ADMIN_FULL a_formel_teams permission
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_drivers')), // Give ROLE_ADMIN_FULL a_formel_drivers permission
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_settings')), // Give ROLE_ADMIN_FULL a_formel_settings permission
+			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_races')),		// Give ROLE_ADMIN_FULL a_formel_races permission
+			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_teams')),		// Give ROLE_ADMIN_FULL a_formel_teams permission
+			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_drivers')),	// Give ROLE_ADMIN_FULL a_formel_drivers permission
+			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_settings')),	// Give ROLE_ADMIN_FULL a_formel_settings permission
 		);
 	}
 
@@ -103,10 +103,10 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 	{
 		return array(
 			// We have to create our own f1 webtip tables
-			'add_tables'    => array(
+			'add_tables'	=> array(
 				// F1 driver table
-				$this->table_prefix . 'f1webtip_drivers'        => array(
-					'COLUMNS'        => array(
+				$this->table_prefix . 'f1webtip_drivers'	=> array(
+					'COLUMNS'		=> array(
 						'driver_id'			=> array('UINT', NULL, 'auto_increment'),
 						'driver_name'		=> array('VCHAR_UNI', ''),
 						'driver_img'		=> array('VCHAR', ''),
@@ -117,8 +117,8 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 					'PRIMARY_KEY'	=> 'driver_id',
 				),
 				// F1 team table
-				$this->table_prefix . 'f1webtip_teams'        => array(
-					'COLUMNS'        => array(
+				$this->table_prefix . 'f1webtip_teams'		=> array(
+					'COLUMNS'		=> array(
 						'team_id'			=> array('UINT', NULL, 'auto_increment'),
 						'team_name'			=> array('VCHAR_UNI', ''),
 						'team_img'			=> array('VCHAR', ''),
@@ -128,8 +128,8 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 					'PRIMARY_KEY'	=> 'team_id',
 				),
 				// F1 race table
-				$this->table_prefix . 'f1webtip_races'        => array(
-					'COLUMNS'        => array(
+				$this->table_prefix . 'f1webtip_races'		=> array(
+					'COLUMNS'		=> array(
 						'race_id'			=> array('UINT', NULL, 'auto_increment'),
 						'race_name'			=> array('VCHAR_UNI', ''),
 						'race_img'			=> array('VCHAR', ''),
@@ -145,8 +145,8 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 					'PRIMARY_KEY'	=> 'race_id',
 				),
 				// F1 wm points table
-				$this->table_prefix . 'f1webtip_wm'        => array(
-					'COLUMNS'        => array(
+				$this->table_prefix . 'f1webtip_wm'		=> array(
+					'COLUMNS'		=> array(
 						'wm_id'				=> array('UINT', NULL, 'auto_increment'),
 						'wm_race'			=> array('UINT', 0),
 						'wm_driver'			=> array('UINT', 0),
@@ -156,8 +156,8 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 					'PRIMARY_KEY'	=> 'wm_id',
 				),
 				// F1 user tip table
-				$this->table_prefix . 'f1webtip_tips'        => array(
-					'COLUMNS'        => array(
+				$this->table_prefix . 'f1webtip_tips'		=> array(
+					'COLUMNS'		=> array(
 						'tip_id'			=> array('UINT', NULL, 'auto_increment'),
 						'tip_user'			=> array('UINT', 0),
 						'tip_race'			=> array('UINT', 0),
@@ -184,5 +184,4 @@ class release_0_1_0 extends \phpbb\db\migration\migration
 			),
 		);
 	}
-
 }

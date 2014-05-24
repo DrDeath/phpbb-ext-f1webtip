@@ -120,9 +120,8 @@ class main
 	*/
 	protected function get_formel_drivers()
 	{
-		global $db;
+		global $db, $config, $phpbb_root_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper;
-		global $config, $phpEx, $phpbb_root_path;
 
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
 		$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
@@ -228,16 +227,14 @@ class main
 	public function handle($name)
 	{
 
-		global $db, $user, $auth, $template, $cache, $request;
-		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+		global $db, $user, $auth, $template, $request;
+		global $config, $phpbb_root_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
 
 		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
 		$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
-		// Determine board url - we may need it later
-		$board_url = generate_board_url() . '/';
 
 		// This path is sent with the base template paths in the assign_vars()
 		// call below. We need to correct it in case we are accessing from a
@@ -245,8 +242,6 @@ class main
 
 		$phpbb_path_helper = $phpbb_container->get('path_helper');
 		$corrected_path = $phpbb_path_helper->get_web_root_path();
-
-		$web_path = (defined('PHPBB_USE_BOARD_URL_PATH') && PHPBB_USE_BOARD_URL_PATH) ? $board_url : $corrected_path;
 
 		// Short names for the tables
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
@@ -291,8 +286,9 @@ class main
 		//Is the user member of the restricted group?
 		$is_in_group = group_memberships($formel_group_id, $this->user->data['user_id'], true);
 
-		// Debug
+		// Debug Start
 		// echo "is in group -> " . $is_in_group . " is admin -> " . $is_admin . " user id -> " . $this->user->data['user_id'] . " Moderator ID -> " . $formel_mod_id;
+		// Debug End
 
 		// Check for : restricted group access - admin access - formular 1 moderator access
 		if ($formel_group_id <> 0 && !$is_in_group && $is_admin <> 1 && $this->user->data['user_id'] <> $formel_mod_id)

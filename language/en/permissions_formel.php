@@ -36,10 +36,10 @@ if (empty($lang) || !is_array($lang))
 // Adding the permissions
 // F1 WebTip permissions
 $lang = array_merge($lang, array(
-	'ACL_A_FORMEL_SETTINGS'	=> 'Can alter Formular 1 settings',
-	'ACL_A_FORMEL_DRIVERS'	=> 'Can alter Formular 1 driver',
-	'ACL_A_FORMEL_TEAMS'	=> 'Can alter Formular 1 teams',
-	'ACL_A_FORMEL_RACES'	=> 'Can alter Formular 1 races',
+	'ACL_A_FORMEL_SETTINGS'	=> 'Can alter F1 WebTip settings',
+	'ACL_A_FORMEL_DRIVERS'	=> 'Can alter F1 WebTip driver',
+	'ACL_A_FORMEL_TEAMS'	=> 'Can alter F1 WebTip teams',
+	'ACL_A_FORMEL_RACES'	=> 'Can alter F1 WebTip races',
 ));
 
 ?>

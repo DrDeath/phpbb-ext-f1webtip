@@ -15,8 +15,7 @@ class main_module
 
 	function main($id, $mode)
 	{
-		global $db, $user, $auth, $template, $cache, $request;
-		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
+		global $db, $config, $user, $template, $request;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_log;
 
 		$ext_path = $phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true);
@@ -27,8 +26,6 @@ class main_module
 		$table_wm 		= $phpbb_container->getParameter('tables.f1webtip.wm');
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
 
-		$user->add_lang('acp/common');
-
 		$this->tpl_name = 'f1webtip_body';
 
 		add_form_key('drdeath/f1webtip');
@@ -36,7 +33,6 @@ class main_module
 		// What are we working on?
 		switch ($mode)
 		{
-
 			###########################
 			###      SETTINGS      ####
 			###########################
@@ -197,7 +193,6 @@ class main_module
 					$selected = ($row['user_id'] == $config['drdeath_f1webtip_mod_id']) ? 'selected' : '';
 					$combo_mod_entries .= '<option value="' . $row['user_id'] . '" ' . $selected . '>' . $row['username'] . '</option>';
 				}
-
 
 				// If no normal moderator was found, select all possible founders.
 				if (empty($combo_mod_entries))
@@ -682,6 +677,7 @@ class main_module
 					trigger_error($error . adm_back_link($this->u_action));
 				}
 
+
 				//
 				// Add a new team
 				//
@@ -744,6 +740,8 @@ class main_module
 					$error = $user->lang['ACP_F1_TEAMS_TEAM_UPDATED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
+
+
 				//
 				// Load, add or update team
 				//
@@ -906,6 +904,7 @@ class main_module
 
 				$race_id 		= $request->variable('race_id'			,	0	);
 
+
 				//
 				// Delete a race
 				//
@@ -1009,6 +1008,7 @@ class main_module
 					$error = $user->lang['ACP_F1_RACES_RACE_UPDATED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
+
 
 				//
 				// Load add oder edit race

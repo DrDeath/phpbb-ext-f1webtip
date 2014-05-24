@@ -1,9 +1,9 @@
 {
 	"name": "drdeath/f1webtip",
 	"type": "phpbb-extension",
-	"description": "Formular 1 WebTip for phpBB 3.1",
+	"description": "F1 WebTip for phpBB 3.1",
 	"homepage": "https://github.com/DrDeath/phpbb-ext-f1webtip",
-	"version": "0.1.0",
+	"version": "1.0.0-dev",
 	"time": "2014-05-10",
 	"license": "GPL-2.0",
 	"authors": [{

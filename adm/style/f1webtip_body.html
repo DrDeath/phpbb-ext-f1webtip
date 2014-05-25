@@ -250,7 +250,7 @@
 				<td width="30%" valign="middle"><strong>{L_ACP_F1_DRIVERS_DRIVERTEAM}</strong></td>
 				<td width="20%" valign="middle"><strong>{L_ACP_F1_DRIVERS_DRIVERPOINTS}</strong>&nbsp;</td>
 				<td width="20%" valign="middle"><strong>{L_ACP_F1_DRIVERS_PENALTY}</strong>&nbsp;</td>
-				<td valign="middle"  nowrap="nowrap">&nbsp;<strong>{L_ACP_F1_DRIVERS_DISABLED}</strong>&nbsp;</td>
+				<td valign="middle">&nbsp;<strong>{L_ACP_F1_DRIVERS_DISABLED}</strong>&nbsp;</td>
 				<td valign="middle" colspan="2">&nbsp;</td>
 			</tr>
 			<!-- BEGIN driverrow_gfx -->
@@ -260,14 +260,14 @@
 			<!-- ELSE -->
 			<tr class="row2">
 			<!-- ENDIF -->
-				<td valign="middle"  nowrap="nowrap">&nbsp;{driverrow_gfx.DRIVERIMG}&nbsp;</td>
+				<td valign="middle">&nbsp;{driverrow_gfx.DRIVERIMG}&nbsp;</td>
 				<td width="30%" valign="middle"><span class="genmed">{driverrow_gfx.DRIVERNAME}</span></td>
 				<td width="30%" valign="middle"><span class="genmed">{driverrow_gfx.DRIVERTEAM}</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow_gfx.DRIVERPOINTS}&nbsp;</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow_gfx.DRIVER_PENALTY}&nbsp;</span></td>
-				<td valign="middle" nowrap="nowrap"><span class="genmed">&nbsp;{driverrow_gfx.DRIVER_DISABLED}&nbsp;</span></td>
-				<td valign="middle" nowrap="nowrap"><span class="genmed"><input type="hidden" name="driver_id" value="{driverrow_gfx.DRIVERID}" /><input class="button2" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></span></td>
-				<td valign="middle" nowrap="nowrap"><span class="genmed"><input type="hidden" name="driver_id" value="{driverrow_gfx.DRIVERID}" /><input class="button2" type="submit" name="del"  value="{L_ACP_F1_DRIVERS_DELETE_DRIVER}" />{S_FORM_TOKEN}</span></td>
+				<td valign="middle"><span class="genmed">&nbsp;{driverrow_gfx.DRIVER_DISABLED}&nbsp;</span></td>
+				<td valign="middle"><span class="genmed"><input type="hidden" name="driver_id" value="{driverrow_gfx.DRIVERID}" /><input class="button2" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></span></td>
+				<td valign="middle"><span class="genmed"><input type="hidden" name="driver_id" value="{driverrow_gfx.DRIVERID}" /><input class="button2" type="submit" name="del"  value="{L_ACP_F1_DRIVERS_DELETE_DRIVER}" />{S_FORM_TOKEN}</span></td>
 			</tr>
 			</form>
 			<!-- END driverrow_gfx -->
@@ -282,9 +282,9 @@
 				<td width="30%" valign="middle"><span class="genmed">{driverrow.DRIVERTEAM}</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow.DRIVERPOINTS}&nbsp;</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow.DRIVER_PENALTY}&nbsp;</span></td>
-				<td valign="middle" nowrap="nowrap"><span class="genmed">&nbsp;{driverrow.DRIVER_DISABLED}&nbsp;</span></td>
-				<td valign="middle" nowrap="nowrap"><input id="hidden" type="hidden" name="driver_id" value="{driverrow.DRIVERID}" /><input class="button2" id="submit" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></td>
-				<td valign="middle" nowrap="nowrap"><input class="button2" type="submit" name="del" value="{L_ACP_F1_DRIVERS_DELETE_DRIVER}" />{S_FORM_TOKEN}</td>
+				<td valign="middle"><span class="genmed">&nbsp;{driverrow.DRIVER_DISABLED}&nbsp;</span></td>
+				<td valign="middle"><input id="hidden" type="hidden" name="driver_id" value="{driverrow.DRIVERID}" /><input class="button2" id="submit" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></td>
+				<td valign="middle"><input class="button2" type="submit" name="del" value="{L_ACP_F1_DRIVERS_DELETE_DRIVER}" />{S_FORM_TOKEN}</td>
 			</tr>
 			</form>
 			<!-- END driverrow -->
@@ -319,18 +319,18 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DRIVERNAME}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="drivername" value="{PREDEFINED_NAME}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DRIVERNAME}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="drivername" value="{PREDEFINED_NAME}" /></td>
 			</tr>
 			<!-- BEGIN gfx_on -->
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DRIVERIMAGE}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="driverimg" value="{PREDEFINED_IMG}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DRIVERIMAGE}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="driverimg" value="{PREDEFINED_IMG}" /></td>
 			</tr>
 			<!-- END gfx_on -->
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DRIVERTEAM}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DRIVERTEAM}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;
 					<select size="1" name="driverteam">
 					<!-- BEGIN teamrow -->
 						<option value="{teamrow.TEAM_ID}" {teamrow.PRESELECTED}>{teamrow.TEAMNAME}</option>
@@ -339,11 +339,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_PENALTY}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="driver_penalty" value="{PREDEFINED_PENALTY}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_PENALTY}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="driver_penalty" value="{PREDEFINED_PENALTY}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DISABLED}:</strong></span>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_DRIVERS_DISABLED}:</strong></span>&nbsp;</td>
 				<td><input type="radio" class="radio" name="driver_disabled" value="0" {S_DRIVER_ENABLED} /> {L_YES}&nbsp;&nbsp;<input type="radio" class="radio" name="driver_disabled" value="1" {S_DRIVER_DISABLED} /> {L_NO}</td>
 			</tr>
 		</tbody>
@@ -395,8 +395,8 @@
 				<td align="center" width="50%" valign="middle" ><span class="genmed">{teamrow.TEAMNAME}<input type="hidden" name="team_id" value="{teamrow.TEAMID}" /></span></td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow.POINTS}&nbsp;</td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow.TEAM_PENALTY}&nbsp;</td>
-				<td align="center" valign="middle" nowrap="nowrap"><input class="button2" type="submit" name="edit" value="{L_ACP_F1_TEAMS_EDIT_TEAM}" /></td>
-				<td align="center" valign="middle" nowrap="nowrap"><input class="button2" type="submit" name="del"  value="{L_ACP_F1_TEAMS_DELETE_TEAM}" />{S_FORM_TOKEN}</td>
+				<td align="center" valign="middle"><input class="button2" type="submit" name="edit" value="{L_ACP_F1_TEAMS_EDIT_TEAM}" /></td>
+				<td align="center" valign="middle"><input class="button2" type="submit" name="del"  value="{L_ACP_F1_TEAMS_DELETE_TEAM}" />{S_FORM_TOKEN}</td>
 			</tr>
 			</form>
 			<!-- END teamrow -->
@@ -407,13 +407,13 @@
 			<!-- ELSE -->
 			<tr class="row2">
 			<!-- ENDIF -->
-				<td align="center" valign="middle"  nowrap="nowrap">&nbsp;{teamrow_gfx.TEAMCAR}&nbsp;</td>
-				<td align="center" valign="middle"  nowrap="nowrap">&nbsp;{teamrow_gfx.TEAMIMG}&nbsp;</td>
+				<td align="center" valign="middle">&nbsp;{teamrow_gfx.TEAMCAR}&nbsp;</td>
+				<td align="center" valign="middle">&nbsp;{teamrow_gfx.TEAMIMG}&nbsp;</td>
 				<td align="center" width="50%" valign="middle" ><span class="genmed">{teamrow_gfx.TEAMNAME}<input type="hidden" name="team_id" value="{teamrow_gfx.TEAMID}" /></span></td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow_gfx.POINTS}&nbsp;</td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow_gfx.TEAM_PENALTY}&nbsp;</td>
-				<td align="center" valign="middle" nowrap="nowrap"><input class="button2" type="submit" name="edit" value="{L_ACP_F1_TEAMS_EDIT_TEAM}" /></td>
-				<td align="center" valign="middle" nowrap="nowrap"><input class="button2" type="submit" name="del"  value="{L_ACP_F1_TEAMS_DELETE_TEAM}" />{S_FORM_TOKEN}</td>
+				<td align="center" valign="middle"><input class="button2" type="submit" name="edit" value="{L_ACP_F1_TEAMS_EDIT_TEAM}" /></td>
+				<td align="center" valign="middle"><input class="button2" type="submit" name="del"  value="{L_ACP_F1_TEAMS_DELETE_TEAM}" />{S_FORM_TOKEN}</td>
 			</tr>
 			</form>
 			<!-- END teamrow_gfx -->
@@ -446,22 +446,22 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMNAME}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="teamname" value="{PREDEFINED_NAME}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMNAME}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="teamname" value="{PREDEFINED_NAME}" /></td>
 			</tr>
 			<!-- BEGIN gfx_on -->
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamimg" value="{PREDEFINED_IMG}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamimg" value="{PREDEFINED_IMG}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMCAR}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamcar" value="{PREDEFINED_CAR}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_TEAMS_ADDTEAM_TEAMCAR}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamcar" value="{PREDEFINED_CAR}" /></td>
 			</tr>
 			<!-- END gfx_on -->
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_TEAMS_PENALTY}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="team_penalty" value="{PREDEFINED_PENALTY}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_TEAMS_PENALTY}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="team_penalty" value="{PREDEFINED_PENALTY}" /></td>
 			</tr>
 		</tbody>
 	</table>
@@ -495,8 +495,8 @@
 				<td align="center" valign="middle">&nbsp;</td>
 				<!-- END gfxr_on -->
 				<td align="center" width="30%" valign="middle" ><span class="cattitle"><strong>{L_ACP_F1_RACES_RACENAME}</strong></span></td>
-				<td align="center" width="30%" valign="middle"  nowrap="nowrap"><span class="cattitle"><strong>{L_ACP_F1_RACES_RACETIME}</strong></span></td>
-				<td align="center" width="30%" valign="middle"  nowrap="nowrap"><span class="cattitle"><strong>{L_ACP_F1_RACES_RACEDEAD}</strong></span></td>
+				<td align="center" width="30%" valign="middle"><span class="cattitle"><strong>{L_ACP_F1_RACES_RACETIME}</strong></span></td>
+				<td align="center" width="30%" valign="middle"><span class="cattitle"><strong>{L_ACP_F1_RACES_RACEDEAD}</strong></span></td>
 				<td align="center" valign="middle" colspan="2">&nbsp;</td>
 			</tr>
 			<!-- BEGIN racerow_gfxr -->
@@ -506,12 +506,12 @@
 			<!-- ELSE -->
 			<tr class="row2">
 			<!-- ENDIF -->
-				<td align="center" valign="middle"  nowrap="nowrap">&nbsp;{racerow_gfxr.RACEIMG}&nbsp;</td>
+				<td align="center" valign="middle">&nbsp;{racerow_gfxr.RACEIMG}&nbsp;</td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow_gfxr.RACENAME}<input type="hidden" name="race_id" value="{racerow_gfxr.RACEID}" />&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow_gfxr.RACETIME}&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow_gfxr.RACEDEAD}&nbsp;</span></td>
-				<td align="center" valign="middle" nowrap="nowrap">&nbsp;<input class="button2" type="submit" name="edit" value="{L_ACP_F1_RACES_EDIT_RACE}" />&nbsp;</td>
-				<td align="center" valign="middle" nowrap="nowrap">&nbsp;<input class="button2" type="submit" name="del" value="{L_ACP_F1_RACES_DELETE_RACE}" />&nbsp;{S_FORM_TOKEN}</td>
+				<td align="center" valign="middle">&nbsp;<input class="button2" type="submit" name="edit" value="{L_ACP_F1_RACES_EDIT_RACE}" />&nbsp;</td>
+				<td align="center" valign="middle">&nbsp;<input class="button2" type="submit" name="del" value="{L_ACP_F1_RACES_DELETE_RACE}" />&nbsp;{S_FORM_TOKEN}</td>
 			</tr>
 			</form>
 			<!-- END racerow_gfxr -->
@@ -525,8 +525,8 @@
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow.RACENAME}<input type="hidden" name="race_id" value="{racerow.RACEID}" />&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow.RACETIME}&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow.RACEDEAD}&nbsp;</span></td>
-				<td align="center" valign="middle" nowrap="nowrap">&nbsp;<input class="button2" type="submit" name="edit" value="{L_ACP_F1_RACES_EDIT_RACE}" />&nbsp;</td>
-				<td align="center" valign="middle" nowrap="nowrap">&nbsp;<input class="button2" type="submit" name="del" value="{L_ACP_F1_RACES_DELETE_RACE}" />&nbsp;{S_FORM_TOKEN}</td>
+				<td align="center" valign="middle">&nbsp;<input class="button2" type="submit" name="edit" value="{L_ACP_F1_RACES_EDIT_RACE}" />&nbsp;</td>
+				<td align="center" valign="middle">&nbsp;<input class="button2" type="submit" name="del" value="{L_ACP_F1_RACES_DELETE_RACE}" />&nbsp;{S_FORM_TOKEN}</td>
 			</tr>
 			</form>
 			<!-- END racerow -->
@@ -559,34 +559,34 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_RACES_RACENAME}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxlength="64" size="30" name="racename" value="{PREDEFINED_NAME}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_RACES_RACENAME}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="64" size="30" name="racename" value="{PREDEFINED_NAME}" /></td>
 			</tr>
 			<!-- BEGIN gfxr_on -->
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_RACES_RACEIMAGE}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxlength="255" size="30" name="raceimg" value="{PREDEFINED_IMG}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_RACES_RACEIMAGE}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="255" size="30" name="raceimg" value="{PREDEFINED_IMG}" /></td>
 			</tr>
 			<!-- END gfxr_on -->
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_RACES_RACELENGTH}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxlength="8" size="10" name="racelength" value="{PREDEFINED_LENGTH}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_RACES_RACELENGTH}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="8" size="10" name="racelength" value="{PREDEFINED_LENGTH}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_RACES_RACEDISTANCE}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxlength="8" size="10" name="racedistance" value="{PREDEFINED_DISTANCE}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_RACES_RACEDISTANCE}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="8" size="10" name="racedistance" value="{PREDEFINED_DISTANCE}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_RACES_RACELAPS}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxlength="3" size="5" name="racelaps" value="{PREDEFINED_LAPS}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_RACES_RACELAPS}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="3" size="5" name="racelaps" value="{PREDEFINED_LAPS}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_RACES_RACEDEBUT}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;<input type="text" class="post" maxlength="4" size="5" name="racedebut" value="{PREDEFINED_DEBUT}" /></td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_RACES_RACEDEBUT}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="4" size="5" name="racedebut" value="{PREDEFINED_DEBUT}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"  nowrap="nowrap"><span class="genmed"><strong>{L_ACP_F1_RACES_RACETIME}:</strong></span>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle"  nowrap="nowrap">&nbsp;{RACETIME_COMBOS}</td>
+				<td class="row1" align="right" width="50%" valign="middle"><span class="genmed"><strong>{L_ACP_F1_RACES_RACETIME}:</strong></span>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{RACETIME_COMBOS}</td>
 			</tr>
 		</tbody>
 	</table>

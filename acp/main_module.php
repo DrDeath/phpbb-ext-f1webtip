@@ -48,52 +48,52 @@ class main_module
 				{
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
-						{
-							$sql = 'TRUNCATE TABLE ' . $table_tips;
-							$result = $db->sql_query($sql);
+					{
+						$sql = 'TRUNCATE TABLE ' . $table_tips;
+						$result = $db->sql_query($sql);
 
-							$sql = 'TRUNCATE TABLE ' . $table_wm;
-							$result = $db->sql_query($sql);
+						$sql = 'TRUNCATE TABLE ' . $table_wm;
+						$result = $db->sql_query($sql);
 
-							$sql_ary = array(
-								'race_result'		=> 0,
-								'race_quali'		=> 0,
-							);
+						$sql_ary = array(
+							'race_result'		=> 0,
+							'race_quali'		=> 0,
+						);
 
-							$sql = 'UPDATE ' . $table_races . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
-							$db->sql_query($sql);
+						$sql = 'UPDATE ' . $table_races . '
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
+						$db->sql_query($sql);
 
-							//remove penalty from drivers
-							$sql_ary = array(
-								'driver_penalty'	=> 0,
-							);
+						//remove penalty from drivers
+						$sql_ary = array(
+							'driver_penalty'	=> 0,
+						);
 
-							$sql = 'UPDATE ' . $table_drivers . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
-							$db->sql_query($sql);
+						$sql = 'UPDATE ' . $table_drivers . '
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
+						$db->sql_query($sql);
 
-							//remove penalty from teams
-							$sql_ary = array(
-								'team_penalty'	=> 0,
-							);
+						//remove penalty from teams
+						$sql_ary = array(
+							'team_penalty'	=> 0,
+						);
 
-							$sql = 'UPDATE ' . $table_teams . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
-							$db->sql_query($sql);
+						$sql = 'UPDATE ' . $table_teams . '
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
+						$db->sql_query($sql);
 
-							$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_SAISON_RESET');
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_SAISON_RESET');
 
-							$error = $user->lang['ACP_F1_SETTINGS_SEASON_RESETTED'];
-							trigger_error($error . adm_back_link($this->u_action));
-						}
+						$error = $user->lang['ACP_F1_SETTINGS_SEASON_RESETTED'];
+						trigger_error($error . adm_back_link($this->u_action));
+					}
 					// Create a confirmbox with yes and no.
 					else
 					{
-							confirm_box(false, $user->lang['ACP_F1_SETTINGS_SEASON_RESET_EXPLAIN'], build_hidden_fields(array(
-								'reset_all'				=> true,
-								))
-							, 'confirm_body.html');
+						confirm_box(false, $user->lang['ACP_F1_SETTINGS_SEASON_RESET_EXPLAIN'], build_hidden_fields(array(
+							'reset_all'				=> true,
+							))
+						, 'confirm_body.html');
 					}
 				}
 
@@ -365,20 +365,27 @@ class main_module
 
 				if ($button_del && $driver_id <> 0)
 				{
-					// Is it salty ?
-					if (!check_form_key('drdeath/f1webtip'))
+					// Have we confirmed with yes ?
+					if (confirm_box(true))
 					{
-						trigger_error('FORM_INVALID');
+						$sql = 'DELETE FROM ' . $table_drivers . '
+								WHERE driver_id = ' . (int) $driver_id;
+						$db->sql_query($sql);
+
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($driver_id));
+
+						$error = $user->lang['ACP_F1_DRIVERS_DRIVER_DELETED'];
+						trigger_error($error . adm_back_link($this->u_action));
 					}
-
-					$sql = 'DELETE FROM ' . $table_drivers . '
-							WHERE driver_id = ' . (int) $driver_id;
-					$db->sql_query($sql);
-
-					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($driver_id));
-
-					$error = $user->lang['ACP_F1_DRIVERS_DRIVER_DELETED'];
-					trigger_error($error . adm_back_link($this->u_action));
+					// Create a confirmbox with yes and no.
+					else
+					{
+						confirm_box(false, $user->lang['ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM'], build_hidden_fields(array(
+							'del'				=> true,
+							'driver_id'			=> $driver_id,
+							))
+						, 'confirm_body.html');
+					}
 				}
 
 				//
@@ -661,20 +668,27 @@ class main_module
 
 				if ($button_del && $team_id <> 0)
 				{
-					// Is it salty ?
-					if (!check_form_key('drdeath/f1webtip'))
+					// Have we confirmed with yes ?
+					if (confirm_box(true))
 					{
-						trigger_error('FORM_INVALID');
+						$sql = 'DELETE FROM ' . $table_teams . '
+								WHERE team_id = ' . (int) $team_id;
+						$db->sql_query($sql);
+
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($team_id));
+
+						$error = $user->lang['ACP_F1_TEAMS_TEAM_DELETED'];
+						trigger_error($error . adm_back_link($this->u_action));
 					}
-
-					$sql = 'DELETE FROM ' . $table_teams . '
-							WHERE team_id = ' . (int) $team_id;
-					$db->sql_query($sql);
-
-					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($team_id));
-
-					$error = $user->lang['ACP_F1_TEAMS_TEAM_DELETED'];
-					trigger_error($error . adm_back_link($this->u_action));
+					// Create a confirmbox with yes and no.
+					else
+					{
+						confirm_box(false, $user->lang['ACP_F1_TEAMS_TEAM_DELETE_CONFIRM'], build_hidden_fields(array(
+							'del'				=> true,
+							'team_id'			=> $team_id,
+							))
+						, 'confirm_body.html');
+					}
 				}
 
 
@@ -911,20 +925,27 @@ class main_module
 
 				if ($button_del && $race_id <> 0)
 				{
-					// Is it salty ?
-					if (!check_form_key('drdeath/f1webtip'))
+					// Have we confirmed with yes ?
+					if (confirm_box(true))
 					{
-						trigger_error('FORM_INVALID');
+						$sql = 'DELETE FROM ' . $phpbb_container->getParameter('tables.f1webtip.races') . '
+								WHERE race_id = ' . (int) $race_id;
+						$db->sql_query($sql);
+
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, array($race_id));
+
+						$error = $user->lang['ACP_F1_RACES_RACE_DELETED'];
+						trigger_error($error . adm_back_link($this->u_action));
+						}
+					// Create a confirmbox with yes and no.
+					else
+					{
+						confirm_box(false, $user->lang['ACP_F1_RACES_RACE_DELETE_CONFIRM'], build_hidden_fields(array(
+							'del'				=> true,
+							'race_id'			=> $race_id,
+							))
+						, 'confirm_body.html');
 					}
-
-					$sql = 'DELETE FROM ' . $phpbb_container->getParameter('tables.f1webtip.races') . '
-							WHERE race_id = ' . (int) $race_id;
-					$db->sql_query($sql);
-
-					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, array($race_id));
-
-					$error = $user->lang['ACP_F1_RACES_RACE_DELETED'];
-					trigger_error($error . adm_back_link($this->u_action));
 				}
 
 

@@ -23,15 +23,21 @@
 					<td nowrap="nowrap"><strong>{L_ACP_F1_SETTINGS_MODERATOR}</strong><br />{L_ACP_F1_SETTINGS_MODERATOR_EXPLAIN}</td>
 					<td>{D_MODERATOR}</td>
 				</tr>
+				<tr class="row2">
+					<td><strong>{L_ACP_F1_SETTINGS_ACCESS_GROUP}</strong><br />{L_ACP_F1_SETTINGS_ACCESS_GROUP_EXPLAIN}</td>
+					<td>{D_ACCESS_GROUP}</td>
+				</tr>
 				<tr class="row1">
 					<td><strong>{L_ACP_F1_SETTING_GUEST_VIEWING}:</strong><br />{L_ACP_F1_SETTING_GUEST_VIEWING_EXPLAIN}</td>
 					<td><input type="radio" class="radio" name="guest_viewing" value="1" <!-- IF GUEST_VIEWING -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
 					    <input type="radio" class="radio" name="guest_viewing" value="0" <!-- IF not GUEST_VIEWING -->checked="checked"<!-- ENDIF --> /> {L_NO}
 					</td>
 				</tr>
-				<tr class="row2">
-					<td><strong>{L_ACP_F1_SETTINGS_ACCESS_GROUP}</strong><br />{L_ACP_F1_SETTINGS_ACCESS_GROUP_EXPLAIN}</td>
-					<td>{D_ACCESS_GROUP}</td>
+				<tr class="row1">
+					<td><strong>{L_ACP_F1_SETTINGS_REMINDER_ENABLED}:</strong><br />{L_ACP_F1_SETTINGS_REMINDER_ENABLED_EXPLAIN}</td>
+					<td><input type="radio" class="radio" name="reminder_enabled" value="1" <!-- IF REMINDER_ENABLED -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
+						<input type="radio" class="radio" name="reminder_enabled" value="0" <!-- IF not REMINDER_ENABLED -->checked="checked"<!-- ENDIF --> /> {L_NO}
+					</td>
 				</tr>
 				<tr class="row1">
 					<td><strong>{L_ACP_F1_SETTINGS_OFFSET}:</strong><br />{L_ACP_F1_SETTINGS_OFFSET_EXPLAIN}</td>
@@ -61,12 +67,6 @@
 					<td><strong>{L_ACP_F1_SETTINGS_SHOW_COUNTDOWN}:</strong><br />{L_ACP_F1_SETTINGS_SHOW_COUNTDOWN_EXPLAIN}</td>
 					<td><input type="radio" class="radio" name="show_countdown" value="1" <!-- IF SHOW_COUNTDOWN -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
 						<input type="radio" class="radio" name="show_countdown" value="0" <!-- IF not SHOW_COUNTDOWN -->checked="checked"<!-- ENDIF --> /> {L_NO}
-					</td>
-				</tr>
-				<tr class="row1">
-					<td><strong>{L_ACP_F1_SETTINGS_REMINDER_ENABLED}:</strong><br />{L_ACP_F1_SETTINGS_REMINDER_ENABLED_EXPLAIN}</td>
-					<td><input type="radio" class="radio" name="reminder_enabled" value="1" <!-- IF REMINDER_ENABLED -->checked="checked"<!-- ENDIF -->/> {L_YES} &nbsp;
-						<input type="radio" class="radio" name="reminder_enabled" value="0" <!-- IF not REMINDER_ENABLED -->checked="checked"<!-- ENDIF --> /> {L_NO}
 					</td>
 				</tr>
 				<tr>

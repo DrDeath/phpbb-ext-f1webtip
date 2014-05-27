@@ -884,6 +884,7 @@ class main
 				$results		= $request->variable('result'			,	''	);
 				$race_abort 	= $request->variable('race_abort'		,	0	);
 				$race_id		= $request->variable('race_id'			,	0	);
+				$racename		= $request->variable('racename'			,	'', true	);
 
 				// Init some vars
 				$quali_array	= array();
@@ -907,7 +908,7 @@ class main
 						WHERE race_id = ' . (int) $race_id;
 					$db->sql_query($sql);
 
-					$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
+					$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 					$tipp_msg = sprintf($user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
@@ -949,7 +950,7 @@ class main
 					$db->sql_query($sql);
 
 					// Pull out a success message
-					$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
+					$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 					$tipp_msg = sprintf($user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
@@ -979,7 +980,7 @@ class main
 
 							if ($this->checkarrayforvalue($value, $quali_array))
 							{
-								$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
+								$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 								$quali_msg = sprintf($user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 								trigger_error($quali_msg);
@@ -999,7 +1000,7 @@ class main
 							WHERE race_id = ' . (int) $race_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
+						$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_QUALI_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 						$quali_msg = sprintf($user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 						trigger_error($quali_msg);
@@ -1031,7 +1032,7 @@ class main
 
 							if ($this->checkarrayforvalue($value, $result_array))
 							{
-								$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
+								$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 								$result_msg = sprintf($user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 								trigger_error($result_msg);
@@ -1183,7 +1184,7 @@ class main
 						}
 						// END points calc
 
-						$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $race_id));
+						$phpbb_log->add('mod', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RESULT_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 						$result_msg = sprintf($user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 						trigger_error($result_msg);
@@ -1406,6 +1407,7 @@ class main
 					'U_FORMEL' 						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'U_FORMEL_RESULTS' 				=> $this->helper->route('f1webtip_controller', array('name' => 'results')),
 					'RACE_ID' 						=> $race_id,
+					'RACENAME' 						=> $racename,
 
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
@@ -1600,6 +1602,7 @@ class main
 
 				$race_offset 	= $request->variable('race_offset'	, 0);
 				$race_id 		= $request->variable('race_id'		, 0);
+				$racename 		= $request->variable('racename'		, '', true);
 				$user_id 		= $this->user->data['user_id'];
 				$tipp_time 		= $request->variable('tipp_time'	, 0);
 				$my_tipp_array 	= array();
@@ -1635,7 +1638,7 @@ class main
 							AND tip_race = ' . (int) $race_id;
 					$db->sql_query($sql);
 
-					$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_DELETED', false, array('reportee_id' => 0, $race_id));
+					$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_DELETED', false, array('reportee_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 					$tipp_msg = sprintf($user->lang['FORMEL_TIPP_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
 					trigger_error( $tipp_msg);
@@ -1656,7 +1659,7 @@ class main
 
 						if ($this->checkarrayforvalue($value, $my_tipp_array))
 						{
-							$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_NOT_VALID', false, array('reportee_id' => 0, $race_id));
+							$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_NOT_VALID', false, array('reportee_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
 							$tipp_msg = sprintf($user->lang['FORMEL_DUBLICATE_VALUES'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
 							trigger_error($tipp_msg);
@@ -1682,7 +1685,7 @@ class main
 
 						$db->sql_query('INSERT INTO ' . $table_tips . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_GIVEN', false, array('reportee_id' => 0, $race_id));
+						$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_GIVEN', false, array('reportee_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 					}
 					else
 					{
@@ -1696,7 +1699,7 @@ class main
 								AND tip_race = ' . (int) $race_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_EDITED', false, array('reportee_id' => 0, $race_id));
+						$phpbb_log->add('user', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TIP_EDITED', false, array('reportee_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 					}
 
 					$tipp_msg = sprintf($user->lang['FORMEL_ACCEPTED_TIPP'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$phpbb_root_path}index.$phpEx") . '" class="gen">', '</a>');
@@ -2559,6 +2562,7 @@ class main
 					'HEADER_WIDTH' 						=> $config['drdeath_f1webtip_head_width'],
 					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
 					'RACE_ID'							=> (isset($races[$chosen_race]['race_id']))   ? $races[$chosen_race]['race_id']   : 1,
+					'RACENAME'							=> $races[$chosen_race]['race_name'],
 					'RACE_TIME'							=> (isset($races[$chosen_race]['race_time'])) ? $races[$chosen_race]['race_time'] : 1,
 					'RACE_OFFSET'						=> $race_offset,
 					'COUNTDOWN'							=> (isset($countdown)) ? $countdown : '',

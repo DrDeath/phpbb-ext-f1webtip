@@ -372,7 +372,7 @@ class main_module
 								WHERE driver_id = ' . (int) $driver_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($driver_id));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
 
 						$error = $user->lang['ACP_F1_DRIVERS_DRIVER_DELETED'];
 						trigger_error($error . adm_back_link($this->u_action));
@@ -380,9 +380,10 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $user->lang['ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM'], build_hidden_fields(array(
+						confirm_box(false, sprintf($user->lang['ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM'], $drivername), build_hidden_fields(array(
 							'del'				=> true,
 							'driver_id'			=> $driver_id,
+							'drivername'		=> $drivername,
 							))
 						, 'confirm_body.html');
 					}
@@ -447,7 +448,7 @@ class main_module
 							$db->sql_query($sql);
 						}
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, array($driver_id));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
 					}
 
 					$error = $user->lang['ACP_F1_DRIVERS_DRIVER_UPDATED'];
@@ -675,7 +676,7 @@ class main_module
 								WHERE team_id = ' . (int) $team_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($team_id));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($teamname . ' (ID ' . $team_id . ')' ));
 
 						$error = $user->lang['ACP_F1_TEAMS_TEAM_DELETED'];
 						trigger_error($error . adm_back_link($this->u_action));
@@ -683,9 +684,10 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $user->lang['ACP_F1_TEAMS_TEAM_DELETE_CONFIRM'], build_hidden_fields(array(
+						confirm_box(false, sprintf($user->lang['ACP_F1_TEAMS_TEAM_DELETE_CONFIRM'], $teamname), build_hidden_fields(array(
 							'del'				=> true,
 							'team_id'			=> $team_id,
+							'teamname'			=> $teamname,
 							))
 						, 'confirm_body.html');
 					}
@@ -748,7 +750,7 @@ class main_module
 							$db->sql_query($sql);
 						}
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_EDITED', false, array($team_id));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_EDITED', false, array($teamname . ' (ID ' . $team_id . ')' ));
 					}
 
 					$error = $user->lang['ACP_F1_TEAMS_TEAM_UPDATED'];
@@ -932,7 +934,7 @@ class main_module
 								WHERE race_id = ' . (int) $race_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, array($race_id));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, array($racename . ' (ID ' . $race_id . ')' ));
 
 						$error = $user->lang['ACP_F1_RACES_RACE_DELETED'];
 						trigger_error($error . adm_back_link($this->u_action));
@@ -940,9 +942,10 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $user->lang['ACP_F1_RACES_RACE_DELETE_CONFIRM'], build_hidden_fields(array(
+						confirm_box(false, sprintf($user->lang['ACP_F1_RACES_RACE_DELETE_CONFIRM'], $racename), build_hidden_fields(array(
 							'del'				=> true,
 							'race_id'			=> $race_id,
+							'racename'			=> $racename,
 							))
 						, 'confirm_body.html');
 					}
@@ -985,7 +988,7 @@ class main_module
 
 						$db->sql_query('INSERT INTO ' . $phpbb_container->getParameter('tables.f1webtip.races') . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_ADDED');
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_ADDED', false, array($racename));
 					}
 					else
 					{
@@ -1023,7 +1026,7 @@ class main_module
 							$db->sql_query($sql);
 						}
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_EDITED', false, array($race_id));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_EDITED', false, array($racename . ' (ID ' . $race_id . ')' ));
 					}
 
 					$error = $user->lang['ACP_F1_RACES_RACE_UPDATED'];

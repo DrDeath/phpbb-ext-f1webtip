@@ -261,13 +261,13 @@
 			<tr class="row2">
 			<!-- ENDIF -->
 				<td valign="middle">&nbsp;{driverrow_gfx.DRIVERIMG}&nbsp;</td>
-				<td width="30%" valign="middle"><span class="genmed">{driverrow_gfx.DRIVERNAME}</span></td>
+				<td width="30%" valign="middle"><span class="genmed">{driverrow_gfx.DRIVERNAME}</span><input type="hidden" name="driver_id" value="{driverrow_gfx.DRIVERID}" /><input type="hidden" name="drivername" value="{driverrow_gfx.DRIVERNAME}" /></td>
 				<td width="30%" valign="middle"><span class="genmed">{driverrow_gfx.DRIVERTEAM}</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow_gfx.DRIVERPOINTS}&nbsp;</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow_gfx.DRIVER_PENALTY}&nbsp;</span></td>
 				<td valign="middle"><span class="genmed">&nbsp;{driverrow_gfx.DRIVER_DISABLED}&nbsp;</span></td>
-				<td valign="middle"><span class="genmed"><input type="hidden" name="driver_id" value="{driverrow_gfx.DRIVERID}" /><input class="button2" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></span></td>
-				<td valign="middle"><span class="genmed"><input type="hidden" name="driver_id" value="{driverrow_gfx.DRIVERID}" /><input class="button2" type="submit" name="del"  value="{L_ACP_F1_DRIVERS_DELETE_DRIVER}" />{S_FORM_TOKEN}</span></td>
+				<td valign="middle"><span class="genmed"><input class="button2" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></span></td>
+				<td valign="middle"><span class="genmed"><input class="button2" type="submit" name="del"  value="{L_ACP_F1_DRIVERS_DELETE_DRIVER}" />{S_FORM_TOKEN}</span></td>
 			</tr>
 			</form>
 			<!-- END driverrow_gfx -->
@@ -278,12 +278,12 @@
 			<!-- ELSE -->
 			<tr class="row2">
 			<!-- ENDIF -->
-				<td width="30%" valign="middle"><span class="genmed">{driverrow.DRIVERNAME}</span></td>
+				<td width="30%" valign="middle"><span class="genmed">{driverrow.DRIVERNAME}</span><input type="hidden" name="driver_id" value="{driverrow.DRIVERID}" /><input type="hidden" name="drivername" value="{driverrow.DRIVERNAME}" /></td>
 				<td width="30%" valign="middle"><span class="genmed">{driverrow.DRIVERTEAM}</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow.DRIVERPOINTS}&nbsp;</span></td>
 				<td width="20%" valign="middle"><span class="genmed">&nbsp;{driverrow.DRIVER_PENALTY}&nbsp;</span></td>
 				<td valign="middle"><span class="genmed">&nbsp;{driverrow.DRIVER_DISABLED}&nbsp;</span></td>
-				<td valign="middle"><input id="hidden" type="hidden" name="driver_id" value="{driverrow.DRIVERID}" /><input class="button2" id="submit" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></td>
+				<td valign="middle"><input class="button2" id="submit" type="submit" name="edit" value="{L_ACP_F1_DRIVERS_EDIT_DRIVER}" /></td>
 				<td valign="middle"><input class="button2" type="submit" name="del" value="{L_ACP_F1_DRIVERS_DELETE_DRIVER}" />{S_FORM_TOKEN}</td>
 			</tr>
 			</form>
@@ -392,7 +392,7 @@
 			<!-- ELSE -->
 			<tr class="row2">
 			<!-- ENDIF -->
-				<td align="center" width="50%" valign="middle" ><span class="genmed">{teamrow.TEAMNAME}<input type="hidden" name="team_id" value="{teamrow.TEAMID}" /></span></td>
+				<td align="center" width="50%" valign="middle" ><span class="genmed">{teamrow.TEAMNAME}<input type="hidden" name="team_id" value="{teamrow.TEAMID}" /><input type="hidden" name="teamname" value="{teamrow.TEAMNAME}" /></span></td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow.POINTS}&nbsp;</td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow.TEAM_PENALTY}&nbsp;</td>
 				<td align="center" valign="middle"><input class="button2" type="submit" name="edit" value="{L_ACP_F1_TEAMS_EDIT_TEAM}" /></td>
@@ -409,7 +409,7 @@
 			<!-- ENDIF -->
 				<td align="center" valign="middle">&nbsp;{teamrow_gfx.TEAMCAR}&nbsp;</td>
 				<td align="center" valign="middle">&nbsp;{teamrow_gfx.TEAMIMG}&nbsp;</td>
-				<td align="center" width="50%" valign="middle" ><span class="genmed">{teamrow_gfx.TEAMNAME}<input type="hidden" name="team_id" value="{teamrow_gfx.TEAMID}" /></span></td>
+				<td align="center" width="50%" valign="middle" ><span class="genmed">{teamrow_gfx.TEAMNAME}<input type="hidden" name="team_id" value="{teamrow_gfx.TEAMID}" /><input type="hidden" name="teamname" value="{teamrow_gfx.TEAMNAME}" /></span></td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow_gfx.POINTS}&nbsp;</td>
 				<td align="center" width="25%" valign="middle" >&nbsp;{teamrow_gfx.TEAM_PENALTY}&nbsp;</td>
 				<td align="center" valign="middle"><input class="button2" type="submit" name="edit" value="{L_ACP_F1_TEAMS_EDIT_TEAM}" /></td>
@@ -507,7 +507,7 @@
 			<tr class="row2">
 			<!-- ENDIF -->
 				<td align="center" valign="middle">&nbsp;{racerow_gfxr.RACEIMG}&nbsp;</td>
-				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow_gfxr.RACENAME}<input type="hidden" name="race_id" value="{racerow_gfxr.RACEID}" />&nbsp;</span></td>
+				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow_gfxr.RACENAME}<input type="hidden" name="race_id" value="{racerow_gfxr.RACEID}" /><input type="hidden" name="racename" value="{racerow_gfxr.RACENAME}" />&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow_gfxr.RACETIME}&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow_gfxr.RACEDEAD}&nbsp;</span></td>
 				<td align="center" valign="middle">&nbsp;<input class="button2" type="submit" name="edit" value="{L_ACP_F1_RACES_EDIT_RACE}" />&nbsp;</td>
@@ -522,7 +522,7 @@
 			<!-- ELSE -->
 			<tr class="row2">
 			<!-- ENDIF -->
-				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow.RACENAME}<input type="hidden" name="race_id" value="{racerow.RACEID}" />&nbsp;</span></td>
+				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow.RACENAME}<input type="hidden" name="race_id" value="{racerow.RACEID}" /><input type="hidden" name="racename" value="{racerow.RACENAME}" />&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow.RACETIME}&nbsp;</span></td>
 				<td align="center" width="30%" valign="middle" ><span class="genmed">&nbsp;{racerow.RACEDEAD}&nbsp;</span></td>
 				<td align="center" valign="middle">&nbsp;<input class="button2" type="submit" name="edit" value="{L_ACP_F1_RACES_EDIT_RACE}" />&nbsp;</td>

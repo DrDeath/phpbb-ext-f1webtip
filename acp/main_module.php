@@ -414,7 +414,7 @@ class main_module
 
 						$db->sql_query('INSERT INTO ' . $table_drivers . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_ADDED');
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_ADDED', false, array($drivername));
 					}
 					else
 					{
@@ -717,7 +717,7 @@ class main_module
 
 						$db->sql_query('INSERT INTO ' . $table_teams . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_ADDED');
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_ADDED', false, array($teamname));
 					}
 					else
 					{

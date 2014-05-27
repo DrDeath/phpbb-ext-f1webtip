@@ -1173,8 +1173,8 @@ class main_module
 								'RACEIMG' 	=> $race_img,
 								'RACENAME' 	=> $row['race_name'],
 								'RACEID' 	=> $row['race_id'],
-								'RACETIME' 	=> $user->format_date( $row['race_time']),
-								'RACEDEAD' 	=> $user->format_date( $row['race_time'] - $config['drdeath_f1webtip_deadline_offset'] )
+								'RACETIME' 	=> $user->format_date($row['race_time'], false, true),
+								'RACEDEAD' 	=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true)
 							));
 						}
 						else

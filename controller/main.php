@@ -811,8 +811,8 @@ class main
 							'RESULT_BUTTONS'	=> $result_buttons,
 							'RACEID'			=> $race_id,
 							'RACENAME'			=> $row['race_name'],
-							'RACETIME'			=> $user->format_date($row['race_time']),
-							'RACEDEAD'			=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset']),
+							'RACETIME'			=> $user->format_date($row['race_time'], false, true),
+							'RACEDEAD'			=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),
 							)
 						);
 					}
@@ -823,8 +823,8 @@ class main
 							'RESULT_BUTTONS'	=> $result_buttons,
 							'RACEID'			=> $race_id,
 							'RACENAME'			=> $row['race_name'],
-							'RACETIME'			=> $user->format_date($row['race_time']),
-							'RACEDEAD'			=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset']),
+							'RACETIME'			=> $user->format_date($row['race_time'], false, true),
+							'RACEDEAD'			=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),
 							)
 						);
 					}
@@ -2032,8 +2032,8 @@ class main
 							'RACEDEBUT' 	=> $races[$chosen_race]['race_debut'],
 							'RACEDISTANCE' 	=> $races[$chosen_race]['race_distance'] . ' km',
 							'RACELAPS' 		=> $races[$chosen_race]['race_laps'],
-							'RACETIME' 		=> $user->format_date($races[$chosen_race]['race_time']),
-							'RACEDEAD' 		=> $user->format_date($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset']),
+							'RACETIME' 		=> $user->format_date($races[$chosen_race]['race_time'], false, true),
+							'RACEDEAD' 		=> $user->format_date($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),
 							)
 						);
 

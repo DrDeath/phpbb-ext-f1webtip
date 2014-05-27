@@ -522,6 +522,7 @@ function showtipps(showtipps)
 			<input type="hidden" name="race_offset" value="{RACE_OFFSET}" />
 			<input type="hidden" name="race_id" value="{RACE_ID}" />
 			<input type="hidden" name="tipp_time" value="{RACE_TIME}" />
+			<input type="hidden" name="racename" value="{RACENAME}" />
 			{S_FORM_TOKEN}
 
 			<!-- BEGIN place_tipp -->
@@ -573,6 +574,7 @@ function showtipps(showtipps)
 							<div>
 								&nbsp;{racerow_gfxr.QUALI_BUTTONS}&nbsp;
 								<input type="hidden" name="race_id" value="{racerow_gfxr.RACEID}" />
+								<input type="hidden" name="racename" value="{racerow_gfxr.RACENAME}" />
 								{S_FORM_TOKEN}
 							</div>
 						</form>
@@ -582,6 +584,7 @@ function showtipps(showtipps)
 							<div>
 								&nbsp;{racerow_gfxr.RESULT_BUTTONS}&nbsp;
 								<input type="hidden" name="race_id" value="{racerow_gfxr.RACEID}" />
+								<input type="hidden" name="racename" value="{racerow_gfxr.RACENAME}" />
 								{S_FORM_TOKEN}
 							</div>
 						</form>
@@ -704,7 +707,8 @@ function showtipps(showtipps)
 			</table>
 			<div>
 				<input type="hidden" name="race_id" value="{RACE_ID}" />
-			{S_FORM_TOKEN}
+				<input type="hidden" name="racename" value="{RACENAME}" />
+				{S_FORM_TOKEN}
 			</div>
 		</form>
 

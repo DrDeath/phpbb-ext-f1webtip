@@ -1232,7 +1232,7 @@ class main
 						$position = ($i == 0) ? $user->lang['FORMEL_POLE'] : $i + 1 . '. ' . $user->lang['FORMEL_PLACE'];
 						$box_name = 'place' . ($i + 1);
 
-						$drivercombo = '<select name="' . $box_name . '" size="1">';
+						$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
 
 						for ($k = 0; $k < count($drivers); ++$k)
 						{
@@ -1261,6 +1261,11 @@ class main
 					}
 
 					$template->assign_block_vars('quali', array());
+					
+					$this->template->assign_vars(array(
+							'S_QUALI'			=> true,
+							)
+						);
 				}
 
 				// Load add or edit result
@@ -1303,7 +1308,7 @@ class main
 						$position = ($i == 0) ? $user->lang['FORMEL_RACE_WINNER'] : $i + 1 . '. ' . $user->lang['FORMEL_PLACE'];
 						$box_name = 'place' . ($i + 1);
 
-						$drivercombo = '<select name="' . $box_name . '" size="1">';
+						$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
 
 						for ($k = 0; $k < count($drivers); ++$k)
 						{
@@ -2148,7 +2153,7 @@ class main
 								else
 								{
 									//Actual race is not over
-									$drivercombo = '<select name="' . $box_name . '" size="1">';
+									$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
 
 									for ($k = 0; $k < count($driver_combodata); ++$k)
 									{
@@ -2325,7 +2330,7 @@ class main
 										$position = ($i == 0) ? $user->lang['FORMEL_RACE_WINNER'] : $i + 1 . '. ' . $user->lang['FORMEL_PLACE'];
 										$box_name = 'place' . ($i + 1);
 
-										$drivercombo = '<select name="' . $box_name . '" size="1">';
+										$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
 
 										for ($k = 0; $k < count($driver_combodata); ++$k)
 										{

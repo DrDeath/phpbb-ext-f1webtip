@@ -278,7 +278,7 @@ function showtipps(showtipps)
 
 			<table width="100%" cellpadding="0" cellspacing="1">
 				<tr>
-					<td class="responsive-hide" valign="top" style="width: 33%;">
+					<td <!-- IF S_RESULT_EXISTS -->class="responsive-hide"<!-- ENDIF --> valign="top" style="width: 33%;">
 						<table class="table1" width="100%" >
 							<thead>
 								<tr>
@@ -322,7 +322,7 @@ function showtipps(showtipps)
 							</tbody>
 						</table>
 					</td>
-					<td class="responsive-show-inline" valign="top" style="width: 33%;">
+					<td <!-- IF not S_RESULT_EXISTS -->class="responsive-hide"<!-- ENDIF --> valign="top" style="width: 33%;">
 						<table class="table1" style="width: 100%;">
 							<thead>
 								<tr>

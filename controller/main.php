@@ -2486,6 +2486,12 @@ class main
 									)
 								);
 							}
+
+							// tell the responsive style that we have a result, we can now switch from showing race qualification to race result
+							$this->template->assign_vars(array(
+									'S_RESULT_EXISTS'	=> true,
+									)
+								);
 						}
 						else
 						{

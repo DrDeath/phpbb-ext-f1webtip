@@ -25,6 +25,11 @@
 		"phpbb/phpbb": "3.1.*@dev"
 	},
 	"extra": {
-		"display-name": "F1 WebTip"
+		"display-name": "F1 WebTip",
+		"version-check": {
+			"host": "lpi-clan.de",
+			"directory": "/updatecheck",
+			"filename": "phpbb-ext-f1webtipp-version.json"
+		}
 	}
 }

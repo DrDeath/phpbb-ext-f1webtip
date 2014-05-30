@@ -1,83 +1,113 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Phpbb-ext-f1webtip by DrDeath</title>
-  </head>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1">
+		<link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+		<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+		<link rel="stylesheet" href="./fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="./fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+		<!--[if lt IE 9]>
+		<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<script type="text/javascript">
+			$(document).ready(
+				function()
+				{
+					$(".fancybox").fancybox(
+						{
+							helpers :
+							{
+								title:
+								{
+									type: 'float'
+								}
+							},
+							openEffect: 'elastic',
+							closeEffect: 'elastic'
+						}
+					);
+				}
+			);
+		</script>
+		<title>phpBB 3.1 Extension F1 Webtip by DrDeath</title>
+	</head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
+	<body>
+		<div id="container">
+			<div class="inner">
 
-        <header>
-          <h1>Phpbb-ext-f1webtip</h1>
-          <h2>With this Extension you can add a Formula 1 tip game to your phpBB 3.1 forum.</h2>
-        </header>
+				<header>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/DrDeath/phpbb-ext-f1webtip/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/DrDeath/phpbb-ext-f1webtip/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/DrDeath/phpbb-ext-f1webtip" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
+					<h1>phpBB 3.1 Extension F1 Webtip</h1>
+					<h2>With this extension you can add a Formula 1 tip game to your forum. Your user can tip race results and collect points. Current season standings ( users / drivers / teams ) are listet on a statistics page and in the user profile.</h2>
 
-        <hr>
+				</header>
 
-        <section id="main_content">
-          <h1>
-<a name="phpbb-ext-f1webtip" class="anchor" href="#phpbb-ext-f1webtip"><span class="octicon octicon-link"></span></a>phpbb-ext-f1webtip</h1>
+				<section id="downloads" class="clearfix">
 
-<h1>
-<a name="phpbb-31-f1webtip-extension" class="anchor" href="#phpbb-31-f1webtip-extension"><span class="octicon octicon-link"></span></a>phpBB 3.1 F1Webtip Extension</h1>
+					<a href="https://github.com/DrDeath/phpbb-ext-f1webtip/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+					<a href="https://github.com/DrDeath/phpbb-ext-f1webtip" id="view-on-github" class="button"><span>View on GitHub</span></a>
+					<a href="https://www.phpbb.de/community/viewtopic.php?f=149&t=231370" id="view-on-phpbb" class="button"><span>View on phpBB</span></a>
 
-<p>F1Webtip is an Extension for <a href="https://www.phpbb.com/">phpBB 3.1</a></p>
+				</section>
 
-<h2>
-<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
+				<hr>
 
-<p>With this mod you can add a Formula 1 tip game to your phpBB3.1 forum.
-Your forum users can tip race results and collect points.
-Current season standings ( users / drivers / teams ) are listet on a statistic page and on the user profile.</p>
+				<section id="main_content">
 
-<h2>
-<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+					<h1><a name="phpbb31-ext-f1webtipp-en" class="anchor" href="#phpbb31-ext-f1webtipp-en"><span class="octicon octicon-link"></span></a>phpBB 3.1 Extension F1 WebTip (english)</h1>
 
-<p>Clone into phpBB/ext/drdeath/f1webtip:</p>
+					<p>With this extension you can add a Formula 1 tip game to your phpBB 3.1.x forum.</p>
+					<p>Your forum users can tip race results and collect points.</p>
+					<p>Current season standings ( users / drivers / teams ) are listet on a statistic page and on the user profile.</p>
+					<p>To install this phpBB 3.1 Extension, extract this zip archive to your phpBB Forum into the folder <code>ext/drdeath/f1webtip</code></p>
+					<p>Go to "ACP" > "Customise" > "Extensions" and enable the "F1 WebTip" extension.</p>
+					<p>You will find afterwards additional settings in the ACP Modul "Extensions"</p>
 
-<pre><code>git clone https://github.com/DrDeath/phpbb-ext-f1webtip.git phpBB/ext/drdeath/f1webtip
-</code></pre>
+					<hr>
 
-<p>Go to "ACP" &gt; "Customise" &gt; "Extensions" and enable the "phpBB 3.1 F1Webtip Extension" extension.</p>
+					<h1><a name="phpbb31-ext-f1webtipp-de" class="anchor" href="#phpbb31-ext-f1webtipp-de"><span class="octicon octicon-link"></span></a>phpBB 3.1 Extension F1 WebTipp (german)</h1>
 
-<h2>
-<a name="collaborate" class="anchor" href="#collaborate"><span class="octicon octicon-link"></span></a>Collaborate</h2>
+					<p>Mit dieser Erweiterung (Extension) fügst Du ein Formel 1 WebTipp Spiel Deinem Forum hinzu.</p>
+					<p>Deine Benutzer können auf die Rennergebnisse tippen und erhalten dadurch Punkte.</p>
+					<p>Aktuelle Saison Statistiken ( Benutzer / Fahrer / Teams ) lassen sich auf den eingebauten Statistikseiten und im Benutzerprofil begutachten.</p>
+					<p>Um diese phpBB 3.1 Erweiterung zu installieren, kopiere den entpackten Inhalt der ZIP Datei in Dein Forumsverzeichnis unter <code>ext/drdeath/f1webtip</code></p>
+					<p>Gehe danach in den "Administrationsbereich" (ACP), "Anpassen" und aktiviere die "F1 WebTip" Erweiterung.</p>
+					<p>Weitere Einstellungen findest Du danach unterhalb des Administrations-Moduls "Erweiterungen".<p>
 
-<ul>
-<li>Create a issue in the <a href="https://github.com/DrDeath/phpbb-ext-f1webtip/issues">tracker</a>
-</li>
-<li>Note the restrictions for <a href="https://wiki.phpbb.com/Git#Branch_Names">branch names</a> and <a href="https://wiki.phpbb.com/Git#Commit_Messages">commit messages</a> are similar to phpBB3</li>
-<li>Submit a <a href="https://github.com/DrDeath/phpbb-ext-f1webtip/pulls">pull-request</a>
-</li>
-</ul><h2>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h2>
+					<hr>
 
-<p><a href="license.txt">GPLv2</a></p>
-        </section>
+					<h2>Screenshots</h2>
 
-        <footer>
-          Phpbb-ext-f1webtip is maintained by <a href="https://github.com/DrDeath">DrDeath</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
+					<a class="fancybox" href="screenshots/f1_screen_guest.png" rel="gallery" title="F1 WebTip - Guest View"><img src="screenshots/f1_screen_guest.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/f1_responsive_screen_guest_1.png" rel="gallery" title="F1 WebTip - Guest View - Responsive"><img src="screenshots/f1_responsive_screen_guest_1.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/f1_responsive_screen_guest_2.png" rel="gallery" title="F1 WebTip - Guest View - Responsive"><img src="screenshots/f1_responsive_screen_guest_2.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/f1_screen_user.png" rel="gallery" title="F1 WebTip - User View"><img src="screenshots/f1_screen_user.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/f1_responsive_screen_user.png" rel="gallery" title="F1 WebTip - User View"><img src="screenshots/f1_responsive_screen_user.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/f1_responsive_screen_user_tip_results.png" rel="gallery" title="F1 WebTip - User View"><img src="screenshots/f1_responsive_screen_user_tip_results.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/f1_responsive_screen_moderator_qualify.png" rel="gallery" title="F1 WebTip - User View"><img src="screenshots/f1_responsive_screen_moderator_qualify.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/f1_responsive_screen_moderator_result.png" rel="gallery" title="F1 WebTip - User View"><img src="screenshots/f1_responsive_screen_moderator_result.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_permissions.png" rel="gallery" title="F1 WebTip - ACP Permissions"><img src="screenshots/acp_f1_permissions.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_settings.png" rel="gallery" title="F1 WebTip - ACP Settings"><img src="screenshots/acp_f1_settings.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_races.png" rel="gallery" title="F1 WebTip - ACP Races"><img src="screenshots/acp_f1_races.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_races_edit.png" rel="gallery" title="F1 WebTip - ACP Races edit"><img src="screenshots/acp_f1_races_edit.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_teams.png" rel="gallery" title="F1 WebTip - ACP Teams"><img src="screenshots/acp_f1_teams.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_teams_edit.png" rel="gallery" title="F1 WebTip - ACP Teams edit"><img src="screenshots/acp_f1_teams_edit.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_driver.png" rel="gallery" title="F1 WebTip - ACP Driver"><img src="screenshots/acp_f1_driver.png" alt="" /></a>
+					<a class="fancybox" href="screenshots/acp_f1_driver_edit.png" rel="gallery" title="F1 WebTip - ACP Driver edit"><img src="screenshots/acp_f1_driver_edit.png" alt="" /></a>
 
-        
-      </div>
-    </div>
-  </body>
+				</section>
+
+				<footer>
+					phpBB3.1 Extension F1 Webtip is maintained by <a href="https://github.com/DrDeath">DrDeath</a><br>
+					This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+				</footer>
+
+			</div>
+		</div>
+	</body>
 </html>

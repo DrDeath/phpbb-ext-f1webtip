@@ -96,8 +96,10 @@ $lang = array_merge($lang, array(
 	'FORMEL_RULES_TIRED'			=> 'Für die richtige Anzahl der Ausfälle bekommst Du <strong>%s</strong>.',
 	'FORMEL_RULES_SAFETYCAR'		=> 'Für die richtige Anzahl der Safety Car Einsätze bekommst Du <strong>%s</strong>.',
 	'FORMEL_RULES_TOTAL'			=> 'Insgesamt kannst Du also mit jedem Tipp (rein theoretisch) <strong>%s</strong> erspielen.',
-	'FORMEL_RULES_POINT'			=> 'Punkt',
-	'FORMEL_RULES_POINTS'			=> 'Punkte',
+	'FORMEL_RULES_POINTS'			=> array(
+		1	=> 'Punkt',
+		2	=> 'Punkte',
+	),
 	'FORMEL_DEFINE'					=> 'Nicht gesetzt',
 	'FORMEL_ACCESS_DENIED'			=> 'Der Zugriff auf den F1 WebTipp ist nur einer bestimmten Benutzergruppe gestattet.<br /><br />Klick %shier%s, um einen Aufnahmeantrag zu stellen<br />Klick %shier%s, um zum Index zurückzukehren',
 	'FORMEL_MOD_ACCESS_DENIED'		=> 'Der Zugriff auf die F1 WebTipp Moderation ist nur Moderatoren oder Administratoren gestattet.<br /><br />Klick %shier%s um zum Formel 1 WebTipp zurückzukehren.<br />Klick %shier%s, um zum Index zurückzukehren',

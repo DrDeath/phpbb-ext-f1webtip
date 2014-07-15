@@ -337,64 +337,17 @@ class main
 				$points_tired 		= $config['drdeath_f1webtip_points_tired'];
 				$points_safetycar	= $config['drdeath_f1webtip_points_safety_car'];
 
-				$point 				= $user->lang['FORMEL_RULES_POINT'];
 				$points 			= $user->lang['FORMEL_RULES_POINTS'];
 
-				if ($points_mentioned == '1')
-				{
-					$points_mentioned .= ' ' . $point;
-				}
-				else
-				{
-					$points_mentioned .= ' ' . $points;
-				}
-
-				if ($points_placed == '1')
-				{
-					$points_placed .= ' ' . $point;
-				}
-				else
-				{
-					$points_placed .= ' ' . $points;
-				}
-
-				if ($points_fastest == '1')
-				{
-					$points_fastest .= ' ' . $point;
-				}
-				else
-				{
-					$points_fastest .= ' ' . $points;
-				}
-
-				if ($points_tired == '1')
-				{
-					$points_tired .= ' ' . $point;
-				}
-				else
-				{
-					$points_tired .= ' ' . $points;
-				}
-
-				if ($points_safetycar == '1')
-				{
-					$points_safetycar .= ' ' . $point;
-				}
-				else
-				{
-					$points_safetycar .= ' ' . $points;
-				}
+				$points_mentioned	.= ' ' . $user->lang('FORMEL_RULES_POINTS', (int) $points_mentioned);
+				$points_placed		.= ' ' . $user->lang('FORMEL_RULES_POINTS', (int) $points_placed);
+				$points_fastest		.= ' ' . $user->lang('FORMEL_RULES_POINTS', (int) $points_fastest);
+				$points_tired		.= ' ' . $user->lang('FORMEL_RULES_POINTS', (int) $points_tired);
+				$points_safetycar	.= ' ' . $user->lang('FORMEL_RULES_POINTS', (int) $points_safetycar);
 
 				$points_total = 10 * ($points_mentioned + $points_placed) + $points_fastest + $points_tired + $points_safetycar;
 
-				if ($points_total == '1')
-				{
-					$points_total .= ' ' . $point;
-				}
-				else
-				{
-					$points_total .= ' ' . $points;
-				}
+				$points_total	.= ' ' . $user->lang('FORMEL_RULES_POINTS', (int) $points_total);
 
 				$rules_mentioned 	= sprintf($user->lang['FORMEL_RULES_MENTIONED'] 	, $points_mentioned);
 				$rules_placed 		= sprintf($user->lang['FORMEL_RULES_PLACED']		, $points_placed);

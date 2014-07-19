@@ -17,13 +17,13 @@ services:
         tags:
             - { name: event.listener }
     cron.task.core.email_reminder:
-        class: drdeath\f1webtip\cron\task\core\email_reminder
+        class: drdeath\f1webtip\cron\task\email_reminder
         arguments:
             - @config
             - @controller.helper
             - @template
             - @user
         calls:
-            - [set_name, [cron.task.core.email_reminder]]
+            - [set_name, [cron.task.email_reminder]]
         tags:
             - { name: cron.task }

@@ -7,7 +7,7 @@
 *
 */
 
-namespace drdeath\f1webtip\cron\task\core;
+namespace drdeath\f1webtip\cron\task;
 
 /**
 * @ignore
@@ -66,12 +66,12 @@ class email_reminder extends \phpbb\cron\task\base
 
 		// No $user filled up at this point..... now we do so...
 		$user->setup();
-		
+
 		// Update the last run timestamp to today (i.e. 5232014 --> 05/23/2013)
 		$check_time = (int) gmdate('mdY',time());
 		$this->config->set('drdeath_f1webtip_reminder_last_run', $check_time, true);
- 
-		// Debug Start: Reset cron lock 
+
+		// Debug Start: Reset cron lock
 		// $config->set('cron_lock', '0');
 		// $config->set('drdeath_f1webtip_reminder_last_run', '1', true);
 		// Debug End
@@ -125,6 +125,20 @@ class email_reminder extends \phpbb\cron\task\base
 			// Get the race f1webtipp deadline.
 			// Could have problems if your users live in different timezones.
 			// In this case, remove the DEADLINETIME variable in email template
+
+/*
+*			Only a idea to prevent using the $user->format_date() function....
+*			but I don't have time to finish that at the moment
+*
+*
+			$event_stop		= date($race_time - $config['drdeath_f1webtip_deadline_offset']);
+			$user_date_format = $config['default_dateformat'];
+			$user_timezone = $config['board_timezone'];
+ 			$datetime = new \DateTime($event_stop, \DateTimeZone('UTC'));
+			$datetime->setTimezone(\DateTimeZone($user_timezone));
+			$datetime->format($user_date_format);
+*/
+
 			$event_stop		= date($race_time - $config['drdeath_f1webtip_deadline_offset']);
 			$b_day			= $user->format_date($event_stop, 'd');
 			$b_month		= $user->format_date($event_stop, 'm');
@@ -169,7 +183,7 @@ class email_reminder extends \phpbb\cron\task\base
 				// Send the messages
 				$used_lang = $row['user_lang'];
 				$mail_template_path = $ext_path . 'language/' . $used_lang . '/email/';
-				
+
 				$messenger->to($row['user_email'], $row['username']);
 				$messenger->template('cron_formel', $used_lang, $mail_template_path);
 				$messenger->assign_vars(array(
@@ -184,7 +198,7 @@ class email_reminder extends \phpbb\cron\task\base
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $row['username']. '!';
 					$message = sprintf($user->lang['FORMEL_LOG_ERROR'], $row['user_email']);
-					$phpbb_log->add('critical', $user->data['user_id'], $user->ip, 'LOG_ERROR_EMAIL', false, array($message));
+					$phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
@@ -212,18 +226,18 @@ class email_reminder extends \phpbb\cron\task\base
 				if (!($messenger->send($used_method)))
 				{
 					$message = sprintf($user->lang['FORMEL_LOG_ERROR'], $config['board_email']);
-					$phpbb_log->add('critical', $user->data['user_id'], $user->ip, 'LOG_ERROR_EMAIL', false, array($message));
+					$phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
 					$message = sprintf($user->lang['FORMEL_LOG'], $usernames) ;
-					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_MASS_EMAIL', false, array($message));
+					$phpbb_log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
 				}
 			}
 		}
 
 		// Log the cronjob run
-		$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_CRON');
+		$phpbb_log->add('admin', ANONYMOUS, '', 'LOG_FORMEL_CRON');
 
 		return;
 	}

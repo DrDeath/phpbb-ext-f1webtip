@@ -19,14 +19,11 @@ if (!defined('IN_PHPBB'))
 
 class email_reminder extends \phpbb\cron\task\base
 {
+	/* @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
 	/* @var \phpbb\config\config */
 	protected $config;
-
-	/* @var \phpbb\controller\helper */
-	protected $helper;
-
-	/* @var \phpbb\template\template */
-	protected $template;
 
 	/* @var \phpbb\user */
 	protected $user;
@@ -34,17 +31,15 @@ class email_reminder extends \phpbb\cron\task\base
 	/**
 	* Constructor
 	*
-	* @param \phpbb\config\config        $config
-	* @param \phpbb\controller\helper    $helper
-	* @param \phpbb\template\template    $template
-	* @param \phpbb\user                $user
+	* @param \phpbb\db\driver\driver_interfacer		$db
+	* @param \phpbb\config\config					$config
+	* @param \phpbb\user							$user
 	*/
-	public function __construct(\phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct(\phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\user $user)
 	{
-		$this->config = $config;
-		$this->helper = $helper;
-		$this->template = $template;
-		$this->user = $user;
+		$this->db 		= $db;
+		$this->config 	= $config;
+		$this->user 	= $user;
 	}
 
 	/**
@@ -54,8 +49,7 @@ class email_reminder extends \phpbb\cron\task\base
 	*/
 	public function run()
 	{
-		global $db, $user, $template;
-		global $config, $phpbb_root_path, $phpEx;
+		global $phpbb_root_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
 
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
@@ -65,15 +59,15 @@ class email_reminder extends \phpbb\cron\task\base
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
 
 		// Load extension language file
-		$user->add_lang_ext('drdeath/f1webtip', 'common');
+		$this->user->add_lang_ext('drdeath/f1webtip', 'common');
 
 		// Update the last run timestamp to today (i.e. 5232014 --> 05/23/2013)
 		$check_time = (int) gmdate('mdY',time());
 		$this->config->set('drdeath_f1webtip_reminder_last_run', $check_time, true);
 
 		// Debug Start: Reset cron lock
-		// $config->set('cron_lock', '0');
-		// $config->set('drdeath_f1webtip_reminder_last_run', '1', true);
+		// $this->config->set('cron_lock', '0');
+		// $this->config->set('drdeath_f1webtip_reminder_last_run', '1', true);
 		// Debug End
 
 		//Mail Settings
@@ -82,7 +76,7 @@ class email_reminder extends \phpbb\cron\task\base
 		$priority 		= MAIL_NORMAL_PRIORITY;
 
 		// Get F1 Webtip restricted group
-		$formel_group_id 	= $config['drdeath_f1webtip_restrict_to'];
+		$formel_group_id 	= $this->config['drdeath_f1webtip_restrict_to'];
 
 		// Uncomment the next line for sending the reminder mail to a special group. Replace 114 with the special group ID
 		// $formel_group_id	= 114;
@@ -101,10 +95,10 @@ class email_reminder extends \phpbb\cron\task\base
 					AND		race_mail = 0
 				ORDER BY 	race_time ASC';
 
-		$result = $db->sql_query($sql);
+		$result = $this->db->sql_query($sql);
 
-		$races = $db->sql_fetchrowset($result);
-		$db->sql_freeresult($result);
+		$races = $this->db->sql_fetchrowset($result);
+		$this->db->sql_freeresult($result);
 
 		// If we found the race, get all data and send the mail
 		foreach ($races as $race)
@@ -116,7 +110,7 @@ class email_reminder extends \phpbb\cron\task\base
 							SET 		race_mail = 1
 							WHERE 		race_id = ' . $race_id ;
 
-			$result_mail = $db->sql_query($sql_update);
+			$result_mail = $this->db->sql_query($sql_update);
 
 			// prepare some variables
 			$race_name 		= $race['race_name'];
@@ -126,9 +120,9 @@ class email_reminder extends \phpbb\cron\task\base
 			// Could have problems if your users live in different timezones.
 			// In this case, remove the DEADLINETIME variable in email template
 
-			$event_stop			= date($race_time - $config['drdeath_f1webtip_deadline_offset']);
-			$user_date_format 	= $config['default_dateformat'];
-			$user_timezone 		= $config['board_timezone'];
+			$event_stop			= date($race_time - $this->config['drdeath_f1webtip_deadline_offset']);
+			$user_date_format 	= $this->config['default_dateformat'];
+			$user_timezone 		= $this->config['board_timezone'];
 
 			$datetime = new \DateTime('now', new \DateTimeZone('UTC'));
 			$datetime->setTimestamp($event_stop);
@@ -145,17 +139,16 @@ class email_reminder extends \phpbb\cron\task\base
 			$deadline_date 	= $b_day . '.' . $b_month . '.' . $b_year;
 			$deadline_time	= $b_hour . ':' . $b_minute;
 
-			$subject 		= $user->lang['F1WEBTIP_PAGE'] . " - " . $race_name;
+			$subject 		= $this->user->lang['F1WEBTIP_PAGE'] . " - " . $race_name;
 			$usernames 		= '';
 
 			include_once($phpbb_root_path . 'includes/functions_messenger.' . $phpEx);
 			$messenger = new \messenger($use_queue);
 
 			$errored = false;
-			$messenger->headers('X-AntiAbuse: Board servername - ' . $config['server_name']);
-			$messenger->headers('X-AntiAbuse: User_id - ' . $user->data['user_id']);
-			$messenger->headers('X-AntiAbuse: Username - ' . $user->data['username']);
-			$messenger->headers('X-AntiAbuse: User IP - ' . $user->ip);
+			$messenger->headers('X-AntiAbuse: Board servername - ' . $this->config['server_name']);
+			$messenger->headers('X-AntiAbuse: User_id - ' . ANONYMOUS);
+			$messenger->headers('X-AntiAbuse: Username - CRON TASK F1 WebTip Email Reminder');
 			$messenger->subject(htmlspecialchars_decode($subject));
 			$messenger->set_mail_priority($priority);
 
@@ -173,9 +166,9 @@ class email_reminder extends \phpbb\cron\task\base
 					GROUP BY	u.user_id
 					ORDER BY 	u. username_clean ASC';
 
-			$result = $db->sql_query($sql);
+			$result = $this->db->sql_query($sql);
 
-			while ($row = $db->sql_fetchrow($result))
+			while ($row = $this->db->sql_fetchrow($result))
 			{
 				// Send the messages
 				$used_lang = $row['user_lang'];
@@ -194,7 +187,7 @@ class email_reminder extends \phpbb\cron\task\base
 				if (!($messenger->send($used_method)))
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $row['username']. '!';
-					$message = sprintf($user->lang['FORMEL_LOG_ERROR'], $row['user_email']);
+					$message = sprintf($this->user->lang['FORMEL_LOG_ERROR'], $row['user_email']);
 					$phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
@@ -208,26 +201,26 @@ class email_reminder extends \phpbb\cron\task\base
 			if ($usernames <> '')
 			{
 				//send admin email
-				$used_lang 	= $config['default_lang'];
-				$subject 	= sprintf($user->lang['FORMEL_MAIL_ADMIN'], $race_name);
+				$used_lang 	= $this->config['default_lang'];
+				$subject 	= sprintf($this->user->lang['FORMEL_MAIL_ADMIN'], $race_name);
 
-				$messenger->to($config['board_email'], $config['sitename']);
+				$messenger->to($this->config['board_email'], $this->config['sitename']);
 				$messenger->subject(htmlspecialchars_decode($subject));
 				$messenger->template('admin_send_email', $used_lang);
 				$messenger->assign_vars(array(
-					'CONTACT_EMAIL' => $config['board_contact'],
-					'MESSAGE'		=> sprintf($user->lang['FORMEL_MAIL_ADMIN_MESSAGE'], $usernames),
+					'CONTACT_EMAIL' => $this->config['board_contact'],
+					'MESSAGE'		=> sprintf($this->user->lang['FORMEL_MAIL_ADMIN_MESSAGE'], $usernames),
 					)
 				);
 
 				if (!($messenger->send($used_method)))
 				{
-					$message = sprintf($user->lang['FORMEL_LOG_ERROR'], $config['board_email']);
+					$message = sprintf($this->user->lang['FORMEL_LOG_ERROR'], $this->config['board_email']);
 					$phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
-					$message = sprintf($user->lang['FORMEL_LOG'], $usernames) ;
+					$message = sprintf($this->user->lang['FORMEL_LOG'], $usernames) ;
 					$phpbb_log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
 				}
 			}

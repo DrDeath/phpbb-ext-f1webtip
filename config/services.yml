@@ -19,9 +19,8 @@ services:
     drdeath.f1webtip.cron.task.email_reminder:
         class: drdeath\f1webtip\cron\task\email_reminder
         arguments:
+            - @dbal.conn
             - @config
-            - @controller.helper
-            - @template
             - @user
         calls:
             - [set_name, [drdeath.f1webtip.cron.task.email_reminder]]

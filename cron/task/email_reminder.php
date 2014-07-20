@@ -64,8 +64,8 @@ class email_reminder extends \phpbb\cron\task\base
 		$table_wm 		= $phpbb_container->getParameter('tables.f1webtip.wm');
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
 
-		// No $user filled up at this point..... now we do so...
-		$user->setup();
+		// Load extension language file
+		$user->add_lang_ext('drdeath/f1webtip', 'common');
 
 		// Update the last run timestamp to today (i.e. 5232014 --> 05/23/2013)
 		$check_time = (int) gmdate('mdY',time());
@@ -126,25 +126,22 @@ class email_reminder extends \phpbb\cron\task\base
 			// Could have problems if your users live in different timezones.
 			// In this case, remove the DEADLINETIME variable in email template
 
-/*
-*			Only a idea to prevent using the $user->format_date() function....
-*			but I don't have time to finish that at the moment
-*
-*
-			$event_stop		= date($race_time - $config['drdeath_f1webtip_deadline_offset']);
-			$user_date_format = $config['default_dateformat'];
-			$user_timezone = $config['board_timezone'];
- 			$datetime = new \DateTime($event_stop, \DateTimeZone('UTC'));
-			$datetime->setTimezone(\DateTimeZone($user_timezone));
-			$datetime->format($user_date_format);
-*/
+			$event_stop			= date($race_time - $config['drdeath_f1webtip_deadline_offset']);
+			$user_date_format 	= $config['default_dateformat'];
+			$user_timezone 		= $config['board_timezone'];
 
-			$event_stop		= date($race_time - $config['drdeath_f1webtip_deadline_offset']);
-			$b_day			= $user->format_date($event_stop, 'd');
-			$b_month		= $user->format_date($event_stop, 'm');
-			$b_year			= $user->format_date($event_stop, 'Y');
-			$b_hour			= $user->format_date($event_stop, 'H');
-			$b_minute		= $user->format_date($event_stop, 'i');
+			$datetime = new \DateTime('now', new \DateTimeZone('UTC'));
+			$datetime->setTimestamp($event_stop);
+			$datetime->setTimezone(new \DateTimeZone($user_timezone));
+			$datetime->format($user_date_format);
+			$deadline  = $datetime->format($user_date_format);
+
+			$b_day			= $datetime->format('d');
+			$b_month		= $datetime->format('m');
+			$b_year			= $datetime->format('Y');
+			$b_hour			= $datetime->format('H');
+			$b_minute		= $datetime->format('i');
+
 			$deadline_date 	= $b_day . '.' . $b_month . '.' . $b_year;
 			$deadline_time	= $b_hour . ':' . $b_minute;
 

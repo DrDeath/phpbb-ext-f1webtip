@@ -9,6 +9,8 @@
 
 namespace drdeath\f1webtip\cron\task;
 
+use Symfony\Component\DependencyInjection\Container;
+
 /**
 * @ignore
 */
@@ -19,6 +21,9 @@ if (!defined('IN_PHPBB'))
 
 class email_reminder extends \phpbb\cron\task\base
 {
+	/* @var Container */
+	protected $phpbb_container;
+
 	/* @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -31,15 +36,17 @@ class email_reminder extends \phpbb\cron\task\base
 	/**
 	* Constructor
 	*
+	* @param Container 								$phpbb_container
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\user							$user
 	*/
-	public function __construct(\phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\user $user)
+	public function __construct(Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\user $user)
 	{
-		$this->db 		= $db;
-		$this->config 	= $config;
-		$this->user 	= $user;
+		$this->phpbb_container	= $phpbb_container;
+		$this->db 				= $db;
+		$this->config 			= $config;
+		$this->user 			= $user;
 	}
 
 	/**
@@ -50,13 +57,13 @@ class email_reminder extends \phpbb\cron\task\base
 	public function run()
 	{
 		global $phpbb_root_path, $phpEx;
-		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
+		global $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
 
-		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
-		$table_teams	= $phpbb_container->getParameter('tables.f1webtip.teams');
-		$table_drivers 	= $phpbb_container->getParameter('tables.f1webtip.drivers');
-		$table_wm 		= $phpbb_container->getParameter('tables.f1webtip.wm');
-		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
+		$table_races 	= $this->phpbb_container->getParameter('tables.f1webtip.races');
+		$table_teams	= $this->phpbb_container->getParameter('tables.f1webtip.teams');
+		$table_drivers 	= $this->phpbb_container->getParameter('tables.f1webtip.drivers');
+		$table_wm 		= $this->phpbb_container->getParameter('tables.f1webtip.wm');
+		$table_tips 	= $this->phpbb_container->getParameter('tables.f1webtip.tips');
 
 		// Load extension language file
 		$this->user->add_lang_ext('drdeath/f1webtip', 'common');

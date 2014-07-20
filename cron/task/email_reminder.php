@@ -21,6 +21,12 @@ if (!defined('IN_PHPBB'))
 
 class email_reminder extends \phpbb\cron\task\base
 {
+	/* @var string phpBB root path */
+	protected $root_path;
+
+	/* @var string phpEx */
+	protected $php_ext;
+
 	/* @var Container */
 	protected $phpbb_container;
 
@@ -36,13 +42,17 @@ class email_reminder extends \phpbb\cron\task\base
 	/**
 	* Constructor
 	*
+	* @param string									$root_path
+	* @param string									$php_ext
 	* @param Container 								$phpbb_container
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\user							$user
 	*/
-	public function __construct(Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\user $user)
+	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\user $user)
 	{
+		$this->root_path		= $root_path;
+		$this->php_ext 			= $php_ext;
 		$this->phpbb_container	= $phpbb_container;
 		$this->db 				= $db;
 		$this->config 			= $config;
@@ -56,7 +66,6 @@ class email_reminder extends \phpbb\cron\task\base
 	*/
 	public function run()
 	{
-		global $phpbb_root_path, $phpEx;
 		global $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
 
 		$table_races 	= $this->phpbb_container->getParameter('tables.f1webtip.races');
@@ -149,7 +158,7 @@ class email_reminder extends \phpbb\cron\task\base
 			$subject 		= $this->user->lang['F1WEBTIP_PAGE'] . " - " . $race_name;
 			$usernames 		= '';
 
-			include_once($phpbb_root_path . 'includes/functions_messenger.' . $phpEx);
+			include_once($this->root_path . 'includes/functions_messenger.' . $this->php_ext);
 			$messenger = new \messenger($use_queue);
 
 			$errored = false;

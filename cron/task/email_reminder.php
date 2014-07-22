@@ -29,6 +29,9 @@ class email_reminder extends \phpbb\cron\task\base
 	/* @var \phpbb\config\config */
 	protected $config;
 
+	/* @var \phpbb\log\log_interface */
+	protected $log;
+
 	/* @var \phpbb\user */
 	protected $user;
 
@@ -40,15 +43,17 @@ class email_reminder extends \phpbb\cron\task\base
 	* @param Container 								$phpbb_container
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
+	* @param \phpbb\log\log_interface 				$log
 	* @param \phpbb\user							$user
 	*/
-	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\user $user)
+	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\user $user)
 	{
 		$this->root_path		= $root_path;
 		$this->php_ext 			= $php_ext;
 		$this->phpbb_container	= $phpbb_container;
 		$this->db 				= $db;
 		$this->config 			= $config;
+		$this->phpbb_log 		= $log;
 		$this->user 			= $user;
 	}
 
@@ -59,7 +64,7 @@ class email_reminder extends \phpbb\cron\task\base
 	*/
 	public function run()
 	{
-		global $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
+		global $phpbb_extension_manager, $phpbb_path_helper;
 
 		$table_races 	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 		$table_teams	= $this->phpbb_container->getParameter('tables.f1webtip.teams');
@@ -197,7 +202,7 @@ class email_reminder extends \phpbb\cron\task\base
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $row['username']. '!';
 					$message = sprintf($this->user->lang['FORMEL_LOG_ERROR'], $row['user_email']);
-					$phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
+					$this->phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
@@ -225,18 +230,18 @@ class email_reminder extends \phpbb\cron\task\base
 				if (!($messenger->send($used_method)))
 				{
 					$message = sprintf($this->user->lang['FORMEL_LOG_ERROR'], $this->config['board_email']);
-					$phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
+					$this->phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
 					$message = sprintf($this->user->lang['FORMEL_LOG'], $usernames) ;
-					$phpbb_log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
+					$this->phpbb_log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
 				}
 			}
 		}
 
 		// Log the cronjob run
-		$phpbb_log->add('admin', ANONYMOUS, '', 'LOG_FORMEL_CRON');
+		$this->phpbb_log->add('admin', ANONYMOUS, '', 'LOG_FORMEL_CRON');
 
 		return;
 	}

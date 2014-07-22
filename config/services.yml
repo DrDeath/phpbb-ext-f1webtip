@@ -24,6 +24,7 @@ services:
             - @service_container
             - @dbal.conn
             - @config
+            - @log
             - @user
         calls:
             - [set_name, [drdeath.f1webtip.cron.task.email_reminder]]

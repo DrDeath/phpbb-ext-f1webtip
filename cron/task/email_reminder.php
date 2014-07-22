@@ -11,13 +11,6 @@ namespace drdeath\f1webtip\cron\task;
 
 use Symfony\Component\DependencyInjection\Container;
 
-/**
-* @ignore
-*/
-if (!defined('IN_PHPBB'))
-{
-	exit;
-}
 
 class email_reminder extends \phpbb\cron\task\base
 {

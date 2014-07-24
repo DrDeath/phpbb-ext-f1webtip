@@ -228,7 +228,7 @@ class main
 	{
 
 		global $db, $user, $auth, $template, $request;
-		global $config, $phpbb_root_path, $phpEx;
+		global $phpbb_root_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_path_helper, $phpbb_log;
 
 		include($phpbb_root_path . 'includes/functions_user.' . $phpEx);
@@ -251,10 +251,10 @@ class main
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
 
 		// Get formel config
-		$formel_guests_allowed	= ($config['drdeath_f1webtip_guest_viewing'] == '1') ? true : false;
-		$formel_forum_id 		= $config['drdeath_f1webtip_forum_id'];
-		$formel_group_id 		= $config['drdeath_f1webtip_restrict_to'];
-		$formel_mod_id 			= $config['drdeath_f1webtip_mod_id'];
+		$formel_guests_allowed	= ($this->config['drdeath_f1webtip_guest_viewing'] == '1') ? true : false;
+		$formel_forum_id 		= $this->config['drdeath_f1webtip_forum_id'];
+		$formel_group_id 		= $this->config['drdeath_f1webtip_restrict_to'];
+		$formel_mod_id 			= $this->config['drdeath_f1webtip_mod_id'];
 
 
 		//
@@ -331,11 +331,11 @@ class main
 
 
 				// Build rules
-				$points_mentioned 	= $config['drdeath_f1webtip_points_mentioned'];
-				$points_placed 		= $config['drdeath_f1webtip_points_placed'];
-				$points_fastest 	= $config['drdeath_f1webtip_points_fastest'];
-				$points_tired 		= $config['drdeath_f1webtip_points_tired'];
-				$points_safetycar	= $config['drdeath_f1webtip_points_safety_car'];
+				$points_mentioned 	= $this->config['drdeath_f1webtip_points_mentioned'];
+				$points_placed 		= $this->config['drdeath_f1webtip_points_placed'];
+				$points_fastest 	= $this->config['drdeath_f1webtip_points_fastest'];
+				$points_tired 		= $this->config['drdeath_f1webtip_points_tired'];
+				$points_safetycar	= $this->config['drdeath_f1webtip_points_safety_car'];
 
 				$points 			= $user->lang['FORMEL_RULES_POINTS'];
 
@@ -357,7 +357,7 @@ class main
 				$rules_total 		= sprintf($user->lang['FORMEL_RULES_TOTAL'] 		, $points_total);
 
 				// Show headerbanner ?
-				if ($config['drdeath_f1webtip_show_headbanner'])
+				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('head_on', array());
 				}
@@ -371,9 +371,9 @@ class main
 					'FORMEL_RULES_TIRED' 		=> $rules_tired,
 					'FORMEL_RULES_SAFETYCAR' 	=> $rules_safetycar,
 					'FORMEL_RULES_TOTAL' 		=> $rules_total,
-					'HEADER_IMG' 				=> $ext_path . 'images/' . $config['drdeath_f1webtip_headbanner2_img'],
-					'HEADER_HEIGHT' 			=> $config['drdeath_f1webtip_head_height'],
-					'HEADER_WIDTH' 				=> $config['drdeath_f1webtip_head_width'],
+					'HEADER_IMG' 				=> $ext_path . 'images/' . $this->config['drdeath_f1webtip_headbanner2_img'],
+					'HEADER_HEIGHT' 			=> $this->config['drdeath_f1webtip_head_height'],
+					'HEADER_WIDTH' 				=> $this->config['drdeath_f1webtip_head_width'],
 
 					'EXT_PATH'					=> $ext_path,
 					'EXT_PATH_IMAGES'			=> $ext_path . 'images/',
@@ -446,10 +446,10 @@ class main
 						$wm_teamimg 	= $team['team_img'];
 						$wm_teamcar 	= $team['team_car'];
 						$wm_points		= $team['total_points'];
-						$wm_teamimg 	= ( $wm_teamimg == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/' . $wm_teamimg . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />';
-						$wm_teamcar 	= ( $wm_teamcar == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_car_img']  . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />' : '<img src="' . $ext_path . 'images/' . $wm_teamcar . '" alt="" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" />';
+						$wm_teamimg 	= ( $wm_teamimg == '' ) ? '<img src="' . $ext_path . 'images/' . $this->config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/' . $wm_teamimg . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />';
+						$wm_teamcar 	= ( $wm_teamcar == '' ) ? '<img src="' . $ext_path . 'images/' . $this->config['drdeath_f1webtip_no_car_img']  . '" alt="" width="' . $this->config['drdeath_f1webtip_car_img_width']  . '" height="' . $this->config['drdeath_f1webtip_car_img_height']  . '" />' : '<img src="' . $ext_path . 'images/' . $wm_teamcar . '" alt="" width="' . $this->config['drdeath_f1webtip_car_img_width']  . '" height="' . $this->config['drdeath_f1webtip_car_img_height']  . '" />';
 
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 						{
 							$template->assign_block_vars('top_teams_gfx', array(
 								'RANK' 			=> $rank,
@@ -474,7 +474,7 @@ class main
 					// Do we have some team points yet?
 					if ($real_rank == 0)
 					{
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 						{
 							$template->assign_block_vars('top_teams_gfx', array(
 								'RANK' 			=> '',
@@ -557,9 +557,9 @@ class main
 						$wm_driverimg 	= $driver['driver_img'];
 						$wm_drivercar 	= $driver['driver_car'];
 						$wm_driverteam 	= $driver['team_img'];
-						$wm_driverteam 	= ( $wm_driverteam == '' ) ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/' . $wm_driverteam . '" alt="" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" />';
+						$wm_driverteam 	= ( $wm_driverteam == '' ) ? '<img src="' . $ext_path . 'images/' . $this->config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/' . $wm_driverteam . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />';
 
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 						{
 							$template->assign_block_vars('top_drivers_gfx', array(
 								'RANK' 				=> $rank,
@@ -585,7 +585,7 @@ class main
 					// Do we have some driver points yet?
 					if ($rank == 0)
 					{
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
+						if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 						{
 							$template->assign_block_vars('top_drivers_gfx', array(
 								'RANK' 				=> '',
@@ -642,7 +642,7 @@ class main
 						$tip_user_avatar 		= '';
 						$show_avatar_switch 	= false;
 
-						if ($config['drdeath_f1webtip_show_avatar'] == 1)
+						if ($this->config['drdeath_f1webtip_show_avatar'] == 1)
 						{
 								$tip_user_avatar = phpbb_get_user_avatar($tip_user_row);
 								// No User Avatar? Display the "no_avatar.gif" from the prosilver styles
@@ -657,8 +657,8 @@ class main
 						$template->assign_block_vars('top_tippers', array(
 							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
 							'TIPPER_AVATAR'			=> $tip_user_avatar,
-							'TIPPER_AVATAR_WIDTH'	=> $config['avatar_max_width'] + 10,
-							'TIPPER_AVATAR_HEIGHT'	=> $config['avatar_max_height'] + 10,
+							'TIPPER_AVATAR_WIDTH'	=> $this->config['avatar_max_width'] + 10,
+							'TIPPER_AVATAR_HEIGHT'	=> $this->config['avatar_max_height'] + 10,
 							'TIPPER_NAME'			=> $tip_username_link,
 							'RANK'					=> ($rank == 1 || $rank == 2 || $rank == 3) ? "<b>" . $rank . "</b>" : $rank,
 							'TIPPER_POINTS'			=> $row['total_points'],
@@ -671,7 +671,7 @@ class main
 					{
 						$show_avatar_switch 		= false;
 
-						if ($config['drdeath_f1webtip_show_avatar'] == 1)
+						if ($this->config['drdeath_f1webtip_show_avatar'] == 1)
 						{
 							$show_avatar_switch 	= true;
 						}
@@ -691,7 +691,7 @@ class main
 				}
 
 				// Show headerbanner ?
-				if ($config['drdeath_f1webtip_show_headbanner'])
+				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('head_on', array());
 				}
@@ -700,9 +700,9 @@ class main
 					'S_STATS'				=> true,
 					'S_FORM_ACTION' 		=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
 					'U_FORMEL_STATS' 		=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
-					'HEADER_IMG' 			=> $ext_path . 'images/' . $config['drdeath_f1webtip_headbanner3_img'],
-					'HEADER_HEIGHT' 		=> $config['drdeath_f1webtip_head_height'],
-					'HEADER_WIDTH' 			=> $config['drdeath_f1webtip_head_width'],
+					'HEADER_IMG' 			=> $ext_path . 'images/' . $this->config['drdeath_f1webtip_headbanner3_img'],
+					'HEADER_HEIGHT' 		=> $this->config['drdeath_f1webtip_head_height'],
+					'HEADER_WIDTH' 			=> $this->config['drdeath_f1webtip_head_width'],
 					'L_STAT_TABLE_TITLE' 	=> $stat_table_title,
 					'U_FORMEL' 				=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'U_BACK_TO_TIPP' 		=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
@@ -752,11 +752,11 @@ class main
 				{
 					$race_img 			= $row['race_img'];
 					$race_id 			= $row['race_id'];
-					$race_img 			= ($race_img == '') 				? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="" />' : '<img src="' . $ext_path . 'images/' . $race_img . '" width="94" height="54" alt="" />';
+					$race_img 			= ($race_img == '') 				? '<img src="' . $ext_path . 'images/' . $this->config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="" />' : '<img src="' . $ext_path . 'images/' . $race_img . '" width="94" height="54" alt="" />';
 					$quali_buttons 		= ($row['race_quali'] == '0') 		? '<input class="button1" type="submit" name="quali"  value="' . $l_add . '" />' : '<input class="button1" type="submit" name="editquali"  value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button1" type="submit" name="resetquali"  value="' . $l_del . '" />';
 					$result_buttons 	= ($row['race_result'] == '0') 		? '<input class="button1" type="submit" name="result" value="' . $l_add . '" />' : '<input class="button1" type="submit" name="editresult" value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button1" type="submit" name="resetresult" value="' . $l_del . '" />';
 
-					if ($config['drdeath_f1webtip_show_gfxr'] == 1)
+					if ($this->config['drdeath_f1webtip_show_gfxr'] == 1)
 					{
 						$template->assign_block_vars('racerow_gfxr', array(
 							'RACEIMG'			=> $race_img,
@@ -765,7 +765,7 @@ class main
 							'RACEID'			=> $race_id,
 							'RACENAME'			=> $row['race_name'],
 							'RACETIME'			=> $user->format_date($row['race_time'], false, true),
-							'RACEDEAD'			=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),
+							'RACEDEAD'			=> $user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
 							)
 						);
 					}
@@ -777,7 +777,7 @@ class main
 							'RACEID'			=> $race_id,
 							'RACENAME'			=> $row['race_name'],
 							'RACETIME'			=> $user->format_date($row['race_time'], false, true),
-							'RACEDEAD'			=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),
+							'RACEDEAD'			=> $user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
 							)
 						);
 					}
@@ -1034,11 +1034,11 @@ class main
 								{
 									if ($this->checkarrayforvalue($current_tipp_array[$i], $temp_results_array))
 									{
-										$user_tipp_points += $config['drdeath_f1webtip_points_mentioned'];
+										$user_tipp_points += $this->config['drdeath_f1webtip_points_mentioned'];
 
 										if ($current_tipp_array[$i] == $result_array[$i])
 										{
-											$user_tipp_points += $config['drdeath_f1webtip_points_placed'];
+											$user_tipp_points += $this->config['drdeath_f1webtip_points_placed'];
 										}
 									}
 								}
@@ -1046,17 +1046,17 @@ class main
 
 							if ($current_tipp_array['10'] == $result_array['10'] && $current_tipp_array['10'] <> 0)
 							{
-								$user_tipp_points += $config['drdeath_f1webtip_points_fastest'];
+								$user_tipp_points += $this->config['drdeath_f1webtip_points_fastest'];
 							}
 
 							if ($current_tipp_array['11'] == $result_array['11'])
 							{
-								$user_tipp_points += $config['drdeath_f1webtip_points_tired'];
+								$user_tipp_points += $this->config['drdeath_f1webtip_points_tired'];
 							}
 
 							if ($current_tipp_array['12'] == $result_array['12'] )
 							{
-								$user_tipp_points += $config['drdeath_f1webtip_points_safety_car'];
+								$user_tipp_points += $this->config['drdeath_f1webtip_points_safety_car'];
 							}
 
 							$sql_ary = array(
@@ -1442,7 +1442,7 @@ class main
 					$tipper_link 		= ($tipper_name <> $user->lang['GUEST']) ? '<a href="' . append_sid("{$phpbb_root_path}memberlist.$phpEx", 'mode=viewprofile&amp;u=' . (int) $tipp_userdata['user_id']) . '"' . $tipper_style . ' onclick="window.open(this.href); return false">' . $tipper_name . '</a>' : $tipper_name;
 					$tipper_points 		= $tippdata['0']['tip_points'];
 					$tipp_array 		= explode(',', $tippdata['0']['tip_result']);
-					$is_hidden			= ($race[$race_id]['race_time'] - $config['drdeath_f1webtip_deadline_offset']  <= $current_time ) ? false : true ;
+					$is_hidden			= ($race[$race_id]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset']  <= $current_time ) ? false : true ;
 
 					for ($i = 0; $i < count($tipp_array) - 3; ++$i)
 					{
@@ -1457,7 +1457,7 @@ class main
 						{
 							if (($driverid == $results[$i]) && $driverid <> 0)
 							{
-								$single_points += $config['drdeath_f1webtip_points_placed'];
+								$single_points += $this->config['drdeath_f1webtip_points_placed'];
 							}
 						}
 
@@ -1467,7 +1467,7 @@ class main
 							{
 								if (($driverid == $results[$j]) && $driverid <> 0)
 								{
-									$single_points += $config['drdeath_f1webtip_points_mentioned'];
+									$single_points += $this->config['drdeath_f1webtip_points_mentioned'];
 								}
 							}
 						}
@@ -1496,7 +1496,7 @@ class main
 					{
 						if ($tipp_array['10'] == $results['10'])
 						{
-							$single_fastest += $config['drdeath_f1webtip_points_fastest'];
+							$single_fastest += $this->config['drdeath_f1webtip_points_fastest'];
 						}
 					}
 
@@ -1504,7 +1504,7 @@ class main
 					{
 						if ($tipp_array['11'] == $results['11'])
 						{
-							$single_tired += $config['drdeath_f1webtip_points_tired'];
+							$single_tired += $this->config['drdeath_f1webtip_points_tired'];
 						}
 					}
 
@@ -1512,7 +1512,7 @@ class main
 					{
 						if ($tipp_array['12'] == $results['12'])
 						{
-							$single_safety_car += $config['drdeath_f1webtip_points_safety_car'];
+							$single_safety_car += $this->config['drdeath_f1webtip_points_safety_car'];
 						}
 					}
 
@@ -1603,7 +1603,7 @@ class main
 				}
 
 				// Add or edit a tip
-				if (($place_my_tipp || $edit_my_tipp) && $tipp_time - $config['drdeath_f1webtip_deadline_offset'] >= time())
+				if (($place_my_tipp || $edit_my_tipp) && $tipp_time - $this->config['drdeath_f1webtip_deadline_offset'] >= time())
 				{
 					// Check the salt... yumyum
 					if (!check_form_key('drdeath/f1webtip'))
@@ -1864,7 +1864,7 @@ class main
 				//
 				for ($i = 0; $i < count($races); ++$i)
 				{
-					if ($races[$i]['race_time'] > $current_time - $config['drdeath_f1webtip_event_change'])
+					if ($races[$i]['race_time'] > $current_time - $this->config['drdeath_f1webtip_event_change'])
 					{
 						// Check for a overflow
 						$race_offset = ($i + $race_offset == count($races)) ? 0 - $i  : $race_offset;
@@ -1878,9 +1878,9 @@ class main
 						$user_id = $this->user->data['user_id'];
 
 						//Countdown data
-						if ($config['drdeath_f1webtip_show_countdown'] == 1)
+						if ($this->config['drdeath_f1webtip_show_countdown'] == 1)
 						{
-							$event_stop	= date($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset']);
+							$event_stop	= date($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset']);
 							$b_day		= $user->format_date($event_stop, 'd');
 							$b_month	= $user->format_date($event_stop, 'n');
 							$b_year		= $user->format_date($event_stop, 'Y');
@@ -1981,7 +1981,7 @@ class main
 
 						// Get race image and data
 						$race_img = $races[$chosen_race]['race_img'];
-						$race_img = ($race_img == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_race_img'] . '" width="' . $config['drdeath_f1webtip_race_img_width'] . '" height="' . $config['drdeath_f1webtip_race_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/' . $race_img . '" width="' . $config['drdeath_f1webtip_race_img_width'] . '" height="' . $config['drdeath_f1webtip_race_img_height'] . '" alt="" />';
+						$race_img = ($race_img == '') ? '<img src="' . $ext_path . 'images/' . $this->config['drdeath_f1webtip_no_race_img'] . '" width="' . $this->config['drdeath_f1webtip_race_img_width'] . '" height="' . $this->config['drdeath_f1webtip_race_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/' . $race_img . '" width="' . $this->config['drdeath_f1webtip_race_img_width'] . '" height="' . $this->config['drdeath_f1webtip_race_img_height'] . '" alt="" />';
 
 						$template->assign_block_vars('racerow', array(
 							'RACEIMG' 		=> $race_img,
@@ -1991,11 +1991,11 @@ class main
 							'RACEDISTANCE' 	=> $races[$chosen_race]['race_distance'] . ' km',
 							'RACELAPS' 		=> $races[$chosen_race]['race_laps'],
 							'RACETIME' 		=> $user->format_date($races[$chosen_race]['race_time'], false, true),
-							'RACEDEAD' 		=> $user->format_date($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),
+							'RACEDEAD' 		=> $user->format_date($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
 							)
 						);
 
-						if ($config['drdeath_f1webtip_show_gfxr'] == 1)
+						if ($this->config['drdeath_f1webtip_show_gfxr'] == 1)
 						{
 							$template->assign_block_vars('racerow.racegfx', array());
 						}
@@ -2068,7 +2068,7 @@ class main
 								$box_name		= 'place' . ($i + 1);
 								$single_points	= '';
 
-								if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+								if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 								{
 									//Actual race is over
 									$driverid 			= (isset($drivers[$tipp_array[$i]]['driver_id']))			?	$drivers[$tipp_array[$i]]['driver_id']			:	'';
@@ -2082,7 +2082,7 @@ class main
 									{
 										if ($driverid == $results[$i])
 										{
-											$single_points += $config['drdeath_f1webtip_points_placed'];
+											$single_points += $this->config['drdeath_f1webtip_points_placed'];
 										}
 									}
 
@@ -2092,7 +2092,7 @@ class main
 										{
 											if ($driverid == $results[$j])
 											{
-												$single_points += $config['drdeath_f1webtip_points_mentioned'];
+												$single_points += $this->config['drdeath_f1webtip_points_mentioned'];
 											}
 										}
 									}
@@ -2119,10 +2119,10 @@ class main
 									$drivercombo .= '</select>';
 								}
 
-								if ($config['drdeath_f1webtip_show_gfx'] == 1)
+								if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 								{
 									//Layout cosmetic
-									if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+									if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 									{
 										//Race is over - Show driverimage and so on
 										$template->assign_block_vars('gfx_users_tipp', array(
@@ -2160,7 +2160,7 @@ class main
 								}
 							}
 
-							if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+							if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 							{
 								//Actual Race is over
 								$single_fastest		= '';
@@ -2176,7 +2176,7 @@ class main
 								{
 									if ($tipp_array['10'] == $results['10'])
 									{
-										$single_fastest += $config['drdeath_f1webtip_points_fastest'];
+										$single_fastest += $this->config['drdeath_f1webtip_points_fastest'];
 									}
 								}
 
@@ -2185,7 +2185,7 @@ class main
 								{
 									if ($tipp_array['11'] == $results['11'])
 									{
-										$single_tired += $config['drdeath_f1webtip_points_tired'];
+										$single_tired += $this->config['drdeath_f1webtip_points_tired'];
 									}
 								}
 
@@ -2194,7 +2194,7 @@ class main
 								{
 									if ($tipp_array['12'] == $results['12'])
 									{
-										$single_safety_car += $config['drdeath_f1webtip_points_safety_car'];
+										$single_safety_car += $this->config['drdeath_f1webtip_points_safety_car'];
 									}
 								}
 							}
@@ -2241,7 +2241,7 @@ class main
 							}
 
 
-							if ($config['drdeath_f1webtip_show_gfx'] == 1)
+							if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 							{
 								$template->assign_block_vars('extended_users_tipp_gfx', array(
 									'TIREDCOMBO'		=> $tiredcombo,
@@ -2275,7 +2275,7 @@ class main
 							//Guests are not allowed to place a tip.
 							if ($this->user->data['is_registered'])
 							{
-								if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] > $current_time)
+								if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] > $current_time)
 								{
 									//Actual Race is not over
 									for ($i = 0; $i < 10; ++$i)
@@ -2364,7 +2364,7 @@ class main
 								$current_driver_id = $quali[$j];
 								$position = ($j == 0) ? $user->lang['FORMEL_POLE'].': ' : $j + 1 . '. ' . $user->lang['FORMEL_PLACE'] . ': ';
 
-								if ($config['drdeath_f1webtip_show_gfx'] == 1)
+								if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 								{
 									$template->assign_block_vars('qualirow_gfx', array(
 										'L_PLACE'			=> $position,
@@ -2403,7 +2403,7 @@ class main
 								$current_driver_id = $results[$j];
 								$position = ($j == 0) ? $user->lang['FORMEL_RACE_WINNER'].': ' : $j + 1 . '. ' . $user->lang['FORMEL_PLACE'] . ': ';
 
-								if ($config['drdeath_f1webtip_show_gfx'] == 1)
+								if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 								{
 									$template->assign_block_vars('resultsrow_gfx', array(
 										'L_PLACE'			=> $position,
@@ -2424,7 +2424,7 @@ class main
 								}
 							}
 
-							if ($config['drdeath_f1webtip_show_gfx'] == 1)
+							if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 							{
 								$template->assign_block_vars('extended_results_gfx', array(
 									'PACE'				=> (isset($drivers[$results['10']]['driver_name']))	? $drivers[$results['10']]['driver_name'] 	: '',
@@ -2458,7 +2458,7 @@ class main
 						}
 
 						// Game over
-						if ($races[$chosen_race]['race_time'] - $config['drdeath_f1webtip_deadline_offset'] < $current_time)
+						if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 						{
 							$template->assign_block_vars('game_over', array());
 						}
@@ -2505,14 +2505,14 @@ class main
 				}
 
 				// Show headerbanner ?
-				if ($config['drdeath_f1webtip_show_headbanner'])
+				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('head_on', array());
 				}
 
 				$this->template->assign_vars(array(
 					'S_INDEX'							=> true,
-					'S_COUNTDOWN'						=> ($config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
+					'S_COUNTDOWN'						=> ($this->config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
 					'S_FORM_ACTION'						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
 					'U_FORMEL_FORUM'					=> $discuss_button,
@@ -2521,9 +2521,9 @@ class main
 					'U_TOP_MORE_USERS'					=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'users')),
 					'U_TOP_MORE_DRIVERS'				=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'drivers')),
 					'U_TOP_MORE_TEAMS'					=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'teams')),
-					'HEADER_IMG' 						=> $ext_path . 'images/' . $config['drdeath_f1webtip_headbanner1_img'],
-					'HEADER_HEIGHT' 					=> $config['drdeath_f1webtip_head_height'],
-					'HEADER_WIDTH' 						=> $config['drdeath_f1webtip_head_width'],
+					'HEADER_IMG' 						=> $ext_path . 'images/' . $this->config['drdeath_f1webtip_headbanner1_img'],
+					'HEADER_HEIGHT' 					=> $this->config['drdeath_f1webtip_head_height'],
+					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],
 					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
 					'RACE_ID'							=> (isset($races[$chosen_race]['race_id']))   ? $races[$chosen_race]['race_id']   : 1,
 					'RACENAME'							=> $races[$chosen_race]['race_name'],

@@ -5,8 +5,16 @@ services:
     drdeath.f1webtip.controller:
         class: drdeath\f1webtip\controller\main
         arguments:
+            - %core.root_path%
+            - %core.php_ext%
+            - @service_container
+            - @ext.manager
+            - @dbal.conn
             - @config
+            - @log
             - @controller.helper
+            - @auth
+            - @request
             - @template
             - @user
     drdeath.f1webtip.listener:

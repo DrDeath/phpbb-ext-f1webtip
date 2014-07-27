@@ -23,6 +23,12 @@ class email_reminder extends \phpbb\cron\task\base
 	/* @var Container */
 	protected $phpbb_container;
 
+	/* @var \phpbb\extension\manager */
+	protected $phpbb_extension_manager;
+
+	/* @var \phpbb\path_helper */
+	protected $phpbb_path_helper;
+
 	/* @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -41,20 +47,24 @@ class email_reminder extends \phpbb\cron\task\base
 	* @param string									$root_path
 	* @param string									$php_ext
 	* @param Container 								$phpbb_container
+	* @param \phpbb\extension\manager				$phpbb_extension_manager
+	* @param \phpbb\path_helper						$phpbb_path_helper
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\log\log_interface 				$log
 	* @param \phpbb\user							$user
 	*/
-	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\user $user)
+	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\extension\manager $phpbb_extension_manager, \phpbb\path_helper $phpbb_path_helper, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\user $user)
 	{
-		$this->root_path		= $root_path;
-		$this->php_ext 			= $php_ext;
-		$this->phpbb_container	= $phpbb_container;
-		$this->db 				= $db;
-		$this->config 			= $config;
-		$this->phpbb_log 		= $log;
-		$this->user 			= $user;
+		$this->root_path				= $root_path;
+		$this->php_ext 					= $php_ext;
+		$this->phpbb_container			= $phpbb_container;
+		$this->phpbb_extension_manager 	= $phpbb_extension_manager;
+		$this->phpbb_path_helper		= $phpbb_path_helper;
+		$this->db 						= $db;
+		$this->config 					= $config;
+		$this->phpbb_log 				= $log;
+		$this->user 					= $user;
 	}
 
 	/**
@@ -64,8 +74,6 @@ class email_reminder extends \phpbb\cron\task\base
 	*/
 	public function run()
 	{
-		global $phpbb_extension_manager, $phpbb_path_helper;
-
 		$table_races 	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 		$table_teams	= $this->phpbb_container->getParameter('tables.f1webtip.teams');
 		$table_drivers 	= $this->phpbb_container->getParameter('tables.f1webtip.drivers');
@@ -166,9 +174,11 @@ class email_reminder extends \phpbb\cron\task\base
 			$messenger->subject(htmlspecialchars_decode($subject));
 			$messenger->set_mail_priority($priority);
 
-			$ext_path = $phpbb_path_helper->update_web_root_path($phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
+			$ext_path = $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 
-			// Get all the f1webtipp user (what user exactly ? All member of the restrict_to group and admin mails allowed)
+			// Get all the f1webtipp user
+			// what user exactly ? 
+			// All member of the restrict_to group, admin mass mails allowed, user is normal (active) or founder
 			$sql = 'SELECT 		u.user_id,
 								u.username,
 								u.user_lang,

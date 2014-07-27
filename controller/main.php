@@ -25,6 +25,9 @@ class main
 	/* @var \phpbb\extension\manager */
 	protected $phpbb_extension_manager;
 
+	/* @var \phpbb\path_helper */
+	protected $phpbb_path_helper;
+
 	/* @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -56,6 +59,7 @@ class main
 	* @param string									$php_ext
 	* @param Container 								$phpbb_container
 	* @param \phpbb\extension\manager				$phpbb_extension_manager
+	* @param \phpbb\path_helper						$phpbb_path_helper
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\log\log_interface 				$log
@@ -65,12 +69,13 @@ class main
 	* @param \phpbb\template\template				$template
 	* @param \phpbb\user							$user
 	*/
-	public function __construct($root_path, $php_ext, Container $phpbb_container,\phpbb\extension\manager $phpbb_extension_manager, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\extension\manager $phpbb_extension_manager, \phpbb\path_helper $phpbb_path_helper, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user)
 	{
 		$this->root_path				= $root_path;
 		$this->php_ext 					= $php_ext;
 		$this->phpbb_container 			= $phpbb_container;
 		$this->phpbb_extension_manager 	= $phpbb_extension_manager;
+		$this->phpbb_path_helper		= $phpbb_path_helper;
 		$this->db 						= $db;
 		$this->config 					= $config;
 		$this->phpbb_log 				= $log;
@@ -158,10 +163,8 @@ class main
 	*/
 	protected function get_formel_drivers()
 	{
-		global $phpbb_path_helper;
-
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
-		$ext_path = $phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
+		$ext_path = $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 
 		$teams 			= $this->get_formel_teams();
 
@@ -262,19 +265,17 @@ class main
 	*/
 	public function handle($name)
 	{
-		global $phpbb_path_helper;
-
 		include($this->root_path . 'includes/functions_user.' . $this->php_ext);
 
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
-		$ext_path = $phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
+		$ext_path = $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 
 		// This path is sent with the base template paths in the assign_vars()
 		// call below. We need to correct it in case we are accessing from a
 		// controller because the web paths will be incorrect otherwise.
 
-		$phpbb_path_helper = $this->phpbb_container->get('path_helper');
-		$corrected_path = $phpbb_path_helper->get_web_root_path();
+		$this->phpbb_path_helper = $this->phpbb_container->get('path_helper');
+		$corrected_path = $this->phpbb_path_helper->get_web_root_path();
 
 		// Short names for the tables
 		$table_races 	= $this->phpbb_container->getParameter('tables.f1webtip.races');

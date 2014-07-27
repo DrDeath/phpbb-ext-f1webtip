@@ -187,6 +187,7 @@ class email_reminder extends \phpbb\cron\task\base
 					WHERE 		ug.group_id = ' . $formel_group_id . '
 						AND 	u.user_id = ug.user_id
 						AND		u.user_allow_massemail = 1
+						AND		(u.user_type = ' . USER_NORMAL . ' OR u.user_type = ' . USER_FOUNDER . ')
 					GROUP BY	u.user_id
 					ORDER BY 	u. username_clean ASC';
 

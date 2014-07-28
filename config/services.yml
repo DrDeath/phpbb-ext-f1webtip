@@ -21,8 +21,14 @@ services:
     drdeath.f1webtip.listener:
         class: drdeath\f1webtip\event\main_listener
         arguments:
+            - %core.php_ext%
+            - @service_container
+            - @dbal.conn
+            - @config
             - @controller.helper
+            - @auth
             - @template
+            - @user
         tags:
             - { name: event.listener }
     drdeath.f1webtip.cron.task.email_reminder:

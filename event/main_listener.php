@@ -12,6 +12,7 @@ namespace drdeath\f1webtip\event;
 /**
 * @ignore
 */
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -30,22 +31,52 @@ class main_listener implements EventSubscriberInterface
 		);
 	}
 
+	/* @var string phpEx */
+	protected $php_ext;
+
+	/* @var Container */
+	protected $phpbb_container;
+
+	/* @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
+	/* @var \phpbb\config\config */
+	protected $config;
+
 	/* @var \phpbb\controller\helper */
 	protected $helper;
 
+	/* @var \phpbb\auth\auth */
+	protected $auth;
+
 	/* @var \phpbb\template\template */
 	protected $template;
+	
+	/* @var \phpbb\user */
+	protected $user;
 
 	/**
 	* Constructor
 	*
-	* @param \phpbb\controller\helper	$helper		Controller helper object
-	* @param \phpbb\template			$template	Template object
+	* @param string									$php_ext
+	* @param Container 								$phpbb_container
+	* @param \phpbb\db\driver\driver_interfacer		$db
+	* @param \phpbb\config\config					$config
+	* @param \phpbb\controller\helper				$helper		Controller helper object
+	* @param \phpbb\auth\auth						$auth
+	* @param \phpbb\template						$template	Template object
+	* @param \phpbb\user							$user
 	*/
-	public function __construct(\phpbb\controller\helper $helper, \phpbb\template\template $template)
+	public function __construct($php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\user $user)
 	{
-		$this->helper = $helper;
-		$this->template = $template;
+		$this->php_ext 			= $php_ext;
+		$this->phpbb_container 	= $phpbb_container;
+		$this->db 				= $db;
+		$this->config 			= $config;
+		$this->helper 			= $helper;
+		$this->auth				= $auth;
+		$this->template 		= $template;
+		$this->user 			= $user;
 	}
 
 	public function load_language_on_setup($event)
@@ -67,47 +98,43 @@ class main_listener implements EventSubscriberInterface
 
 	public function add_page_viewonline($event)
 	{
-		global $user, $phpbb_container, $phpEx;
-
-		if (strrpos($event['row']['session_page'], 'app.' . $phpEx . '/f1webtip') === 0)
+		if (strrpos($event['row']['session_page'], 'app.' . $this->php_ext . '/f1webtip') === 0)
 		{
-			$event['location'] = $user->lang('VIEWING_F1WEBTIPP');
+			$event['location'] = $this->user->lang('VIEWING_F1WEBTIPP');
 			$event['location_url'] = $this->helper->route('f1webtip_controller', array('name' => 'index'));
 		}
 	}
 
 	public function prepare_f1webtip_stats($event)
 	{
-		global $db, $auth, $config, $template, $phpbb_container, $user, $member;
-
-		if ($config['drdeath_f1webtip_show_in_profile'])
+		if ($this->config['drdeath_f1webtip_show_in_profile'])
 		{
 			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
-			$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
+			$is_admin = $this->auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
 
 			//Is the user member of the restricted group?
-			$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $user->data['user_id'], true);
+			$is_in_group = group_memberships($this->config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
 			
-			if ($config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $user->data['user_id'] == $config['drdeath_f1webtip_mod_id'])
+			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $this->user->data['user_id'] == $this->config['drdeath_f1webtip_mod_id'])
 			{
-				$tippers_rank		= $user->lang['FORMEL_PROFILE_NORANK'];
+				$tippers_rank		= $this->user->lang['FORMEL_PROFILE_NORANK'];
 				$tippers_points		= 0;
 				$race_done			= 0;
 
-				$table_tips		= $phpbb_container->getParameter('tables.f1webtip.tips');
-				$table_races	= $phpbb_container->getParameter('tables.f1webtip.races');
+				$table_tips		= $this->phpbb_container->getParameter('tables.f1webtip.tips');
+				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 				
 				// Get tip data for this user
 				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
 					FROM ' . $table_tips . '
 					GROUP BY tip_user
 					ORDER BY total_points DESC';
-				$result = $db->sql_query($sql);
+				$result = $this->db->sql_query($sql);
 
 				$rank_count = $real_rank  = 1;
 				$previous_points = false;
 
-				while ($row = $db->sql_fetchrow($result))
+				while ($row = $this->db->sql_fetchrow($result))
 				{
 					if ($row['total_points'] != $previous_points)
 					{
@@ -115,31 +142,31 @@ class main_listener implements EventSubscriberInterface
 						$previous_points = $row['total_points'];
 					}
 
-					if ($row['tip_user'] == $member['user_id'])
+					if ($row['tip_user'] == $event['data']['user_id'])
 					{
 						$tippers_points	= $row['total_points'];
 						$race_done		= $row['tips_made'];
-						$tippers_rank	= sprintf($user->lang['FORMEL_PROFILE_RANK'], $rank_count);
+						$tippers_rank	= sprintf($this->user->lang['FORMEL_PROFILE_RANK'], $rank_count);
 						break;
 					}
 					$real_rank++;
 				}
 
-				$db->sql_freeresult($result);
+				$this->db->sql_freeresult($result);
 
 				// Count total races with existing results
 				$sql = 'SELECT *
 					FROM ' . $table_races . '
 					WHERE race_result <> 0';
-				$result = $db->sql_query($sql);
+				$result = $this->db->sql_query($sql);
 
-				$race_total = $db->sql_affectedrows($result);
-				$db->sql_freeresult($result);
+				$race_total = $this->db->sql_affectedrows($result);
+				$this->db->sql_freeresult($result);
 
-				$template->assign_block_vars('f1webtip', array(
+				$this->template->assign_block_vars('f1webtip', array(
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
-					'RACE_DONE'			=> sprintf($user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
+					'RACE_DONE'			=> sprintf($this->user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
 					'U_FORMEL_STATS'	=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
 				));
 			}
@@ -148,37 +175,34 @@ class main_listener implements EventSubscriberInterface
 
 	public function modify_f1webtip_post_row($event)
 	{
-		global $db, $auth, $config, $template, $phpbb_container, $user, $poster_id;
-		
-		if ($config['drdeath_f1webtip_show_in_viewtopic'])
+		if ($this->config['drdeath_f1webtip_show_in_viewtopic'])
 		{
-
 			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
-			$is_admin = $auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
+			$is_admin = $this->auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
 
 			//Is the user member of the restricted group?
-			$is_in_group = group_memberships($config['drdeath_f1webtip_restrict_to'], $user->data['user_id'], true);
+			$is_in_group = group_memberships($this->config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
 
-			if ($config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $user->data['user_id'] == $config['drdeath_f1webtip_mod_id'])
+			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $this->user->data['user_id'] == $this->config['drdeath_f1webtip_mod_id'])
 			{
-				$tippers_rank	= $user->lang['FORMEL_PROFILE_NORANK'];
+				$tippers_rank	= $this->user->lang['FORMEL_PROFILE_NORANK'];
 				$tippers_points	= 0;
 				$race_done		= 0;
 				
-				$table_tips		= $phpbb_container->getParameter('tables.f1webtip.tips');
-				$table_races	= $phpbb_container->getParameter('tables.f1webtip.races');
+				$table_tips		= $this->phpbb_container->getParameter('tables.f1webtip.tips');
+				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 
 				// Get tipp data for this user
 				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
 					FROM ' . $table_tips . '
 					GROUP BY tip_user
 					ORDER BY total_points DESC';
-				$result = $db->sql_query($sql);
+				$result = $this->db->sql_query($sql);
 
 				$rank_count = $real_rank  = 1;
 				$previous_points = false;
 
-				while ($row_f1 = $db->sql_fetchrow($result))
+				while ($row_f1 = $this->db->sql_fetchrow($result))
 				{
 					if ($row_f1['total_points'] != $previous_points)
 					{
@@ -186,33 +210,33 @@ class main_listener implements EventSubscriberInterface
 						$previous_points = $row_f1['total_points'];
 					}
 
-					if ($row_f1['tip_user'] == $poster_id)
+					if ($row_f1['tip_user'] == $event['post_row']['POSTER_ID'])
 					{
 						$tippers_points	= $row_f1['total_points'];
 						$race_done		= $row_f1['tips_made'];
-						$tippers_rank	= sprintf($user->lang['FORMEL_PROFILE_RANK'], $rank_count);
+						$tippers_rank	= sprintf($this->user->lang['FORMEL_PROFILE_RANK'], $rank_count);
 						break;
 					}
 
 					$real_rank++;
 				}
 
-				$db->sql_freeresult($result);
+				$this->db->sql_freeresult($result);
 
 				// Count total races with existing results
 				$sql = 'SELECT *
 					FROM ' . $table_races . '
 					WHERE race_result <> 0';
-				$result = $db->sql_query($sql);
+				$result = $this->db->sql_query($sql);
 
-				$race_total = $db->sql_affectedrows($result);
-				$db->sql_freeresult($result);
+				$race_total = $this->db->sql_affectedrows($result);
+				$this->db->sql_freeresult($result);
 				
 
 				$f1webtip = array(
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
-					'RACE_DONE'			=> sprintf($user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
+					'RACE_DONE'			=> sprintf($this->user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
 					'U_FORMEL_STATS'	=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
 					'U_FORMEL_WEB_TIPP'	=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
 				);

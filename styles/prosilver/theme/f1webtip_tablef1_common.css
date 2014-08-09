@@ -28,6 +28,7 @@ table.tablef1 td {
 table.tablef1 tbody td {
 	padding: 5px;
 	border-top: 1px solid transparent;
+	vertical-align: middle;
 }
 
 table.tablef1 tbody th {

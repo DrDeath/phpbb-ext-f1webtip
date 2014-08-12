@@ -1,0 +1,38 @@
+/* Table styles
+----------------------------------------*/
+
+table.tablef1 {
+	width: 100%;
+}
+
+table.tablef1 thead th {
+	font-weight: normal;
+	text-transform: uppercase;
+	line-height: 1.3em;
+	font-size: 1em;
+	padding: 0 0 4px 3px;
+}
+
+table.tablef1 thead th span {
+	padding-left: 7px;
+}
+
+table.tablef1 tbody tr {
+	border: 1px solid transparent;
+}
+
+table.tablef1 td {
+	font-size: 1.1em;
+}
+
+table.tablef1 tbody td {
+	padding: 5px;
+	border-top: 1px solid transparent;
+	vertical-align: middle;
+}
+
+table.tablef1 tbody th {
+	padding: 5px;
+	border-bottom: 1px solid transparent;
+	text-align: left;
+}

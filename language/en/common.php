@@ -96,8 +96,10 @@ $lang = array_merge($lang, array(
 	'FORMEL_RULES_TIRED'			=> 'For the right tired count you can get <strong>%s</strong>.',
 	'FORMEL_RULES_SAFETYCAR'		=> 'For the right count of safety car deployments you can get <strong>%s</strong>.',
 	'FORMEL_RULES_TOTAL'			=> 'In total you can get <strong>%s</strong>.',
-	'FORMEL_RULES_POINT'			=> 'Point',
-	'FORMEL_RULES_POINTS'			=> 'Points',
+	'FORMEL_RULES_POINTS'			=> array(
+		1	=> 'Point',
+		2	=> 'Points',
+	),
 	'FORMEL_DEFINE'					=> 'Not placed',
 	'FORMEL_ACCESS_DENIED'			=> 'Access denied. You have to be a certain group member to join this tip.<br /><br />Click %shere%s to ask for membership<br />Click %shere%s to go back to forum',
 	'FORMEL_MOD_ACCESS_DENIED'		=> 'Access denied. You have to be a moderator or administrator to access the moderation panel.<br /><br />Click %shere%s to go back to F1 Webtip.<br />Click %shere%s to go back to forum',

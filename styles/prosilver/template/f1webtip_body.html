@@ -13,18 +13,22 @@ function drivers() {
 	//reset all 4 redisplay
 	for (var i = 1; i <= placeses; i++) {
 		var select4redisplay = document.getElementById('place' + i);
-		for (var j = 0; j < select4redisplay.options.length; j++) {
-			select4redisplay.options[j].disabled = false;
+		if (select4redisplay) {
+			for (var j = 0; j < select4redisplay.options.length; j++) {
+				select4redisplay.options[j].disabled = false;
+			}
 		}
 	}
 	//get the ids from selected drivers
 	var val2remove = new Array();
 	for (i = 1; i <= placeses; i++) {
 		var select4hide = document.getElementById('place' + i);
-		for (j = 0; j < select4hide.options.length; j++) {
-			if (select4hide.options[j].selected == true) {
-				val2remove[i] = select4hide.options[j].value;
-				break;
+		if (select4hide) {
+			for (j = 0; j < select4hide.options.length; j++) {
+				if (select4hide.options[j].selected == true) {
+					val2remove[i] = select4hide.options[j].value;
+					break;
+				}
 			}
 		}
 	}
@@ -33,9 +37,11 @@ function drivers() {
 		for (j = 1; j <= placeses; j++) {
 			if (j != i) {
 				select4hide = document.getElementById('place' + i);
-				for (var k = 0; k < select4hide.options.length; k++) {
-					if (select4hide.options[k].value == val2remove[j] && val2remove[j] != 0) {
-						select4hide.options[k].disabled = true;
+				if (select4hide) {
+					for (var k = 0; k < select4hide.options.length; k++) {
+						if (select4hide.options[k].value == val2remove[j] && val2remove[j] != 0) {
+							select4hide.options[k].disabled = true;
+						}
 					}
 				}
 			}
@@ -323,7 +329,7 @@ function showtipps(showtipps)
 
 			<table width="100%" cellpadding="0" cellspacing="1">
 				<tr>
-					<td <!-- IF S_RESULT_EXISTS -->class="responsive-hide"<!-- ENDIF --> valign="top" style="width: 33%;">
+					<td <!-- IF S_RESULT_EXISTS -->class="responsive-hide"<!-- ENDIF --> valign="top">
 						<table class="table1 tablef1" width="100%" >
 							<thead>
 								<tr>
@@ -344,8 +350,8 @@ function showtipps(showtipps)
 								<!-- ELSE -->
 								<tr class="bg3">
 								<!-- ENDIF -->
-									<td align="center" style="width: 30%;">{qualirow_gfx.DRIVERIMG}</td>
-									<td align="left" style="width: 70%; white-space:nowrap;">
+									<td align="center">{qualirow_gfx.DRIVERIMG}</td>
+									<td align="left" style="white-space:nowrap;">
 										<strong>&nbsp;{qualirow_gfx.L_PLACE}&nbsp;</strong><br />
 										&nbsp;{qualirow_gfx.DRIVERNAME}&nbsp;<br />
 										&nbsp;{qualirow_gfx.DRIVERTEAMNAME}&nbsp;
@@ -360,14 +366,14 @@ function showtipps(showtipps)
 								<!-- ELSE -->
 								<tr class="bg3">
 								<!-- ENDIF -->
-									 <td align="right" style="width: 50%;" ><strong>&nbsp;{qualirow.L_PLACE}&nbsp;</strong></td>
-									 <td align="left" style="width: 50%; white-space:nowrap;">&nbsp;{qualirow.DRIVERNAME}&nbsp;</td>
+									 <td align="right" style="white-space:nowrap;"><strong>&nbsp;{qualirow.L_PLACE}&nbsp;</strong></td>
+									 <td align="left" style="white-space:nowrap;">&nbsp;{qualirow.DRIVERNAME}&nbsp;</td>
 								</tr>
 								<!-- END qualirow -->
 							</tbody>
 						</table>
 					</td>
-					<td <!-- IF not S_RESULT_EXISTS -->class="responsive-hide"<!-- ENDIF --> valign="top" style="width: 33%;">
+					<td <!-- IF not S_RESULT_EXISTS -->class="responsive-hide"<!-- ENDIF --> valign="top">
 						<table class="table1 tablef1" style="width: 100%;">
 							<thead>
 								<tr>
@@ -386,8 +392,8 @@ function showtipps(showtipps)
 								<!-- ELSE -->
 								<tr class="bg2">
 								<!-- ENDIF -->
-									<td align="center" style="width: 30%;">&nbsp;{resultsrow_gfx.DRIVERIMG}&nbsp;</td>
-									<td align="left" style="width: 70%; white-space:nowrap;">
+									<td align="center">{resultsrow_gfx.DRIVERIMG}</td>
+									<td align="left" style="white-space:nowrap;">
 										<strong>&nbsp;{resultsrow_gfx.L_PLACE}</strong><br />
 										&nbsp;{resultsrow_gfx.DRIVERNAME}&nbsp;<br />
 										&nbsp;{resultsrow_gfx.DRIVERTEAMNAME}&nbsp;
@@ -400,54 +406,54 @@ function showtipps(showtipps)
 								<!-- ELSE -->
 								<tr class="bg2">
 								<!-- ENDIF -->
-									<td align="right" style="width: 50%;" ><strong>&nbsp;{resultsrow.L_PLACE}</strong></td>
-									<td align="left" style="width: 50%; white-space:nowrap;">&nbsp;{resultsrow.DRIVERNAME}&nbsp;</td>
+									<td align="right"><strong>&nbsp;{resultsrow.L_PLACE}</strong></td>
+									<td align="left" style="white-space:nowrap;">&nbsp;{resultsrow.DRIVERNAME}&nbsp;</td>
 								</tr>
 								<!-- END resultsrow -->
 								<!-- BEGIN extended_results -->
 								<tr class="bg1">
-									<td align="right" style="width: 50%;" >&nbsp;<strong>{L_FORMEL_PACE}:</strong></td>
-									<td align="left" style="width: 50%;" >&nbsp;{extended_results.PACE}&nbsp;</td>
+									<td align="right">&nbsp;<strong>{L_FORMEL_PACE}:</strong></td>
+									<td align="left">&nbsp;{extended_results.PACE}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td align="right" style="width: 50%;" >&nbsp;<strong>{L_FORMEL_TIRED}:</strong></td>
-									<td align="left" style="width: 50%;" >&nbsp;{extended_results.TIRED}&nbsp;</td>
+									<td align="right">&nbsp;<strong>{L_FORMEL_TIRED}:</strong></td>
+									<td align="left">&nbsp;{extended_results.TIRED}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td align="right" style="width: 50%;" >&nbsp;<strong>{L_FORMEL_SAFETYCAR}:</strong></td>
-									<td align="left" style="width: 50%;" >&nbsp;{extended_results.SAFETYCAR}&nbsp;</td>
+									<td align="right">&nbsp;<strong>{L_FORMEL_SAFETYCAR}:</strong></td>
+									<td align="left">&nbsp;{extended_results.SAFETYCAR}&nbsp;</td>
 								</tr>
 								<!-- END extended_results -->
 								<!-- BEGIN extended_results_gfx -->
 								<tr class="bg1">
-									<td align="right" style="width: 30%; white-space:nowrap;">&nbsp;<strong>{L_FORMEL_PACE}:</strong></td>
-									<td align="left" style="width: 70%;" >&nbsp;{extended_results_gfx.PACE}&nbsp;</td>
+									<td align="right">&nbsp;<strong>{L_FORMEL_PACE}:</strong></td>
+									<td align="left">&nbsp;{extended_results_gfx.PACE}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td align="right" style="width: 30%; white-space:nowrap;">&nbsp;<strong>{L_FORMEL_TIRED}:</strong></td>
-									<td align="left" style="width: 70%;" >&nbsp;{extended_results_gfx.TIRED}&nbsp;</td>
+									<td align="right">&nbsp;<strong>{L_FORMEL_TIRED}:</strong></td>
+									<td align="left">&nbsp;{extended_results_gfx.TIRED}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td align="right" style="width: 30%;">&nbsp;<strong>{L_FORMEL_SAFETYCAR}:</strong></td>
-									<td align="left" style="width: 70%;" >&nbsp;{extended_results_gfx.SAFETYCAR}&nbsp;</td>
+									<td align="right">&nbsp;<strong>{L_FORMEL_SAFETYCAR}:</strong></td>
+									<td align="left">&nbsp;{extended_results_gfx.SAFETYCAR}&nbsp;</td>
 								</tr>
 								<!-- END extended_results_gfx -->
 								<!-- BEGIN extended_results -->
 								<tr class="bg1">
-									<td style="width: 50%;">&nbsp;</td>
-									<td style="width: 50%;">&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
 								</tr>
 								<!-- END extended_results -->
 								<!-- BEGIN extended_results_gfx -->
 								<tr class="bg1">
-									<td style="width: 50%;">&nbsp;</td>
-									<td style="width: 50%;">&nbsp;</td>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
 								</tr>
 								<!-- END extended_results_gfx -->
 							</tbody>
 						</table>
 					</td>
-					<td valign="top" style="width: 33%;">
+					<td valign="top">
 						<table class="table1 tablef1" style="width: 100%;">
 							<thead>
 								<tr>
@@ -461,9 +467,9 @@ function showtipps(showtipps)
 								<!-- ELSE -->
 								<tr class="bg2">
 								<!-- ENDIF -->
-									<td style="width: 40%;" align="right"><strong>&nbsp;{users_tipp.L_PLACE}:</strong></td>
-									<td style="width: 50%; white-space:nowrap;" align="left">&nbsp;{users_tipp.DRIVERCOMBO}&nbsp;</td>
-									<td class="responsive-hide" style="width: 10%;" align="center"><&nbsp;{users_tipp.SINGLE_POINTS}&nbsp;</td>
+									<td  align="right"><strong>&nbsp;{users_tipp.L_PLACE}:</strong></td>
+									<td style="white-space:nowrap;" align="left">&nbsp;{users_tipp.DRIVERCOMBO}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{users_tipp.SINGLE_POINTS}&nbsp;</td>
 								</tr>
 								<!-- END users_tipp -->
 								<!-- BEGIN gfx_users_tipp -->
@@ -472,47 +478,47 @@ function showtipps(showtipps)
 								<!-- ELSE -->
 								<tr class="bg2">
 								<!-- ENDIF -->
-									<td style="width: 30%;" align="right"><strong>&nbsp;{gfx_users_tipp.GFXDRIVERCOMBO}&nbsp;</strong></td>
-									<td style="width: 60%; white-space:nowrap;" align="left">
+									<td  align="right">{gfx_users_tipp.GFXDRIVERCOMBO}</td>
+									<td style="white-space:nowrap;" align="left">
 										<strong>{gfx_users_tipp.L_PLACE}</strong>
 										&nbsp;{gfx_users_tipp.DRIVERCOMBO}
 										{gfx_users_tipp.DRIVERTEAMNAME}
 									</td>
-									<td class="responsive-hide" style="width: 10%;" align="center">&nbsp;{gfx_users_tipp.SINGLE_POINTS}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{gfx_users_tipp.SINGLE_POINTS}&nbsp;</td>
 								</tr>
 								<!-- END gfx_users_tipp -->
 								<!-- BEGIN extended_users_tipp -->
 								<tr class="bg1">
-									<td style="width: 40%;" align="right"><strong>&nbsp;{L_FORMEL_PACE}:</strong></td>
-									<td style="width: 50%;" align="left">&nbsp;{extended_users_tipp.DRIVERCOMBO}&nbsp;</td>
-									<td class="responsive-hide" style="width: 10%;" align="center">&nbsp;{extended_users_tipp.SINGLE_FASTEST}&nbsp;</td>
+									<td  align="right"><strong>&nbsp;{L_FORMEL_PACE}:</strong></td>
+									<td  align="left">&nbsp;{extended_users_tipp.DRIVERCOMBO}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{extended_users_tipp.SINGLE_FASTEST}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td style="width: 40%;" align="right"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></td>
-									<td style="width: 50%;" align="left">&nbsp;{extended_users_tipp.TIREDCOMBO}&nbsp;</td>
-									<td class="responsive-hide" style="width: 10%;" align="center">&nbsp;{extended_users_tipp.SINGLE_TIRED}&nbsp;</td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></td>
+									<td align="left">&nbsp;{extended_users_tipp.TIREDCOMBO}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{extended_users_tipp.SINGLE_TIRED}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td style="width: 40%;" align="right"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></td>
-									<td style="width: 50%;" align="left">&nbsp;{extended_users_tipp.SAFETYCARCOMBO}&nbsp;</td>
-									<td class="responsive-hide" style="width: 10%;" align="center">&nbsp;{extended_users_tipp.SINGLE_SAFETY_CAR}&nbsp;</td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></td>
+									<td align="left">&nbsp;{extended_users_tipp.SAFETYCARCOMBO}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{extended_users_tipp.SINGLE_SAFETY_CAR}&nbsp;</td>
 								</tr>
 								<!-- END extended_users_tipp -->
 								<!-- BEGIN extended_users_tipp_gfx -->
 								<tr class="bg1">
-									<td style="width: 30%; white-space:nowrap;" align="right"><strong>&nbsp;{L_FORMEL_PACE}:</strong></td>
-									<td style="width: 60%;" align="left">&nbsp;{extended_users_tipp_gfx.DRIVERCOMBO}&nbsp;</td>
-									<td class="responsive-hide" style="width: 10%;" align="center">&nbsp;{extended_users_tipp_gfx.SINGLE_FASTEST}&nbsp;</td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_PACE}:</strong></td>
+									<td align="left">&nbsp;{extended_users_tipp_gfx.DRIVERCOMBO}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{extended_users_tipp_gfx.SINGLE_FASTEST}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td style="width: 30%; white-space:nowrap;" align="right"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></td>
-									<td style="width: 60%;" align="left">&nbsp;{extended_users_tipp_gfx.TIREDCOMBO}&nbsp;</td>
-									<td class="responsive-hide" style="width: 10%;" align="center">&nbsp;{extended_users_tipp_gfx.SINGLE_TIRED}&nbsp;</td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></td>
+									<td align="left">&nbsp;{extended_users_tipp_gfx.TIREDCOMBO}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{extended_users_tipp_gfx.SINGLE_TIRED}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td style="width: 30%; white-space:nowrap;" align="right"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></td>
-									<td style="width: 60%;" align="left">&nbsp;{extended_users_tipp_gfx.SAFETYCARCOMBO}&nbsp;</td>
-									<td class="responsive-hide" style="width: 10%;" align="center">&nbsp;{extended_users_tipp_gfx.SINGLE_SAFETY_CAR}&nbsp;</td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></td>
+									<td align="left">&nbsp;{extended_users_tipp_gfx.SAFETYCARCOMBO}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{extended_users_tipp_gfx.SINGLE_SAFETY_CAR}&nbsp;</td>
 								</tr>
 								<!-- END extended_users_tipp_gfx -->
 								<!-- BEGIN add_tipp -->
@@ -521,41 +527,41 @@ function showtipps(showtipps)
 								<!-- ELSE -->
 								<tr class="bg2">
 								<!-- ENDIF -->
-									<td style="width: 40%;" align="right"><strong>&nbsp;{add_tipp.L_PLACE}&nbsp;</strong></td>
-									<td style="width: 50%;" align="left">&nbsp;{add_tipp.DRIVERCOMBO}</td>
-									<td style="width: 10%;" align="left">&nbsp;</td>
+									<td align="right"><strong>&nbsp;{add_tipp.L_PLACE}&nbsp;</strong></td>
+									<td align="left">&nbsp;{add_tipp.DRIVERCOMBO}</td>
+									<td align="left">&nbsp;</td>
 								</tr>
 								<!-- END add_tipp -->
 								<!-- BEGIN extended_add_tipp -->
 								<tr class="bg1">
-									<td style="width: 40%; white-space:nowrap;" align="right"><strong>&nbsp;{L_FORMEL_PACE}:</strong></td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_PACE}:</strong></td>
 
-									<td style="width: 50%;" align="left">&nbsp;{extended_add_tipp.DRIVERCOMBO}&nbsp;</td>
-									<td style="width: 10%;" align="left">&nbsp;</td>
+									<td align="left">&nbsp;{extended_add_tipp.DRIVERCOMBO}&nbsp;</td>
+									<td align="left">&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td style="width: 40%; white-space:nowrap;" align="right"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></td>
-									<td style="width: 50%;" align="left">&nbsp;{extended_add_tipp.TIREDCOMBO}&nbsp;</td>
-									<td style="width: 10%;" align="left">&nbsp;</td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_TIRED}:</strong></td>
+									<td align="left">&nbsp;{extended_add_tipp.TIREDCOMBO}&nbsp;</td>
+									<td align="left">&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td style="width: 40%; white-space:nowrap;" align="right"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></td>
-									<td style="width: 50%;" align="left">&nbsp;{extended_add_tipp.SAFETYCARCOMBO}&nbsp;</td>
-									<td style="width: 10%;" align="left">&nbsp;</td>
+									<td align="right"><strong>&nbsp;{L_FORMEL_SAFETYCAR}:</strong></td>
+									<td align="left">&nbsp;{extended_add_tipp.SAFETYCARCOMBO}&nbsp;</td>
+									<td align="left">&nbsp;</td>
 								</tr>
 								<!-- END extended_add_tipp -->
 								<!-- BEGIN extended_results -->
 								<tr class="bg1">
-									<td style="width: 40%;" align="right"><span style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
-									<td class="responsive-hide" style="width: 50%;" align="left">&nbsp;</td>
-									<td style="width: 10%;" align="center"><span style="color:#009900"><strong>&nbsp;{extended_results.YOUR_POINTS}</strong></span></td>
+									<td align="right"><span style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
+									<td class="responsive-hide" align="left">&nbsp;</td>
+									<td align="center"><span style="color:#009900"><strong>&nbsp;{extended_results.YOUR_POINTS}</strong></span></td>
 								</tr>
 								<!-- END extended_results -->
 								<!-- BEGIN extended_results_gfx -->
 								<tr class="bg1">
-									<td style="width: 30%; white-space:nowrap;" align="right"><span style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
-									<td class="responsive-hide" style="width: 60%;" align="left">&nbsp;</td>
-									<td style="width: 10%;" align="center"><span style="color:#009900"><strong>&nbsp;{extended_results_gfx.YOUR_POINTS}</strong></span></td>
+									<td align="right"><span style="color:#009900"><strong>&nbsp;{L_FORMEL_YOUR_POINTS}:</strong></span></td>
+									<td class="responsive-hide" align="left">&nbsp;</td>
+									<td align="center"><span style="color:#009900"><strong>&nbsp;{extended_results_gfx.YOUR_POINTS}</strong></span></td>
 								</tr>
 								<!-- END extended_results_gfx -->
 							</tbody>

@@ -92,7 +92,7 @@ class main_listener implements EventSubscriberInterface
 	public function add_page_header_link($event)
 	{
 		$this->template->assign_vars(array(
-			'U_F1WEBTIP_PAGE'	=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
+			'U_F1WEBTIP_PAGE'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 		));
 	}
 
@@ -101,7 +101,7 @@ class main_listener implements EventSubscriberInterface
 		if (strrpos($event['row']['session_page'], 'app.' . $this->php_ext . '/f1webtip') === 0)
 		{
 			$event['location'] = $this->user->lang('VIEWING_F1WEBTIPP');
-			$event['location_url'] = $this->helper->route('f1webtip_controller', array('name' => 'index'));
+			$event['location_url'] = $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index'));
 		}
 	}
 
@@ -167,7 +167,7 @@ class main_listener implements EventSubscriberInterface
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
 					'RACE_DONE'			=> sprintf($this->user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
-					'U_FORMEL_STATS'	=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
+					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
 				));
 			}
 		}
@@ -237,8 +237,8 @@ class main_listener implements EventSubscriberInterface
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
 					'RACE_DONE'			=> sprintf($this->user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
-					'U_FORMEL_STATS'	=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
-					'U_FORMEL_WEB_TIPP'	=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
+					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
+					'U_FORMEL_WEB_TIPP'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 				);
 
 				// Add the new vars to the post_row array

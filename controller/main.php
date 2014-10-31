@@ -335,7 +335,7 @@ class main
 		// Creating breadcrumps
 		//
 		$this->template->assign_block_vars('navlinks', array(
-			'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'index')),
+			'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 			'FORUM_NAME' => $this->user->lang['F1WEBTIP_PAGE'],
 			));
 
@@ -359,7 +359,7 @@ class main
 
 				// Creating breadcrumps rules
 				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'rules')),
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'rules')),
 					'FORUM_NAME' => $this->user->lang['FORMEL_RULES'],
 				   ));
 
@@ -398,7 +398,7 @@ class main
 
 				$this->template->assign_vars(array(
 					'S_RULES'					=> true,
-					'U_FORMEL_INDEX' 			=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
+					'U_FORMEL_INDEX' 			=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 					'FORMEL_RULES_MENTIONED' 	=> $rules_mentioned,
 					'FORMEL_RULES_PLACED' 		=> $rules_placed,
 					'FORMEL_RULES_FASTEST' 		=> $rules_fastest,
@@ -425,7 +425,7 @@ class main
 
 				// Creating breadcrumps rules
 				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'stats')),
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
 					'FORUM_NAME' => $this->user->lang['FORMEL_STATISTICS'],
 				   ));
 
@@ -732,14 +732,14 @@ class main
 
 				$this->template->assign_vars(array(
 					'S_STATS'				=> true,
-					'S_FORM_ACTION' 		=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
-					'U_FORMEL_STATS' 		=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
+					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
+					'U_FORMEL_STATS' 		=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
 					'HEADER_IMG' 			=> $ext_path . 'images/' . $this->config['drdeath_f1webtip_headbanner3_img'],
 					'HEADER_HEIGHT' 		=> $this->config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 			=> $this->config['drdeath_f1webtip_head_width'],
 					'L_STAT_TABLE_TITLE' 	=> $stat_table_title,
-					'U_FORMEL' 				=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					'U_BACK_TO_TIPP' 		=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
+					'U_FORMEL' 				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'U_BACK_TO_TIPP' 		=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
@@ -759,7 +759,7 @@ class main
 
 
 				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'results')),
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
 					'FORUM_NAME'	=> $this->user->lang['FORMEL_RESULTS_TITLE'],
 					)
 				);
@@ -767,7 +767,7 @@ class main
 				// Check URL hijacker . Access only for formel moderators or admins
 				if ($this->user->data['user_id'] <> $formel_mod_id && $is_admin <> 1)
 				{
-					$auth_msg = sprintf($this->user->lang['FORMEL_MOD_ACCESS_DENIED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
+					$auth_msg = sprintf($this->user->lang['FORMEL_MOD_ACCESS_DENIED'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error($auth_msg);
 				}
 
@@ -821,9 +821,9 @@ class main
 
 				$this->template->assign_vars(array(
 					'S_RESULTS'						=> true,
-					'S_FORM_ACTION'					=> $this->helper->route('f1webtip_controller', array('name' => 'addresults')),
-					'U_FORMEL'						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					'U_FORMEL_RESULTS'				=> $this->helper->route('f1webtip_controller', array('name' => 'results')),
+					'S_FORM_ACTION'					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'addresults')),
+					'U_FORMEL'						=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'U_FORMEL_RESULTS'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
 
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
@@ -842,7 +842,7 @@ class main
 				$page_title = $this->user->lang['FORMEL_TITLE'];
 
 				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('f1webtip_controller', array('name' => 'results')),
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
 					'FORUM_NAME'	=> $this->user->lang['FORMEL_RESULTS_TITLE'],
 					)
 				);
@@ -850,7 +850,7 @@ class main
 				// Check URL hijacker . Access only for formel moderators or admins
 				if ($this->user->data['user_id'] <> $formel_mod_id && $is_admin <> 1)
 				{
-					$auth_msg = sprintf($this->user->lang['FORMEL_MOD_ACCESS_DENIED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
+					$auth_msg = sprintf($this->user->lang['FORMEL_MOD_ACCESS_DENIED'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error($auth_msg);
 				}
 
@@ -897,7 +897,7 @@ class main
 
 					$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
-					$tipp_msg = sprintf($this->user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+					$tipp_msg = sprintf($this->user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
 				}
 
@@ -939,13 +939,13 @@ class main
 					// Pull out a success message
 					$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
-					$tipp_msg = sprintf($this->user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+					$tipp_msg = sprintf($this->user->lang['FORMEL_RESULTS_DELETED'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
 				}
 
 				if (($reset || $resetresult || $resetquali) && $race_id == 0)
 				{
-					$reset_msg = sprintf($this->user->lang['FORMEL_RESULTS_ERROR'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+					$reset_msg = sprintf($this->user->lang['FORMEL_RESULTS_ERROR'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 					trigger_error($reset_msg);
 				}
 
@@ -969,7 +969,7 @@ class main
 							{
 								$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
-								$quali_msg = sprintf($this->user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+								$quali_msg = sprintf($this->user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 								trigger_error($quali_msg);
 							}
 
@@ -989,7 +989,7 @@ class main
 
 						$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
-						$quali_msg = sprintf($this->user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+						$quali_msg = sprintf($this->user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 						trigger_error($quali_msg);
 					}
 				}
@@ -1021,7 +1021,7 @@ class main
 							{
 								$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
-								$result_msg = sprintf($this->user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+								$result_msg = sprintf($this->user->lang['FORMEL_RESULTS_DOUBLE'], '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 								trigger_error($result_msg);
 							}
 
@@ -1173,7 +1173,7 @@ class main
 
 						$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
-						$result_msg = sprintf($this->user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+						$result_msg = sprintf($this->user->lang['FORMEL_RESULTS_ACCEPTED'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
 						trigger_error($result_msg);
 					}
 				}
@@ -1395,9 +1395,9 @@ class main
 
 				$this->template->assign_vars(array(
 					'S_ADDRESULTS'					=> true,
-					'S_FORM_ACTION' 				=> $this->helper->route('f1webtip_controller', array('name' => 'addresults')),
-					'U_FORMEL' 						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
-					'U_FORMEL_RESULTS' 				=> $this->helper->route('f1webtip_controller', array('name' => 'results')),
+					'S_FORM_ACTION' 				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'addresults')),
+					'U_FORMEL' 						=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'U_FORMEL_RESULTS' 				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
 					'RACE_ID' 						=> $race_id,
 					'RACENAME' 						=> $racename,
 
@@ -1632,7 +1632,7 @@ class main
 
 					$this->phpbb_log->add('user', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_TIP_DELETED', false, array('reportee_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 
-					$tipp_msg = sprintf($this->user->lang['FORMEL_TIPP_DELETED'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$this->root_path}index." . $this->php_ext) . '" class="gen">', '</a>');
+					$tipp_msg = sprintf($this->user->lang['FORMEL_TIPP_DELETED'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$this->root_path}index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error( $tipp_msg);
 				}
 
@@ -1694,7 +1694,7 @@ class main
 						$this->phpbb_log->add('user', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_TIP_EDITED', false, array('reportee_id' => 0, $racename . ' (ID ' . $race_id . ')'));
 					}
 
-					$tipp_msg = sprintf($this->user->lang['FORMEL_ACCEPTED_TIPP'], '<a href="' . $this->helper->route('f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$this->root_path}index." . $this->php_ext) . '" class="gen">', '</a>');
+					$tipp_msg = sprintf($this->user->lang['FORMEL_ACCEPTED_TIPP'], '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid("{$this->root_path}index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error( $tipp_msg);
 				}
 
@@ -2054,7 +2054,7 @@ class main
 							$separator 					= ($cur_counter == $tippers_active) ? '': ', ';
 
 							$this->template->assign_block_vars('tipps_made', array(
-								'USERTIPP' 		=> $this->helper->route('f1webtip_controller', array('name' => 'usertipp', 'mode' => 'teams', 'tipp' => $current_tipp_id, 'race' => $chosen_race)),
+								'USERTIPP' 		=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'usertipp', 'mode' => 'teams', 'tipp' => $current_tipp_id, 'race' => $chosen_race)),
 								'SEPARATOR' 	=> $separator,
 								'USERNAME' 		=> $current_tippers_username . ' (' . $row['tip_points'] . ')',
 								'STYLE'			=> ($current_tippers_colour) ? ' style="color: ' . $current_tippers_colour . '; font-weight: bold;"' : '',
@@ -2532,7 +2532,7 @@ class main
 				//Check if user is formel moderator or has admin access
 				if ($user_id == $formel_mod_id || ($is_admin == 1))
 				{
-					$u_call_mod = $this->helper->route('f1webtip_controller', array('name' => 'results'));
+					$u_call_mod = $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results'));
 					$l_call_mod = $this->user->lang['FORMEL_MOD_BUTTON_TEXT'];
 
 					$this->template->assign_block_vars('tipp_moderator', array());
@@ -2547,14 +2547,14 @@ class main
 				$this->template->assign_vars(array(
 					'S_INDEX'							=> true,
 					'S_COUNTDOWN'						=> ($this->config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
-					'S_FORM_ACTION'						=> $this->helper->route('f1webtip_controller', array('name' => 'index')),
+					'S_FORM_ACTION'						=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
 					'U_FORMEL_FORUM'					=> $discuss_button,
-					'U_FORMEL_RULES' 					=> $this->helper->route('f1webtip_controller', array('name' => 'rules')),
-					'U_FORMEL_STATISTICS'				=> $this->helper->route('f1webtip_controller', array('name' => 'stats')),
-					'U_TOP_MORE_USERS'					=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'users')),
-					'U_TOP_MORE_DRIVERS'				=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'drivers')),
-					'U_TOP_MORE_TEAMS'					=> $this->helper->route('f1webtip_controller', array('name' => 'stats', 'mode' => 'teams')),
+					'U_FORMEL_RULES' 					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'rules')),
+					'U_FORMEL_STATISTICS'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
+					'U_TOP_MORE_USERS'					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats', 'mode' => 'users')),
+					'U_TOP_MORE_DRIVERS'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats', 'mode' => 'drivers')),
+					'U_TOP_MORE_TEAMS'					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats', 'mode' => 'teams')),
 					'HEADER_IMG' 						=> $ext_path . 'images/' . $this->config['drdeath_f1webtip_headbanner1_img'],
 					'HEADER_HEIGHT' 					=> $this->config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],

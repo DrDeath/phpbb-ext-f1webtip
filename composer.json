@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "F1 WebTip for phpBB 3.1",
 	"homepage": "http://drdeath.github.io/phpbb-ext-f1webtip",
-	"version": "1.0.0-dev",
-	"time": "2014-05-10",
+	"version": "1.0.0",
+	"time": "2014-10-31",
 	"license": "GPL-2.0",
 	"authors": [{
 			"name": "Stefan Temath",
@@ -26,7 +26,7 @@
 	"extra": {
 		"display-name": "F1 WebTip",
 		"soft-require": {
-			"phpbb/phpbb": "3.1.*@dev"
+			"phpbb/phpbb": ">=3.1"
 		},
 		"version-check": {
 			"host": "lpi-clan.de",

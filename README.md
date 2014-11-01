@@ -1,4 +1,4 @@
-phpbb-ext-f1webtip
+[phpbb-ext-f1webtip] (http://drdeath.github.io/phpbb-ext-f1webtip/)
 ==================
 
 # phpBB 3.1 F1Webtip Extension

@@ -15,9 +15,9 @@ Current season standings ( users / drivers / teams ) are listet on a statistic p
 
 ## Installation
 
-Clone into phpBB/ext/drdeath/f1webtip:
+Clone into phpBB/ext/:
 
-    git clone https://github.com/DrDeath/phpbb-ext-f1webtip.git phpBB/ext/drdeath/f1webtip
+    git clone https://github.com/DrDeath/phpbb-ext-f1webtip.git phpBB/ext/
 
 Go to "ACP" > "Customise" > "Extensions" and enable the "phpBB 3.1 F1Webtip Extension" extension.
 

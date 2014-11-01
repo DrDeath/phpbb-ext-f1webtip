@@ -1,3 +1,0 @@
-drdeath_f1webtip_controller:
-    pattern: /f1webtip/{name}
-    defaults: { _controller: drdeath.f1webtip.controller:handle }

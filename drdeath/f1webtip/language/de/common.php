@@ -111,6 +111,7 @@ $lang = array_merge($lang, array(
 
 	'FORMEL_GUESTS_PLACE_NO_TIP'	=> '<strong>Gäste können keinen Tipp abgeben.</strong><br /><br />Um Tipps abgeben zu können, musst du registriert und angemeldet sein.<br />',
 	'FORMEL_RACE_ABORD'				=> 'Rennabruch (halbe Punktzahl!)',
+	'FORMEL_RACE_DOUBLE'			=> 'Rennen mit doppelter Punktzahl',
 
 	'VIEWING_F1WEBTIPP'				=> 'Betrachtet den F1 WebTipp',
 

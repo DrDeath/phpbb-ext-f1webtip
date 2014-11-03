@@ -868,8 +868,9 @@ class main
 				$resetquali 	= $this->request->is_set_post('resetquali');
 				$resetresult 	= $this->request->is_set_post('resetresult');
 
-				$results		= $this->request->variable('result'			,	''	);
-				$race_abort 	= $this->request->variable('race_abort'		,	0	);
+				$results		= $this->request->variable('result'				,	''	);
+				$race_abort 	= $this->request->variable('race_abort'			,	0	);
+				$race_double	= $this->request->variable('race_double'		,	0	);
 				$race_id		= $this->request->variable('race_id'			,	0	);
 				$racename		= $this->request->variable('racename'			,	'', true	);
 
@@ -1149,6 +1150,15 @@ class main
 							$wm['7'] = 2;		// eighth place
 							$wm['8'] = 1;		// ninth place
 							$wm['9'] = 0.5;		// tenth place
+						}
+
+						if ($race_double == true)
+						{
+						// the race has double points, i.e. it is the last race of the season
+							for ($i = 0; $i < count($wm) ; ++$i)
+							{
+								$wm[$i] = $wm[$i] *2;
+							}
 						}
 
 						for ($i = 0; $i < count($result_array) - 3; ++$i)

@@ -908,14 +908,14 @@ class main_module
 				$b_month 		= $request->variable('c_month'			,	$user->format_date(time(),"n")	);
 				$b_year 		= $request->variable('c_year'			,	$user->format_date(time(),"Y")	);
 				$b_hour 		= $request->variable('c_hour'			,	$user->format_date(time(),"G")	);
-				$b_minute 		= $request->variable('c_minute'		,	0	);
-				$b_second 		= $request->variable('c_second'		,	0	);
+				$b_minute 		= $request->variable('c_minute'			,	0	);
+				$b_second 		= $request->variable('c_second'			,	0	);
 
 				$raceimg 		= $request->variable('raceimg'			,	''	,	true	);
-				$racename 		= $request->variable('racename'		,	''	,	true	);
+				$racename 		= $request->variable('racename'			,	''	,	true	);
 				$racelength 	= $request->variable('racelength'		,	''	,	true	);
-				$racedistance 	= $request->variable('racedistance'	,	''	,	true	);
-				$racelaps 		= $request->variable('racelaps'		,	0	,	true	);
+				$racedistance 	= $request->variable('racedistance'		,	''	,	true	);
+				$racelaps 		= $request->variable('racelaps'			,	0	,	true	);
 				$racedebut 		= $request->variable('racedebut'		,	0	,	true	);
 
 				$race_id 		= $request->variable('race_id'			,	0	);
@@ -979,11 +979,14 @@ class main_module
 						$sql_ary = array(
 							'race_name'		=> $racename,
 							'race_img'		=> $raceimg,
+							'race_quali'	=> 0,
+							'race_result'	=> 0,
 							'race_time'		=> $racetime,
 							'race_length'	=> $racelength,
 							'race_laps'		=> $racelaps,
 							'race_distance'	=> $racedistance,
-							'race_debut'	=> $racedebut
+							'race_debut'	=> $racedebut,
+							'race_mail'		=> 0,
 						);
 
 						$db->sql_query('INSERT INTO ' . $phpbb_container->getParameter('tables.f1webtip.races') . ' ' . $db->sql_build_array('INSERT', $sql_ary));
@@ -1001,7 +1004,7 @@ class main_module
 								'race_length'	=> $racelength,
 								'race_laps'		=> $racelaps,
 								'race_distance'	=> $racedistance,
-								'race_debut'	=> $racedebut
+								'race_debut'	=> $racedebut,
 							);
 
 							$sql = 'UPDATE ' . $phpbb_container->getParameter('tables.f1webtip.races') . '
@@ -1017,7 +1020,7 @@ class main_module
 								'race_length'	=> $racelength,
 								'race_laps'		=> $racelaps,
 								'race_distance'	=> $racedistance,
-								'race_debut'	=> $racedebut
+								'race_debut'	=> $racedebut,
 							);
 
 							$sql = 'UPDATE ' . $table_races . '

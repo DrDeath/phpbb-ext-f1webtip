@@ -1607,11 +1607,18 @@ class main
 				$racename 		= $this->request->variable('racename'		, '', true);
 				$user_id 		= $this->user->data['user_id'];
 				$tipp_time 		= $this->request->variable('tipp_time'	, 0);
-				$my_tipp_array 	= array();
-				$my_tipp 		= '';
 
 				//Define some vars
-				$driver_team_name = $driverteamname = $gfxdrivercar = $gfxdrivercombo = $single_fastest	= $single_tired	= $single_safety_car = '';
+				$my_tipp_array 		= array();
+				$my_tipp 			= '';
+				$driver_team_name 	= '';
+				$driverteamname 	= '';
+				$gfxdrivercar 		= '';
+				$gfxdrivercombo 	= '';
+				$single_fastest		= '';
+				$single_tired 		= '';
+				$single_safety_car 	= '';
+				$chosen_race 		= '';
 
 				$current_time = time();
 
@@ -2570,7 +2577,7 @@ class main
 					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],
 					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
 					'RACE_ID'							=> (isset($races[$chosen_race]['race_id']))   ? $races[$chosen_race]['race_id']   : 1,
-					'RACENAME'							=> $races[$chosen_race]['race_name'],
+					'RACENAME'							=> (isset($races[$chosen_race]['race_name'])) ? $races[$chosen_race]['race_name'] : '',
 					'RACE_TIME'							=> (isset($races[$chosen_race]['race_time'])) ? $races[$chosen_race]['race_time'] : 1,
 					'RACE_OFFSET'						=> $race_offset,
 					'COUNTDOWN'							=> (isset($countdown)) ? $countdown : '',

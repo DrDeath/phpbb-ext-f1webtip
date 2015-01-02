@@ -87,11 +87,6 @@ class email_reminder extends \phpbb\cron\task\base
 		$check_time = (int) gmdate('mdY',time());
 		$this->config->set('drdeath_f1webtip_reminder_last_run', $check_time, true);
 
-		// Debug Start: Reset cron lock
-		// $this->config->set('cron_lock', '0');
-		// $this->config->set('drdeath_f1webtip_reminder_last_run', '1', true);
-		// Debug End
-
 		//Mail Settings
 		$use_queue 		= false;
 		$used_method 	= NOTIFY_EMAIL;
@@ -99,9 +94,6 @@ class email_reminder extends \phpbb\cron\task\base
 
 		// Get F1 Webtip restricted group
 		$formel_group_id 	= $this->config['drdeath_f1webtip_restrict_to'];
-
-		// Uncomment the next line for sending the reminder mail to a special group. Replace 114 with the special group ID
-		// $formel_group_id	= 114;
 
 		// Time slot will be 3 days before the next race starts
 		$current_time 		= time();

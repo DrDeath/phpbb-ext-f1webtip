@@ -4,3 +4,4 @@ parameters:
     tables.f1webtip.races: %core.table_prefix%f1webtip_races
     tables.f1webtip.wm: %core.table_prefix%f1webtip_wm
     tables.f1webtip.tips: %core.table_prefix%f1webtip_tips
+

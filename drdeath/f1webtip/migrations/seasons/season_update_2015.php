@@ -47,7 +47,6 @@ class season_update_2015 extends \phpbb\db\migration\migration
 		$table_teams	= $this->table_prefix . 'f1webtip_teams';
 		$table_races 	= $this->table_prefix . 'f1webtip_races';
 
-//TBD Manor ? / Caterham ?
 		if ($this->db_tools->sql_table_exists($table_drivers))
 		{
 			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
@@ -91,23 +90,9 @@ class season_update_2015 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('driver_id' => 9,  'driver_name' => 'Ericsson, Marcus',		'driver_img' => '',	'driver_team' => 9,);
 			$sql_ary[] = array('driver_id' => 12, 'driver_name' => 'Nasr, Felipe',			'driver_img' => '',	'driver_team' => 9,);
 
-/*
-			# -- Team 10 Marussia F1 Team
-			# -- Team 11 Caterham F1 Team
-
-			$sql_ary[] = array('driver_id' => 10, 'driver_name' => 'Kobayashi, Kamui',		'driver_img' => '',	'driver_team' => 11,);
-			$sql_ary[] = array('driver_id' => 4,  'driver_name' => 'Chilton, Max',			'driver_img' => '',	'driver_team' => 10,);
-			$sql_ary[] = array('driver_id' => 17, 'driver_name' => 'Bianchi, Jules',		'driver_img' => '',	'driver_team' => 10,);
-			$sql_ary[] = array('driver_id' => 20, 'driver_name' => 'Magnussen, Kevin',		'driver_img' => '',	'driver_team' => 5,);
-			$sql_ary[] = array('driver_id' => 25, 'driver_name' => 'Vergne, Jean-Eric',		'driver_img' => '',	'driver_team' => 8,);
-			$sql_ary[] = array('driver_id' => 21, 'driver_name' => 'Gutierrez, Esteban',	'driver_img' => '',	'driver_team' => 7,);
-			$sql_ary[] = array('driver_id' => 99, 'driver_name' => 'Sutil, Adrian',			'driver_img' => '',	'driver_team' => 7,);
-*/
-
 			$db->sql_multi_insert($table_drivers, $sql_ary);
 		}
 
-//TBD Manor ? / Caterham ?
 		if ($this->db_tools->sql_table_exists($table_teams))
 		{
 			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
@@ -124,15 +109,10 @@ class season_update_2015 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('team_id' => 7,  'team_name' => 'Scuderia Toro Rosso', 		'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 8,  'team_name' => 'Lotus F1 Team',	 			'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 9,  'team_name' => 'Sauber F1 Team', 			'team_img' => '', 'team_car' => '',);
-/*
-			$sql_ary[] = array('team_id' => 10, 'team_name' => 'Manor F1 Team', 			'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 11, 'team_name' => 'Caterham F1 Team', 			'team_img' => '', 'team_car' => '',);
-*/
 
 			$db->sql_multi_insert($table_teams, $sql_ary);
 		}
 
-//TBD Date / Times
 		if ($this->db_tools->sql_table_exists($table_races))
 		{
 			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.

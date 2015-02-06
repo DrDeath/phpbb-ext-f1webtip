@@ -957,8 +957,8 @@ class main
 
 					if ($race_id <> 0)
 					{
-						//We have 11 Teams with 2 cars each --> 22 drivers
-						for ($i = 0; $i < 22; ++$i)
+						//We have 9 Teams with 2 cars each --> 18 drivers
+						for ($i = 0; $i < 18; ++$i)
 						{
 							$value = $this->request->variable('place' . ( $i + 1 ), 0);
 
@@ -1219,8 +1219,8 @@ class main
 					$drivers['0']['driver_id'] = '0';
 					$drivers['0']['driver_name'] = $this->user->lang['FORMEL_DEFINE'];
 
-					//We have 11 Teams with 2 cars each --> 22 drivers
-					for ($i = 0; $i < 22; ++$i)
+					//We have 9 Teams with 2 cars each --> 18 drivers
+					for ($i = 0; $i < 18; ++$i)
 					{
 						$position = ($i == 0) ? $this->user->lang['FORMEL_POLE'] : $i + 1 . '. ' . $this->user->lang['FORMEL_PLACE'];
 						$box_name = 'place' . ($i + 1);
@@ -1352,8 +1352,8 @@ class main
 
 					$combo_tired = '<select name="place12" size="1">';
 
-					//We have 11 Teams with 2 cars each --> 22 drivers
-					for ($k = 0; $k < 23; ++$k)
+					//We have 9 Teams with 2 cars each --> 18 drivers
+					for ($k = 0; $k < 19; ++$k)
 					{
 						if (isset($result_array['11']))
 						{
@@ -2265,8 +2265,8 @@ class main
 								//Count Tired DropDown
 								$tiredcombo = '<select name="place12" size="1">';
 
-								//We have 11 Teams with 2 cars each --> 22 drivers
-								for ($k = 0; $k < 23; ++$k)
+								//We have 9 Teams with 2 cars each --> 18 drivers
+								for ($k = 0; $k < 19; ++$k)
 								{
 									$selected 			 = ($k == $tipp_array['11']) ? 'selected' : '';
 									$tiredcombo 		.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
@@ -2363,8 +2363,8 @@ class main
 									//Count Tired DropDown
 									$tiredcombo = '<select name="place12" size="1">';
 
-									//We have 11 Teams with 2 cars each --> 22 drivers
-									for ($k = 0; $k < 23; ++$k)
+									//We have 9 Teams with 2 cars each --> 18 drivers
+									for ($k = 0; $k < 19; ++$k)
 									{
 										$tiredcombo .= '<option value="' . $k . '">' . $k . '</option>';
 									}

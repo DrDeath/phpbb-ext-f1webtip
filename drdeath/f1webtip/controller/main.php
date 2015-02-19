@@ -320,10 +320,6 @@ class main
 		//Is the user member of the restricted group?
 		$is_in_group = group_memberships($formel_group_id, $this->user->data['user_id'], true);
 
-		// Debug Start
-		// echo "is in group -> " . $is_in_group . " is admin -> " . $is_admin . " user id -> " . $this->user->data['user_id'] . " Moderator ID -> " . $formel_mod_id;
-		// Debug End
-
 		// Check for : restricted group access - admin access - formular 1 moderator access
 		if ($formel_group_id <> 0 && !$is_in_group && $is_admin <> 1 && $this->user->data['user_id'] <> $formel_mod_id)
 		{
@@ -961,8 +957,8 @@ class main
 
 					if ($race_id <> 0)
 					{
-						//We have 11 Teams with 2 cars each --> 22 drivers
-						for ($i = 0; $i < 22; ++$i)
+						//We have 9 Teams with 2 cars each --> 18 drivers
+						for ($i = 0; $i < 18; ++$i)
 						{
 							$value = $this->request->variable('place' . ( $i + 1 ), 0);
 
@@ -1223,8 +1219,8 @@ class main
 					$drivers['0']['driver_id'] = '0';
 					$drivers['0']['driver_name'] = $this->user->lang['FORMEL_DEFINE'];
 
-					//We have 11 Teams with 2 cars each --> 22 drivers
-					for ($i = 0; $i < 22; ++$i)
+					//We have 9 Teams with 2 cars each --> 18 drivers
+					for ($i = 0; $i < 18; ++$i)
 					{
 						$position = ($i == 0) ? $this->user->lang['FORMEL_POLE'] : $i + 1 . '. ' . $this->user->lang['FORMEL_PLACE'];
 						$box_name = 'place' . ($i + 1);
@@ -1356,8 +1352,8 @@ class main
 
 					$combo_tired = '<select name="place12" size="1">';
 
-					//We have 11 Teams with 2 cars each --> 22 drivers
-					for ($k = 0; $k < 23; ++$k)
+					//We have 9 Teams with 2 cars each --> 18 drivers
+					for ($k = 0; $k < 19; ++$k)
 					{
 						if (isset($result_array['11']))
 						{
@@ -1607,11 +1603,18 @@ class main
 				$racename 		= $this->request->variable('racename'		, '', true);
 				$user_id 		= $this->user->data['user_id'];
 				$tipp_time 		= $this->request->variable('tipp_time'	, 0);
-				$my_tipp_array 	= array();
-				$my_tipp 		= '';
 
 				//Define some vars
-				$driver_team_name = $driverteamname = $gfxdrivercar = $gfxdrivercombo = $single_fastest	= $single_tired	= $single_safety_car = '';
+				$my_tipp_array 		= array();
+				$my_tipp 			= '';
+				$driver_team_name 	= '';
+				$driverteamname 	= '';
+				$gfxdrivercar 		= '';
+				$gfxdrivercombo 	= '';
+				$single_fastest		= '';
+				$single_tired 		= '';
+				$single_safety_car 	= '';
+				$chosen_race 		= '';
 
 				$current_time = time();
 
@@ -2262,8 +2265,8 @@ class main
 								//Count Tired DropDown
 								$tiredcombo = '<select name="place12" size="1">';
 
-								//We have 11 Teams with 2 cars each --> 22 drivers
-								for ($k = 0; $k < 23; ++$k)
+								//We have 9 Teams with 2 cars each --> 18 drivers
+								for ($k = 0; $k < 19; ++$k)
 								{
 									$selected 			 = ($k == $tipp_array['11']) ? 'selected' : '';
 									$tiredcombo 		.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
@@ -2360,8 +2363,8 @@ class main
 									//Count Tired DropDown
 									$tiredcombo = '<select name="place12" size="1">';
 
-									//We have 11 Teams with 2 cars each --> 22 drivers
-									for ($k = 0; $k < 23; ++$k)
+									//We have 9 Teams with 2 cars each --> 18 drivers
+									for ($k = 0; $k < 19; ++$k)
 									{
 										$tiredcombo .= '<option value="' . $k . '">' . $k . '</option>';
 									}
@@ -2570,7 +2573,7 @@ class main
 					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],
 					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
 					'RACE_ID'							=> (isset($races[$chosen_race]['race_id']))   ? $races[$chosen_race]['race_id']   : 1,
-					'RACENAME'							=> $races[$chosen_race]['race_name'],
+					'RACENAME'							=> (isset($races[$chosen_race]['race_name'])) ? $races[$chosen_race]['race_name'] : '',
 					'RACE_TIME'							=> (isset($races[$chosen_race]['race_time'])) ? $races[$chosen_race]['race_time'] : 1,
 					'RACE_OFFSET'						=> $race_offset,
 					'COUNTDOWN'							=> (isset($countdown)) ? $countdown : '',

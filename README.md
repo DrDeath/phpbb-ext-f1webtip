@@ -21,6 +21,11 @@ Clone into phpBB/ext/:
 
 Go to "ACP" > "Customise" > "Extensions" and enable the "phpBB 3.1 F1Webtip Extension" extension.
 
+## Github IO Page
+
+Find more information and screenshots here:
+http://drdeath.github.io/phpbb-ext-f1webtip/
+
 ## Collaborate
 
 * Create a issue in the [tracker](https://github.com/DrDeath/phpbb-ext-f1webtip/issues)

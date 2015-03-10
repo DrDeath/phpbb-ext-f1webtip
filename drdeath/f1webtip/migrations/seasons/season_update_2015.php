@@ -92,7 +92,7 @@ class season_update_2015 extends \phpbb\db\migration\migration
 
 			# -- Team 10 Manor F1 Team
 			$sql_ary[] = array('driver_id' => 46, 'driver_name' => 'Stevens, Will',			'driver_img' => '',	'driver_team' => 10,);
-			$sql_ary[] = array('driver_id' => 47, 'driver_name' => 'Doe, John',				'driver_img' => '',	'driver_team' => 10,);
+			$sql_ary[] = array('driver_id' => 47, 'driver_name' => 'Merhi, Roberto',		'driver_img' => '',	'driver_team' => 10,);
 
 			$db->sql_multi_insert($table_drivers, $sql_ary);
 		}
@@ -113,7 +113,7 @@ class season_update_2015 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('team_id' => 7,  'team_name' => 'Scuderia Toro Rosso', 		'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 8,  'team_name' => 'Lotus F1 Team',	 			'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 9,  'team_name' => 'Sauber F1 Team', 			'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 10, 'team_name' => 'Manor F1 Team', 			'team_img' => '', 'team_car' => '',);
+			$sql_ary[] = array('team_id' => 10, 'team_name' => 'Manor Marussia F1 Team', 	'team_img' => '', 'team_car' => '',);
 
 			$db->sql_multi_insert($table_teams, $sql_ary);
 		}

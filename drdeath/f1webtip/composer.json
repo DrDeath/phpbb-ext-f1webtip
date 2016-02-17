@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "F1 WebTip for phpBB 3.1",
 	"homepage": "http://drdeath.github.io/phpbb-ext-f1webtip",
-	"version": "1.0.2",
-	"time": "2014-10-31",
+	"version": "1.0.3",
+	"time": "2016-02-17",
 	"license": "GPL-2.0",
 	"authors": [{
 			"name": "Stefan Temath",

@@ -77,6 +77,8 @@ class main_listener implements EventSubscriberInterface
 		$this->auth				= $auth;
 		$this->template 		= $template;
 		$this->user 			= $user;
+		$this->is_phpbb31		= phpbb_version_compare($config['version'], '3.1.0@dev', '>=') && phpbb_version_compare($config['version'], '3.2.0@dev', '<');
+		$this->is_phpbb32		= phpbb_version_compare($config['version'], '3.2.0@dev', '>=') && phpbb_version_compare($config['version'], '3.3.0@dev', '<');
 	}
 
 	public function load_language_on_setup($event)
@@ -93,6 +95,8 @@ class main_listener implements EventSubscriberInterface
 	{
 		$this->template->assign_vars(array(
 			'U_F1WEBTIP_PAGE'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+			'IS_PHPBB31' => $this->is_phpbb31,
+			'IS_PHPBB32' => $this->is_phpbb32,
 		));
 	}
 

@@ -41,5 +41,3 @@ $lang = array_merge($lang, array(
 	'ACL_A_FORMEL_TEAMS'	=> 'Can alter F1 WebTip teams',
 	'ACL_A_FORMEL_RACES'	=> 'Can alter F1 WebTip races',
 ));
-
-?>

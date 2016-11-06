@@ -51,7 +51,7 @@ class main_listener implements EventSubscriberInterface
 
 	/* @var \phpbb\template\template */
 	protected $template;
-	
+
 	/* @var \phpbb\user */
 	protected $user;
 
@@ -114,7 +114,7 @@ class main_listener implements EventSubscriberInterface
 
 			//Is the user member of the restricted group?
 			$is_in_group = group_memberships($this->config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
-			
+
 			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $this->user->data['user_id'] == $this->config['drdeath_f1webtip_mod_id'])
 			{
 				$tippers_rank		= $this->user->lang['FORMEL_PROFILE_NORANK'];
@@ -123,7 +123,7 @@ class main_listener implements EventSubscriberInterface
 
 				$table_tips		= $this->phpbb_container->getParameter('tables.f1webtip.tips');
 				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
-				
+
 				// Get tip data for this user
 				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
 					FROM ' . $table_tips . '
@@ -188,7 +188,7 @@ class main_listener implements EventSubscriberInterface
 				$tippers_rank	= $this->user->lang['FORMEL_PROFILE_NORANK'];
 				$tippers_points	= 0;
 				$race_done		= 0;
-				
+
 				$table_tips		= $this->phpbb_container->getParameter('tables.f1webtip.tips');
 				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 
@@ -231,7 +231,6 @@ class main_listener implements EventSubscriberInterface
 
 				$race_total = $this->db->sql_affectedrows($result);
 				$this->db->sql_freeresult($result);
-				
 
 				$f1webtip = array(
 					'TIPPER_POINTS'		=> $tippers_points,
@@ -243,7 +242,7 @@ class main_listener implements EventSubscriberInterface
 
 				// Add the new vars to the post_row array
 				$f1webtip_array = array_merge($event['post_row'], $f1webtip);
-				
+
 				$event['post_row'] = $f1webtip_array;
 			}
 		}

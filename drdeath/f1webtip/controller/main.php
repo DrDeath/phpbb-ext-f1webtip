@@ -290,7 +290,6 @@ class main
 		$formel_group_id 		= $this->config['drdeath_f1webtip_restrict_to'];
 		$formel_mod_id 			= $this->config['drdeath_f1webtip_mod_id'];
 
-
 		//
 		// Check all permission to access the f1webtip
 		//
@@ -345,7 +344,6 @@ class main
 		switch ($name)
 		{
 
-
 			###########################
 			###       RULES        ####
 			###########################
@@ -358,7 +356,6 @@ class main
 					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'rules')),
 					'FORUM_NAME' => $this->user->lang['FORMEL_RULES'],
 				   ));
-
 
 				// Build rules
 				$points_mentioned 	= $this->config['drdeath_f1webtip_points_mentioned'];
@@ -410,7 +407,6 @@ class main
 				));
 
 			break;
-
 
 			###########################
 			###       STATS        ####
@@ -744,7 +740,6 @@ class main
 
 			break;
 
-
 			###########################
 			###      RESULTS       ####
 			###########################
@@ -752,7 +747,6 @@ class main
 
 				// Set template vars
 				$page_title = $this->user->lang['FORMEL_TITLE'];
-
 
 				$this->template->assign_block_vars('navlinks', array(
 					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
@@ -827,7 +821,6 @@ class main
 				);
 
 			break;
-
 
 			###########################
 			###    	ADDRESULTS     ####
@@ -957,8 +950,8 @@ class main
 
 					if ($race_id <> 0)
 					{
-						//We have 10 Teams with 2 cars each --> 20 drivers
-						for ($i = 0; $i < 20; ++$i)
+						//We have 11 Teams with 2 cars each --> 22 drivers
+						for ($i = 0; $i < 22; ++$i)
 						{
 							$value = $this->request->variable('place' . ( $i + 1 ), 0);
 
@@ -1132,8 +1125,8 @@ class main
 							$wm['9'] = 1;		// tenth place
 						}
 						else
-						// the race was aborted, we use now half points
 						{
+							// the race was aborted, we use now half points
 							// wm points:  12.5-9-7.5-6-5-4-3-2-1-0.5
 							$wm = array();
 							$wm['0'] = 12.5;	// first place
@@ -1148,10 +1141,10 @@ class main
 							$wm['9'] = 0.5;		// tenth place
 						}
 
+						// the race has double points, i.e. it is the last race of the season
 						if ($race_double == true)
 						{
-						// the race has double points, i.e. it is the last race of the season
-							for ($i = 0; $i < count($wm) ; ++$i)
+							for ($i = 0; $i < count($wm); ++$i)
 							{
 								$wm[$i] = $wm[$i] *2;
 							}
@@ -1219,8 +1212,8 @@ class main
 					$drivers['0']['driver_id'] = '0';
 					$drivers['0']['driver_name'] = $this->user->lang['FORMEL_DEFINE'];
 
-					//We have 10 Teams with 2 cars each --> 20 drivers
-					for ($i = 0; $i < 20; ++$i)
+					//We have 11 Teams with 2 cars each --> 22 drivers
+					for ($i = 0; $i < 22; ++$i)
 					{
 						$position = ($i == 0) ? $this->user->lang['FORMEL_POLE'] : $i + 1 . '. ' . $this->user->lang['FORMEL_PLACE'];
 						$box_name = 'place' . ($i + 1);
@@ -1352,8 +1345,8 @@ class main
 
 					$combo_tired = '<select name="place12" size="1">';
 
-					//We have 10 Teams with 2 cars each --> 20 drivers
-					for ($k = 0; $k < 21; ++$k)
+					//We have 11 Teams with 2 cars each --> 22 drivers
+					for ($k = 0; $k < 23; ++$k)
 					{
 						if (isset($result_array['11']))
 						{
@@ -1413,7 +1406,6 @@ class main
 				);
 
 			break;
-
 
 			###########################
 			###       USERTIP      ####
@@ -1581,7 +1573,6 @@ class main
 				);
 
 			break;
-
 
 			###########################
 			###       INDEX        ####
@@ -2265,8 +2256,8 @@ class main
 								//Count Tired DropDown
 								$tiredcombo = '<select name="place12" size="1">';
 
-								//We have 10 Teams with 2 cars each --> 20 drivers
-								for ($k = 0; $k < 21; ++$k)
+								//We have 11 Teams with 2 cars each --> 22 drivers
+								for ($k = 0; $k < 23; ++$k)
 								{
 									$selected 			 = ($k == $tipp_array['11']) ? 'selected' : '';
 									$tiredcombo 		.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
@@ -2286,7 +2277,6 @@ class main
 
 								$safetycarcombo .= '</select>';
 							}
-
 
 							if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 							{
@@ -2363,8 +2353,8 @@ class main
 									//Count Tired DropDown
 									$tiredcombo = '<select name="place12" size="1">';
 
-									//We have 10 Teams with 2 cars each --> 20 drivers
-									for ($k = 0; $k < 21; ++$k)
+									//We have 11 Teams with 2 cars each --> 22 drivers
+									for ($k = 0; $k < 23; ++$k)
 									{
 										$tiredcombo .= '<option value="' . $k . '">' . $k . '</option>';
 									}
@@ -2526,7 +2516,6 @@ class main
 						break;
 					}
 				}
-
 
 				// Forum button
 				$discuss_button = '';

@@ -41,5 +41,3 @@ $lang = array_merge($lang, array(
 	'ACL_A_FORMEL_TEAMS'	=> 'Je kan van de F1 voorspellingen de teams veranderen',
 	'ACL_A_FORMEL_RACES'	=> 'Je kan van de F1 voorspellingen de races veranderen',
 ));
-
-?>

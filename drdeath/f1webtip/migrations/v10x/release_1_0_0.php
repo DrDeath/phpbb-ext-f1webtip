@@ -67,13 +67,12 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			array('config.add', array('drdeath_f1webtip_headbanner2_img', 'f1webtip_rules.jpg')),
 			array('config.add', array('drdeath_f1webtip_headbanner3_img', 'f1webtip_stats.jpg')),
 
-
 			// Alright, now lets add some modules to the ACP
 			array('module.add', array(
- 				'acp',
- 				'ACP_CAT_DOT_MODS',
- 				'ACP_F1WEBTIP_TITLE'
- 			)),
+				'acp',
+				'ACP_CAT_DOT_MODS',
+				'ACP_F1WEBTIP_TITLE'
+			)),
 			array('module.add', array(
 				'acp',
 				'ACP_F1WEBTIP_TITLE',
@@ -82,7 +81,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 					'modes'				=> array('settings','races','teams','drivers'),
 				),
 			)),
-
 
 			// Now to add some permission settings
 			array('permission.add', array('a_formel_races')),		// New global admin permission a_formel_races
@@ -98,7 +96,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 		);
 	}
 
-
 	public function update_schema()
 	{
 		return array(
@@ -107,7 +104,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				// F1 driver table
 				$this->table_prefix . 'f1webtip_drivers'	=> array(
 					'COLUMNS'		=> array(
-						'driver_id'			=> array('UINT', NULL, 'auto_increment'),
+						'driver_id'			=> array('UINT', null, 'auto_increment'),
 						'driver_name'		=> array('VCHAR_UNI', ''),
 						'driver_img'		=> array('VCHAR', ''),
 						'driver_team'		=> array('UINT', 0),
@@ -119,7 +116,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				// F1 team table
 				$this->table_prefix . 'f1webtip_teams'		=> array(
 					'COLUMNS'		=> array(
-						'team_id'			=> array('UINT', NULL, 'auto_increment'),
+						'team_id'			=> array('UINT', null, 'auto_increment'),
 						'team_name'			=> array('VCHAR_UNI', ''),
 						'team_img'			=> array('VCHAR', ''),
 						'team_car'			=> array('VCHAR', ''),
@@ -130,7 +127,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				// F1 race table
 				$this->table_prefix . 'f1webtip_races'		=> array(
 					'COLUMNS'		=> array(
-						'race_id'			=> array('UINT', NULL, 'auto_increment'),
+						'race_id'			=> array('UINT', null, 'auto_increment'),
 						'race_name'			=> array('VCHAR_UNI', ''),
 						'race_img'			=> array('VCHAR', ''),
 						'race_quali'		=> array('VCHAR', ''),
@@ -147,7 +144,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				// F1 wm points table
 				$this->table_prefix . 'f1webtip_wm'		=> array(
 					'COLUMNS'		=> array(
-						'wm_id'				=> array('UINT', NULL, 'auto_increment'),
+						'wm_id'				=> array('UINT', null, 'auto_increment'),
 						'wm_race'			=> array('UINT', 0),
 						'wm_driver'			=> array('UINT', 0),
 						'wm_team'			=> array('UINT', 0),
@@ -158,7 +155,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 				// F1 user tip table
 				$this->table_prefix . 'f1webtip_tips'		=> array(
 					'COLUMNS'		=> array(
-						'tip_id'			=> array('UINT', NULL, 'auto_increment'),
+						'tip_id'			=> array('UINT', null, 'auto_increment'),
 						'tip_user'			=> array('UINT', 0),
 						'tip_race'			=> array('UINT', 0),
 						'tip_result'		=> array('VCHAR:60', 0),

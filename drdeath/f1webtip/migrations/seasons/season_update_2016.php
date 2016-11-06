@@ -69,7 +69,7 @@ class season_update_2016 extends \phpbb\db\migration\migration
 			# -- Team 4 Red Bull Racing
 			$sql_ary[] = array('driver_id' => 3,  'driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 4,);
 			$sql_ary[] = array('driver_id' => 26, 'driver_name' => 'Kwjat, Daniil',			'driver_img' => '',	'driver_team' => 4,);
-			
+
 			# -- Team 5 Force India F1 Team
 			$sql_ary[] = array('driver_id' => 11, 'driver_name' => 'Perez, Sergio',			'driver_img' => '',	'driver_team' => 5,);
 			$sql_ary[] = array('driver_id' => 27, 'driver_name' => 'Hülkenberg, Nico',		'driver_img' => '',	'driver_team' => 5,);
@@ -81,7 +81,7 @@ class season_update_2016 extends \phpbb\db\migration\migration
 			# -- Team 7 Scuderia Toro Rosso
 			$sql_ary[] = array('driver_id' => 33, 'driver_name' => 'Verstappen, Max',		'driver_img' => '',	'driver_team' => 7,);
 			$sql_ary[] = array('driver_id' => 55, 'driver_name' => 'Sainz, Carlos',			'driver_img' => '',	'driver_team' => 7,);
-			
+
 			# -- Team 8 Sauber F1 Team
 			$sql_ary[] = array('driver_id' => 9,  'driver_name' => 'Ericsson, Marcus',		'driver_img' => '',	'driver_team' => 8,);
 			$sql_ary[] = array('driver_id' => 12, 'driver_name' => 'Nasr, Felipe',			'driver_img' => '',	'driver_team' => 8,);

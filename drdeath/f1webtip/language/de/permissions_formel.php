@@ -41,5 +41,3 @@ $lang = array_merge($lang, array(
 	'ACL_A_FORMEL_TEAMS'	=> 'Kann F1 WebTipp Teams verwalten',
 	'ACL_A_FORMEL_RACES'	=> 'Kann F1 WebTipp Rennen verwalten',
 ));
-
-?>

@@ -215,7 +215,6 @@ class main_module
 				$mods_combo		.= $combo_mod_entries;
 				$mods_combo		.= '</select>';
 
-
 				//
 				// Get all group data
 				// Don't select the default phpBB3 groups
@@ -243,7 +242,6 @@ class main_module
 				$group_combo	.= '<option value="0" ' . $selected . '>' . $user->lang['ACP_F1_SETTINGS_DEACTIVATED'] . '</option>';
 				$group_combo	.= $combo_groups_entries;
 				$group_combo	.= '</select>';
-
 
 				//
 				// Get all forum data - Don't select categories or links
@@ -334,7 +332,6 @@ class main_module
 				));
 
 			break;
-
 
 			##########################
 			###      DRIVERS      ####
@@ -454,7 +451,6 @@ class main_module
 					$error = $user->lang['ACP_F1_DRIVERS_DRIVER_UPDATED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
-
 
 				//
 				// Load, add or update driver
@@ -640,7 +636,6 @@ class main_module
 
 			break;
 
-
 			##########################
 			###       TEAMS       ####
 			##########################
@@ -661,7 +656,6 @@ class main_module
 				$teamname 			= $request->variable('teamname'	,	''	,	true	);
 				$team_id 			= $request->variable('team_id'		,	0	);
 				$team_penalty		= $request->variable('team_penalty',	0.0	);
-
 
 				//
 				// Delete a team
@@ -692,7 +686,6 @@ class main_module
 						, 'confirm_body.html');
 					}
 				}
-
 
 				//
 				// Add a new team
@@ -756,7 +749,6 @@ class main_module
 					$error = $user->lang['ACP_F1_TEAMS_TEAM_UPDATED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
-
 
 				//
 				// Load, add or update team
@@ -890,7 +882,6 @@ class main_module
 
 			break;
 
-
 			##########################
 			###       RACES       ####
 			##########################
@@ -919,7 +910,6 @@ class main_module
 				$racedebut 		= $request->variable('racedebut'		,	0	,	true	);
 
 				$race_id 		= $request->variable('race_id'			,	0	);
-
 
 				//
 				// Delete a race
@@ -950,7 +940,6 @@ class main_module
 						, 'confirm_body.html');
 					}
 				}
-
 
 				//
 				// Add a new race
@@ -1035,7 +1024,6 @@ class main_module
 					$error = $user->lang['ACP_F1_RACES_RACE_UPDATED'];
 					trigger_error($error . adm_back_link($this->u_action));
 				}
-
 
 				//
 				// Load add oder edit race

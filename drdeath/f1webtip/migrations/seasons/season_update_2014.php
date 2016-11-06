@@ -47,7 +47,6 @@ class season_update_2014 extends \phpbb\db\migration\migration
 		$table_teams	= $this->table_prefix . 'f1webtip_teams';
 		$table_races 	= $this->table_prefix . 'f1webtip_races';
 
-
 		if ($this->db_tools->sql_table_exists($table_drivers))
 		{
 			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.

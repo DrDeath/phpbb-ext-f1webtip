@@ -5,6 +5,7 @@
 
 F1Webtip is an Extension for [phpBB 3.1] (https://www.phpbb.com/)
 
+[![Build Status](https://travis-ci.org/DrDeath/phpbb-ext-f1webtip.svg?branch=master)](https://travis-ci.org/DrDeath/phpbb-ext-f1webtip)
 
 ## Description
 

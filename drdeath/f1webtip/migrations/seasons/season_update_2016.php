@@ -128,7 +128,6 @@ class season_update_2016 extends \phpbb\db\migration\migration
 
 		if ($this->db_tools->sql_table_exists($table_races))
 		{
-			// To be done..... race times from 2015 at the moment...
 			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
 			$db->sql_query('TRUNCATE TABLE ' . $table_races);
 

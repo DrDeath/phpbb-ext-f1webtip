@@ -36,8 +36,8 @@ if (empty($lang) || !is_array($lang))
 // Adding the permissions
 // F1 WebTip permissions
 $lang = array_merge($lang, array(
-	'ACL_A_FORMEL_SETTINGS'	=> 'Kann F1 WebTipp Einstellungen verwalten',
-	'ACL_A_FORMEL_DRIVERS'	=> 'Kann F1 WebTipp Fahrer verwalten',
-	'ACL_A_FORMEL_TEAMS'	=> 'Kann F1 WebTipp Teams verwalten',
-	'ACL_A_FORMEL_RACES'	=> 'Kann F1 WebTipp Rennen verwalten',
+	'ACL_A_FORMEL_SETTINGS'	=> 'Je kan van de F1 voorspellingen de instellingen veranderen',
+	'ACL_A_FORMEL_DRIVERS'	=> 'Je kan van de F1 voorspellingen de coureurs veranderen',
+	'ACL_A_FORMEL_TEAMS'	=> 'Je kan van de F1 voorspellingen de teams veranderen',
+	'ACL_A_FORMEL_RACES'	=> 'Je kan van de F1 voorspellingen de races veranderen',
 ));

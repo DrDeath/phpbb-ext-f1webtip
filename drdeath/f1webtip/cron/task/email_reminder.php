@@ -11,7 +11,6 @@ namespace drdeath\f1webtip\cron\task;
 
 use Symfony\Component\DependencyInjection\Container;
 
-
 class email_reminder extends \phpbb\cron\task\base
 {
 	/* @var string phpBB root path */
@@ -169,7 +168,7 @@ class email_reminder extends \phpbb\cron\task\base
 			$ext_path = $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 
 			// Get all the f1webtipp user
-			// what user exactly ? 
+			// what user exactly ?
 			// All member of the restrict_to group, admin mass mails allowed, user is normal (active) or founder
 			$sql = 'SELECT 		u.user_id,
 								u.username,
@@ -271,4 +270,3 @@ class email_reminder extends \phpbb\cron\task\base
 		return $this->config['drdeath_f1webtip_reminder_last_run'] <> $check_time;
 	}
 }
-?>

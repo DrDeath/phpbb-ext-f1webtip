@@ -56,7 +56,7 @@ class season_update_2017 extends \phpbb\db\migration\migration
 
 			# -- Team 1 Mercedes F1 Team
 			$sql_ary[] = array('driver_id' => 44, 'driver_name' => 'Hamilton, Lewis',		'driver_img' => '',	'driver_team' => 1,);
-			$sql_ary[] = array('driver_id' => 6,  'driver_name' => 'Rosberg, Nico',			'driver_img' => '',	'driver_team' => 1,);
+			$sql_ary[] = array('driver_id' => 77, 'driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 1,);
 
 			# -- Team 2 Red Bull Racing
 			$sql_ary[] = array('driver_id' => 3,  'driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 2,);
@@ -71,36 +71,35 @@ class season_update_2017 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('driver_id' => 31, 'driver_name' => 'Ocon, Esteban',			'driver_img' => '',	'driver_team' => 4,);
 
 			# -- Team 5 Williams F1 Team
-			$sql_ary[] = array('driver_id' => 77, 'driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 5,);
-			$sql_ary[] = array('driver_id' => 80, 'driver_name' => 'Stroll, Lance',			'driver_img' => '',	'driver_team' => 5,);
+			$sql_ary[] = array('driver_id' => 18, 'driver_name' => 'Stroll, Lance',			'driver_img' => '',	'driver_team' => 5,);
+			$sql_ary[] = array('driver_id' => 19, 'driver_name' => 'Massa, Felipe',			'driver_img' => '',	'driver_team' => 5,);
 
 			# -- Team 6 McLaren Honda
+			$sql_ary[] = array('driver_id' => 2,  'driver_name' => 'Vandoorne, Stoffel',	'driver_img' => '',	'driver_team' => 6,);
 			$sql_ary[] = array('driver_id' => 14, 'driver_name' => 'Alonso, Fernando',		'driver_img' => '',	'driver_team' => 6,);
-			$sql_ary[] = array('driver_id' => 47, 'driver_name' => 'Vandoorne, Stoffel',	'driver_img' => '',	'driver_team' => 6,);
 
 			# -- Team 7 Scuderia Toro Rosso
-			$sql_ary[] = array('driver_id' => 55, 'driver_name' => 'Sainz, Carlos',			'driver_img' => '',	'driver_team' => 7,);
 			$sql_ary[] = array('driver_id' => 26, 'driver_name' => 'Kwjat, Daniil',			'driver_img' => '',	'driver_team' => 7,);
+			$sql_ary[] = array('driver_id' => 55, 'driver_name' => 'Sainz, Carlos',			'driver_img' => '',	'driver_team' => 7,);
 
 			# -- Team 8 Haas
-			$sql_ary[] = array('driver_id' => 20, 'driver_name' => 'Magnussen, Kevin',		'driver_img' => '',	'driver_team' => 8,);
 			$sql_ary[] = array('driver_id' => 8,  'driver_name' => 'Grosjean, Romain',		'driver_img' => '',	'driver_team' => 8,);
+			$sql_ary[] = array('driver_id' => 20, 'driver_name' => 'Magnussen, Kevin',		'driver_img' => '',	'driver_team' => 8,);
 
 			# -- Team 9 Renault F1 Team
-			$sql_ary[] = array('driver_id' => 30, 'driver_name' => 'Palmer, Jolyon',		'driver_img' => '',	'driver_team' => 9,);
 			$sql_ary[] = array('driver_id' => 27, 'driver_name' => 'Hülkenberg, Nico',		'driver_img' => '',	'driver_team' => 9,);
+			$sql_ary[] = array('driver_id' => 30, 'driver_name' => 'Palmer, Jolyon',		'driver_img' => '',	'driver_team' => 9,);
 
-			# -- Team 10 Manor F1 Team
-			$sql_ary[] = array('driver_id' => 82, 'driver_name' => 'Gasly, Pierre',			'driver_img' => '',	'driver_team' => 10,);
+			# -- Team 10 Sauber F1 Team
+			$sql_ary[] = array('driver_id' => 9,  'driver_name' => 'Ericsson, Marcus',		'driver_img' => '',	'driver_team' => 10,);
 			$sql_ary[] = array('driver_id' => 94, 'driver_name' => 'Wehrlein, Pascal',		'driver_img' => '',	'driver_team' => 10,);
-			$sql_ary[] = array('driver_id' => 83, 'driver_name' => 'King, Jordan',			'driver_img' => '',	'driver_team' => 10,);
 
-			# -- Team 11 Sauber F1 Team
-			$sql_ary[] = array('driver_id' => 9,  'driver_name' => 'Ericsson, Marcus',		'driver_img' => '',	'driver_team' => 11,);
+			# -- Team 11 Manor F1 Team
+			$sql_ary[] = array('driver_id' => 82, 'driver_name' => 'Gasly, Pierre',			'driver_img' => '',	'driver_team' => 11,);
+			$sql_ary[] = array('driver_id' => 83, 'driver_name' => 'King, Jordan',			'driver_img' => '',	'driver_team' => 11,);
 			$sql_ary[] = array('driver_id' => 12, 'driver_name' => 'Nasr, Felipe',			'driver_img' => '',	'driver_team' => 11,);
 			$sql_ary[] = array('driver_id' => 21, 'driver_name' => 'Gutierrez, Esteban',	'driver_img' => '',	'driver_team' => 11,);
-			$sql_ary[] = array('driver_id' => 84, 'driver_name' => 'Sirotkin, Sergei',		'driver_img' => '',	'driver_team' => 11,);
-			$sql_ary[] = array('driver_id' => 85, 'driver_name' => 'Leclerc, Charles',		'driver_img' => '',	'driver_team' => 11,);
+			$sql_ary[] = array('driver_id' => 84, 'driver_name' => 'Giovinazzi, Antonio',	'driver_img' => '',	'driver_team' => 11,);
 
 			$db->sql_multi_insert($table_drivers, $sql_ary);
 		}
@@ -121,8 +120,8 @@ class season_update_2017 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('team_id' => 7,  'team_name' => 'Scuderia Toro Rosso', 		'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 8,  'team_name' => 'Haas F1 Team', 				'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 9,  'team_name' => 'Renault F1 Team',	 		'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 10, 'team_name' => 'Manor Marussia F1 Team', 	'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 11, 'team_name' => 'Sauber F1 Team', 			'team_img' => '', 'team_car' => '',);
+			$sql_ary[] = array('team_id' => 10, 'team_name' => 'Sauber F1 Team', 			'team_img' => '', 'team_car' => '',);
+			$sql_ary[] = array('team_id' => 11, 'team_name' => 'Manor Marussia F1 Team', 	'team_img' => '', 'team_car' => '',);
 
 			$db->sql_multi_insert($table_teams, $sql_ary);
 		}

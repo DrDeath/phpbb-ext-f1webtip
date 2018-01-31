@@ -72,7 +72,7 @@ class season_update_2018 extends \phpbb\db\migration\migration
 
 			# -- Team 5 Williams F1 Team
 			$sql_ary[] = array('driver_id' => 18, 'driver_name' => 'Stroll, Lance',			'driver_img' => '',	'driver_team' => 5,);
-			$sql_ary[] = array('driver_id' => 99, 'driver_name' => 'not defined',			'driver_img' => '',	'driver_team' => 5,);
+			$sql_ary[] = array('driver_id' => 35, 'driver_name' => 'Sirotkin, Sergei',		'driver_img' => '',	'driver_team' => 5,);
 
 			# -- Team 6 McLaren Honda
 			$sql_ary[] = array('driver_id' => 2,  'driver_name' => 'Vandoorne, Stoffel',	'driver_img' => '',	'driver_team' => 6,);
@@ -120,7 +120,6 @@ class season_update_2018 extends \phpbb\db\migration\migration
 
 		if ($this->db_tools->sql_table_exists($table_races))
 		{
-			// To be done..... race times for 2017 ... not confirmed
 			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
 			$db->sql_query('TRUNCATE TABLE ' . $table_races);
 
@@ -129,11 +128,11 @@ class season_update_2018 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('race_id' => 1,  'race_name' => 'Australien / Melbourne', 		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1521961200, 'race_length' => '5,303', 'race_laps' => 58, 'race_distance' => '307,574', 'race_debut' => 1996,);
 			$sql_ary[] = array('race_id' => 2,  'race_name' => 'Bahrain / Sachir',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1523199600, 'race_length' => '5,412', 'race_laps' => 57, 'race_distance' => '308,238', 'race_debut' => 2004,);
 			$sql_ary[] = array('race_id' => 3,  'race_name' => 'China / Shanghai', 				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1523772000, 'race_length' => '5,451', 'race_laps' => 56, 'race_distance' => '305,066', 'race_debut' => 2004,);
-			$sql_ary[] = array('race_id' => 4,  'race_name' => 'Aserbaidschan / Baku', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1525006800, 'race_length' => '6,003', 'race_laps' => 00, 'race_distance' => '306,049', 'race_debut' => 2016,);
+			$sql_ary[] = array('race_id' => 4,  'race_name' => 'Aserbaidschan / Baku', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1525006800, 'race_length' => '6,003', 'race_laps' => 51, 'race_distance' => '306,049', 'race_debut' => 2016,);
 			$sql_ary[] = array('race_id' => 5,  'race_name' => 'Spanien / Barcelona', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1526212800, 'race_length' => '4,655', 'race_laps' => 66, 'race_distance' => '307,104', 'race_debut' => 1991,);
 			$sql_ary[] = array('race_id' => 6,  'race_name' => 'Monaco / Monte Carlo', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1527422400, 'race_length' => '3,337', 'race_laps' => 78, 'race_distance' => '260,286', 'race_debut' => 1950,);
 			$sql_ary[] = array('race_id' => 7,  'race_name' => 'Kanada / Montreal', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1528653600, 'race_length' => '4,361', 'race_laps' => 70, 'race_distance' => '305,270', 'race_debut' => 1978,);
-			$sql_ary[] = array('race_id' => 8,  'race_name' => 'Frankreich / Le Castellet', 	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1529863200, 'race_length' => '5,861', 'race_laps' => 00, 'race_distance' => '000,000', 'race_debut' => 1971,);
+			$sql_ary[] = array('race_id' => 8,  'race_name' => 'Frankreich / Le Castellet', 	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1529863200, 'race_length' => '5,759', 'race_laps' => 53, 'race_distance' => '310,633', 'race_debut' => 1971,);
 			$sql_ary[] = array('race_id' => 9,  'race_name' => 'Österreich / Spielberg', 		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1530446400, 'race_length' => '4,318', 'race_laps' => 71, 'race_distance' => '306,452', 'race_debut' => 1970,);
 			$sql_ary[] = array('race_id' => 10, 'race_name' => 'Großbritannien / Silverstone', 	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1531051200, 'race_length' => '5,891', 'race_laps' => 52, 'race_distance' => '306,198', 'race_debut' => 1950,);
 			$sql_ary[] = array('race_id' => 11, 'race_name' => 'Deutschland / Hockenheim', 		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1532260800, 'race_length' => '4,574', 'race_laps' => 67, 'race_distance' => '306,458', 'race_debut' => 1970,);

@@ -18,7 +18,7 @@ class release_1_0_5 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array('\drdeath\f1webtip\migrations\v10x\release_1_0_4');
+		return array('\drdeath\f1webtip\migrations\v10x\release_1_0_0');
 	}
 
 	public function update_data()

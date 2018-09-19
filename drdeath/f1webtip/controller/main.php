@@ -1526,7 +1526,7 @@ class main
 					{
 						if ($tipp_array['10'] == $results['10'])
 						{
-							$single_fastest += $this->config['drdeath_f1webtip_points_fastest'];
+							$single_fastest = $this->config['drdeath_f1webtip_points_fastest'];
 						}
 					}
 
@@ -1534,7 +1534,7 @@ class main
 					{
 						if ($tipp_array['11'] == $results['11'])
 						{
-							$single_tired += $this->config['drdeath_f1webtip_points_tired'];
+							$single_tired = $this->config['drdeath_f1webtip_points_tired'];
 						}
 					}
 
@@ -1542,7 +1542,7 @@ class main
 					{
 						if ($tipp_array['12'] == $results['12'])
 						{
-							$single_safety_car += $this->config['drdeath_f1webtip_points_safety_car'];
+							$single_safety_car = $this->config['drdeath_f1webtip_points_safety_car'];
 						}
 					}
 
@@ -2102,7 +2102,7 @@ class main
 								$results		= explode(",", $races[$chosen_race]['race_result']);
 								$position		= ($i == 0) ? $this->user->lang['FORMEL_RACE_WINNER'] : $i + 1 . '. ' . $this->user->lang['FORMEL_PLACE'];
 								$box_name		= 'place' . ($i + 1);
-								$single_points	= '';
+								$single_points	= 0;
 
 								if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 								{
@@ -2212,7 +2212,7 @@ class main
 								{
 									if ($tipp_array['10'] == $results['10'])
 									{
-										$single_fastest += $this->config['drdeath_f1webtip_points_fastest'];
+										$single_fastest = $this->config['drdeath_f1webtip_points_fastest'];
 									}
 								}
 
@@ -2221,7 +2221,7 @@ class main
 								{
 									if ($tipp_array['11'] == $results['11'])
 									{
-										$single_tired += $this->config['drdeath_f1webtip_points_tired'];
+										$single_tired = $this->config['drdeath_f1webtip_points_tired'];
 									}
 								}
 
@@ -2230,7 +2230,7 @@ class main
 								{
 									if ($tipp_array['12'] == $results['12'])
 									{
-										$single_safety_car += $this->config['drdeath_f1webtip_points_safety_car'];
+										$single_safety_car = $this->config['drdeath_f1webtip_points_safety_car'];
 									}
 								}
 							}

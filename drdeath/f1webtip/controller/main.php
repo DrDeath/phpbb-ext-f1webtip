@@ -365,16 +365,14 @@ class main
 				$points_safetycar	= $this->config['drdeath_f1webtip_points_safety_car'];
 
 				$points 			= $this->user->lang['FORMEL_RULES_POINTS'];
+				$points_total 		= 10 * ($points_mentioned + $points_placed) + $points_fastest + $points_tired + $points_safetycar;
 
 				$points_mentioned	.= ' ' . $this->user->lang('FORMEL_RULES_POINTS', (int) $points_mentioned);
 				$points_placed		.= ' ' . $this->user->lang('FORMEL_RULES_POINTS', (int) $points_placed);
 				$points_fastest		.= ' ' . $this->user->lang('FORMEL_RULES_POINTS', (int) $points_fastest);
 				$points_tired		.= ' ' . $this->user->lang('FORMEL_RULES_POINTS', (int) $points_tired);
 				$points_safetycar	.= ' ' . $this->user->lang('FORMEL_RULES_POINTS', (int) $points_safetycar);
-
-				$points_total = 10 * ($points_mentioned + $points_placed) + $points_fastest + $points_tired + $points_safetycar;
-
-				$points_total	.= ' ' . $this->user->lang('FORMEL_RULES_POINTS', (int) $points_total);
+				$points_total		.= ' ' . $this->user->lang('FORMEL_RULES_POINTS', (int) $points_total);
 
 				$rules_mentioned 	= sprintf($this->user->lang['FORMEL_RULES_MENTIONED'] 	, $points_mentioned);
 				$rules_placed 		= sprintf($this->user->lang['FORMEL_RULES_PLACED']		, $points_placed);

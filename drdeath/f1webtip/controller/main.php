@@ -307,7 +307,7 @@ class main
 			if (!$this->user->data['is_registered'])
 			{
 				// Not logged in ? Redirect to the loginbox.
-				login_box('', $this->user->lang['LOGIN_INFO']);
+				login_box('', $this->user->lang['NO_AUTH_OPERATION']);
 			}
 		}
 		// At this point we have no bots, only registered user and if guest viewing is allowed we have also guests here.

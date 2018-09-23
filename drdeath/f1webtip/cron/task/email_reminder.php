@@ -101,12 +101,12 @@ class email_reminder extends \phpbb\cron\task\base
 		$current_time_slot 	=  $current_time + $time_slot;
 
 		// Get the race which will start within the next 3 days and mail reminder was not sent
-		$sql = 'SELECT 		*
-				FROM 		' . $table_races . '
-				WHERE 		race_time > ' . $current_time . '
-					AND		race_time < ' . $current_time_slot . '
+		$sql = "SELECT 		*
+				FROM 		$table_races
+				WHERE 		race_time > $current_time
+					AND		race_time < $current_time_slot
 					AND		race_mail = 0
-				ORDER BY 	race_time ASC';
+				ORDER BY 	race_time ASC";
 
 		$result = $this->db->sql_query($sql);
 
@@ -119,9 +119,9 @@ class email_reminder extends \phpbb\cron\task\base
 			$race_id 		= $race['race_id'];
 
 			// Update the race_mail status
-			$sql_update = '	UPDATE  	' . $table_races . '
+			$sql_update = "	UPDATE  	$table_races
 							SET 		race_mail = 1
-							WHERE 		race_id = ' . $race_id ;
+							WHERE 		race_id = $race_id" ;
 
 			$result_mail = $this->db->sql_query($sql_update);
 
@@ -174,11 +174,11 @@ class email_reminder extends \phpbb\cron\task\base
 								u.username,
 								u.user_lang,
 								u.user_email
-					FROM 		' . USERS_TABLE . ' u , ' . USER_GROUP_TABLE . ' ug
-					WHERE 		ug.group_id = ' . $formel_group_id . '
+					FROM 		' . USERS_TABLE . ' u , ' . USER_GROUP_TABLE . " ug
+					WHERE 		ug.group_id = $formel_group_id
 						AND 	u.user_id = ug.user_id
 						AND		u.user_allow_massemail = 1
-						AND		(u.user_type = ' . USER_NORMAL . ' OR u.user_type = ' . USER_FOUNDER . ')
+						AND		(u.user_type = " . USER_NORMAL . ' OR u.user_type = ' . USER_FOUNDER . ')
 					GROUP BY	u.user_id
 					ORDER BY 	u. username_clean ASC';
 

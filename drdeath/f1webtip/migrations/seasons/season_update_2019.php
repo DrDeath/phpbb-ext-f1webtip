@@ -88,7 +88,7 @@ class season_update_2019 extends \phpbb\db\migration\migration
 
 			# -- Team 9 Scuderia Toro Rosso
 			$sql_ary[] = array('driver_id' => 26, 'driver_name' => 'Kwjat, Daniil',			'driver_img' => '',	'driver_team' => 9,);
-			$sql_ary[] = array('driver_id' => 98, 'driver_name' => 'Albon, Alexander',		'driver_img' => '',	'driver_team' => 9,);
+			$sql_ary[] = array('driver_id' => 23, 'driver_name' => 'Albon, Alexander',		'driver_img' => '',	'driver_team' => 9,);
 
 			# -- Team 10 Williams F1 Team
 			$sql_ary[] = array('driver_id' => 63, 'driver_name' => 'Russell, George',		'driver_img' => '',	'driver_team' => 10,);

@@ -559,9 +559,9 @@ class main
 
 					while ($row = $this->db->sql_fetchrow($result))
 					{
-						$recalc_drivers[$row['wm_driver']]['total_points'] 	= (isset($drivers[$row['wm_driver']]['driver_penalty'])) 	? $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'] 	: 0;
+						$recalc_drivers[$row['wm_driver']]['total_points'] 	= (isset($drivers[$row['wm_driver']]['driver_penalty'])) 	? $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'] 	: $row['total_points'];
 						$recalc_drivers[$row['wm_driver']]['gold_medals']	= (isset($drivers[$row['wm_driver']]['gold_medals'])) 		? $drivers[$row['wm_driver']]['gold_medals'] 							: 0;
-						$recalc_drivers[$row['wm_driver']]['driver_name']	= (isset($drivers[$row['wm_driver']]['driver_name'])) 		? $drivers[$row['wm_driver']]['driver_name'] 							: 0;
+						$recalc_drivers[$row['wm_driver']]['driver_name']	= (isset($drivers[$row['wm_driver']]['driver_name'])) 		? $drivers[$row['wm_driver']]['driver_name'] 							: '';
 						$recalc_drivers[$row['wm_driver']]['driver_img']	= (isset($drivers[$row['wm_driver']]['driver_img']))		? $drivers[$row['wm_driver']]['driver_img']								: '';
 						$recalc_drivers[$row['wm_driver']]['driver_car']	= (isset($drivers[$row['wm_driver']]['driver_car']))		? $drivers[$row['wm_driver']]['driver_car']								: '';
 						$recalc_drivers[$row['wm_driver']]['team_img']		= (isset($teams[$row['wm_team']]['team_img']))				? $teams[$row['wm_team']]['team_img']									: '';
@@ -1785,7 +1785,7 @@ class main
 
 				while ($row = $this->db->sql_fetchrow($result))
 				{
-					$recalc_drivers[$row['wm_driver']]['total_points'] 	= (isset($drivers[$row['wm_driver']]['driver_penalty'])) ? $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'] : 0;
+					$recalc_drivers[$row['wm_driver']]['total_points'] 	= (isset($drivers[$row['wm_driver']]['driver_penalty'])) ? $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'] : $row['total_points'];
 					$recalc_drivers[$row['wm_driver']]['gold_medals']	= (isset($drivers[$row['wm_driver']]['gold_medals'])) ? $drivers[$row['wm_driver']]['gold_medals'] : 0;
 					$recalc_drivers[$row['wm_driver']]['driver_name']	= (isset($drivers[$row['wm_driver']]['driver_name'])) ? $drivers[$row['wm_driver']]['driver_name'] : '';
 				}

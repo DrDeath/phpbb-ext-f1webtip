@@ -1,16 +1,16 @@
-<!-- BEGIN f1webtip -->
+{% for f1webtip in loops.f1webtip %}
 <div class="panel bg2">
 	<div class="inner">
 		<div class="column1">
-			<h3>{L_FORMEL_TITLE}</h3>
+			<h3>{{ lang('FORMEL_TITLE') }}</h3>
 			<dl class="details">
-					<dt>{L_FORMEL_PROFILE_WEBTIPP}:</dt> 
-					<dd><strong>{f1webtip.TIPPER_POINTS}<br />
-						<a href="{f1webtip.U_FORMEL_STATS}" class="genmed">{f1webtip.TIPPER_RANK}</a></strong><br />
-						({f1webtip.RACE_DONE})
+					<dt>{{ lang('FORMEL_PROFILE_WEBTIPP') }}:</dt> 
+					<dd><strong>{{ f1webtip.TIPPER_POINTS }}<br />
+						<a href="{{ f1webtip.U_FORMEL_STATS }}" class="genmed">{{ f1webtip.TIPPER_RANK }}</a></strong><br />
+						({{ f1webtip.RACE_DONE }})
 					</dd>
 			</dl>
 		</div>
 	</div>
 </div>
-	<!-- END f1webtip -->
+	{% endfor %}

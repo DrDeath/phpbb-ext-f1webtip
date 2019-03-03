@@ -21,9 +21,26 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 		return array('\phpbb\db\migration\data\v310\gold');
 	}
 
+	/**
+	 * Custom function query permission roles
+	 *
+	 * @return void
+	 * @access public
+	 */
+	private function role_exists($role)
+	{
+		$sql = 'SELECT role_id
+			FROM ' . ACL_ROLES_TABLE . "
+			WHERE role_name = '" . $this->db->sql_escape($role) . "'";
+		$result = $this->db->sql_query_limit($sql, 1);
+		$role_id = $this->db->sql_fetchfield('role_id');
+		$this->db->sql_freeresult($result);
+		return $role_id;
+	}
+
 	public function update_data()
 	{
-		return array(
+		$data = array(
 			// Set the current version
 			array('config.add', array('drdeath_f1webtip_version', '1.0.0')),
 
@@ -87,13 +104,19 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			array('permission.add', array('a_formel_teams')),		// New global admin permission a_formel_teams
 			array('permission.add', array('a_formel_drivers')),		// New global admin permission a_formel_drivers
 			array('permission.add', array('a_formel_settings')),	// New global admin permission a_formel_settings
-
-			// How about we give some default permissions then as well?
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_races')),		// Give ROLE_ADMIN_FULL a_formel_races permission
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_teams')),		// Give ROLE_ADMIN_FULL a_formel_teams permission
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_drivers')),	// Give ROLE_ADMIN_FULL a_formel_drivers permission
-			array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_settings')),	// Give ROLE_ADMIN_FULL a_formel_settings permission
 		);
+
+		// Before we add additional permissions to an existing standard role, we need to first check if this role actually exists.
+		if ($this->role_exists('ROLE_ADMIN_FULL'))
+		{
+			// How about we give some default permissions then as well?	
+			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_races'));		// Give ROLE_ADMIN_FULL a_formel_races permission
+			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_teams'));		// Give ROLE_ADMIN_FULL a_formel_teams permission
+			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_drivers'));		// Give ROLE_ADMIN_FULL a_formel_drivers permission
+			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_settings'));	// Give ROLE_ADMIN_FULL a_formel_settings permission		
+		}
+		
+		return $data;
 	}
 
 	public function update_schema()
@@ -167,7 +190,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			),
 		);
 	}
-
 
 	public function revert_schema()
 	{

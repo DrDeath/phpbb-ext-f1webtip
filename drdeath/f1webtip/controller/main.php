@@ -1152,6 +1152,13 @@ class main
 						{
 							$current_driver = $result_array[$i];
 
+							// give 1 additional point for fastest lap
+							//$result_array['10'] --> fastest driver
+							if ($current_driver == $result_array['10'])
+							{
+								$wm[$i] = $wm[$i] + 1;
+							}
+
 							if ($current_driver <> '0')
 							{
 								$current_team 	= $teams[$current_driver];

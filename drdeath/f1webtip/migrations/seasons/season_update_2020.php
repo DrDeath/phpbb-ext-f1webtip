@@ -9,11 +9,11 @@
 
 namespace drdeath\f1webtip\migrations\seasons;
 
-class season_update_2019 extends \phpbb\db\migration\migration
+class season_update_2020 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['drdeath_f1webtip_season']) && version_compare($this->config['drdeath_f1webtip_season'], '2019', '>=');
+		return isset($this->config['drdeath_f1webtip_season']) && version_compare($this->config['drdeath_f1webtip_season'], '2020', '>=');
 	}
 
 	static public function depends_on()
@@ -26,19 +26,18 @@ class season_update_2019 extends \phpbb\db\migration\migration
 		return array(
 			//Call the Season Data routine
 			array('custom', array(
-				array(&$this, 'season_2019')
+				array(&$this, 'season_2020')
 			)),
 			// Set the current version
 			array('config.update', array(
-				'drdeath_f1webtip_season', '2019'
+				'drdeath_f1webtip_season', '2020'
 			)),
 		);
 	}
 
 	// $value is equal to the value returned on the previous call (false if this is the first time it is run)
-	public function season_2019($value)
+	public function season_2020($value)
 	{
-
 		global $db, $user, $auth, $template, $cache, $request;
 		global $config, $phpbb_root_path, $phpbb_admin_path, $phpEx;
 		global $phpbb_container, $phpbb_extension_manager;

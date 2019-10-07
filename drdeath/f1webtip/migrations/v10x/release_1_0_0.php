@@ -109,13 +109,13 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 		// Before we add additional permissions to an existing standard role, we need to first check if this role actually exists.
 		if ($this->role_exists('ROLE_ADMIN_FULL'))
 		{
-			// How about we give some default permissions then as well?	
+			// How about we give some default permissions then as well?
 			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_races'));		// Give ROLE_ADMIN_FULL a_formel_races permission
 			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_teams'));		// Give ROLE_ADMIN_FULL a_formel_teams permission
 			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_drivers'));		// Give ROLE_ADMIN_FULL a_formel_drivers permission
-			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_settings'));	// Give ROLE_ADMIN_FULL a_formel_settings permission		
+			$data[] = array('permission.permission_set', array('ROLE_ADMIN_FULL', 'a_formel_settings'));	// Give ROLE_ADMIN_FULL a_formel_settings permission
 		}
-		
+
 		return $data;
 	}
 

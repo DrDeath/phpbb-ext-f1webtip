@@ -12,6 +12,8 @@ matrix:
       env: DB=mysqli
     - php: 7.2
       env: DB=mysqli
+    - php: 7.3
+      env: DB=mysqli
   fast_finish: true
 
 env:
@@ -34,8 +36,7 @@ install:
   - cd ../../phpBB3
   - travis/prepare-extension.sh $EXTNAME $PHPBB_BRANCH
   - travis/setup-phpbb.sh $DB $TRAVIS_PHP_VERSION
-  # - tree
-  - sh -c "if [ '$EPV' != '0' ] && [ '$TRAVIS_PHP_VERSION' = '5.5' ] && [ '$DB' = 'mysqli' ]; then cd phpBB; composer require phpbb/epv:dev-master --dev --no-interaction; cd ../; fi"
+  - ../drdeath/f1webtip/travis/prepare-epv.sh $EPV $NOTESTS
 
 before_script:
   - travis/setup-database.sh $DB $TRAVIS_PHP_VERSION

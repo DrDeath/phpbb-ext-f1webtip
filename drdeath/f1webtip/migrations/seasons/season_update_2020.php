@@ -81,15 +81,15 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('driver_id' => 11, 'driver_name' => 'Perez, Sergio',			'driver_img' => '',	'driver_team' => 7,);
 			$sql_ary[] = array('driver_id' => 18, 'driver_name' => 'Stroll, Lance',			'driver_img' => '',	'driver_team' => 7,);
 
-			# -- Team 8 Sauber F1 Team
+			# -- Team 8 Alfa Romeo Racing
 			$sql_ary[] = array('driver_id' => 7,  'driver_name' => 'Räikkönen, Kimi',		'driver_img' => '',	'driver_team' => 8,);
 			$sql_ary[] = array('driver_id' => 99, 'driver_name' => 'Giovinazzi, Antonio',	'driver_img' => '',	'driver_team' => 8,);
 
-			# -- Team 9 Scuderia Toro Rosso
+			# -- Team 9 AlphaTauri F1 Team
 			$sql_ary[] = array('driver_id' => 26, 'driver_name' => 'Kwjat, Daniil',			'driver_img' => '',	'driver_team' => 9,);
 			$sql_ary[] = array('driver_id' => 23, 'driver_name' => 'Albon, Alexander',		'driver_img' => '',	'driver_team' => 9,);
 
-			# -- Team 10 Williams F1 Team
+			# -- Team 10 Williams Racing
 			$sql_ary[] = array('driver_id' => 63, 'driver_name' => 'Russell, George',		'driver_img' => '',	'driver_team' => 10,);
 			$sql_ary[] = array('driver_id' => 88, 'driver_name' => 'Kubica, Robert',		'driver_img' => '',	'driver_team' => 10,);
 
@@ -110,9 +110,9 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('team_id' => 5,  'team_name' => 'Haas F1 Team', 				'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 6,  'team_name' => 'McLaren F1 Team', 			'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 7,  'team_name' => 'Racing Point F1 Team', 		'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 8,  'team_name' => 'Sauber F1 Team', 			'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 9,  'team_name' => 'Scuderia Toro Rosso', 		'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 10, 'team_name' => 'Williams F1 Team', 			'team_img' => '', 'team_car' => '',);
+			$sql_ary[] = array('team_id' => 8,  'team_name' => 'Alfa Romeo Racing', 		'team_img' => '', 'team_car' => '',);
+			$sql_ary[] = array('team_id' => 9,  'team_name' => 'AlphaTauri F1 Team', 		'team_img' => '', 'team_car' => '',);
+			$sql_ary[] = array('team_id' => 10, 'team_name' => 'Williams Racing', 			'team_img' => '', 'team_car' => '',);
 
 			$db->sql_multi_insert($table_teams, $sql_ary);
 		}

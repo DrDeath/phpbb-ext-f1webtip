@@ -40,6 +40,9 @@ class email_reminder extends \phpbb\cron\task\base
 	/* @var \phpbb\user */
 	protected $user;
 
+   /* @var \phpbb\language\language */
+    protected $language;
+
 	/**
 	* Constructor
 	*
@@ -52,8 +55,9 @@ class email_reminder extends \phpbb\cron\task\base
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\log\log_interface 				$log
 	* @param \phpbb\user							$user
+	* @param \phpbb\language\language  				$language
 	*/
-	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\extension\manager $phpbb_extension_manager, \phpbb\path_helper $phpbb_path_helper, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\user $user)
+	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\extension\manager $phpbb_extension_manager, \phpbb\path_helper $phpbb_path_helper, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\user $user, \phpbb\language\language $language)
 	{
 		$this->root_path				= $root_path;
 		$this->php_ext 					= $php_ext;
@@ -64,6 +68,7 @@ class email_reminder extends \phpbb\cron\task\base
 		$this->config 					= $config;
 		$this->phpbb_log 				= $log;
 		$this->user 					= $user;
+		$this->language 				= $language;
 	}
 
 	/**
@@ -80,7 +85,7 @@ class email_reminder extends \phpbb\cron\task\base
 		$table_tips 	= $this->phpbb_container->getParameter('tables.f1webtip.tips');
 
 		// Load extension language file
-		$this->user->add_lang_ext('drdeath/f1webtip', 'common');
+		$this->language->add_lang('common', 'drdeath/f1webtip');
 
 		// Update the last run timestamp to today (i.e. 5232014 --> 05/23/2013)
 		$check_time = (int) gmdate('mdY',time());
@@ -152,7 +157,7 @@ class email_reminder extends \phpbb\cron\task\base
 			$deadline_date 	= $b_day . '.' . $b_month . '.' . $b_year;
 			$deadline_time	= $b_hour . ':' . $b_minute;
 
-			$subject 		= $this->user->lang['F1WEBTIP_PAGE'] . " - " . $race_name;
+			$subject 		= $this->language->lang('F1WEBTIP_PAGE') . " - " . $race_name;
 			$usernames 		= '';
 
 			include_once($this->root_path . 'includes/functions_messenger.' . $this->php_ext);
@@ -203,7 +208,7 @@ class email_reminder extends \phpbb\cron\task\base
 				if (!($messenger->send($used_method)))
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $row['username']. '!';
-					$message = sprintf($this->user->lang['FORMEL_LOG_ERROR'], $row['user_email']);
+					$message = sprintf($this->language->lang('FORMEL_LOG_ERROR'), $row['user_email']);
 					$this->phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
@@ -218,25 +223,25 @@ class email_reminder extends \phpbb\cron\task\base
 			{
 				//send admin email
 				$used_lang 	= $this->config['default_lang'];
-				$subject 	= sprintf($this->user->lang['FORMEL_MAIL_ADMIN'], $race_name);
+				$subject 	= sprintf($this->language->lang('FORMEL_MAIL_ADMIN'), $race_name);
 
 				$messenger->to($this->config['board_email'], $this->config['sitename']);
 				$messenger->subject(htmlspecialchars_decode($subject));
 				$messenger->template('admin_send_email', $used_lang);
 				$messenger->assign_vars(array(
 					'CONTACT_EMAIL' => $this->config['board_contact'],
-					'MESSAGE'		=> sprintf($this->user->lang['FORMEL_MAIL_ADMIN_MESSAGE'], $usernames),
+					'MESSAGE'		=> sprintf($this->language->lang('FORMEL_MAIL_ADMIN_MESSAGE'), $usernames),
 					)
 				);
 
 				if (!($messenger->send($used_method)))
 				{
-					$message = sprintf($this->user->lang['FORMEL_LOG_ERROR'], $this->config['board_email']);
+					$message = sprintf($this->language->lang('FORMEL_LOG_ERROR'), $this->config['board_email']);
 					$this->phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
-					$message = sprintf($this->user->lang['FORMEL_LOG'], $usernames) ;
+					$message = sprintf($this->language->lang('FORMEL_LOG'), $usernames) ;
 					$this->phpbb_log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
 				}
 			}

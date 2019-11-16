@@ -55,21 +55,21 @@ class main_listener implements EventSubscriberInterface
 	/* @var \phpbb\user */
 	protected $user;
 
-   /* @var \phpbb\language\language */
-    protected $language;
+	/* @var \phpbb\language\language */
+	protected $language;
 
 	/**
 	* Constructor
 	*
 	* @param string									$php_ext
-	* @param Container 								$phpbb_container
+	* @param Container								$phpbb_container
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\controller\helper				$helper		Controller helper object
 	* @param \phpbb\auth\auth						$auth
 	* @param \phpbb\template						$template	Template object
 	* @param \phpbb\user							$user
-	* @param \phpbb\language\language  				$language
+	* @param \phpbb\language\language				$language
 	*/
 	public function __construct($php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\user $user, \phpbb\language\language $language)
 	{

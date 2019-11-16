@@ -52,15 +52,15 @@ class main
 	/* @var \phpbb\user */
 	protected $user;
 	
-   /* @var \phpbb\language\language */
-    protected $language;
+	/* @var \phpbb\language\language */
+	protected $language;
 
 	/**
 	* Constructor
 	*
 	* @param string									$root_path
 	* @param string									$php_ext
-	* @param Container 								$phpbb_container
+	* @param Container								$phpbb_container
 	* @param \phpbb\extension\manager				$phpbb_extension_manager
 	* @param \phpbb\path_helper						$phpbb_path_helper
 	* @param \phpbb\db\driver\driver_interfacer		$db
@@ -71,7 +71,7 @@ class main
 	* @param \phpbb\request\request_interface 		$request
 	* @param \phpbb\template\template				$template
 	* @param \phpbb\user							$user
-	* @param \phpbb\language\language  				$language
+	* @param \phpbb\language\language				$language
 	*/
 	public function __construct($root_path, $php_ext, Container $phpbb_container, \phpbb\extension\manager $phpbb_extension_manager, \phpbb\path_helper $phpbb_path_helper, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\log\log_interface $log, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\request\request_interface $request, \phpbb\template\template $template, \phpbb\user $user, \phpbb\language\language $language)
 	{

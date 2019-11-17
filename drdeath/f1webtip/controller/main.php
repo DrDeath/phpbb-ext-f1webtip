@@ -389,7 +389,7 @@ class main
 				// Show headerbanner ?
 				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
-					$this->template->assign_block_vars('head_on', array());
+					$this->template->assign_block_vars('heads_on', array());
 				}
 
 				$this->template->assign_vars(array(
@@ -722,7 +722,7 @@ class main
 				// Show headerbanner ?
 				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
-					$this->template->assign_block_vars('head_on', array());
+					$this->template->assign_block_vars('heads_on', array());
 				}
 
 				$this->template->assign_vars(array(
@@ -785,7 +785,7 @@ class main
 
 					if ($this->config['drdeath_f1webtip_show_gfxr'] == 1)
 					{
-						$this->template->assign_block_vars('racerow_gfxr', array(
+						$this->template->assign_block_vars('racerows_gfxr', array(
 							'RACEIMG'			=> $race_img,
 							'QUALI_BUTTONS'		=> $quali_buttons,
 							'RESULT_BUTTONS'	=> $result_buttons,
@@ -798,7 +798,7 @@ class main
 					}
 					else
 					{
-						$this->template->assign_block_vars('racerow', array(
+						$this->template->assign_block_vars('racerows', array(
 							'QUALI_BUTTONS'		=> $quali_buttons,
 							'RESULT_BUTTONS'	=> $result_buttons,
 							'RACEID'			=> $race_id,
@@ -1249,14 +1249,14 @@ class main
 
 						$drivercombo .= '</select>';
 
-						$this->template->assign_block_vars('qualirow', array(
+						$this->template->assign_block_vars('qualirows', array(
 							'L_PLACE'		=> $position,
 							'DRIVERCOMBO'	=> $drivercombo,
 							)
 						);
 					}
 
-					$this->template->assign_block_vars('quali', array());
+					$this->template->assign_block_vars('qualifications', array());
 
 					$this->template->assign_vars(array(
 							'S_QUALI'			=> true,
@@ -1325,7 +1325,7 @@ class main
 
 						$drivercombo .= '</select>';
 
-						$this->template->assign_block_vars('resultrow', array(
+						$this->template->assign_block_vars('resultsrow', array(
 							'L_PLACE' 		=> $position,
 							'DRIVERCOMBO' 	=> $drivercombo,
 							)
@@ -1393,7 +1393,7 @@ class main
 
 					$modus = ($editresult) ? 'addeditresult' : 'addresult';
 
-					$this->template->assign_block_vars('result', array(
+					$this->template->assign_block_vars('results', array(
 						'PACECOMBO' 		=> $drivercombo_pace,
 						'MODE' 				=> $modus,
 						'TIREDCOMBO' 		=> $combo_tired,
@@ -1558,7 +1558,7 @@ class main
 						}
 					}
 
-					$this->template->assign_block_vars('user_tipp', array(
+					$this->template->assign_block_vars('user_tipps', array(
 						'TIPPER' 			=> $tipper_link,
 						'POINTS' 			=> $tipper_points,
 						'ALL_POINTS' 		=> $tipper_all_points,
@@ -1573,7 +1573,7 @@ class main
 				}
 				else
 				{
-					$this->template->assign_block_vars('no_tipp', array());
+					$this->template->assign_block_vars('no_tipps', array());
 				}
 
 				// Output global values
@@ -2031,7 +2031,7 @@ class main
 						$race_img = $races[$chosen_race]['race_img'];
 						$race_img = ($race_img == '') ? '<img src="' . $ext_path . 'images/' . $this->config['drdeath_f1webtip_no_race_img'] . '" width="' . $this->config['drdeath_f1webtip_race_img_width'] . '" height="' . $this->config['drdeath_f1webtip_race_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/' . $race_img . '" width="' . $this->config['drdeath_f1webtip_race_img_width'] . '" height="' . $this->config['drdeath_f1webtip_race_img_height'] . '" alt="" />';
 
-						$this->template->assign_block_vars('racerow', array(
+						$this->template->assign_block_vars('racerows', array(
 							'RACEIMG' 		=> $race_img,
 							'RACENAME' 		=> $races[$chosen_race]['race_name'],
 							'RACELENGTH' 	=> $races[$chosen_race]['race_length'] . ' km',
@@ -2045,7 +2045,7 @@ class main
 
 						if ($this->config['drdeath_f1webtip_show_gfxr'] == 1)
 						{
-							$this->template->assign_block_vars('racerow.racegfx', array());
+							$this->template->assign_block_vars('racerows.racegfx', array());
 						}
 
 						// Find current tippers and their points
@@ -2341,7 +2341,7 @@ class main
 
 										$drivercombo .= '</select>';
 
-										$this->template->assign_block_vars('add_tipp', array(
+										$this->template->assign_block_vars('add_tipps', array(
 											'L_PLACE'		=> $position,
 											'DRIVERCOMBO'	=> $drivercombo,
 											)
@@ -2382,7 +2382,7 @@ class main
 
 									$safetycarcombo .= '</select>';
 
-									$this->template->assign_block_vars('extended_add_tipp', array(
+									$this->template->assign_block_vars('extended_add_tipps', array(
 										'TIREDCOMBO'		=> $tiredcombo,
 										'DRIVERCOMBO'		=> $drivercombo,
 										'SAFETYCARCOMBO'	=> $safetycarcombo,
@@ -2392,7 +2392,7 @@ class main
 							}
 							else
 							{
-								$this->template->assign_block_vars('add_tipp', array(
+								$this->template->assign_block_vars('add_tipps', array(
 									'DRIVERCOMBO'	=> '<br /> ' . $this->language->lang('FORMEL_GUESTS_PLACE_NO_TIP'),
 									)
 								);
@@ -2413,7 +2413,7 @@ class main
 
 								if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
 								{
-									$this->template->assign_block_vars('qualirow_gfx', array(
+									$this->template->assign_block_vars('qualirows_gfx', array(
 										'L_PLACE'			=> $position,
 										'DRIVERIMG'			=> (isset($drivers[$current_driver_id]['driver_img'])) 			? $drivers[$current_driver_id]['driver_img'] 		: '',
 										'DRIVERCAR'			=> (isset($drivers[$current_driver_id]['driver_car'])) 			? $drivers[$current_driver_id]['driver_car'] 		: '',
@@ -2424,7 +2424,7 @@ class main
 								}
 								else
 								{
-									$this->template->assign_block_vars('qualirow', array(
+									$this->template->assign_block_vars('qualirows', array(
 										'L_PLACE'			=> $position,
 										'DRIVERNAME'		=> (isset($drivers[$current_driver_id]['driver_name'])) 		? $drivers[$current_driver_id]['driver_name'] 		: '',
 										)
@@ -2435,7 +2435,7 @@ class main
 						else
 						{
 							// If no quali was found
-							$this->template->assign_block_vars('no_quali', array());
+							$this->template->assign_block_vars('no_qualifyings', array());
 						}
 
 						// Checks for a saved result
@@ -2507,14 +2507,14 @@ class main
 						// Game over
 						if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 						{
-							$this->template->assign_block_vars('game_over', array());
+							$this->template->assign_block_vars('games_over', array());
 						}
 						else
 						{
 							//Check if it is a registered user. Guests are not allowed to place, edit or delete a tip.
 							if ($this->user->data['is_registered'])
 							{
-								$this->template->assign_block_vars('place_tipp', array(
+								$this->template->assign_block_vars('place_tipps', array(
 									'DELETE_TIPP'	=> $delete_button,
 									'L_PLACE_TIPP'	=> $tipp_button,
 									'PLACE_TIPP'	=> $tipp_button_name,
@@ -2553,7 +2553,7 @@ class main
 				// Show headerbanner ?
 				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
-					$this->template->assign_block_vars('head_on', array());
+					$this->template->assign_block_vars('heads_on', array());
 				}
 
 				$this->template->assign_vars(array(

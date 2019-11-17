@@ -71,7 +71,7 @@ function showtipps(showtipps)
 		<div class="inner"><span class="corners-top"><span></span></span>
 
 			<div style="text-align: center;">
-				{% for head_on in head_on %}
+				{% for head_on in heads_on %}
 				<div class="responsive-hide"><br/>
 				<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /><br/></div>
 				{% endfor %}
@@ -177,7 +177,7 @@ function showtipps(showtipps)
 
 	<p style="clear:both;" />
 
-	{% for racerow in racerow %}
+	{% for racerow in racerows %}
 	<h2>{{ lang('FORMEL_CURRENT_RACE') }}:&nbsp;&nbsp;&nbsp;{{ racerow.RACENAME }}</h2>
 
 	<div >
@@ -186,7 +186,7 @@ function showtipps(showtipps)
 			<div class="inner">
 
 					<br/>
-					{% for racegfx in racerow.racegfx %}
+					{% for racegfx in racerows.racegfx %}
 					<div class="responsive-hide" style="text-align: center;">
 						{{ racerow.RACEIMG }}
 						<br/><br/>
@@ -302,7 +302,6 @@ function showtipps(showtipps)
 
 	<p style="clear: both;" />
 
-
 	{% endfor %}
 
 	<div><img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4"/></div>
@@ -312,7 +311,7 @@ function showtipps(showtipps)
 
 			{{ lang('FORMEL_TIPPS_MADE') }}
 			{% for tipp_made in tipps_made %}
-			<a href="javascript:void(0)" onclick="javascript:showtipps('{{ tipps_made.USERTIPP }}')" {{ tipp_made.STYLE }}>{{ tipp_made.USERNAME }}</a>{{ tipp_made.SEPARATOR }}
+			<a href="javascript:void(0)" onclick="javascript:showtipps('{{ tipp_made.USERTIPP }}')" {{ tipp_made.STYLE }}>{{ tipp_made.USERNAME }}</a>{{ tipp_made.SEPARATOR }}
 			{% endfor %}
 			{% for no_tipp_made in no_tipps_made %}
 			{{ lang('FORMEL_NO_TIPPS') }}
@@ -336,12 +335,12 @@ function showtipps(showtipps)
 								</tr>
 							</thead>
 							<tbody>
-								{% for no_quali in no_quali %}
+								{% for no_qualifying in no_qualifyings %}
 								<tr class="bg1">
 									 <td colspan="2" align="center">{{ lang('FORMEL_NO_QUALI') }}</td>
 								</tr>
 								{% endfor %}
-								{% for qualirow_gfx in qualirow_gfx %}
+								{% for qualirow_gfx in qualirows_gfx %}
 								{% if qualirow_gfx.S_ROW_COUNT < 10 %}
 								<tr class="bg1">
 								{% elseif qualirow_gfx.S_ROW_COUNT < 15 %}
@@ -357,7 +356,7 @@ function showtipps(showtipps)
 									</td>
 								</tr>
 								{% endfor %}
-								{% for qualirow in qualirow %}
+								{% for qualirow in qualirows %}
 								{% if qualirow.S_ROW_COUNT < 10 %}
 								<tr class="bg1">
 								{% elseif qualirow.S_ROW_COUNT < 15 %}
@@ -520,7 +519,7 @@ function showtipps(showtipps)
 									<td class="responsive-hide" align="center">&nbsp;{{ extended_user_tipp_gfx.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for add_tipp in add_tipp %}
+								{% for add_tipp in add_tipps %}
 								{% if add_tipp.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
 								{% else %}
@@ -531,7 +530,7 @@ function showtipps(showtipps)
 									<td align="left">&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_add_tipp in extended_add_tipp %}
+								{% for extended_add_tipp in extended_add_tipps %}
 								<tr class="bg1">
 									<td align="right"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:</strong></td>
 
@@ -575,11 +574,11 @@ function showtipps(showtipps)
 			<input type="hidden" name="racename" value="{{ RACENAME }}" />
 			{{ S_FORM_TOKEN }}
 
-			{% for place_tipp in place_tipp %}
+			{% for place_tipp in place_tipps %}
 			<br />
 			<div class="navbar bg3" style="text-align: center;"><br /><input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />{{ place_tipp.DELETE_TIPP }}<br /><br /></div>
 			{% endfor %}
-			{% for game_over in game_over %}
+			{% for game_over in games_over %}
 			<br />
 			<div class="navbar bg3" style="text-align: center;"><br />{{ lang('FORMEL_GAME_OVER') }}<br /><br /></div>
 			{% endfor %}
@@ -607,7 +606,7 @@ function showtipps(showtipps)
 				</tr>
 			</thead>
 			<tbody>
-			{% for racerow_gfxr in racerow_gfxr %}
+			{% for racerow_gfxr in racerows_gfxr %}
 				{% if racerow_gfxr.S_ROW_COUNT is even %}
 				<tr class="bg1">
 				{% else %}
@@ -643,7 +642,7 @@ function showtipps(showtipps)
 					</td>
 				</tr>
 			{% endfor %}
-			{% for racerow in racerow %}
+			{% for racerow in racerows %}
 				{% if racerow.S_ROW_COUNT is even %}
 				<tr class="bg1">
 				{% else %}
@@ -691,7 +690,7 @@ function showtipps(showtipps)
 
 		<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 			<table class="table1">
-				{% for quali in quali %}
+				{% for qualification in qualifications %}
 				<thead>
 					<tr>
 						<th colspan="2"><strong>{{ lang('FORMEL_RESULTS_QUALI_TITLE') }}</strong></th>
@@ -699,7 +698,7 @@ function showtipps(showtipps)
 				</thead>
 				<tbody>
 				{% endfor %}
-				{% for qualirow in qualirow %}
+				{% for qualirow in qualirows %}
 					{% if qualirow.S_ROW_COUNT < 10 %}
 					<tr class="bg1">
 					{% elseif qualirow.S_ROW_COUNT < 15 %}
@@ -711,12 +710,12 @@ function showtipps(showtipps)
 						<td style="width: 50%;" align="left"  valign="middle">&nbsp;{{ qualirow.DRIVERCOMBO }}</td>
 					</tr>
 				{% endfor %}
-				{% for quali in quali %}
+				{% for qualification in qualifications %}
 					<tr>
 						<td style="white-space:nowrap;" class="bg3" align="center" colspan="2" valign="middle">&nbsp;<input class="button1" type="submit" name="addquali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;</td>
 					</tr>
 				{% endfor %}
-				{% for result in result %}
+				{% for result in results %}
 				<thead>
 					<tr>
 						<th colspan="2"><strong>{{ lang('FORMEL_RESULTS_RESULT_TITLE') }}</strong></th>
@@ -724,7 +723,7 @@ function showtipps(showtipps)
 				</thead>
 				<tbody>
 				{% endfor %}
-				{% for resultrow in resultrow %}
+				{% for resultrow in resultsrow %}
 					{% if resultrow.S_ROW_COUNT < 3 %}
 					<tr class="bg1">
 					{% else %}
@@ -734,7 +733,7 @@ function showtipps(showtipps)
 						<td style="width: 50%;" align="left">&nbsp;{{ resultrow.DRIVERCOMBO }}</td>
 					</tr>
 					{% endfor %}
-					{% for result in result %}
+					{% for result in results %}
 					<tr class="bg1">
 						<td style="width: 50%;" align="right">{{ lang('FORMEL_PACE') }}&nbsp;</td>
 						<td style="width: 50%;" align="left">&nbsp;{{ result.PACECOMBO }}</td>
@@ -780,7 +779,7 @@ function showtipps(showtipps)
 	<div class="inner">
 
 		<div style="text-align: center;">
-			{% for head_on in head_on %}
+			{% for head_on in heads_on %}
 			<div class="responsive-hide"><br/>
 			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
 			{% endfor %}
@@ -850,7 +849,7 @@ function showtipps(showtipps)
 	<div class="inner">
 
 		<div style="text-align: center;">
-			{% for head_on in head_on %}
+			{% for head_on in heads_on %}
 			<div class="responsive-hide"><br/>
 			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
 			{% endfor %}
@@ -1042,7 +1041,7 @@ Please donate via paypal.me
 				</tr>
 			</thead>
 			<tbody>
-				{% for user_tipp in user_tipp %}
+				{% for user_tipp in user_tipps %}
 				<tr class="bg3">
 					<td colspan="3" align="center">{{ user_tipp.TIPPER }}</td>
 				</tr>
@@ -1058,7 +1057,7 @@ Please donate via paypal.me
 					<td style="width: 20%;">&nbsp;{{ user_driver.SINGLE_POINTS }}&nbsp;</td>
 				</tr>
 				{% endfor %}
-				{% for user_tipp in user_tipp %}
+				{% for user_tipp in user_tipps %}
 				<tr class="bg1">
 					<td style="width: 30%;" align="right"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:&nbsp;</strong></td>
 					<td style="width: 50%;">&nbsp;{{ user_tipp.FASTEST_DRIVER }}&nbsp;</td>
@@ -1086,7 +1085,7 @@ Please donate via paypal.me
 					<td style="width: 50%;" align="left" colspan="2">&nbsp;{{ user_tipp.ALL_POINTS }}&nbsp;</td>
 				</tr>
 				{% endfor %}
-				{% for no_tipp in no_tipp %}
+				{% for no_tipp in no_tipps %}
 				<tr>
 					<td class="row1" align="center" colspan="2">&nbsp;{{ lang('FORMEL_NO_TIPP') }}&nbsp;</td>
 				</tr>

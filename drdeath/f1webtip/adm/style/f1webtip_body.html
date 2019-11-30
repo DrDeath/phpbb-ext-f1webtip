@@ -105,7 +105,7 @@
 					<td><input type="radio" class="radio" name="show_headbanner" value="1" {% if SHOW_HEADBANNER %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_headbanner" value="0" {% if not SHOW_HEADBANNER %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
-				{% for headbanner_on in headbanner_on %}
+				{% if headbanner_on %}
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="head_height" value="{{ HEADBANNER_IMG_HEIGHT }}" /></td>
@@ -126,14 +126,14 @@
 					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="255" size="30" name="headbanner3_img" value="{{ HEADBANNER3_IMG }}" /></td>
 				</tr>
-				{% endfor %}
+				{% endif %}
 				<tr class="row3">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFXR') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFXR_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_gfxr" value="1" {% if SHOW_GFXR %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_gfxr" value="0" {% if not SHOW_GFXR %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 
-				{% for gfxr_on in gfxr_on %}
+				{% if gfxr_on %}
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="30" name="no_race_img" value="{{ NO_RACE_IMG }}" /></td>
@@ -146,14 +146,14 @@
 					<td><strong>{{ lang('ACP_F1_SETTINGS_RACE_IMG_WIDTH') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_RACE_IMG_WIDTH_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="race_img_width" value="{{ RACE_IMG_WIDTH }}" /></td>
 				</tr>
-				{% endfor %}
+				{% endif %}
 				<tr class="row3">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFX') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFX_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_gfx" value="1" {% if SHOW_GFX %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_gfx" value="0" {% if not SHOW_GFX %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 
-				{% for gfx_on in gfx_on %}
+				{% if gfx_on %}
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="30" name="no_car_img" value="{{ NO_CAR_IMG }}" /></td>
@@ -190,7 +190,7 @@
 					<td><strong>{{ lang('ACP_F1_SETTINGS_TEAM_IMG_WIDTH') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_TEAM_IMG_WIDTH_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="team_img_width" value="{{ TEAM_IMG_WIDTH }}" /></td>
 				</tr>
-				{% endfor %}
+				{% endif %}
 			</tbody>
 		</table>
 
@@ -243,9 +243,9 @@
 		</thead>
 		<tbody>
 			<tr class="row3">
-				{% for gfx_on in gfx_on %}
+				{% if gfx_on %}
 				<td valign="middle">&nbsp;</td>
-				{% endfor %}
+				{% endif %}
 				<td width="30%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERNAME') }}</strong></td>
 				<td width="30%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERTEAM') }}</strong></td>
 				<td width="20%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERPOINTS') }}</strong>&nbsp;</td>
@@ -253,7 +253,7 @@
 				<td valign="middle">&nbsp;<strong>{{ lang('ACP_F1_DRIVERS_DISABLED') }}</strong>&nbsp;</td>
 				<td valign="middle" colspan="2">&nbsp;</td>
 			</tr>
-			{% for driverrow_gfx in driverrow_gfx %}
+			{% for driverrow_gfx in driverrows_gfx %}
 			<form method="POST" enctype="multipart/form-data">
 			{% if driverrow_gfx.S_ROW_COUNT is even %}
 			<tr class="row1">
@@ -271,7 +271,7 @@
 			</tr>
 			</form>
 			{% endfor %}
-			{% for driverrow in driverrow %}
+			{% for driverrow in driverrows %}
 			<form action="{{ U_FORM_ACTION }}" method="POST" enctype="multipart/form-data">
 			{% if driverrow.S_ROW_COUNT is even %}
 			<tr class="row1">
@@ -322,17 +322,17 @@
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERNAME') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="drivername" value="{{ PREDEFINED_NAME }}" /></td>
 			</tr>
-			{% for gfx_on in gfx_on %}
+			{% if gfx_on %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERIMAGE') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="driverimg" value="{{ PREDEFINED_IMG }}" /></td>
 			</tr>
-			{% endfor %}
+			{% endif %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERTEAM') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;
 					<select size="1" name="driverteam">
-					{% for teamrow in teamrow %}
+					{% for teamrow in teamrows %}
 						<option value="{{ teamrow.TEAM_ID }}" {{ teamrow.PRESELECTED }}>{{ teamrow.TEAMNAME }}</option>
 					{% endfor %}
 					</select>
@@ -376,16 +376,16 @@
 		</thead>
 		<tbody>
 			<tr>
-				{% for gfx_on in gfx_on %}
+				{% if gfx_on %}
 				<td class="row3" align="center" valign="middle">&nbsp;</td>
 				<td class="row3" align="center" valign="middle">&nbsp;</td>
-				{% endfor %}
+				{% endif %}
 				<td class="row3" align="center" width="50%" valign="middle" ><span class="cattitle"><strong>{{ lang('ACP_F1_TEAMS_DRIVERTEAM') }}</strong></span></td>
 				<td class="row3" align="center" width="25%" valign="middle" ><span class="cattitle"><strong>{{ lang('ACP_F1_TEAMS_DRIVERPOINTS') }}</strong></span></td>
 				<td class="row3" align="center" width="25%" valign="middle" ><span class="cattitle"><strong>{{ lang('ACP_F1_TEAMS_PENALTY') }}</strong></span></td>
 				<td class="row3" align="center" valign="middle" colspan="2">&nbsp;</td>
 			</tr>
-			{% for teamrow in teamrow %}
+			{% for teamrow in teamrows %}
 			<form action="{{ U_ACTION }}" method="POST" enctype="multipart/form-data">
 			{% if teamrow.S_ROW_COUNT is even %}
 			<tr class="row1">
@@ -400,7 +400,7 @@
 			</tr>
 			</form>
 			{% endfor %}
-			{% for teamrow_gfx in teamrow_gfx %}
+			{% for teamrow_gfx in teamrows_gfx %}
 			<form action="{{ U_ACTION }}" method="POST" enctype="multipart/form-data">
 			{% if teamrow_gfx.S_ROW_COUNT is even %}
 			<tr class="row1">
@@ -449,7 +449,7 @@
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMNAME') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="teamname" value="{{ PREDEFINED_NAME }}" /></td>
 			</tr>
-			{% for gfx_on in gfx_on %}
+			{% if gfx_on %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamimg" value="{{ PREDEFINED_IMG }}" /></td>
@@ -458,7 +458,7 @@
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMCAR') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamcar" value="{{ PREDEFINED_CAR }}" /></td>
 			</tr>
-			{% endfor %}
+			{% endif %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_PENALTY') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="team_penalty" value="{{ PREDEFINED_PENALTY }}" /></td>
@@ -491,15 +491,15 @@
 		</thead>
 		<tbody>
 			<tr class="row3">
-				{% for gfxr_on in gfxr_on %}
+				{% if gfxr_on %}
 				<td align="center" valign="middle">&nbsp;</td>
-				{% endfor %}
+				{% endif %}
 				<td align="center" width="30%" valign="middle" ><span class="cattitle"><strong>{{ lang('ACP_F1_RACES_RACENAME') }}</strong></span></td>
 				<td align="center" width="30%" valign="middle"><span class="cattitle"><strong>{{ lang('ACP_F1_RACES_RACETIME') }}</strong></span></td>
 				<td align="center" width="30%" valign="middle"><span class="cattitle"><strong>{{ lang('ACP_F1_RACES_RACEDEAD') }}</strong></span></td>
 				<td align="center" valign="middle" colspan="2">&nbsp;</td>
 			</tr>
-			{% for racerow_gfxr in racerow_gfxr %}
+			{% for racerow_gfxr in racerows_gfxr %}
 			<form action="{{ U_ACTION }}" method="POST" enctype="multipart/form-data">
 			{% if racerow_gfxr.S_ROW_COUNT is even %}
 			<tr class="row1">
@@ -515,7 +515,7 @@
 			</tr>
 			</form>
 			{% endfor %}
-			{% for racerow in racerow %}
+			{% for racerow in racerows %}
 			<form action="{{ U_ACTION }}" method="POST" enctype="multipart/form-data">
 			{% if racerow.S_ROW_COUNT is even %}
 			<tr class="row1">
@@ -562,12 +562,12 @@
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACENAME') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="64" size="30" name="racename" value="{{ PREDEFINED_NAME }}" /></td>
 			</tr>
-			{% for gfxr_on in gfxr_on %}
+			{% if gfxr_on %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEIMAGE') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="255" size="30" name="raceimg" value="{{ PREDEFINED_IMG }}" /></td>
 			</tr>
-			{% endfor %}
+			{% endif %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACELENGTH') }}:</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="8" size="10" name="racelength" value="{{ PREDEFINED_LENGTH }}" /></td>

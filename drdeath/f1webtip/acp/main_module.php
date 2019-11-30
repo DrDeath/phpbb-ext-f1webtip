@@ -588,7 +588,7 @@ class main_module
 
 						if ($config['drdeath_f1webtip_show_gfx'] == 1)
 						{
-							$template->assign_block_vars('driverrow_gfx', array(
+							$template->assign_block_vars('driverrows_gfx', array(
 								'DRIVERNAME'		=> $row['driver_name'],
 								'DRIVERID'			=> $row['driver_id'],
 								'DRIVERIMG'			=> $driverimg,
@@ -601,7 +601,7 @@ class main_module
 						}
 						else
 						{
-							$template->assign_block_vars('driverrow', array(
+							$template->assign_block_vars('driverrows', array(
 								'DRIVERNAME'		=> $row['driver_name'],
 								'DRIVERID'			=> $row['driver_id'],
 								'DRIVERIMG'			=> $driverimg,
@@ -837,7 +837,7 @@ class main_module
 
 						if ($config['drdeath_f1webtip_show_gfx'] == 1)
 						{
-							$template->assign_block_vars('teamrow_gfx', array(
+							$template->assign_block_vars('teamrows_gfx', array(
 								'TEAMNAME'		=> $row['team_name'],
 								'TEAMID'		=> $row['team_id'],
 								'POINTS'		=> $points,
@@ -849,7 +849,7 @@ class main_module
 						}
 						else
 						{
-							$template->assign_block_vars('teamrow', array(
+							$template->assign_block_vars('teamrows', array(
 								'TEAMNAME'		=> $row['team_name'],
 								'TEAMID'		=> $row['team_id'],
 								'POINTS'		=> $points,
@@ -1162,7 +1162,7 @@ class main_module
 
 						if ($config['drdeath_f1webtip_show_gfxr'] == 1)
 						{
-							$template->assign_block_vars('racerow_gfxr', array(
+							$template->assign_block_vars('racerows_gfxr', array(
 								'RACEIMG' 	=> $race_img,
 								'RACENAME' 	=> $row['race_name'],
 								'RACEID' 	=> $row['race_id'],
@@ -1172,7 +1172,7 @@ class main_module
 						}
 						else
 						{
-							$template->assign_block_vars('racerow', array(
+							$template->assign_block_vars('racerows', array(
 								'RACENAME' 	=> $row['race_name'],
 								'RACEID' 	=> $row['race_id'],
 								'RACETIME' 	=> $user->format_date( $row['race_time'] ),

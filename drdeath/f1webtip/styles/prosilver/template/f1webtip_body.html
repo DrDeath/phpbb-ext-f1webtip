@@ -71,10 +71,10 @@ function showtipps(showtipps)
 		<div class="inner"><span class="corners-top"><span></span></span>
 
 			<div style="text-align: center;">
-				{% for head_on in heads_on %}
+				{% if heads_on %}
 				<div class="responsive-hide"><br/>
 				<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /><br/></div>
-				{% endfor %}
+				{% endif %}
 				<br/>
 				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" 		value="{{ lang('FORMEL_RULES') }}" />&nbsp;&nbsp;
 				{{ U_FORMEL_FORUM }}
@@ -237,7 +237,7 @@ function showtipps(showtipps)
 							</dd>
 						</dl>
 					</li>
-					{% if S_COUNTDOWN == true %}
+					{% if S_COUNTDOWN %}
 					<li class="row">
 						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt id="time_event" style="display: ; padding: 2px 10px; white-space:nowrap;">
@@ -290,7 +290,7 @@ function showtipps(showtipps)
 						</dl>
 					</li>
 				</ul>
-				{% if S_COUNTDOWN == true %}
+				{% if S_COUNTDOWN %}
 					<script type="text/javascript">countdown();</script>
 				{% endif %}
 				<br/>
@@ -313,9 +313,9 @@ function showtipps(showtipps)
 			{% for tipp_made in tipps_made %}
 			<a href="javascript:void(0)" onclick="javascript:showtipps('{{ tipp_made.USERTIPP }}')" {{ tipp_made.STYLE }}>{{ tipp_made.USERNAME }}</a>{{ tipp_made.SEPARATOR }}
 			{% endfor %}
-			{% for no_tipp_made in no_tipps_made %}
+			{% if no_tipps_made %}
 			{{ lang('FORMEL_NO_TIPPS') }}
-			{% endfor %}
+			{% endif %}
 
 		</div>
 	</div>
@@ -335,11 +335,11 @@ function showtipps(showtipps)
 								</tr>
 							</thead>
 							<tbody>
-								{% for no_qualifying in no_qualifyings %}
+								{% if no_qualifyings %}
 								<tr class="bg1">
 									 <td colspan="2" align="center">{{ lang('FORMEL_NO_QUALI') }}</td>
 								</tr>
-								{% endfor %}
+								{% endif %}
 								{% for qualirow_gfx in qualirows_gfx %}
 								{% if qualirow_gfx.S_ROW_COUNT < 10 %}
 								<tr class="bg1">
@@ -379,11 +379,11 @@ function showtipps(showtipps)
 								</tr>
 							</thead>
 							<tbody>
-								{% for no_result in no_results %}
+								{% if no_results %}
 								<tr class="bg1">
 									<td colspan="2" align="center">{{ lang('FORMEL_NO_RESULTS') }}</td>
 								</tr>
-								{% endfor %}
+								{% endif %}
 								{% for resultrow_gfx in resultsrow_gfx %}
 								{% if resultrow_gfx.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
@@ -436,18 +436,18 @@ function showtipps(showtipps)
 									<td align="left">&nbsp;{{ extended_result_gfx.SAFETYCAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_result in extended_results %}
+								{% if extended_results %}
 								<tr class="bg1">
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
-								{% endfor %}
-								{% for extended_result_gfx in extended_results_gfx %}
+								{% endif %}
+								{% if extended_results_gfx %}
 								<tr class="bg1">
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
-								{% endfor %}
+								{% endif %}
 							</tbody>
 						</table>
 					</td>
@@ -578,10 +578,10 @@ function showtipps(showtipps)
 			<br />
 			<div class="navbar bg3" style="text-align: center;"><br /><input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />{{ place_tipp.DELETE_TIPP }}<br /><br /></div>
 			{% endfor %}
-			{% for game_over in games_over %}
+			{% if games_over %}
 			<br />
 			<div class="navbar bg3" style="text-align: center;"><br />{{ lang('FORMEL_GAME_OVER') }}<br /><br /></div>
-			{% endfor %}
+			{% endif %}
 
 		</div>
 	</div>
@@ -690,14 +690,14 @@ function showtipps(showtipps)
 
 		<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 			<table class="table1">
-				{% for qualification in qualifications %}
+				{% if qualifications %}
 				<thead>
 					<tr>
 						<th colspan="2"><strong>{{ lang('FORMEL_RESULTS_QUALI_TITLE') }}</strong></th>
 					</tr>
 				</thead>
 				<tbody>
-				{% endfor %}
+				{% endif %}
 				{% for qualirow in qualirows %}
 					{% if qualirow.S_ROW_COUNT < 10 %}
 					<tr class="bg1">
@@ -710,19 +710,19 @@ function showtipps(showtipps)
 						<td style="width: 50%;" align="left"  valign="middle">&nbsp;{{ qualirow.DRIVERCOMBO }}</td>
 					</tr>
 				{% endfor %}
-				{% for qualification in qualifications %}
+				{% if qualifications %}
 					<tr>
 						<td style="white-space:nowrap;" class="bg3" align="center" colspan="2" valign="middle">&nbsp;<input class="button1" type="submit" name="addquali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;</td>
 					</tr>
-				{% endfor %}
-				{% for result in results %}
+				{% endif %}
+				{% if results %}
 				<thead>
 					<tr>
 						<th colspan="2"><strong>{{ lang('FORMEL_RESULTS_RESULT_TITLE') }}</strong></th>
 					</tr>
 				</thead>
 				<tbody>
-				{% endfor %}
+				{% endif %}
 				{% for resultrow in resultsrow %}
 					{% if resultrow.S_ROW_COUNT < 3 %}
 					<tr class="bg1">
@@ -779,10 +779,10 @@ function showtipps(showtipps)
 	<div class="inner">
 
 		<div style="text-align: center;">
-			{% for head_on in heads_on %}
+			{% if heads_on %}
 			<div class="responsive-hide"><br/>
 			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
-			{% endfor %}
+			{% endif %}
 			<br/>
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
@@ -849,10 +849,10 @@ function showtipps(showtipps)
 	<div class="inner">
 
 		<div style="text-align: center;">
-			{% for head_on in heads_on %}
+			{% if heads_on %}
 			<div class="responsive-hide"><br/>
 			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
-			{% endfor %}
+			{% endif %}
 			<br/><br/>
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
@@ -1085,11 +1085,11 @@ Please donate via paypal.me
 					<td style="width: 50%;" align="left" colspan="2">&nbsp;{{ user_tipp.ALL_POINTS }}&nbsp;</td>
 				</tr>
 				{% endfor %}
-				{% for no_tipp in no_tipps %}
+				{% if no_tipps %}
 				<tr>
 					<td class="row1" align="center" colspan="2">&nbsp;{{ lang('FORMEL_NO_TIPP') }}&nbsp;</td>
 				</tr>
-				{% endfor %}
+				{% endif %}
 			</tbody>
 		</table>
 		<br />

@@ -186,12 +186,12 @@ function showtipps(showtipps)
 			<div class="inner">
 
 					<br/>
-					{% for racegfx in racerows.racegfx %}
+					{% if racegfx %}
 					<div class="responsive-hide" style="text-align: center;">
 						{{ racerow.RACEIMG }}
 						<br/><br/>
 					</div>
-					{% endfor %}
+					{% endif %}
 
 					<div class="column1" style="text-align: center;">
 						<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />

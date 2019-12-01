@@ -2045,7 +2045,7 @@ class main
 
 						if ($this->config['drdeath_f1webtip_show_gfxr'] == 1)
 						{
-							$this->template->assign_block_vars('racerows.racegfx', array());
+							$this->template->assign_block_vars('racegfx', array());
 						}
 
 						// Find current tippers and their points

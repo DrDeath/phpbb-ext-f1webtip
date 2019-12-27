@@ -869,6 +869,9 @@ class main
 				// Init some vars
 				$quali_array	= array();
 				$result_array	= array();
+				//We have 10 Teams with 2 cars each --> 20 drivers
+				$places				= ($quali||$addquali||$editquali) ? 20 : 10;
+				$var_places			= "<script>var places = $places</script>";
 
 				// Reset a quali
 				if ($resetquali && $race_id <> 0)
@@ -1260,6 +1263,7 @@ class main
 
 					$this->template->assign_vars(array(
 							'S_QUALI'			=> true,
+							'VAR_PLACES'		=> $var_places,
 							)
 						);
 				}
@@ -1409,6 +1413,7 @@ class main
 					'U_FORMEL_RESULTS' 				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
 					'RACE_ID' 						=> $race_id,
 					'RACENAME' 						=> $racename,
+					'VAR_PLACES'					=> $var_places,
 
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
@@ -1616,6 +1621,8 @@ class main
 				$single_tired 		= '';
 				$single_safety_car 	= '';
 				$chosen_race 		= '';
+				$places				= 10;
+				$var_places			= "<script>var places = $places</script>";
 
 				$current_time = time();
 
@@ -1989,8 +1996,7 @@ class main
 
 							$stop = $b_month . ' ' . $b_day . ', ' . $b_year . ' ' . $b_hour . ':' . $b_minute . ':' . $b_second;
 
-							$countdown = "<script type=\"text/javascript\">
-										// <![CDATA[
+							$countdown = "<script>
 										var eventdate = new Date('" . $stop . "');
 										function toSt(n)
 										{
@@ -2023,7 +2029,6 @@ class main
 											document.getElementById('countdown').secs.value = secs_count;
 											window.setTimeout('countdown()',500);
 										}
-										// ]]>
 										</script>";
 						}
 
@@ -2576,6 +2581,7 @@ class main
 					'RACE_TIME'							=> (isset($races[$chosen_race]['race_time'])) ? $races[$chosen_race]['race_time'] : 1,
 					'RACE_OFFSET'						=> $race_offset,
 					'COUNTDOWN'							=> (isset($countdown)) ? $countdown : '',
+					'VAR_PLACES'						=> $var_places,
 
 					'EXT_PATH'							=> $ext_path,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',

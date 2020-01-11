@@ -18,6 +18,7 @@ services:
             - '@request'
             - '@template'
             - '@user'
+            - '@language'
     drdeath.f1webtip.listener:
         class: drdeath\f1webtip\event\main_listener
         arguments:
@@ -29,6 +30,7 @@ services:
             - '@auth'
             - '@template'
             - '@user'
+            - '@language'
         tags:
             - { name: event.listener }
     drdeath.f1webtip.cron.task.email_reminder:
@@ -43,6 +45,7 @@ services:
             - '@config'
             - '@log'
             - '@user'
+            - '@language'
         calls:
             - [set_name, [drdeath.f1webtip.cron.task.email_reminder]]
         tags:

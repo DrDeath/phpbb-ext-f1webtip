@@ -55,19 +55,23 @@ class main_listener implements EventSubscriberInterface
 	/* @var \phpbb\user */
 	protected $user;
 
+	/* @var \phpbb\language\language */
+	protected $language;
+
 	/**
 	* Constructor
 	*
 	* @param string									$php_ext
-	* @param Container 								$phpbb_container
+	* @param Container								$phpbb_container
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\controller\helper				$helper		Controller helper object
 	* @param \phpbb\auth\auth						$auth
 	* @param \phpbb\template						$template	Template object
 	* @param \phpbb\user							$user
+	* @param \phpbb\language\language				$language
 	*/
-	public function __construct($php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\user $user)
+	public function __construct($php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\user $user, \phpbb\language\language $language)
 	{
 		$this->php_ext 			= $php_ext;
 		$this->phpbb_container 	= $phpbb_container;
@@ -77,8 +81,7 @@ class main_listener implements EventSubscriberInterface
 		$this->auth				= $auth;
 		$this->template 		= $template;
 		$this->user 			= $user;
-		$this->is_phpbb31		= phpbb_version_compare($config['version'], '3.1.0@dev', '>=') && phpbb_version_compare($config['version'], '3.2.0@dev', '<');
-		$this->is_phpbb32		= phpbb_version_compare($config['version'], '3.2.0@dev', '>=') && phpbb_version_compare($config['version'], '3.3.0@dev', '<');
+		$this->language 		= $language;
 	}
 
 	public function load_language_on_setup($event)
@@ -95,8 +98,6 @@ class main_listener implements EventSubscriberInterface
 	{
 		$this->template->assign_vars(array(
 			'U_F1WEBTIP_PAGE'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
-			'IS_PHPBB31' => $this->is_phpbb31,
-			'IS_PHPBB32' => $this->is_phpbb32,
 		));
 	}
 
@@ -104,7 +105,7 @@ class main_listener implements EventSubscriberInterface
 	{
 		if (strrpos($event['row']['session_page'], 'app.' . $this->php_ext . '/f1webtip') === 0)
 		{
-			$event['location'] = $this->user->lang('VIEWING_F1WEBTIPP');
+			$event['location'] = $this->language->lang('VIEWING_F1WEBTIPP');
 			$event['location_url'] = $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index'));
 		}
 	}
@@ -121,7 +122,7 @@ class main_listener implements EventSubscriberInterface
 
 			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $this->user->data['user_id'] == $this->config['drdeath_f1webtip_mod_id'])
 			{
-				$tippers_rank		= $this->user->lang['FORMEL_PROFILE_NORANK'];
+				$tippers_rank		= $this->language->lang('FORMEL_PROFILE_NORANK');
 				$tippers_points		= 0;
 				$race_done			= 0;
 
@@ -150,7 +151,7 @@ class main_listener implements EventSubscriberInterface
 					{
 						$tippers_points	= $row['total_points'];
 						$race_done		= $row['tips_made'];
-						$tippers_rank	= sprintf($this->user->lang['FORMEL_PROFILE_RANK'], $rank_count);
+						$tippers_rank	= sprintf($this->language->lang('FORMEL_PROFILE_RANK'), $rank_count);
 						break;
 					}
 					$real_rank++;
@@ -170,7 +171,7 @@ class main_listener implements EventSubscriberInterface
 				$this->template->assign_block_vars('f1webtip', array(
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
-					'RACE_DONE'			=> sprintf($this->user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
+					'RACE_DONE'			=> sprintf($this->language->lang('FORMEL_PROFILE_TIPSS'), $race_done, $race_total),
 					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
 				));
 			}
@@ -189,7 +190,7 @@ class main_listener implements EventSubscriberInterface
 
 			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $this->user->data['user_id'] == $this->config['drdeath_f1webtip_mod_id'])
 			{
-				$tippers_rank	= $this->user->lang['FORMEL_PROFILE_NORANK'];
+				$tippers_rank	= $this->language->lang('FORMEL_PROFILE_NORANK');
 				$tippers_points	= 0;
 				$race_done		= 0;
 
@@ -218,7 +219,7 @@ class main_listener implements EventSubscriberInterface
 					{
 						$tippers_points	= $row_f1['total_points'];
 						$race_done		= $row_f1['tips_made'];
-						$tippers_rank	= sprintf($this->user->lang['FORMEL_PROFILE_RANK'], $rank_count);
+						$tippers_rank	= sprintf($this->language->lang('FORMEL_PROFILE_RANK'), $rank_count);
 						break;
 					}
 
@@ -239,7 +240,7 @@ class main_listener implements EventSubscriberInterface
 				$f1webtip = array(
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
-					'RACE_DONE'			=> sprintf($this->user->lang['FORMEL_PROFILE_TIPSS'], $race_done, $race_total),
+					'RACE_DONE'			=> sprintf($this->language->lang('FORMEL_PROFILE_TIPSS'), $race_done, $race_total),
 					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
 					'U_FORMEL_WEB_TIPP'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 				);

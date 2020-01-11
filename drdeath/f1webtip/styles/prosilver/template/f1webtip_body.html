@@ -1,68 +1,11 @@
 {% if not S_USERTIPP %}
 
 {% INCLUDE 'overall_header.html' %}
-<script type="text/javascript">
-// <![CDATA[
-function drivers() {
-	{% if S_QUALI %}
-	var placeses = 22;
-	{% else %}
-	var placeses = 10;
-	{% endif %}
-	//reset all 4 redisplay
-	for (var i = 1; i <= placeses; i++) {
-		var select4redisplay = document.getElementById('place' + i);
-		if (select4redisplay) {
-			for (var j = 0; j < select4redisplay.options.length; j++) {
-				select4redisplay.options[j].disabled = false;
-			}
-		}
-	}
-	//get the ids from selected drivers
-	var val2remove = new Array();
-	for (i = 1; i <= placeses; i++) {
-		var select4hide = document.getElementById('place' + i);
-		if (select4hide) {
-			for (j = 0; j < select4hide.options.length; j++) {
-				if (select4hide.options[j].selected == true) {
-					val2remove[i] = select4hide.options[j].value;
-					break;
-				}
-			}
-		}
-	}
-	//now lets go and hide
-	for (i = 1; i <= placeses; i++) {
-		for (j = 1; j <= placeses; j++) {
-			if (j != i) {
-				select4hide = document.getElementById('place' + i);
-				if (select4hide) {
-					for (var k = 0; k < select4hide.options.length; k++) {
-						if (select4hide.options[k].value == val2remove[j] && val2remove[j] != 0) {
-							select4hide.options[k].disabled = true;
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
-window.onload=function() {
-	drivers();
-}
-// ]]>
-</script>
 
 {% if S_INDEX %}
-<script type="text/javascript">
-// <![CDATA[
-function showtipps(showtipps)
-{
-	window.open(showtipps, "_showtipps", "width=400, height=630, resizable=yes");
-}
-// ]]>
-</script>
+
+{% INCLUDEJS '@drdeath_f1webtip/f1webtip_functions.js' %}
+{{ VAR_PLACES }}
 
 <form id="countdown" action="{{ U_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 	<h2>{{ lang('FORMEL_TITLE') }}</h2>
@@ -71,10 +14,10 @@ function showtipps(showtipps)
 		<div class="inner"><span class="corners-top"><span></span></span>
 
 			<div style="text-align: center;">
-				{% for head_on in loops.head_on %}
+				{% if heads_on %}
 				<div class="responsive-hide"><br/>
 				<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /><br/></div>
-				{% endfor %}
+				{% endif %}
 				<br/>
 				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" 		value="{{ lang('FORMEL_RULES') }}" />&nbsp;&nbsp;
 				{{ U_FORMEL_FORUM }}
@@ -100,15 +43,15 @@ function showtipps(showtipps)
 						</tr>
 					</thead>
 					<tbody>
-						{% for top_tippers in loops.top_tippers %}
-						{% if top_tippers.S_ROW_COUNT is even %}
+						{% for top_tipper in top_tippers %}
+						{% if top_tipper.S_ROW_COUNT is even %}
 						<tr class="bg1">
 						{% else %}
 						<tr class="bg2">
 						{% endif %}
-							<td class="bg2" align="center">&nbsp;{{ top_tippers.RANK }}&nbsp;</td>
-							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{{ top_tippers.TIPPER_NAME }}&nbsp;</td>
-							<td class="bg2" align="center">&nbsp;{{ top_tippers.TIPPER_POINTS }}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{{ top_tipper.RANK }}&nbsp;</td>
+							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{{ top_tipper.TIPPER_NAME }}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{{ top_tipper.TIPPER_POINTS }}&nbsp;</td>
 						</tr>
 						{% endfor %}
 						<tr>
@@ -127,15 +70,15 @@ function showtipps(showtipps)
 						</tr>
 					</thead>
 					<tbody>
-						{% for top_teams in loops.top_teams %}
-						{% if top_teams.S_ROW_COUNT is even %}
+						{% for top_team in top_teams %}
+						{% if top_team.S_ROW_COUNT is even %}
 						<tr class="bg1">
 						{% else %}
 						<tr class="bg2">
 						{% endif %}
-							<td class="bg2" align="center">&nbsp;{{ top_teams.RANK }}&nbsp;</td>
-							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{{ top_teams.WM_TEAMNAME }}&nbsp;</td>
-							<td class="bg2" align="center">&nbsp;{{ top_teams.WM_POINTS }}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{{ top_team.RANK }}&nbsp;</td>
+							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{{ top_team.WM_TEAMNAME }}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{{ top_team.WM_POINTS }}&nbsp;</td>
 						</tr>
 						{% endfor %}
 						<tr>
@@ -154,15 +97,15 @@ function showtipps(showtipps)
 						</tr>
 					</thead>
 					<tbody>
-						{% for top_drivers in loops.top_drivers %}
-						{% if top_drivers.S_ROW_COUNT is even %}
+						{% for top_driver in top_drivers %}
+						{% if top_driver.S_ROW_COUNT is even %}
 						<tr class="bg1">
 						{% else %}
 						<tr class="bg2">
 						{% endif %}
-							<td class="bg2" align="center">&nbsp;{{ top_drivers.RANK }}&nbsp;</td>
-							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{{ top_drivers.WM_DRIVERNAME }}&nbsp;</td>
-							<td class="bg2" align="center">&nbsp;{{ top_drivers.WM_POINTS }}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{{ top_driver.RANK }}&nbsp;</td>
+							<td style="text-align: left; white-space:nowrap; width: 100%;">&nbsp;{{ top_driver.WM_DRIVERNAME }}&nbsp;</td>
+							<td class="bg2" align="center">&nbsp;{{ top_driver.WM_POINTS }}&nbsp;</td>
 						</tr>
 						{% endfor %}
 						<tr>
@@ -177,7 +120,7 @@ function showtipps(showtipps)
 
 	<p style="clear:both;" />
 
-	{% for racerow in loops.racerow %}
+	{% for racerow in racerows %}
 	<h2>{{ lang('FORMEL_CURRENT_RACE') }}:&nbsp;&nbsp;&nbsp;{{ racerow.RACENAME }}</h2>
 
 	<div >
@@ -186,12 +129,12 @@ function showtipps(showtipps)
 			<div class="inner">
 
 					<br/>
-					{% for racegfx in racerow.racegfx %}
+					{% if racegfx %}
 					<div class="responsive-hide" style="text-align: center;">
 						{{ racerow.RACEIMG }}
 						<br/><br/>
 					</div>
-					{% endfor %}
+					{% endif %}
 
 					<div class="column1" style="text-align: center;">
 						<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />
@@ -237,7 +180,7 @@ function showtipps(showtipps)
 							</dd>
 						</dl>
 					</li>
-					{% if S_COUNTDOWN == true %}
+					{% if S_COUNTDOWN %}
 					<li class="row">
 						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt id="time_event" style="display: ; padding: 2px 10px; white-space:nowrap;">
@@ -290,7 +233,7 @@ function showtipps(showtipps)
 						</dl>
 					</li>
 				</ul>
-				{% if S_COUNTDOWN == true %}
+				{% if S_COUNTDOWN %}
 					<script type="text/javascript">countdown();</script>
 				{% endif %}
 				<br/>
@@ -302,7 +245,6 @@ function showtipps(showtipps)
 
 	<p style="clear: both;" />
 
-
 	{% endfor %}
 
 	<div><img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4"/></div>
@@ -311,12 +253,12 @@ function showtipps(showtipps)
 		<div class="inner">
 
 			{{ lang('FORMEL_TIPPS_MADE') }}
-			{% for tipps_made in loops.tipps_made %}
-			<a href="javascript:void(0)" onclick="javascript:showtipps('{{ tipps_made.USERTIPP }}')" {{ tipps_made.STYLE }}>{{ tipps_made.USERNAME }}</a>{{ tipps_made.SEPARATOR }}
+			{% for tipp_made in tipps_made %}
+			<a href="javascript:void(0)" onclick="javascript:showtipps('{{ tipp_made.USERTIPP }}')" {{ tipp_made.STYLE }}>{{ tipp_made.USERNAME }}</a>{{ tipp_made.SEPARATOR }}
 			{% endfor %}
-			{% for no_tipps_made in loops.no_tipps_made %}
+			{% if no_tipps_made %}
 			{{ lang('FORMEL_NO_TIPPS') }}
-			{% endfor %}
+			{% endif %}
 
 		</div>
 	</div>
@@ -336,12 +278,12 @@ function showtipps(showtipps)
 								</tr>
 							</thead>
 							<tbody>
-								{% for no_quali in loops.no_quali %}
+								{% if no_qualifyings %}
 								<tr class="bg1">
 									 <td colspan="2" align="center">{{ lang('FORMEL_NO_QUALI') }}</td>
 								</tr>
-								{% endfor %}
-								{% for qualirow_gfx in loops.qualirow_gfx %}
+								{% endif %}
+								{% for qualirow_gfx in qualirows_gfx %}
 								{% if qualirow_gfx.S_ROW_COUNT < 10 %}
 								<tr class="bg1">
 								{% elseif qualirow_gfx.S_ROW_COUNT < 15 %}
@@ -357,7 +299,7 @@ function showtipps(showtipps)
 									</td>
 								</tr>
 								{% endfor %}
-								{% for qualirow in loops.qualirow %}
+								{% for qualirow in qualirows %}
 								{% if qualirow.S_ROW_COUNT < 10 %}
 								<tr class="bg1">
 								{% elseif qualirow.S_ROW_COUNT < 15 %}
@@ -380,75 +322,75 @@ function showtipps(showtipps)
 								</tr>
 							</thead>
 							<tbody>
-								{% for no_results in loops.no_results %}
+								{% if no_results %}
 								<tr class="bg1">
 									<td colspan="2" align="center">{{ lang('FORMEL_NO_RESULTS') }}</td>
 								</tr>
-								{% endfor %}
-								{% for resultsrow_gfx in loops.resultsrow_gfx %}
-								{% if resultsrow_gfx.S_ROW_COUNT < 3 %}
+								{% endif %}
+								{% for resultrow_gfx in resultsrow_gfx %}
+								{% if resultrow_gfx.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
-									<td align="center">{{ resultsrow_gfx.DRIVERIMG }}</td>
+									<td align="center">{{ resultrow_gfx.DRIVERIMG }}</td>
 									<td align="left" style="white-space:nowrap;">
-										<strong>&nbsp;{{ resultsrow_gfx.L_PLACE }}</strong><br />
-										&nbsp;{{ resultsrow_gfx.DRIVERNAME }}&nbsp;<br />
-										&nbsp;{{ resultsrow_gfx.DRIVERTEAMNAME }}&nbsp;
+										<strong>&nbsp;{{ resultrow_gfx.L_PLACE }}</strong><br />
+										&nbsp;{{ resultrow_gfx.DRIVERNAME }}&nbsp;<br />
+										&nbsp;{{ resultrow_gfx.DRIVERTEAMNAME }}&nbsp;
 									</td>
 								</tr>
 								{% endfor %}
-								{% for resultsrow in loops.resultsrow %}
-								{% if resultsrow.S_ROW_COUNT < 3 %}
+								{% for resultrow in resultsrow %}
+								{% if resultrow.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
-									<td align="right"><strong>&nbsp;{{ resultsrow.L_PLACE }}</strong></td>
-									<td align="left" style="white-space:nowrap;">&nbsp;{{ resultsrow.DRIVERNAME }}&nbsp;</td>
+									<td align="right"><strong>&nbsp;{{ resultrow.L_PLACE }}</strong></td>
+									<td align="left" style="white-space:nowrap;">&nbsp;{{ resultrow.DRIVERNAME }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_results in loops.extended_results %}
+								{% for extended_result in extended_results %}
 								<tr class="bg1">
 									<td align="right">&nbsp;<strong>{{ lang('FORMEL_PACE') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_results.PACE }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_result.PACE }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right">&nbsp;<strong>{{ lang('FORMEL_TIRED') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_results.TIRED }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_result.TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right">&nbsp;<strong>{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_results.SAFETYCAR }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_result.SAFETYCAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_results_gfx in loops.extended_results_gfx %}
+								{% for extended_result_gfx in extended_results_gfx %}
 								<tr class="bg1">
 									<td align="right">&nbsp;<strong>{{ lang('FORMEL_PACE') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_results_gfx.PACE }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_result_gfx.PACE }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right">&nbsp;<strong>{{ lang('FORMEL_TIRED') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_results_gfx.TIRED }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_result_gfx.TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right">&nbsp;<strong>{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_results_gfx.SAFETYCAR }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_result_gfx.SAFETYCAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_results in loops.extended_results %}
+								{% if extended_results %}
 								<tr class="bg1">
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
-								{% endfor %}
-								{% for extended_results_gfx in loops.extended_results_gfx %}
+								{% endif %}
+								{% if extended_results_gfx %}
 								<tr class="bg1">
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
-								{% endfor %}
+								{% endif %}
 							</tbody>
 						</table>
 					</td>
@@ -460,67 +402,67 @@ function showtipps(showtipps)
 								</tr>
 							</thead>
 							<tbody>
-								{% for users_tipp in loops.users_tipp %}
-								{% if users_tipp.S_ROW_COUNT < 3 %}
+								{% for user_tipp in users_tipp %}
+								{% if user_tipp.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
-									<td  align="right"><strong>&nbsp;{{ users_tipp.L_PLACE }}:</strong></td>
-									<td style="white-space:nowrap;" align="left">&nbsp;{{ users_tipp.DRIVERCOMBO }}&nbsp;</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ users_tipp.SINGLE_POINTS }}&nbsp;</td>
+									<td  align="right"><strong>&nbsp;{{ user_tipp.L_PLACE }}:</strong></td>
+									<td style="white-space:nowrap;" align="left">&nbsp;{{ user_tipp.DRIVERCOMBO }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ user_tipp.SINGLE_POINTS }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for gfx_users_tipp in loops.gfx_users_tipp %}
-								{% if gfx_users_tipp.S_ROW_COUNT < 3 %}
+								{% for gfx_user_tipp in gfx_users_tipp %}
+								{% if gfx_user_tipp.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
-									<td  align="right">{{ gfx_users_tipp.GFXDRIVERCOMBO }}</td>
+									<td  align="right">{{ gfx_user_tipp.GFXDRIVERCOMBO }}</td>
 									<td style="white-space:nowrap;" align="left">
-										<strong>{{ gfx_users_tipp.L_PLACE }}</strong>
-										&nbsp;{{ gfx_users_tipp.DRIVERCOMBO }}
-										{{ gfx_users_tipp.DRIVERTEAMNAME }}
+										<strong>{{ gfx_user_tipp.L_PLACE }}</strong>
+										&nbsp;{{ gfx_user_tipp.DRIVERCOMBO }}
+										{{ gfx_user_tipp.DRIVERTEAMNAME }}
 									</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ gfx_users_tipp.SINGLE_POINTS }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ gfx_user_tipp.SINGLE_POINTS }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_users_tipp in loops.extended_users_tipp %}
+								{% for extended_user_tipp in extended_users_tipp %}
 								<tr class="bg1">
 									<td  align="right"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:</strong></td>
-									<td  align="left">&nbsp;{{ extended_users_tipp.DRIVERCOMBO }}&nbsp;</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ extended_users_tipp.SINGLE_FASTEST }}&nbsp;</td>
+									<td  align="left">&nbsp;{{ extended_user_tipp.DRIVERCOMBO }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ extended_user_tipp.SINGLE_FASTEST }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_users_tipp.TIREDCOMBO }}&nbsp;</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ extended_users_tipp.SINGLE_TIRED }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_user_tipp.TIREDCOMBO }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ extended_user_tipp.SINGLE_TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_users_tipp.SAFETYCARCOMBO }}&nbsp;</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ extended_users_tipp.SINGLE_SAFETY_CAR }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_user_tipp.SAFETYCARCOMBO }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ extended_user_tipp.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_users_tipp_gfx in loops.extended_users_tipp_gfx %}
+								{% for extended_user_tipp_gfx in extended_users_tipp_gfx %}
 								<tr class="bg1">
 									<td align="right"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_users_tipp_gfx.DRIVERCOMBO }}&nbsp;</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ extended_users_tipp_gfx.SINGLE_FASTEST }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_user_tipp_gfx.DRIVERCOMBO }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ extended_user_tipp_gfx.SINGLE_FASTEST }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_users_tipp_gfx.TIREDCOMBO }}&nbsp;</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ extended_users_tipp_gfx.SINGLE_TIRED }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_user_tipp_gfx.TIREDCOMBO }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ extended_user_tipp_gfx.SINGLE_TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td align="right"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
-									<td align="left">&nbsp;{{ extended_users_tipp_gfx.SAFETYCARCOMBO }}&nbsp;</td>
-									<td class="responsive-hide" align="center">&nbsp;{{ extended_users_tipp_gfx.SINGLE_SAFETY_CAR }}&nbsp;</td>
+									<td align="left">&nbsp;{{ extended_user_tipp_gfx.SAFETYCARCOMBO }}&nbsp;</td>
+									<td class="responsive-hide" align="center">&nbsp;{{ extended_user_tipp_gfx.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for add_tipp in loops.add_tipp %}
+								{% for add_tipp in add_tipps %}
 								{% if add_tipp.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
 								{% else %}
@@ -531,7 +473,7 @@ function showtipps(showtipps)
 									<td align="left">&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_add_tipp in loops.extended_add_tipp %}
+								{% for extended_add_tipp in extended_add_tipps %}
 								<tr class="bg1">
 									<td align="right"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:</strong></td>
 
@@ -549,18 +491,18 @@ function showtipps(showtipps)
 									<td align="left">&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_results in loops.extended_results %}
+								{% for extended_result in extended_results %}
 								<tr class="bg1">
 									<td align="right"><span style="color:#009900"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
 									<td class="responsive-hide" align="left">&nbsp;</td>
-									<td align="center"><span style="color:#009900"><strong>&nbsp;{{ extended_results.YOUR_POINTS }}</strong></span></td>
+									<td align="center"><span style="color:#009900"><strong>&nbsp;{{ extended_result.YOUR_POINTS }}</strong></span></td>
 								</tr>
 								{% endfor %}
-								{% for extended_results_gfx in loops.extended_results_gfx %}
+								{% for extended_result_gfx in extended_results_gfx %}
 								<tr class="bg1">
 									<td align="right"><span style="color:#009900"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
 									<td class="responsive-hide" align="left">&nbsp;</td>
-									<td align="center"><span style="color:#009900"><strong>&nbsp;{{ extended_results_gfx.YOUR_POINTS }}</strong></span></td>
+									<td align="center"><span style="color:#009900"><strong>&nbsp;{{ extended_result_gfx.YOUR_POINTS }}</strong></span></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -575,14 +517,14 @@ function showtipps(showtipps)
 			<input type="hidden" name="racename" value="{{ RACENAME }}" />
 			{{ S_FORM_TOKEN }}
 
-			{% for place_tipp in loops.place_tipp %}
+			{% for place_tipp in place_tipps %}
 			<br />
 			<div class="navbar bg3" style="text-align: center;"><br /><input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />{{ place_tipp.DELETE_TIPP }}<br /><br /></div>
 			{% endfor %}
-			{% for game_over in loops.game_over %}
+			{% if games_over %}
 			<br />
 			<div class="navbar bg3" style="text-align: center;"><br />{{ lang('FORMEL_GAME_OVER') }}<br /><br /></div>
-			{% endfor %}
+			{% endif %}
 
 		</div>
 	</div>
@@ -607,7 +549,7 @@ function showtipps(showtipps)
 				</tr>
 			</thead>
 			<tbody>
-			{% for racerow_gfxr in loops.racerow_gfxr %}
+			{% for racerow_gfxr in racerows_gfxr %}
 				{% if racerow_gfxr.S_ROW_COUNT is even %}
 				<tr class="bg1">
 				{% else %}
@@ -643,7 +585,7 @@ function showtipps(showtipps)
 					</td>
 				</tr>
 			{% endfor %}
-			{% for racerow in loops.racerow %}
+			{% for racerow in racerows %}
 				{% if racerow.S_ROW_COUNT is even %}
 				<tr class="bg1">
 				{% else %}
@@ -683,6 +625,10 @@ function showtipps(showtipps)
 
 
 {% if S_ADDRESULTS %}
+
+{% INCLUDEJS '@drdeath_f1webtip/f1webtip_functions.js' %}
+{{ VAR_PLACES }}
+
 <h2>{{ lang('FORMEL_RESULTS_TITLE') }}</h2>
 {{ lang('FORMEL_RESULTS_TITLE_EXP') }}
 
@@ -691,15 +637,15 @@ function showtipps(showtipps)
 
 		<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 			<table class="table1">
-				{% for quali in loops.quali %}
+				{% if qualifications %}
 				<thead>
 					<tr>
 						<th colspan="2"><strong>{{ lang('FORMEL_RESULTS_QUALI_TITLE') }}</strong></th>
 					</tr>
 				</thead>
 				<tbody>
-				{% endfor %}
-				{% for qualirow in loops.qualirow %}
+				{% endif %}
+				{% for qualirow in qualirows %}
 					{% if qualirow.S_ROW_COUNT < 10 %}
 					<tr class="bg1">
 					{% elseif qualirow.S_ROW_COUNT < 15 %}
@@ -711,20 +657,20 @@ function showtipps(showtipps)
 						<td style="width: 50%;" align="left"  valign="middle">&nbsp;{{ qualirow.DRIVERCOMBO }}</td>
 					</tr>
 				{% endfor %}
-				{% for quali in loops.quali %}
+				{% if qualifications %}
 					<tr>
 						<td style="white-space:nowrap;" class="bg3" align="center" colspan="2" valign="middle">&nbsp;<input class="button1" type="submit" name="addquali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;</td>
 					</tr>
-				{% endfor %}
-				{% for result in loops.result %}
+				{% endif %}
+				{% if results %}
 				<thead>
 					<tr>
 						<th colspan="2"><strong>{{ lang('FORMEL_RESULTS_RESULT_TITLE') }}</strong></th>
 					</tr>
 				</thead>
 				<tbody>
-				{% endfor %}
-				{% for resultrow in loops.resultrow %}
+				{% endif %}
+				{% for resultrow in resultsrow %}
 					{% if resultrow.S_ROW_COUNT < 3 %}
 					<tr class="bg1">
 					{% else %}
@@ -734,7 +680,7 @@ function showtipps(showtipps)
 						<td style="width: 50%;" align="left">&nbsp;{{ resultrow.DRIVERCOMBO }}</td>
 					</tr>
 					{% endfor %}
-					{% for result in loops.result %}
+					{% for result in results %}
 					<tr class="bg1">
 						<td style="width: 50%;" align="right">{{ lang('FORMEL_PACE') }}&nbsp;</td>
 						<td style="width: 50%;" align="left">&nbsp;{{ result.PACECOMBO }}</td>
@@ -780,10 +726,10 @@ function showtipps(showtipps)
 	<div class="inner">
 
 		<div style="text-align: center;">
-			{% for head_on in loops.head_on %}
+			{% if heads_on %}
 			<div class="responsive-hide"><br/>
 			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
-			{% endfor %}
+			{% endif %}
 			<br/>
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
@@ -850,10 +796,10 @@ function showtipps(showtipps)
 	<div class="inner">
 
 		<div style="text-align: center;">
-			{% for head_on in loops.head_on %}
+			{% if heads_on %}
 			<div class="responsive-hide"><br/>
 			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
-			{% endfor %}
+			{% endif %}
 			<br/><br/>
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
@@ -875,12 +821,12 @@ function showtipps(showtipps)
 	<div class="inner">
 
 		<table class="table1 tablef1">
-			{% for top_tippers in loops.top_tippers %}
-			{% if top_tippers.S_ROW_COUNT == 0 %}
+			{% for top_tipper in top_tippers %}
+			{% if top_tipper.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th ><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
-					{% if top_tippers.S_AVATAR_SWITCH == true %}
+					{% if top_tipper.S_AVATAR_SWITCH == true %}
 					<th align="center"><strong>{{ lang('USER_AVATAR') }}</strong></th>
 					{% endif %}
 					<th align="center"><strong>{{ lang('USERNAME') }}</strong></th>
@@ -889,22 +835,22 @@ function showtipps(showtipps)
 			</thead>
 			<tbody>
 			{% endif %}
-				{% if top_tippers.S_ROW_COUNT < 3 %}
+				{% if top_tipper.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-					<td align="center" valign="middle">{{ top_tippers.RANK }}</td>
-					{% if top_tippers.S_AVATAR_SWITCH == true %}
-					<td style="width: {{ top_tippers.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tippers.TIPPER_AVATAR_HEIGHT }}; text-align: center;" valign="middle">{{ top_tippers.TIPPER_AVATAR }}</td>
+					<td align="center" valign="middle">{{ top_tipper.RANK }}</td>
+					{% if top_tipper.S_AVATAR_SWITCH == true %}
+					<td style="width: {{ top_tippers.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tippers.TIPPER_AVATAR_HEIGHT }}; text-align: center;" valign="middle">{{ top_tipper.TIPPER_AVATAR }}</td>
 					{% endif %}
-					<td style="white-space:nowrap;" align="center" valign="middle">{{ top_tippers.TIPPER_NAME }}</td>
-					<td align="center" valign="middle" >{{ top_tippers.TIPPER_POINTS }}</td>
+					<td style="white-space:nowrap;" align="center" valign="middle">{{ top_tipper.TIPPER_NAME }}</td>
+					<td align="center" valign="middle" >{{ top_tipper.TIPPER_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
-			{% for top_drivers_gfx in loops.top_drivers_gfx %}
-			{% if top_drivers_gfx.S_ROW_COUNT == 0 %}
+			{% for top_driver_gfx in top_drivers_gfx %}
+			{% if top_driver_gfx.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th align="center"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
@@ -917,22 +863,22 @@ function showtipps(showtipps)
 			</thead>
 			<tbody>
 			{% endif %}
-				{% if top_drivers_gfx.S_ROW_COUNT < 3 %}
+				{% if top_driver_gfx.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-					<td align="center" valign="middle">{{ top_drivers_gfx.RANK }}</td>
-					<td valign="middle" align="center">&nbsp;{{ top_drivers_gfx.WM_DRIVERTEAM }}&nbsp;</td>
-					<td valign="middle" align="center">&nbsp;{{ top_drivers_gfx.WM_DRIVERCAR }}&nbsp;</td>
-					<td valign="middle" align="center">&nbsp;{{ top_drivers_gfx.WM_DRIVERIMG }}&nbsp;</td>
-					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{{ top_drivers_gfx.WM_DRIVERNAME }}</td>
-					<td align="center" valign="middle">{{ top_drivers_gfx.WM_POINTS }}</td>
+					<td align="center" valign="middle">{{ top_driver_gfx.RANK }}</td>
+					<td valign="middle" align="center">&nbsp;{{ top_driver_gfx.WM_DRIVERTEAM }}&nbsp;</td>
+					<td valign="middle" align="center">&nbsp;{{ top_driver_gfx.WM_DRIVERCAR }}&nbsp;</td>
+					<td valign="middle" align="center">&nbsp;{{ top_driver_gfx.WM_DRIVERIMG }}&nbsp;</td>
+					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{{ top_driver_gfx.WM_DRIVERNAME }}</td>
+					<td align="center" valign="middle">{{ top_driver_gfx.WM_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
-			{% for top_drivers in loops.top_drivers %}
-			{% if top_drivers.S_ROW_COUNT == 0 %}
+			{% for top_driver in top_drivers %}
+			{% if top_driver.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th align="center"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
@@ -942,19 +888,19 @@ function showtipps(showtipps)
 			</thead>
 			<tbody>
 			{% endif %}
-				{% if top_drivers.S_ROW_COUNT < 3 %}
+				{% if top_driver.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-					<td align="center">{{ top_drivers.RANK }}</td>
-					<td align="center" style="width: 50%; white-space: nowrap;">&nbsp;{{ top_drivers.WM_DRIVERNAME }}</td>
-					<td align="center">{{ top_drivers.WM_POINTS }}</td>
+					<td align="center">{{ top_driver.RANK }}</td>
+					<td align="center" style="width: 50%; white-space: nowrap;">&nbsp;{{ top_driver.WM_DRIVERNAME }}</td>
+					<td align="center">{{ top_driver.WM_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
-			{% for top_teams_gfx in loops.top_teams_gfx %}
-			{% if top_teams_gfx.S_ROW_COUNT == 0 %}
+			{% for top_team_gfx in top_teams_gfx %}
+			{% if top_team_gfx.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th align="center"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
@@ -966,21 +912,21 @@ function showtipps(showtipps)
 			</thead>
 			<tbody>
 			{% endif %}
-				{% if top_teams_gfx.S_ROW_COUNT < 3 %}
+				{% if top_team_gfx.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-					<td align="center" valign="middle">{{ top_teams_gfx.RANK }}</td>
-					<td align="center" valign="middle">{{ top_teams_gfx.WM_TEAMIMG }}</td>
-					<td align="center" valign="middle">{{ top_teams_gfx.WM_TEAMCAR }}</td>
-					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{{ top_teams_gfx.WM_TEAMNAME }}</td>
-					<td align="center" valign="middle">{{ top_teams_gfx.WM_POINTS }}</td>
+					<td align="center" valign="middle">{{ top_team_gfx.RANK }}</td>
+					<td align="center" valign="middle">{{ top_team_gfx.WM_TEAMIMG }}</td>
+					<td align="center" valign="middle">{{ top_team_gfx.WM_TEAMCAR }}</td>
+					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{{ top_team_gfx.WM_TEAMNAME }}</td>
+					<td align="center" valign="middle">{{ top_team_gfx.WM_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
-			{% for top_teams in loops.top_teams %}
-			{% if top_teams.S_ROW_COUNT == 0 %}
+			{% for top_team in top_teams %}
+			{% if top_team.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th align="center"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
@@ -990,14 +936,14 @@ function showtipps(showtipps)
 			</thead>
 			<tbody>
 			{% endif %}
-				{% if top_teams.S_ROW_COUNT < 3 %}
+				{% if top_team.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-					<td align="center" valign="middle">{{ top_teams.RANK }}</td>
-					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{{ top_teams.WM_TEAMNAME }}</td>
-					<td align="center" valign="middle">{{ top_teams.WM_POINTS }}</td>
+					<td align="center" valign="middle">{{ top_team.RANK }}</td>
+					<td align="center" style="width: 50%; white-space: nowrap;" valign="middle">&nbsp;{{ top_team.WM_TEAMNAME }}</td>
+					<td align="center" valign="middle">{{ top_team.WM_POINTS }}</td>
 				</tr>
 			{% endfor %}
 			</tbody>
@@ -1020,7 +966,9 @@ Please leave the copyright information at the bottom of your page for our mod.
 Please donate via paypal.me
 //-->
 <div style="text-align: center;">
-	<a href="https://www.paypal.me/stefantemath"><img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.png" border="0" alt="PayPal - The safer, easier way to pay online!"  /></a>
+	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F4HV6U5LZFBMN&source=url&item_name=Formel+1+Web+Tipp">
+		<img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.gif" border="0" alt="PayPal - The safer, easier way to pay online!" />
+	</a>
 </div>
 <br />
 
@@ -1031,7 +979,7 @@ Please donate via paypal.me
 
 {% if S_USERTIPP %}
 {% INCLUDE 'simple_header.html' %}
-<div class="forumbg">
+<div>
 	<div class="inner">
 		<table class="tablef1">
 			<thead>
@@ -1042,23 +990,23 @@ Please donate via paypal.me
 				</tr>
 			</thead>
 			<tbody>
-				{% for user_tipp in loops.user_tipp %}
+				{% for user_tipp in user_tipps %}
 				<tr class="bg3">
 					<td colspan="3" align="center">{{ user_tipp.TIPPER }}</td>
 				</tr>
 				{% endfor %}
-				{% for user_drivers in loops.user_drivers %}
-				{% if user_drivers.S_ROW_COUNT < 3 %}
+				{% for user_driver in user_drivers %}
+				{% if user_driver.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-					<td style="width: 30%;" align="right"><strong>&nbsp;{{ user_drivers.POSITION }}:&nbsp;</strong></td>
-					<td style="width: 50%;">&nbsp;{{ user_drivers.DRIVER_PLACED }}&nbsp;</td>
-					<td style="width: 20%;">&nbsp;{{ user_drivers.SINGLE_POINTS }}&nbsp;</td>
+					<td style="width: 30%;" align="right"><strong>&nbsp;{{ user_driver.POSITION }}:&nbsp;</strong></td>
+					<td style="width: 50%;">&nbsp;{{ user_driver.DRIVER_PLACED }}&nbsp;</td>
+					<td style="width: 20%;">&nbsp;{{ user_driver.SINGLE_POINTS }}&nbsp;</td>
 				</tr>
 				{% endfor %}
-				{% for user_tipp in loops.user_tipp %}
+				{% for user_tipp in user_tipps %}
 				<tr class="bg1">
 					<td style="width: 30%;" align="right"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:&nbsp;</strong></td>
 					<td style="width: 50%;">&nbsp;{{ user_tipp.FASTEST_DRIVER }}&nbsp;</td>
@@ -1086,11 +1034,11 @@ Please donate via paypal.me
 					<td style="width: 50%;" align="left" colspan="2">&nbsp;{{ user_tipp.ALL_POINTS }}&nbsp;</td>
 				</tr>
 				{% endfor %}
-				{% for no_tipp in loops.no_tipp %}
+				{% if no_tipps %}
 				<tr>
 					<td class="row1" align="center" colspan="2">&nbsp;{{ lang('FORMEL_NO_TIPP') }}&nbsp;</td>
 				</tr>
-				{% endfor %}
+				{% endif %}
 			</tbody>
 		</table>
 		<br />

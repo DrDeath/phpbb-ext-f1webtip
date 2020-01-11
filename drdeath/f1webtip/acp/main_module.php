@@ -15,7 +15,7 @@ class main_module
 
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $template, $request;
+		global $db, $config, $user, $template, $request, $language;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_log;
 
 		$ext_path = $phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true);
@@ -38,7 +38,7 @@ class main_module
 			###########################
 			case 'settings':
 
-				$this->page_title = $user->lang('ACP_F1_SETTINGS');
+				$this->page_title = $language->lang('ACP_F1_SETTINGS');
 
 				//
 				// Reset F1 Season
@@ -84,13 +84,13 @@ class main_module
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_SAISON_RESET');
 
-						$error = $user->lang['ACP_F1_SETTINGS_SEASON_RESETTED'];
+						$error = $language->lang('ACP_F1_SETTINGS_SEASON_RESETTED');
 						trigger_error($error . adm_back_link($this->u_action));
 					}
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $user->lang['ACP_F1_SETTINGS_SEASON_RESET_EXPLAIN'], build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_SETTINGS_SEASON_RESET_EXPLAIN'), build_hidden_fields(array(
 							'reset_all'				=> true,
 							))
 						, 'confirm_body.html');
@@ -168,7 +168,7 @@ class main_module
 					$config->set('drdeath_f1webtip_team_img_height', 	$request->variable('team_img_height', 	$config['drdeath_f1webtip_team_img_height']));
 					$config->set('drdeath_f1webtip_team_img_width', 	$request->variable('team_img_width', 	$config['drdeath_f1webtip_team_img_width']));
 
-					trigger_error($user->lang('ACP_F1WEBTIP_SETTING_SAVED') . adm_back_link($this->u_action));
+					trigger_error($language->lang('ACP_F1WEBTIP_SETTING_SAVED') . adm_back_link($this->u_action));
 				}
 
 				//
@@ -239,7 +239,7 @@ class main_module
 				// Generate groups combobox
 				$selected = ($config['drdeath_f1webtip_restrict_to'] == 0) ? 'selected' : '';
 				$group_combo	 = '<select name="restrict_to">';
-				$group_combo	.= '<option value="0" ' . $selected . '>' . $user->lang['ACP_F1_SETTINGS_DEACTIVATED'] . '</option>';
+				$group_combo	.= '<option value="0" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_DEACTIVATED') . '</option>';
 				$group_combo	.= $combo_groups_entries;
 				$group_combo	.= '</select>';
 
@@ -266,7 +266,7 @@ class main_module
 				// Generate forums combobox
 				$selected		 = ($config['drdeath_f1webtip_forum_id'] == 0) ? 'selected' : '';
 				$forums_combo	 = '<select name="forum_id">';
-				$forums_combo	.= '<option value="0" ' . $selected . '>' . $user->lang['ACP_F1_SETTINGS_DEACTIVATED'] . '</option>';
+				$forums_combo	.= '<option value="0" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_DEACTIVATED') . '</option>';
 				$forums_combo	.= $combo_forums_entries;
 				$forums_combo	.= '</select>';
 
@@ -338,7 +338,7 @@ class main_module
 			##########################
 			case 'drivers':
 
-				$this->page_title = $user->lang('ACP_F1_DRIVERS');
+				$this->page_title = $language->lang('ACP_F1_DRIVERS');
 
 				$reset_all = (isset($_POST['reset_all'])) ? true : false;
 
@@ -371,13 +371,13 @@ class main_module
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
 
-						$error = $user->lang['ACP_F1_DRIVERS_DRIVER_DELETED'];
+						$error = $language->lang('ACP_F1_DRIVERS_DRIVER_DELETED');
 						trigger_error($error . adm_back_link($this->u_action));
 					}
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, sprintf($user->lang['ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM'], $drivername), build_hidden_fields(array(
+						confirm_box(false, sprintf($language->lang('ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM'), $drivername), build_hidden_fields(array(
 							'del'				=> true,
 							'driver_id'			=> $driver_id,
 							'drivername'		=> $drivername,
@@ -448,7 +448,7 @@ class main_module
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
 					}
 
-					$error = $user->lang['ACP_F1_DRIVERS_DRIVER_UPDATED'];
+					$error = $language->lang('ACP_F1_DRIVERS_DRIVER_UPDATED');
 					trigger_error($error . adm_back_link($this->u_action));
 				}
 
@@ -463,21 +463,21 @@ class main_module
 					// Create error messages
 					if ($button_add && $drivername == '')
 					{
-						$error	 = $user->lang['ACP_F1_DRIVERS_ERROR_DRIVERNAME'];
-						$error	.= ($button_add && $driverimg == '') ? '<br />' . $user->lang['ACP_F1_DRIVERS_ERROR_IMAGE'] : '';
+						$error	 = $language->lang('ACP_F1_DRIVERS_ERROR_DRIVERNAME');
+						$error	.= ($button_add && $driverimg == '') ? '<br />' . $language->lang('ACP_F1_DRIVERS_ERROR_IMAGE') : '';
 						trigger_error($error . adm_back_link($this->u_action));
 					}
 
 					// Init some vars
-					$title_exp 	= $user->lang['ACP_F1_DRIVERS_TITEL_ADD_DRIVER_EXPLAIN'];
-					$title 		= $user->lang['ACP_F1_DRIVERS_TITEL_ADD_DRIVER'];
+					$title_exp 	= $language->lang('ACP_F1_DRIVERS_TITEL_ADD_DRIVER_EXPLAIN');
+					$title 		= $language->lang('ACP_F1_DRIVERS_TITEL_ADD_DRIVER');
 
 					// Load initial values
 					if ($button_edit || ($button_add && $drivername == ''))
 					{
 						// overwrites the "add driver" title and sets the "edit driver" title
-						$title_exp 	= $user->lang['ACP_F1_DRIVERS_TITEL_EDIT_DRIVER_EXPLAIN']; // overwrites the "add driver" title and sets the "edit driver" title
-						$title 		= $user->lang['ACP_F1_DRIVERS_TITEL_EDIT_DRIVER'];
+						$title_exp 	= $language->lang('ACP_F1_DRIVERS_TITEL_EDIT_DRIVER_EXPLAIN'); // overwrites the "add driver" title and sets the "edit driver" title
+						$title 		= $language->lang('ACP_F1_DRIVERS_TITEL_EDIT_DRIVER');
 
 						// Get drivers data
 						$sql = 'SELECT *
@@ -588,27 +588,27 @@ class main_module
 
 						if ($config['drdeath_f1webtip_show_gfx'] == 1)
 						{
-							$template->assign_block_vars('driverrow_gfx', array(
+							$template->assign_block_vars('driverrows_gfx', array(
 								'DRIVERNAME'		=> $row['driver_name'],
 								'DRIVERID'			=> $row['driver_id'],
 								'DRIVERIMG'			=> $driverimg,
 								'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
 								'DRIVERPOINTS'		=> $points,
 								'DRIVER_PENALTY'	=> $driver_penalty,
-								'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $user->lang['NO'] : $user->lang['YES'],
+								'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $language->lang('NO') : $language->lang('YES'),
 								)
 							);
 						}
 						else
 						{
-							$template->assign_block_vars('driverrow', array(
+							$template->assign_block_vars('driverrows', array(
 								'DRIVERNAME'		=> $row['driver_name'],
 								'DRIVERID'			=> $row['driver_id'],
 								'DRIVERIMG'			=> $driverimg,
 								'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
 								'DRIVERPOINTS'		=> $points,
 								'DRIVER_PENALTY'	=> $driver_penalty,
-								'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $user->lang['NO'] : $user->lang['YES'],
+								'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $language->lang('NO') : $language->lang('YES'),
 								)
 							);
 						}
@@ -641,7 +641,7 @@ class main_module
 			##########################
 			case 'teams':
 
-				$this->page_title = $user->lang('ACP_F1_TEAMS');
+				$this->page_title = $language->lang('ACP_F1_TEAMS');
 
 				$lang = 'ACP_F1_TEAMS';
 
@@ -672,13 +672,13 @@ class main_module
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($teamname . ' (ID ' . $team_id . ')' ));
 
-						$error = $user->lang['ACP_F1_TEAMS_TEAM_DELETED'];
+						$error = $language->lang('ACP_F1_TEAMS_TEAM_DELETED');
 						trigger_error($error . adm_back_link($this->u_action));
 					}
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, sprintf($user->lang['ACP_F1_TEAMS_TEAM_DELETE_CONFIRM'], $teamname), build_hidden_fields(array(
+						confirm_box(false, sprintf($language->lang('ACP_F1_TEAMS_TEAM_DELETE_CONFIRM'), $teamname), build_hidden_fields(array(
 							'del'				=> true,
 							'team_id'			=> $team_id,
 							'teamname'			=> $teamname,
@@ -746,7 +746,7 @@ class main_module
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_EDITED', false, array($teamname . ' (ID ' . $team_id . ')' ));
 					}
 
-					$error = $user->lang['ACP_F1_TEAMS_TEAM_UPDATED'];
+					$error = $language->lang('ACP_F1_TEAMS_TEAM_UPDATED');
 					trigger_error($error . adm_back_link($this->u_action));
 				}
 
@@ -758,19 +758,19 @@ class main_module
 				{
 					if ($button_add && $teamname == '')
 					{
-						$error  = $user->lang['ACP_F1_TEAMS_ERROR_TEAMNAME'];
+						$error  = $language->lang('ACP_F1_TEAMS_ERROR_TEAMNAME');
 						trigger_error($error . adm_back_link($this->u_action));
 					}
 
 					// Init some vars
-					$title_exp = $user->lang['ACP_F1_TEAMS_ADDTEAM_TITLE_EXPLAIN'];
-					$title = $user->lang['ACP_F1_TEAMS_ADDTEAM_TITLE'];
+					$title_exp = $language->lang('ACP_F1_TEAMS_ADDTEAM_TITLE_EXPLAIN');
+					$title = $language->lang('ACP_F1_TEAMS_ADDTEAM_TITLE');
 
 					// Load values
 					if ($button_edit)
 					{
-						$title_exp = $user->lang['ACP_F1_TEAMS_EDITTEAM_TITLE_EXPLAIN'];
-						$title = $user->lang['ACP_F1_TEAMS_EDITTEAM_TITLE'];
+						$title_exp = $language->lang('ACP_F1_TEAMS_EDITTEAM_TITLE_EXPLAIN');
+						$title = $language->lang('ACP_F1_TEAMS_EDITTEAM_TITLE');
 
 						$sql = 'SELECT *
 							FROM ' . $table_teams . '
@@ -837,7 +837,7 @@ class main_module
 
 						if ($config['drdeath_f1webtip_show_gfx'] == 1)
 						{
-							$template->assign_block_vars('teamrow_gfx', array(
+							$template->assign_block_vars('teamrows_gfx', array(
 								'TEAMNAME'		=> $row['team_name'],
 								'TEAMID'		=> $row['team_id'],
 								'POINTS'		=> $points,
@@ -849,7 +849,7 @@ class main_module
 						}
 						else
 						{
-							$template->assign_block_vars('teamrow', array(
+							$template->assign_block_vars('teamrows', array(
 								'TEAMNAME'		=> $row['team_name'],
 								'TEAMID'		=> $row['team_id'],
 								'POINTS'		=> $points,
@@ -887,7 +887,7 @@ class main_module
 			##########################
 			case 'races':
 
-				$this->page_title = $user->lang('ACP_F1_RACES');
+				$this->page_title = $language->lang('ACP_F1_RACES');
 
 				// Check buttons & data
 				$button_addrace = $request->is_set_post('addrace');
@@ -926,13 +926,13 @@ class main_module
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, array($racename . ' (ID ' . $race_id . ')' ));
 
-						$error = $user->lang['ACP_F1_RACES_RACE_DELETED'];
+						$error = $language->lang('ACP_F1_RACES_RACE_DELETED');
 						trigger_error($error . adm_back_link($this->u_action));
 						}
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, sprintf($user->lang['ACP_F1_RACES_RACE_DELETE_CONFIRM'], $racename), build_hidden_fields(array(
+						confirm_box(false, sprintf($language->lang('ACP_F1_RACES_RACE_DELETE_CONFIRM'), $racename), build_hidden_fields(array(
 							'del'				=> true,
 							'race_id'			=> $race_id,
 							'racename'			=> $racename,
@@ -948,7 +948,7 @@ class main_module
 				// Check if a race location is given
 				if ($button_add && $racename == '')
 				{
-					$error  = $user->lang['ACP_F1_RACES_ERROR_RACENAME'];
+					$error  = $language->lang('ACP_F1_RACES_ERROR_RACENAME');
 					trigger_error($error . adm_back_link($this->u_action));
 				}
 
@@ -1023,7 +1023,7 @@ class main_module
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_EDITED', false, array($racename . ' (ID ' . $race_id . ')' ));
 					}
 
-					$error = $user->lang['ACP_F1_RACES_RACE_UPDATED'];
+					$error = $language->lang('ACP_F1_RACES_RACE_UPDATED');
 					trigger_error($error . adm_back_link($this->u_action));
 				}
 
@@ -1033,14 +1033,14 @@ class main_module
 
 				if ($button_addrace || ($button_edit && $race_id <> 0) || ($button_add && $racename == ''))
 				{
-					$title_exp 	= $user->lang['ACP_F1_RACES_TITEL_ADD_RACE_EXPLAIN'];
-					$title 		= $user->lang['ACP_F1_RACES_TITEL_ADD_RACE'];
+					$title_exp 	= $language->lang('ACP_F1_RACES_TITEL_ADD_RACE_EXPLAIN');
+					$title 		= $language->lang('ACP_F1_RACES_TITEL_ADD_RACE');
 
 					// Load values
 					if ($button_edit)
 					{
-						$title_exp 		= $user->lang['ACP_F1_RACES_TITEL_EDIT_RACE_EXPLAIN'];
-						$title 			= $user->lang['ACP_F1_RACES_TITEL_EDIT_RACE'];
+						$title_exp 		= $language->lang('ACP_F1_RACES_TITEL_EDIT_RACE_EXPLAIN');
+						$title 			= $language->lang('ACP_F1_RACES_TITEL_EDIT_RACE');
 
 						$sql 			= '	SELECT *
 											FROM ' . $table_races . '
@@ -1162,7 +1162,7 @@ class main_module
 
 						if ($config['drdeath_f1webtip_show_gfxr'] == 1)
 						{
-							$template->assign_block_vars('racerow_gfxr', array(
+							$template->assign_block_vars('racerows_gfxr', array(
 								'RACEIMG' 	=> $race_img,
 								'RACENAME' 	=> $row['race_name'],
 								'RACEID' 	=> $row['race_id'],
@@ -1172,7 +1172,7 @@ class main_module
 						}
 						else
 						{
-							$template->assign_block_vars('racerow', array(
+							$template->assign_block_vars('racerows', array(
 								'RACENAME' 	=> $row['race_name'],
 								'RACEID' 	=> $row['race_id'],
 								'RACETIME' 	=> $user->format_date( $row['race_time'] ),

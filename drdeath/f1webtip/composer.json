@@ -30,7 +30,7 @@
 	"extra": {
 		"display-name": "F1 WebTip",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.2,<3.3@dev"
+			"phpbb/phpbb": ">=3.2,<3.4@dev"
 		},
 		"version-check": {
 			"host": "lpi-clan.de",

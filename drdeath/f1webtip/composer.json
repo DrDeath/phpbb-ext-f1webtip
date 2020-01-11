@@ -1,10 +1,10 @@
 {
 	"name": "drdeath/f1webtip",
 	"type": "phpbb-extension",
-	"description": "F1 WebTip for phpBB 3.1 / 3.2",
+	"description": "F1 WebTip for phpBB 3.2 / 3.3",
 	"homepage": "http://drdeath.github.io/phpbb-ext-f1webtip",
-	"version": "1.0.7",
-	"time": "2019-03-17",
+	"version": "1.0.8",
+	"time": "2020-01-010",
 	"license": "GPL-2.0-only",
 	"authors": [{
 			"name": "Stefan Temath",
@@ -21,7 +21,7 @@
 			"role": "Developer"
 		}],
 	"require": {
-		"php": ">=5.3.3",
+		"php": ">=7.1.0",
 		"composer/installers": "~1.0"
 	},
 	"require-dev": {
@@ -30,7 +30,7 @@
 	"extra": {
 		"display-name": "F1 WebTip",
 		"soft-require": {
-			"phpbb/phpbb": ">=3.1,<3.2@dev"
+			"phpbb/phpbb": ">=3.2,<3.3@dev"
 		},
 		"version-check": {
 			"host": "lpi-clan.de",

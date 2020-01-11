@@ -9,11 +9,11 @@
 
 namespace drdeath\f1webtip\migrations\v10x;
 
-class release_1_0_7 extends \phpbb\db\migration\migration
+class release_1_0_8 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['drdeath_f1webtip_version']) && version_compare($this->config['drdeath_f1webtip_version'], '1.0.7', '>=');
+		return isset($this->config['drdeath_f1webtip_version']) && version_compare($this->config['drdeath_f1webtip_version'], '1.0.8', '>=');
 	}
 
 	static public function depends_on()
@@ -25,7 +25,7 @@ class release_1_0_7 extends \phpbb\db\migration\migration
 	{
 		return array(
 			// Set the current version
-			array('config.update', array('drdeath_f1webtip_version', '1.0.7')),
+			array('config.update', array('drdeath_f1webtip_version', '1.0.8')),
 
 		);
 	}

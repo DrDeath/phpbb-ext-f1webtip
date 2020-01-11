@@ -73,7 +73,7 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('driver_id' => 3,  'driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 5,);
 			$sql_ary[] = array('driver_id' => 31, 'driver_name' => 'Ocon, Esteban',			'driver_img' => '',	'driver_team' => 5,);
 
-			# -- Team 6 AlphaTauri F1 Team
+			# -- Team 6 Alpha Tauri F1 Team
 			$sql_ary[] = array('driver_id' => 26, 'driver_name' => 'Kwjat, Daniil',			'driver_img' => '',	'driver_team' => 6,);
 			$sql_ary[] = array('driver_id' => 10, 'driver_name' => 'Gasly, Pierre',			'driver_img' => '',	'driver_team' => 6,);
 
@@ -83,7 +83,7 @@ class season_update_2020 extends \phpbb\db\migration\migration
 
 			# -- Team 8 Alfa Romeo Racing
 			$sql_ary[] = array('driver_id' => 7,  'driver_name' => 'Räikkönen, Kimi',		'driver_img' => '',	'driver_team' => 8,);
-			$sql_ary[] = array('driver_id' => 36, 'driver_name' => 'Giovinazzi, Antonio',	'driver_img' => '',	'driver_team' => 8,);
+			$sql_ary[] = array('driver_id' => 99, 'driver_name' => 'Giovinazzi, Antonio',	'driver_img' => '',	'driver_team' => 8,);
 
 			# -- Team 9 Haas F1 Team
 			$sql_ary[] = array('driver_id' => 8,  'driver_name' => 'Grosjean, Romain',		'driver_img' => '',	'driver_team' => 9,);
@@ -91,7 +91,7 @@ class season_update_2020 extends \phpbb\db\migration\migration
 
 			# -- Team 10 Williams Racing
 			$sql_ary[] = array('driver_id' => 63, 'driver_name' => 'Russell, George',		'driver_img' => '',	'driver_team' => 10,);
-			$sql_ary[] = array('driver_id' => 99, 'driver_name' => 'Latifi, Nicholas',		'driver_img' => '',	'driver_team' => 10,);
+			$sql_ary[] = array('driver_id' => 6,  'driver_name' => 'Latifi, Nicholas',		'driver_img' => '',	'driver_team' => 10,);
 
 			$db->sql_multi_insert($table_drivers, $sql_ary);
 		}
@@ -108,7 +108,7 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('team_id' => 3,  'team_name' => 'Red Bull Racing', 			'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 4,  'team_name' => 'McLaren F1 Team', 			'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 5,  'team_name' => 'Renault F1 Team',	 		'team_img' => '', 'team_car' => '',);
-			$sql_ary[] = array('team_id' => 6,  'team_name' => 'AlphaTauri F1 Team', 		'team_img' => '', 'team_car' => '',);
+			$sql_ary[] = array('team_id' => 6,  'team_name' => 'Alpha Tauri F1 Team', 		'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 7,  'team_name' => 'Racing Point F1 Team', 		'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 8,  'team_name' => 'Alfa Romeo Racing', 		'team_img' => '', 'team_car' => '',);
 			$sql_ary[] = array('team_id' => 9,  'team_name' => 'Haas F1 Team', 				'team_img' => '', 'team_car' => '',);
@@ -125,8 +125,8 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			$sql_ary = array();
 
 			$sql_ary[] = array('race_id' => 1,  'race_name' => 'Australien / Melbourne', 		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1584249000, 'race_length' => '5,303', 'race_laps' => 58, 'race_distance' => '307,574', 'race_debut' => 1996,);
-			$sql_ary[] = array('race_id' => 2,  'race_name' => 'Bahrain / Sachir',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1584893400, 'race_length' => '5,412', 'race_laps' => 57, 'race_distance' => '308,238', 'race_debut' => 2004,);
-			$sql_ary[] = array('race_id' => 3,  'race_name' => 'Vietnam / Hanoi', 				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1586067000, 'race_length' => '5,565', 'race_laps' => 55, 'race_distance' => '306,075', 'race_debut' => 2004,);
+			$sql_ary[] = array('race_id' => 2,  'race_name' => 'Bahrain / Sachir',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1584717000, 'race_length' => '5,412', 'race_laps' => 57, 'race_distance' => '308,238', 'race_debut' => 2004,);
+			$sql_ary[] = array('race_id' => 3,  'race_name' => 'Vietnam / Hanoi', 				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1586070600, 'race_length' => '5,565', 'race_laps' => 55, 'race_distance' => '306,075', 'race_debut' => 2004,);
 			$sql_ary[] = array('race_id' => 4,  'race_name' => 'China / Shanghai', 				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1586931000, 'race_length' => '5,451', 'race_laps' => 56, 'race_distance' => '305,066', 'race_debut' => 2004,);
 			$sql_ary[] = array('race_id' => 5,  'race_name' => 'Niederlande / Zandvoort', 		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1588511400, 'race_length' => '4,252', 'race_laps' => 72, 'race_distance' => '306,144', 'race_debut' => 1952,);
 			$sql_ary[] = array('race_id' => 6,  'race_name' => 'Spanien / Barcelona', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1589116200, 'race_length' => '4,655', 'race_laps' => 66, 'race_distance' => '307,104', 'race_debut' => 1991,);
@@ -135,7 +135,7 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			$sql_ary[] = array('race_id' => 9,  'race_name' => 'Kanada / Montreal', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1592158200, 'race_length' => '4,361', 'race_laps' => 70, 'race_distance' => '305,270', 'race_debut' => 1978,);
 			$sql_ary[] = array('race_id' => 10, 'race_name' => 'Frankreich / Le Castellet', 	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1593349800, 'race_length' => '5,759', 'race_laps' => 53, 'race_distance' => '310,633', 'race_debut' => 1971,);
 			$sql_ary[] = array('race_id' => 11, 'race_name' => 'Österreich / Spielberg', 		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1593954600, 'race_length' => '4,318', 'race_laps' => 71, 'race_distance' => '306,452', 'race_debut' => 1970,);
-			$sql_ary[] = array('race_id' => 12, 'race_name' => 'Großbritannien / Silverstone', 	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1595164200, 'race_length' => '5,891', 'race_laps' => 52, 'race_distance' => '306,198', 'race_debut' => 1950,);
+			$sql_ary[] = array('race_id' => 12, 'race_name' => 'Großbritannien / Silverstone', 	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1595167800, 'race_length' => '5,891', 'race_laps' => 52, 'race_distance' => '306,198', 'race_debut' => 1950,);
 			$sql_ary[] = array('race_id' => 13, 'race_name' => 'Ungarn / Budapest', 			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1596373800, 'race_length' => '4,381', 'race_laps' => 70, 'race_distance' => '306,630', 'race_debut' => 1986,);
 			$sql_ary[] = array('race_id' => 14, 'race_name' => 'Belgien / Spa-Francorchamps', 	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1598793000, 'race_length' => '7,004', 'race_laps' => 44, 'race_distance' => '308,052', 'race_debut' => 1950,);
 			$sql_ary[] = array('race_id' => 15, 'race_name' => 'Italien / Monza', 				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1599397800, 'race_length' => '5,793', 'race_laps' => 53, 'race_distance' => '306,720', 'race_debut' => 1950,);

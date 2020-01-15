@@ -300,4 +300,6 @@ $lang = array_merge($lang, array(
 	'ACP_F1_RACES_RACE_DELETE_CONFIRM'				=> '<br/>Ben je zeker om deze race te verwijderen??',
 	'ACP_F1_RACES_RACE_DELETED'						=> 'Race verwijderd',
 	'ACP_F1_RACES_ERROR_RACENAME'					=> 'Plaats a.u.b. een locatie voor de race',
+
+	'FORMEL_DONATE'									=> 'Donatie voor de Formule 1-extensie: deze extensie is, net als al mijn extensies, volledig gratis. Als u hiervan hebt geprofiteerd, kunt u ook een donatie doen met de PayPal-donatieknop. Ik zou het waarderen. Ik beloof dat er geen spam of verzoeken om verdere donaties zullen zijn, hoewel ze altijd welkom zouden zijn.',
 ));

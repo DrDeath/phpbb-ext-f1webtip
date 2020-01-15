@@ -300,4 +300,6 @@ $lang = array_merge($lang, array(
 	'ACP_F1_RACES_RACE_DELETE_CONFIRM'				=> '<br/>Bist du dir sicher, dass du das Rennen %s löschen möchtest?',
 	'ACP_F1_RACES_RACE_DELETED'						=> 'Das Rennen wurde erfolgreich gelöscht',
 	'ACP_F1_RACES_ERROR_RACENAME'					=> 'Bitte gib alle benötigten Felder an',
+
+	'FORMEL_DONATE'									=> 'Spende für die Formel 1 Erweiterung: Diese Erweiterung ist, wie alle meine Erweiterungen, völlig kostenlos. Wenn Du davon profitierst hast, kannst Du auch eine Spende über den PayPal-Spendenbutton (Donate) tätigen. Ich würde es begrüßen. Ich verspreche, dass es weder Spam noch Anfragen für weitere Spenden geben wird, obwohl sie immer willkommen wären.',
 ));

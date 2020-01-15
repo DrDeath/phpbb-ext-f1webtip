@@ -300,4 +300,6 @@ $lang = array_merge($lang, array(
 	'ACP_F1_RACES_RACE_DELETE_CONFIRM'				=> '<br/>Are you sure you want to delete the race %s?',
 	'ACP_F1_RACES_RACE_DELETED'						=> 'Race deleted',
 	'ACP_F1_RACES_ERROR_RACENAME'					=> 'Please insert a Race Location',
+
+	'FORMEL_DONATE'									=> 'Donate to my extensions: This extension, as with all of my extensions, is totally free of charge. If you have benefited from using it then please consider making a donation by clicking the PayPal donation button above - I would appreciate it. I promise that there will be no spam nor requests for further donations, although they would always be welcome.',
 ));

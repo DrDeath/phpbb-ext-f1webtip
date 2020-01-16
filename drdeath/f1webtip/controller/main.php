@@ -51,7 +51,7 @@ class main
 
 	/* @var \phpbb\user */
 	protected $user;
-	
+
 	/* @var \phpbb\language\language */
 	protected $language;
 

@@ -15,8 +15,10 @@ class main_module
 
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $template, $request, $language;
+		global $db, $config, $user, $template, $request;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_log;
+
+		$language = $phpbb_container->get('language');
 
 		$ext_path = $phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true);
 
@@ -512,7 +514,7 @@ class main_module
 					{
 						$preselected = ($row['team_id'] == $preselected_id) ? 'selected' : '';
 
-						$template->assign_block_vars('teamrow', array(
+						$template->assign_block_vars('teamrows', array(
 							'TEAMNAME'		=> $row['team_name'],
 							'TEAM_ID'		=> $row['team_id'],
 							'PRESELECTED'	=> $preselected,

@@ -2,18 +2,18 @@
 /**
 *
 * @package phpBB Extension - DrDeath F1WebTip
-* @copyright (c) 2014 Dr.Death - www.lpi-clan.de
+* @copyright (c) 2020 Dr.Death - www.lpi-clan.de
 * @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
 *
 */
 
 namespace drdeath\f1webtip\migrations\v11x;
 
-class release_1_1_0 extends \phpbb\db\migration\migration
+class release_1_1_1 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['drdeath_f1webtip_version']) && version_compare($this->config['drdeath_f1webtip_version'], '1.1.0', '>=');
+		return isset($this->config['drdeath_f1webtip_version']) && version_compare($this->config['drdeath_f1webtip_version'], '1.1.1', '>=');
 	}
 
 	static public function depends_on()
@@ -25,8 +25,7 @@ class release_1_1_0 extends \phpbb\db\migration\migration
 	{
 		return array(
 			// Set the current version
-			array('config.update', array('drdeath_f1webtip_version', '1.1.0')),
-
+			array('config.update', array('drdeath_f1webtip_version', '1.1.1')),
 		);
 	}
 }

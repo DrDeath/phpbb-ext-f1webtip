@@ -1,8 +1,12 @@
 		{% if postrow.TIPPER_POINTS|length %}
-		<dd><br/>
-			<strong><a href="{{ postrow.U_FORMEL_WEB_TIPP }}" class="genmed">{{ lang('FORMEL_TITLE') }}</a><br/>
-			{{ lang('FORMEL_PROFILE_WEBTIPP') }} : {{ postrow.TIPPER_POINTS }}<br />
-			<a href="{{ postrow.U_FORMEL_STATS }}" class="genmed">{{ postrow.TIPPER_RANK }}</a></strong>
-			<br />({{ postrow.RACE_DONE }})
+		<dd class="profile-posts">
+			<br>
+			<a href="{{ postrow.U_FORMEL_WEB_TIPP }}" class="genmed">{{ lang('FORMEL_TITLE') }}</a>
+			<br/>
+			<strong>{{ lang('FORMEL_PROFILE_WEBTIPP') }} :</strong> {{ postrow.TIPPER_POINTS }}
+			<br>
+			<a href="{{ postrow.U_FORMEL_STATS }}" class="genmed">{{ postrow.TIPPER_RANK }}</a>
+			<br>
+			({{ postrow.RACE_DONE }})
 		</dd>
 		{% endif %}

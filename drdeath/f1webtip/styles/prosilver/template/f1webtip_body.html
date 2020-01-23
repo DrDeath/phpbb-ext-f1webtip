@@ -15,17 +15,21 @@
 
 			<div style="text-align: center;">
 				{% if heads_on %}
-				<div class="responsive-hide"><br/>
-				<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /><br/></div>
+				<div class="responsive-hide">
+					<br>
+					<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" >
+					<br>
+				</div>
 				{% endif %}
-				<br/>
-				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" 		value="{{ lang('FORMEL_RULES') }}" />&nbsp;&nbsp;
+				<br>
+				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;&nbsp;
 				{{ U_FORMEL_FORUM }}
-				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" /><br/>
-				<br/>
-				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'"   value="{{ lang('FORMEL_CALL_MOD') }}" />
-				<br/>
-				<br/>
+				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
+				<br>
+				<br>
+				<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
+				<br>
+				<br>
 			</div>
 
 		</div>
@@ -128,22 +132,25 @@
 		<div class="forumbg">
 			<div class="inner">
 
-					<br/>
+					<br>
 					{% if racegfx %}
 					<div class="responsive-hide" style="text-align: center;">
 						{{ racerow.RACEIMG }}
-						<br/><br/>
+						<br>
+						<br>
 					</div>
 					{% endif %}
 
 					<div class="column1" style="text-align: center;">
 						<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />
-						<br/><br/>
+						<br>
+						<br>
 					</div>
 
 					<div class="column2" style="text-align: center;">
 						<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
-						<br/><br/>
+						<br>
+						<br>
 					</div>
 
 			</div>
@@ -186,11 +193,11 @@
 					<li class="row">
 						<dl style="font-size : 1.0em; font-weight: bold;">
 							<dt id="time_event" style="display: ; padding: 2px 10px; white-space:nowrap;">
-								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />
+								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />
 								<span style="display:" id="time_string">{{ lang('HOURS') }}
-									<input name="hours" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />:
-									<input name="mins" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />:
-									<input name="secs" class="bg2" size="2" style="border: 0px;  color:#ff0000; font-weight: bold;" />
+									<input name="hours" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />:
+									<input name="mins" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />:
+									<input name="secs" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />
 								</span>
 							</dt>
 							<dt id="event_time" style="display:none ; padding: 2px 10px;">
@@ -235,7 +242,7 @@
 						</dl>
 					</li>
 				</ul>
-				<br/>
+				<br>
 
 			</div>
 		</div>
@@ -246,7 +253,9 @@
 
 	{% endfor %}
 
-	<div><img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4"/></div>
+	<div>
+		<img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4" >
+	</div>
 
 	<div class="navbar bg3">
 		<div class="inner">
@@ -262,7 +271,9 @@
 		</div>
 	</div>
 
-	<div><img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4"/></div>
+	<div>
+		<img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4" >
+	</div>
 
 	<div class="forumbg">
 		<div class="inner">
@@ -292,8 +303,10 @@
 								{% endif %}
 									<td align="center">{{ qualirow_gfx.DRIVERIMG }}</td>
 									<td align="left" style="white-space:nowrap;">
-										<strong>&nbsp;{{ qualirow_gfx.L_PLACE }}&nbsp;</strong><br />
-										&nbsp;{{ qualirow_gfx.DRIVERNAME }}&nbsp;<br />
+										<strong>&nbsp;{{ qualirow_gfx.L_PLACE }}&nbsp;</strong>
+										<br>
+										&nbsp;{{ qualirow_gfx.DRIVERNAME }}&nbsp;
+										<br>
 										&nbsp;{{ qualirow_gfx.DRIVERTEAMNAME }}&nbsp;
 									</td>
 								</tr>
@@ -334,8 +347,10 @@
 								{% endif %}
 									<td align="center">{{ resultrow_gfx.DRIVERIMG }}</td>
 									<td align="left" style="white-space:nowrap;">
-										<strong>&nbsp;{{ resultrow_gfx.L_PLACE }}</strong><br />
-										&nbsp;{{ resultrow_gfx.DRIVERNAME }}&nbsp;<br />
+										<strong>&nbsp;{{ resultrow_gfx.L_PLACE }}</strong>
+										<br>
+										&nbsp;{{ resultrow_gfx.DRIVERNAME }}&nbsp;
+										<br>
 										&nbsp;{{ resultrow_gfx.DRIVERTEAMNAME }}&nbsp;
 									</td>
 								</tr>
@@ -517,12 +532,22 @@
 			{{ S_FORM_TOKEN }}
 
 			{% for place_tipp in place_tipps %}
-			<br />
-			<div class="navbar bg3" style="text-align: center;"><br /><input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />{{ place_tipp.DELETE_TIPP }}<br /><br /></div>
+			<br>
+			<div class="navbar bg3" style="text-align: center;">
+				<br>
+				<input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />{{ place_tipp.DELETE_TIPP }}
+				<br>
+				<br>
+			</div>
 			{% endfor %}
 			{% if games_over %}
-			<br />
-			<div class="navbar bg3" style="text-align: center;"><br />{{ lang('FORMEL_GAME_OVER') }}<br /><br /></div>
+			<br>
+			<div class="navbar bg3" style="text-align: center;">
+				<br>
+				{{ lang('FORMEL_GAME_OVER') }}
+				<br>
+				<br>
+			</div>
 			{% endif %}
 
 		</div>
@@ -558,8 +583,10 @@
 						&nbsp;{{ racerow_gfxr.RACEIMG }}&nbsp;
 					</td>
 					<td style="width: 100%; white-space:nowrap;" align="left" valign="middle">
-						<strong>{{ racerow_gfxr.RACENAME }}</strong> <br />
-						<strong>{{ lang('TIME') }}:</strong> {{ racerow_gfxr.RACETIME }}<br />
+						<strong>{{ racerow_gfxr.RACENAME }}</strong>
+						<br>
+						<strong>{{ lang('TIME') }}:</strong> {{ racerow_gfxr.RACETIME }}
+						<br>
 						<strong>{{ lang('FORMEL_RACEDEAD') }}:</strong> {{ racerow_gfxr.RACEDEAD }}
 					</td>
 					<td style="white-space:nowrap;" align="center" valign="middle">
@@ -591,8 +618,10 @@
 				<tr class="bg2">
 				{% endif %}
 					<td colspan="2" style="width: 100%; white-space:nowrap;" align="left" valign="middle">
-						<strong>{{ racerow.RACENAME }}</strong><br />
-						<strong>{{ lang('TIME') }}:</strong> {{ racerow.RACETIME }}<br />
+						<strong>{{ racerow.RACENAME }}</strong>
+						<br>
+						<strong>{{ lang('TIME') }}:</strong> {{ racerow.RACETIME }}
+						<br>
 						<strong>{{ lang('FORMEL_RACEDEAD') }}:</strong> {{ racerow.RACEDEAD }}
 					</td>
 					<td style="white-space:nowrap;" align="center" valign="middle">
@@ -726,17 +755,19 @@
 
 		<div style="text-align: center;">
 			{% if heads_on %}
-			<div class="responsive-hide"><br/>
-			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
+			<div class="responsive-hide">
+				<br>
+				<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" >
+			</div>
 			{% endif %}
-			<br/>
+			<br>
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
-					<br/>
+					<br>
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_INDEX }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
 				</div>
 			</form>
-			<br/>
+			<br>
 		</div>
 
 	</div>
@@ -759,7 +790,7 @@
 						{{ lang('FORMEL_RULES_GENERAL') }}
 					</dt>
 					<dd class="responsive-show" style="margin-bottom: 0; padding: 5px 12px; font-size : 1.2em;">
-						{{ lang('FORMEL_RULES_GENERAL_EXP') }}<br/>
+						{{ lang('FORMEL_RULES_GENERAL_EXP') }}<br>
 					</dd>
 				</dl>
 			</li>
@@ -770,15 +801,22 @@
 						{{ lang('FORMEL_RULES_SCORE') }}
 					</dt>
 					<dd class="responsive-show" style="margin-bottom: 0; padding: 5px 12px; font-size : 1.2em;">
-					    {{ lang('FORMEL_RULES_SCORE_EXP') }}<br/><br/>
-						- {{ FORMEL_RULES_MENTIONED }}<br/>
-						- {{ FORMEL_RULES_PLACED }}<br/>
-						- {{ FORMEL_RULES_FASTEST }}<br/>
-						- {{ FORMEL_RULES_TIRED }}<br/>
-						- {{ FORMEL_RULES_SAFETYCAR }}<br/>
-						<br />
+						{{ lang('FORMEL_RULES_SCORE_EXP') }}
+						<br>
+						<br>
+						- {{ FORMEL_RULES_MENTIONED }}
+						<br>
+						- {{ FORMEL_RULES_PLACED }}
+						<br>
+						- {{ FORMEL_RULES_FASTEST }}
+						<br>
+						- {{ FORMEL_RULES_TIRED }}
+						<br>
+						- {{ FORMEL_RULES_SAFETYCAR }}
+						<br>
+						<br>
 						{{ FORMEL_RULES_TOTAL }}
-						<br />
+						<br>
 					</dd>
 				</dl>
 			</li>
@@ -796,10 +834,13 @@
 
 		<div style="text-align: center;">
 			{% if heads_on %}
-			<div class="responsive-hide"><br/>
-			<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" /></div>
+			<div class="responsive-hide">
+				<br>
+				<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" >
+			</div>
 			{% endif %}
-			<br/><br/>
+			<br>
+			<br>
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
 					<input class="button1" type="button" onclick="window.location.href='{{ U_BACK_TO_TIPP }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />&nbsp;&nbsp;
@@ -808,7 +849,8 @@
 					<input class="button1" type="submit" name="show_teams" value="{{ lang('FORMEL_TEAM_STATS') }}" />
 				</div>
 			</form>
-			<br/>&nbsp;
+			<br>
+			<br>
 		</div>
 
 	</div>
@@ -954,24 +996,24 @@
 
 
 <!--
-Please leave the copyright information at the bottom of your page for our mod.
+Please leave the copyright information at the bottom of your page for our extension.
 //-->
-<small>
-	&copy;<a href="http://www.lpi-clan.de">LPI-Clan</a> ( Dr.Death )
-</small>
-<br />
+<div class="copyright" style="text-align: left;">
+	&copy; <a href="http://www.lpi-clan.de">LPI-Clan</a> ( Dr.Death )
+</div>
 
 <!--
-Please donate via paypal.me
+Please donate via paypal
 //-->
 <div style="text-align: center;">
 	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F4HV6U5LZFBMN&source=url&item_name=Formel+1+Web+Tipp">
-		<img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.gif" border="0" alt="PayPal - The safer, easier way to pay online!" />
+		<img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.gif" border="0" alt="PayPal - The safer, easier way to pay online!" >
 	</a>
-	<p /><p />
+	<br>
+	<br>
 	{{ lang('FORMEL_DONATE') }}
 </div>
-<br />
+<br>
 
 {% INCLUDE 'overall_footer.html' %}
 
@@ -1042,13 +1084,13 @@ Please donate via paypal.me
 				{% endif %}
 			</tbody>
 		</table>
-		<br />
+		<br>
 		<div style="text-align: center;">
 			<p class="submit-buttons">
 				<input class="button1" id="submit" type="submit" onclick="javascript:window.close()" value="{{ lang('FORMEL_CLOSE_WINDOW') }}" />
 			</p>
 		</div>
-		<br />
+		<br>
 
 	</div>
 </div>

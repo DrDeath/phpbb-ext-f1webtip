@@ -25,7 +25,7 @@
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;&nbsp;
 					{{ U_FORMEL_FORUM }}
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
-				</p>				
+				</p>
 				<p class="contentspacef1">
 					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;&nbsp;
 					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
@@ -38,10 +38,10 @@
 		</div>
 	</div>
 
-	<div class="responsive-hide navbar bg2" style=" margin-top: 3px;">
+	<div class="responsive-hide navbar bg2 panelspacef1">
 		<div class="inner">
 
-			<div class="navbar bg2" style="float: left; margin-top: 3px; margin-right: 15px; border-right-width: 1px; border-right-style: solid; border-right-color: #FFFFFF; width: 30%;">
+			<div class="navbar bg2 paneltopleftf1">
 				<table cellspacing="1">
 					<thead>
 						<tr>
@@ -68,7 +68,7 @@
 				</table>
 			</div>
 
-			<div class="navbar bg2" style="float: right; margin-top: 3px; margin-left: 15px; border-left-width: 1px; border-left-style: solid; border-left-color: #FFFFFF; width: 30%;">
+			<div class="navbar bg2 paneltoprightf1">
 				<table cellspacing="1">
 					<thead>
 						<tr>
@@ -95,7 +95,7 @@
 				</table>
 			</div>
 
-			<div class="navbar bg2" style=" margin-top: 3px;">
+			<div class="navbar bg2 panelspacef1">
 				<table cellspacing="1">
 					<thead>
 						<tr>
@@ -146,19 +146,19 @@
 		</div>
 		{% endif %}
 
-		<div class=" forumbg">
+		<div class="forumbg">
 			<div class="inner">
 
 				<ul class="topiclist">
 					<li class="header">
 						<dl>
-							<dt class="racef1 racef1strong racef1size" >{{ racerow.RACENAME }}</dt>
+							<dt class="racef1 text-strong racef1size" >{{ racerow.RACENAME }}</dt>
 						</dl>
 					</li>
 				</ul>
 				<ul class="topiclist forums">
 					<li class="row">
-						<dl class="racef1strong">
+						<dl class="text-strong">
 							<dt class="racef1">
 								{{ lang('FORMEL_RACETIME') }}:
 							</dt>
@@ -168,7 +168,7 @@
 						</dl>
 					</li>
 					<li class="row">
-						<dl class="racef1strong">
+						<dl class="text-strong">
 							<dt class="racef1">
 								{{ lang('FORMEL_RACEDEAD') }}:
 							</dt>
@@ -181,7 +181,7 @@
 					{% INCLUDEJS '@drdeath_f1webtip/f1webtip_countdown.js' %}
 					{{ VAR_COUNTDOWN_STOP }}
 					<li class="row">
-						<dl class="racef1strong">
+						<dl class="text-strong">
 							<dt class="racef1" id="time_event" style="display: ; white-space:nowrap;">
 								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2 countdownf1" size="2" />
 								<span style="display:" id="time_string">{{ lang('HOURS') }}
@@ -198,7 +198,7 @@
 					</li>
 					{% endif %}
 					<li class="responsive-hide row">
-						<dl class="racef1strong">
+						<dl class="text-strong">
 							<dt class="racef1">
 								{{ lang('FORMEL_RACELENGTH') }}:
 							</dt>
@@ -206,7 +206,7 @@
 								{{ racerow.RACELENGTH }}
 							</dd>
 						</dl>
-						<dl class="racef1strong">
+						<dl class="text-strong">
 							<dt class="racef1">
 								{{ lang('FORMEL_RACELAPS') }}:
 							</dt>
@@ -214,7 +214,7 @@
 								{{ racerow.RACELAPS }}
 							</dd>
 						</dl>
-						<dl class="racef1strong">
+						<dl class="text-strong">
 							<dt class="racef1">
 								{{ lang('FORMEL_RACEDISTANCE') }}:
 							</dt>
@@ -222,7 +222,7 @@
 								{{ racerow.RACEDISTANCE }}
 							</dd>
 						</dl>
-						<dl class="racef1strong">
+						<dl class="text-strong">
 							<dt class="racef1">
 								{{ lang('FORMEL_RACEDEBUT') }}:
 							</dt>
@@ -238,13 +238,9 @@
 
 	</div>
 
-	<p style="clear: both;" />
-
 	{% endfor %}
 
-	<div>
-		<img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4" >
-	</div>
+	<p style="clear: both;"><p>
 
 	<div class="navbar bg3">
 		<div class="inner">
@@ -260,9 +256,7 @@
 		</div>
 	</div>
 
-	<div>
-		<img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4" >
-	</div>
+	<p style="clear: both;"><p>
 
 	<div class="forumbg">
 		<div class="inner">
@@ -520,9 +514,7 @@
 			<input type="hidden" name="racename" value="{{ RACENAME }}" />
 			{{ S_FORM_TOKEN }}
 
-			<div>
-				<img src="{{ EXT_PATH_IMAGES }}spacer.gif" alt="" width="264" height="4" >
-			</div>
+			<p style="clear: both;"><p>
 
 			{% for place_tipp in place_tipps %}
 			<div class="navbar bg3" style="text-align: center;">
@@ -776,10 +768,10 @@
 		<ul class="topiclist forums">
 			<li class="row">
 				<dl>
-					<dt style="padding: 5px 12px; font-size : 1.2em; font-weight: bold;">
+					<dt class="rulesf1header">
 						{{ lang('FORMEL_RULES_GENERAL') }}
 					</dt>
-					<dd class="responsive-show" style="margin-bottom: 0; padding: 5px 12px; font-size : 1.2em;">
+					<dd class="responsive-show rulesf1content">
 						{{ lang('FORMEL_RULES_GENERAL_EXP') }}
 					</dd>
 				</dl>
@@ -787,10 +779,10 @@
 
 			<li class="row">
 				<dl>
-					<dt style="padding: 5px 12px; font-size : 1.2em; font-weight: bold;">
+					<dt class="rulesf1header">
 						{{ lang('FORMEL_RULES_SCORE') }}
 					</dt>
-					<dd class="responsive-show" style="margin-bottom: 0; padding: 5px 12px; font-size : 1.2em;">
+					<dd class="responsive-show rulesf1content">
 						<p class="rulesf1">{{ lang('FORMEL_RULES_SCORE_EXP') }}</p>
 						<p class="rulesf1">- {{ FORMEL_RULES_MENTIONED }}</p>
 						<p class="rulesf1">- {{ FORMEL_RULES_PLACED }}</p>

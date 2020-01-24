@@ -12,9 +12,17 @@ table.tablef1 tbody td {
 ----------------------------------------*/
 
 .countdownf1 {
-	color: #FFCC33; 
+	color: #FFCC33;
 }
 
 .pointsf1 {
-	color: #FFCC33; 
+	color: #FFCC33;
+}
+
+.paneltopleftf1 {
+	border-right-color: #FFCC33;
+}
+
+.paneltoprightf1 {
+	border-left-color: #FFCC33;
 }

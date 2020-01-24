@@ -57,3 +57,31 @@ p.rulesf1 {
 	margin-top: 0px;
 	margin-bottom: 1px;
 }
+
+.racef1 {
+	padding: 2px 10px;
+}
+
+.racef1strong {
+	font-weight: bold;
+}
+
+.racef1size {
+	font-size: 1.2em;
+}
+
+ul.topiclist li.header dt.racef1size {
+	font-size: 1.2em;
+}
+
+ul.topiclist li.row dd.racef1 {
+	padding: 2px 10px;
+}
+
+/* Countdown styles
+----------------------------------------*/
+
+.countdownf1 {
+	border: 0px; 
+	font-weight: bold;
+}

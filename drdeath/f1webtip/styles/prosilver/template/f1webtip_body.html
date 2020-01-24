@@ -152,27 +152,27 @@
 				<ul class="topiclist">
 					<li class="header">
 						<dl>
-							<dt style="padding: 2px 10px; font-size : 1.2em;">{{ racerow.RACENAME }}</dt>
+							<dt class="racef1 racef1strong racef1size" >{{ racerow.RACENAME }}</dt>
 						</dl>
 					</li>
 				</ul>
 				<ul class="topiclist forums">
 					<li class="row">
-						<dl style="font-size : 1.0em; font-weight: bold;">
-							<dt style="padding: 2px 10px;">
+						<dl class="racef1strong">
+							<dt class="racef1">
 								{{ lang('FORMEL_RACETIME') }}:
 							</dt>
-							<dd class="responsive-show-inline-block" style="padding: 2px 10px;">
+							<dd class="racef1">
 								{{ racerow.RACETIME }}
 							</dd>
 						</dl>
 					</li>
 					<li class="row">
-						<dl style="font-size : 1.0em; font-weight: bold;">
-							<dt style="padding: 2px 10px; ">
+						<dl class="racef1strong">
+							<dt class="racef1">
 								{{ lang('FORMEL_RACEDEAD') }}:
 							</dt>
-							<dd class="responsive-show-inline-block" style="padding: 2px 10px; color : #ff0000;">
+							<dd class="responsive-show-inline-block countdownf1 racef1">
 								{{ racerow.RACEDEAD }}
 							</dd>
 						</dl>
@@ -181,52 +181,52 @@
 					{% INCLUDEJS '@drdeath_f1webtip/f1webtip_countdown.js' %}
 					{{ VAR_COUNTDOWN_STOP }}
 					<li class="row">
-						<dl style="font-size : 1.0em; font-weight: bold;">
-							<dt id="time_event" style="display: ; padding: 2px 10px; white-space:nowrap;">
-								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />
+						<dl class="racef1strong">
+							<dt class="racef1" id="time_event" style="display: ; white-space:nowrap;">
+								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2 countdownf1" size="2" />
 								<span style="display:" id="time_string">{{ lang('HOURS') }}
-									<input name="hours" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />:
-									<input name="mins" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />:
-									<input name="secs" class="bg2" size="2" style="border: 0px; color:#ff0000; font-weight: bold;" />
+									<input name="hours" class="bg2 countdownf1" size="2" />:
+									<input name="mins" class="bg2 countdownf1" size="2" />:
+									<input name="secs" class="bg2 countdownf1" size="2" />
 								</span>
 							</dt>
-							<dt id="event_time" style="display:none ; padding: 2px 10px;">
+							<dt class="racef1" id="event_time" style="display:none ;">
 								{{ lang('FORMEL_DEADLINE_REACHED') }}
 							</dt>
-							<dd style="padding: 2px 10px; white-space:nowrap;">{{ lang('FORMEL_COUNTDOWN_DEADLINE') }}</dd>
+							<dd class="racef1" style="white-space:nowrap;">{{ lang('FORMEL_COUNTDOWN_DEADLINE') }}</dd>
 						</dl>
 					</li>
 					{% endif %}
 					<li class="responsive-hide row">
-						<dl style="font-size : 1.0em; font-weight: bold;">
-							<dt style="padding: 2px 10px;">
+						<dl class="racef1strong">
+							<dt class="racef1">
 								{{ lang('FORMEL_RACELENGTH') }}:
 							</dt>
-							<dd style="padding: 2px 10px;">
+							<dd class="racef1">
 								{{ racerow.RACELENGTH }}
 							</dd>
 						</dl>
-						<dl style="font-size : 1.0em; font-weight: bold;">
-							<dt style="padding: 2px 10px;">
+						<dl class="racef1strong">
+							<dt class="racef1">
 								{{ lang('FORMEL_RACELAPS') }}:
 							</dt>
-							<dd style="padding: 2px 10px;">
+							<dd class="racef1">
 								{{ racerow.RACELAPS }}
 							</dd>
 						</dl>
-						<dl style="font-size : 1.0em; font-weight: bold;">
-							<dt style="padding: 2px 10px;">
+						<dl class="racef1strong">
+							<dt class="racef1">
 								{{ lang('FORMEL_RACEDISTANCE') }}:
 							</dt>
-							<dd style="padding: 2px 10px;">
+							<dd class="racef1">
 								{{ racerow.RACEDISTANCE }}
 							</dd>
 						</dl>
-						<dl style="font-size : 1.0em; font-weight: bold;">
-							<dt style="padding: 2px 10px;">
+						<dl class="racef1strong">
+							<dt class="racef1">
 								{{ lang('FORMEL_RACEDEBUT') }}:
 							</dt>
-							<dd style="padding: 2px 10px;">
+							<dd class="racef1">
 								{{ racerow.RACEDEBUT }}
 							</dd>
 						</dl>
@@ -496,16 +496,16 @@
 								{% endfor %}
 								{% for extended_result in extended_results %}
 								<tr class="bg1">
-									<td align="right"><span style="color:#009900"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
+									<td align="right"><span class="pointsf1"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
 									<td class="responsive-hide" align="left">&nbsp;</td>
-									<td align="center"><span style="color:#009900"><strong>&nbsp;{{ extended_result.YOUR_POINTS }}</strong></span></td>
+									<td align="center"><span class="pointsf1"><strong>&nbsp;{{ extended_result.YOUR_POINTS }}</strong></span></td>
 								</tr>
 								{% endfor %}
 								{% for extended_result_gfx in extended_results_gfx %}
 								<tr class="bg1">
-									<td align="right"><span style="color:#009900"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
+									<td align="right"><span class="pointsf1"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
 									<td class="responsive-hide" align="left">&nbsp;</td>
-									<td align="center"><span style="color:#009900"><strong>&nbsp;{{ extended_result_gfx.YOUR_POINTS }}</strong></span></td>
+									<td align="center"><span class="pointsf1"><strong>&nbsp;{{ extended_result_gfx.YOUR_POINTS }}</strong></span></td>
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -769,7 +769,7 @@
 		<ul class="topiclist">
 			<li class="header">
 				<dl>
-					<dt style="font-size : 1.2em;">{{ lang('FORMEL_RULES_TITLE') }}</dt>
+					<dt class="racef1size">{{ lang('FORMEL_RULES_TITLE') }}</dt>
 				</dl>
 			</li>
 		</ul>
@@ -1049,8 +1049,8 @@ Please donate via paypal
 					<td colspan="3">&nbsp;</td>
 				</tr>
 				<tr class="bg1">
-					<td style="width: 50%;" align="right"><strong>&nbsp;{{ lang('FORMEL_POINTS_WON') }}:&nbsp;</strong></td>
-					<td style="width: 50%;" align="right" colspan="2"><strong>&nbsp;{{ user_tipp.POINTS }}&nbsp;</strong></td>
+					<td class="pointsf1" style="width: 50%;" align="right"><strong>&nbsp;{{ lang('FORMEL_POINTS_WON') }}:&nbsp;</strong></td>
+					<td class="pointsf1" style="width: 50%;" align="right" colspan="2"><strong>&nbsp;{{ user_tipp.POINTS }}&nbsp;</strong></td>
 				</tr>
 				<tr class="bg2">
 					<td style="width: 50%;" align="right"><strong>&nbsp;{{ lang('FORMEL_ALL_POINTS') }}:&nbsp;</strong></td>

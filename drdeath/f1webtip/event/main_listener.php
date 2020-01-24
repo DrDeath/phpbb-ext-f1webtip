@@ -168,7 +168,7 @@ class main_listener implements EventSubscriberInterface
 				$race_total = $this->db->sql_affectedrows($result);
 				$this->db->sql_freeresult($result);
 
-				$this->template->assign_block_vars('f1webtip', array(
+				$this->template->assign_block_vars('f1webtips', array(
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
 					'RACE_DONE'			=> sprintf($this->language->lang('FORMEL_PROFILE_TIPSS'), $race_done, $race_total),

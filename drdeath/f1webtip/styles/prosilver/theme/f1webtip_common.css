@@ -36,3 +36,24 @@ table.tablef1 tbody th {
 	border-bottom: 1px solid transparent;
 	text-align: left;
 }
+
+/* WebTipp styles
+----------------------------------------*/
+
+p.titlespacef1 {
+	margin-bottom: 15px;
+}
+
+p.headerspacef1 {
+	margin-top: 15px;
+}
+
+p.contentspacef1 {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+p.rulesf1 {
+	margin-top: 0px;
+	margin-bottom: 1px;
+}

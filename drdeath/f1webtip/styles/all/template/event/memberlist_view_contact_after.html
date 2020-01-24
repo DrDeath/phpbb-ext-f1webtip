@@ -1,17 +1,15 @@
-{% for f1webtip in f1webtip %}
+{% for f1webtip in f1webtips %}
 <div class="panel bg2">
 	<div class="inner">
 		<div class="column1">
 			<h3>{{ lang('FORMEL_TITLE') }}</h3>
 			<dl class="details">
-					<dt>{{ lang('FORMEL_PROFILE_WEBTIPP') }}:</dt> 
-					<dd>
-						<strong>{{ f1webtip.TIPPER_POINTS }}</strong>
-						<br>
-						<strong><a href="{{ f1webtip.U_FORMEL_STATS }}" class="genmed">{{ f1webtip.TIPPER_RANK }}</a></strong>
-						<br>
-						({{ f1webtip.RACE_DONE }})
-					</dd>
+				<dt>{{ lang('FORMEL_PROFILE_WEBTIPP') }}{{ lang('COLON') }}</dt> 
+				<dd>{{ f1webtip.TIPPER_POINTS }}</dd>
+				<dt>{{ lang('FORMEL_PLACE') }}{{ lang('COLON') }}</dt>
+				<dd><a href="{{ f1webtip.U_FORMEL_STATS }}" class="genmed">{{ f1webtip.TIPPER_RANK }}</a></dd>
+				<dt>{{ lang('FORMEL_TIPPS_MADE') }}{{ lang('COLON') }}</dt>
+				<dd>{{ f1webtip.RACE_DONE }}</dd>
 			</dl>
 		</div>
 	</div>

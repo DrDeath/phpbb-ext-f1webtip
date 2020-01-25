@@ -2076,7 +2076,7 @@ class main
 						{
 							$tipp_button		= $this->language->lang('FORMEL_EDIT_TIPP');
 							$tipp_button_name	= 'edit_my_tipp';
-							$delete_button		= '&nbsp;<input class="button1" type="submit" name="del_tipp" value="' . $this->language->lang('FORMEL_DEL_TIPP') . '" />';
+							$delete_button		= '<input class="button1" type="submit" name="del_tipp" value="' . $this->language->lang('FORMEL_DEL_TIPP') . '" />';
 							$tipp_array			= explode(",", $tipp_data['0']['tip_result']);
 							$user_tipp_points	= $tipp_data['0']['tip_points'];
 

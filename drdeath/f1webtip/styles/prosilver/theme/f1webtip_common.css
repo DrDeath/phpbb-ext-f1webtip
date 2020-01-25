@@ -5,6 +5,10 @@ table.tablef1 {
 	width: 100%;
 }
 
+table.tablef1 td {
+	font-size: 1.1em;
+}
+
 table.tablef1 thead th {
 	font-weight: normal;
 	text-transform: uppercase;
@@ -17,12 +21,14 @@ table.tablef1 thead th span {
 	padding-left: 7px;
 }
 
-table.tablef1 tbody tr {
-	border: 1px solid transparent;
+table.tablef1 tbody th {
+	padding: 5px;
+	border-bottom: 1px solid transparent;
+	text-align: left;
 }
 
-table.tablef1 td {
-	font-size: 1.1em;
+table.tablef1 tbody tr {
+	border: 1px solid transparent;
 }
 
 table.tablef1 tbody td {
@@ -31,54 +37,30 @@ table.tablef1 tbody td {
 	vertical-align: middle;
 }
 
-table.tablef1 tbody th {
-	padding: 5px;
-	border-bottom: 1px solid transparent;
-	text-align: left;
-}
 
-/* WebTipp styles
+/* Spacer styles
 ----------------------------------------*/
-
-.titlespacef1 {
-	margin-bottom: 15px;
-}
-
-.headerspacef1 {
-	margin-top: 15px;
-}
 
 .contentspacef1 {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
+.headerspacef1 {
+	margin-top: 15px;
+}
+
 .panelspacef1 {
 	margin-top: 3px;
 }
 
-.paneltopleftf1 {
-	float: left;
-	margin-top: 3px;
-	margin-right: 15px;
-	border-right-width: 1px;
-	border-right-style: solid;
-	width: 30%;
+.titlespacef1 {
+	margin-bottom: 15px;
 }
 
-.paneltoprightf1 {
-	float: right;
-	margin-top: 3px;
-	margin-left: 15px;
-	border-left-width: 1px;
-	border-left-style: solid;
-	width: 30%;
-}
 
-.rulesf1 {
-	margin-top: 0px;
-	margin-bottom: 1px;
-}
+/* Race panel styles
+----------------------------------------*/
 
 .racef1 {
 	padding: 2px 10px;
@@ -96,6 +78,15 @@ ul.topiclist li.row dd.racef1 {
 	padding: 2px 10px;
 }
 
+
+/* Rules styles
+----------------------------------------*/
+
+.rulesf1 {
+	margin-top: 0px;
+	margin-bottom: 1px;
+}
+
 ul.topiclist li.row dt.rulesf1header {
 	padding: 5px 12px;
 	font-size : 1.2em;
@@ -108,10 +99,77 @@ ul.topiclist li.row dd.rulesf1content {
 	margin-bottom: 0px;
 }
 
+
+/* No Wrap styles
+----------------------------------------*/
+
+.nowrapf1 {
+	white-space: nowrap;
+}
+
+.nowrapfullf1 {
+	width: 100%;
+	white-space: nowrap;
+}
+
+.nowraphalff1 {
+	width: 50%;
+	white-space: nowrap;
+}
+
+
+/* Float styles
+----------------------------------------*/
+
+.paneltopleftf1 {
+	float: left;
+	margin-top: 3px;
+	margin-right: 15px;
+	border-right-width: 1px;
+	border-right-style: solid;
+	width: 30%;
+}
+
+.panelnamesf1 {
+	text-align: left;
+	white-space: nowrap;
+	width: 100%;
+}
+
+.paneltoprightf1 {
+	float: right;
+	margin-top: 3px;
+	margin-left: 15px;
+	border-left-width: 1px;
+	border-left-style: solid;
+	width: 30%;
+}
+
+
 /* Countdown styles
 ----------------------------------------*/
 
 .countdownf1 {
 	border: 0px;
 	font-weight: bold;
+}
+
+
+/* Misc styles
+----------------------------------------*/
+
+.leftf1 {
+	text-align: left;
+}
+
+.halff1 {
+	width: 50%;
+}
+
+.thirtyf1 {
+	width: 30%;
+}
+
+.twentyf1 {
+	width: 20%;
 }

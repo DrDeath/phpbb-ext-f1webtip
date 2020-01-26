@@ -2115,11 +2115,6 @@ class main
 											}
 										}
 									}
-
-									if ($single_points == 0)
-									{
-										$single_points='';
-									}
 									// End recalc
 								}
 								else
@@ -2136,6 +2131,11 @@ class main
 									}
 
 									$drivercombo .= '</select>';
+								}
+
+								if ($single_points == 0)
+								{
+									$single_points='';
 								}
 
 								if ($this->config['drdeath_f1webtip_show_gfx'] == 1)

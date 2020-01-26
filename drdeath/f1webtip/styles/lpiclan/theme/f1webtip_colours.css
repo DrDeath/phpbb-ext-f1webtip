@@ -8,6 +8,15 @@ table.tablef1 tbody td {
 	border-top-color: #1A1A1A;
 }
 
+table.nohoverf1 tbody tr:hover {
+	background-color: transparent;
+}
+
+table.hoverf1 tbody tr:hover {
+	background-color: #777777;
+}
+
+
 /* Countdown styles colours
 ----------------------------------------*/
 

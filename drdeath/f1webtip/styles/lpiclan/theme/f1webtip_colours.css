@@ -1,5 +1,11 @@
 /* Table styles colours
 ----------------------------------------*/
+
+table.tablef1 thead th {
+	color: #F7F7F7;
+	background-color: #777777;
+}
+
 table.tablef1 tbody tr {
 	border-color: #363636;
 }
@@ -17,6 +23,18 @@ table.hoverf1 tbody tr:hover {
 }
 
 
+/* Float styles
+----------------------------------------*/
+
+.paneltopleftf1 {
+	border-right-color: #FFCC33;
+}
+
+.paneltoprightf1 {
+	border-left-color: #FFCC33;
+}
+
+
 /* Countdown styles colours
 ----------------------------------------*/
 
@@ -26,12 +44,4 @@ table.hoverf1 tbody tr:hover {
 
 .pointsf1 {
 	color: #FFCC33;
-}
-
-.paneltopleftf1 {
-	border-right-color: #FFCC33;
-}
-
-.paneltoprightf1 {
-	border-left-color: #FFCC33;
 }

@@ -26,12 +26,14 @@
 					{{ U_FORMEL_FORUM }}
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
 				</p>
+				{% if S_CALL_MOD %}
+				<p class="contentspacef1">
+					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
+				</p>
+				{% endif %}
 				<p class="contentspacef1">
 					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;&nbsp;
 					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
-				</p>
-				<p class="contentspacef1">
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
 				</p>
 			</div>
 
@@ -163,7 +165,7 @@
 							<dt class="racef1">
 								{{ lang('FORMEL_RACETIME') }}:
 							</dt>
-							<dd class="racef1">
+							<dd class="responsive-show-inline-block racef1">
 								{{ racerow.RACETIME }}
 							</dd>
 						</dl>
@@ -184,11 +186,11 @@
 					<li class="row">
 						<dl class="text-strong">
 							<dt class="racef1" id="time_event">
-								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2 countdownf1" size="3" />
+								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2 countdownf1" size="4" />
 								<span id="time_string">{{ lang('HOURS') }}
-									<input name="hours" class="bg2 countdownf1" size="2" />:
-									<input name="mins" class="bg2 countdownf1" size="2" />:
-									<input name="secs" class="bg2 countdownf1" size="2" />
+									<input name="hours" class="bg2 countdownf1" size="3" />:
+									<input name="mins" class="bg2 countdownf1" size="3" />:
+									<input name="secs" class="bg2 countdownf1" size="3" />
 								</span>
 							</dt>
 							<dt class="racef1" id="event_time" style="display:none ;">
@@ -262,10 +264,10 @@
 	<div class="forumbg">
 		<div class="inner">
 
-			<table class="table1 nohoverf1">
+			<table class="tablef1 nohoverf1">
 				<tr>
 					<td class="tabletopf1{% if S_RESULT_EXISTS %} responsive-hide{% endif %}">
-						<table class="table1 tablef1 hoverf1">
+						<table class="table1 hoverf1">
 							<thead>
 								<tr>
 									 <th colspan="2"><strong>{{ lang('FORMEL_CURRENT_QUALI') }}</strong></th>
@@ -311,7 +313,7 @@
 						</table>
 					</td>
 					<td class="tabletopf1{% if not S_RESULT_EXISTS %} responsive-hide{% endif %}">
-						<table class="table1 tablef1 hoverf1">
+						<table class="table1 hoverf1">
 							<thead>
 								<tr>
 									<th colspan="2"><strong>{{ lang('FORMEL_CURRENT_RESULT') }}</strong></th>
@@ -393,7 +395,7 @@
 						</table>
 					</td>
 					<td class="tabletopf1">
-						<table class="table1 tablef1 hoverf1">
+						<table class="table1 hoverf1">
 							<thead>
 								<tr>
 									<th colspan="3"><strong>{{ lang('FORMEL_YOUR_TIPP') }}</strong></th>
@@ -653,7 +655,7 @@
 	<div class="inner">
 
 		<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
-			<table class="table1">
+			<table class="table1 tablef1">
 				{% if qualifications %}
 				<thead>
 					<tr>

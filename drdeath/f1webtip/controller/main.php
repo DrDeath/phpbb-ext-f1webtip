@@ -1623,6 +1623,7 @@ class main
 				$chosen_race 		= '';
 				$places				= 10;
 				$var_places			= "<script>var places = $places</script>";
+				$var_countdown_stop = '';
 
 				$current_time = time();
 
@@ -2531,6 +2532,7 @@ class main
 					'S_INDEX'							=> true,
 					'S_COUNTDOWN'						=> ($this->config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
 					'S_FORM_ACTION'						=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'S_CALL_MOD'						=> ($this->user->data['is_registered'] == 1) ? true : false,
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
 					'U_FORMEL_FORUM'					=> $discuss_button,
 					'U_FORMEL_RULES' 					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'rules')),

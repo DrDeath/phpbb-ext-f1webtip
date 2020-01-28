@@ -1,6 +1,18 @@
 /* Table styles
 ----------------------------------------*/
 
+table.fullf1 {
+	width: 100%;
+}
+
+table.hoverf1 {
+	border-collapse: separate;
+}
+
+table.nohoverf1 {
+	border-collapse: separate;
+}
+
 table.tablef1 {
 	width: 100%;
 }
@@ -14,18 +26,12 @@ table.tablef1 thead th {
 	text-transform: uppercase;
 	line-height: 1.3em;
 	font-size: 1em;
-	padding: 0 0 4px 3px;
+	padding: 2px 0 2px 0;
 	text-align: center;
 }
 
 table.tablef1 thead th span {
 	padding-left: 7px;
-}
-
-table.tablef1 tbody th {
-	padding: 2px;
-	border-bottom: 1px solid transparent;
-	text-align: left;
 }
 
 table.tablef1 tbody tr {
@@ -34,12 +40,8 @@ table.tablef1 tbody tr {
 
 table.tablef1 tbody td {
 	padding: 2px;
-	border-top: 1px solid transparent;
+	/*border-top: 1px solid transparent;*/
 	vertical-align: middle;
-}
-
-table.fullf1 {
-	width: 100%;
 }
 
 table tbody td.tabletopf1 {

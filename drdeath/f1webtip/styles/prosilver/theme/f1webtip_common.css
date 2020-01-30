@@ -65,6 +65,11 @@ table tbody td.rightf1 {
 /* Spacer styles
 ----------------------------------------*/
 
+.centercontentf1 {
+	display: table;
+	margin: 0 auto;
+}
+
 .contentspacef1 {
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -181,6 +186,10 @@ ul.topiclist li.row dd.rulesf1content {
 
 /* Misc styles
 ----------------------------------------*/
+
+.donatef1 {
+	text-align: left;
+}
 
 .leftf1 {
 	text-align: left;

@@ -13,25 +13,25 @@
 	<div class="forumbg">
 		<div class="inner"><span class="corners-top"><span></span></span>
 
-			<div style="text-align: center;">
+			<div>
 				{% if heads_on %}
 				<div class="responsive-hide">
-					<p class="headerspacef1">
+					<p class="headerspacef1 centercontentf1">
 						<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" >
 					</p>
 				</div>
 				{% endif %}
-				<p class="contentspacef1">
+				<p class="contentspacef1 centercontentf1">
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;&nbsp;
 					{{ U_FORMEL_FORUM }}
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
 				</p>
 				{% if S_CALL_MOD %}
-				<p class="contentspacef1">
+				<p class="contentspacef1 centercontentf1">
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
 				</p>
 				{% endif %}
-				<p class="contentspacef1">
+				<p class="contentspacef1 centercontentf1">
 					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;&nbsp;
 					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
@@ -138,8 +138,8 @@
 		<div class="forumbg">
 			<div class="inner">
 
-				<div class="responsive-hide" style="text-align: center;">
-					<p class="headerspacef1">
+				<div class="responsive-hide">
+					<p class="contentspacef1 centercontentf1">
 						{{ racerow.RACEIMG }}
 					</p>
 				</div>
@@ -520,21 +520,23 @@
 			<p class="stat-block"></p>
 
 			{% for place_tipp in place_tipps %}
-			<div class="navbar bg3" style="text-align: center;">
-				<p class="contentspacef1">
-					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />
-					<input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />
-					{{ place_tipp.DELETE_TIPP }}
-					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
-				</p>
+			<div class="navbar bg3">
+				<div class="centercontentf1">
+					<p class="contentspacef1">
+						<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />
+						<input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />
+						{{ place_tipp.DELETE_TIPP }}
+						<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
+					</p>
+				</div>
 			</div>
 			{% endfor %}
 			{% if games_over %}
-			<div class="navbar bg3" style="text-align: center;">
-				<p class="contentspacef1">
+			<div class="navbar bg3">
+				<p class="contentspacef1 centercontentf1">
 					{{ lang('FORMEL_GAME_OVER') }}
 				</p>
-				<p class="contentspacef1">
+				<p class="contentspacef1 centercontentf1">
 					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
 					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
@@ -744,10 +746,10 @@
 <div class="forumbg">
 	<div class="inner">
 
-		<div style="text-align: center;">
+		<div>
 			{% if heads_on %}
 			<div class="responsive-hide">
-				<p class="headerspacef1">
+				<p class="headerspacef1 centercontentf1">
 					<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" >
 				</p>
 			</div>
@@ -755,9 +757,9 @@
 
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
-				<p class="contentspacef1">
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_INDEX }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
-				</p>
+					<p class="contentspacef1 centercontentf1">
+						<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_INDEX }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
+					</p>
 				</div>
 			</form>
 		</div>
@@ -815,10 +817,10 @@
 <div class="forumbg">
 	<div class="inner">
 
-		<div style="text-align: center;">
+		<div>
 			{% if heads_on %}
 			<div class="responsive-hide ">
-				<p class="headerspacef1">
+				<p class="headerspacef1 centercontentf1">
 					<img src="{{ HEADER_IMG }}" width="{{ HEADER_WIDTH }}" height="{{ HEADER_HEIGHT }}" alt="" >
 				</p>
 			</div>
@@ -826,7 +828,7 @@
 
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
-					<p class="contentspacef1">
+					<p class="contentspacef1 centercontentf1">
 						<input class="button1" type="button" onclick="window.location.href='{{ U_BACK_TO_TIPP }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />&nbsp;&nbsp;
 						<input class="button1" type="submit" name="show_users" value="{{ lang('FORMEL_USER_STATS') }}" />&nbsp;&nbsp;
 						<input class="button1" type="submit" name="show_drivers" value="{{ lang('FORMEL_DRIVER_STATS') }}" />&nbsp;&nbsp;
@@ -988,11 +990,13 @@ Please leave the copyright information at the bottom of your page for our extens
 <!--
 Please donate via paypal
 //-->
-<div style="text-align: center;">
-	<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F4HV6U5LZFBMN&source=url&item_name=Formel+1+Web+Tipp">
-		<img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.gif" border="0" alt="PayPal - The safer, easier way to pay online!" >
-	</a>
-	<p class="contentspacef1">
+<div>
+	<p class="donatef1">
+		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F4HV6U5LZFBMN&source=url&item_name=Formel+1+Web+Tipp">
+			<img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.gif" border="0" alt="PayPal - The safer, easier way to pay online!" >
+		</a>
+	</p>
+	<p class="contentspacef1 donatef1">
 		{{ lang('FORMEL_DONATE') }}
 	</p>
 </div>

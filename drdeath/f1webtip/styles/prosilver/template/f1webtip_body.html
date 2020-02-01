@@ -22,7 +22,7 @@
 				</div>
 				{% endif %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;&nbsp;
+					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;
 					{{ U_FORMEL_FORUM }}
 					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
 				</p>
@@ -32,7 +32,7 @@
 				</p>
 				{% endif %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;&nbsp;
+					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
 					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
 			</div>
@@ -519,29 +519,21 @@
 
 			<p class="stat-block"></p>
 
-			{% for place_tipp in place_tipps %}
 			<div class="navbar bg3">
-				<div class="centercontentf1">
-					<p class="contentspacef1">
-						<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />
-						<input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />
-						{{ place_tipp.DELETE_TIPP }}
-						<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
-					</p>
-				</div>
-			</div>
-			{% endfor %}
-			{% if games_over %}
-			<div class="navbar bg3">
+				{% if games_over %}
 				<p class="contentspacef1 centercontentf1">
 					{{ lang('FORMEL_GAME_OVER') }}
 				</p>
-				<p class="contentspacef1 centercontentf1">
+				{% endif %}
+				<p class="centercontentf1 contentspacef1">
 					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
+					{% for place_tipp in place_tipps %}
+					<input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />&nbsp;
+					{{ place_tipp.DELETE_TIPP }}
+					{% endfor %}
 					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
 			</div>
-			{% endif %}
 
 		</div>
 	</div>

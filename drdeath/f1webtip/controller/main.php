@@ -2077,7 +2077,7 @@ class main
 						{
 							$tipp_button		= $this->language->lang('FORMEL_EDIT_TIPP');
 							$tipp_button_name	= 'edit_my_tipp';
-							$delete_button		= '<input class="button1" type="submit" name="del_tipp" value="' . $this->language->lang('FORMEL_DEL_TIPP') . '" />';
+							$delete_button		= '<input class="button1" type="submit" name="del_tipp" value="' . $this->language->lang('FORMEL_DEL_TIPP') . '" />&nbsp;';
 							$tipp_array			= explode(",", $tipp_data['0']['tip_result']);
 							$user_tipp_points	= $tipp_data['0']['tip_points'];
 
@@ -2506,7 +2506,7 @@ class main
 				{
 					$formel_forum_url	= append_sid($this->root_path . "viewforum." . $this->php_ext . "?f=$formel_forum_id");
 					$formel_forum_name	= $this->language->lang('FORMEL_FORUM');
-					$discuss_button		= '<input class="button1" type="button" onclick="window.location.href=\'' . $formel_forum_url . '\'" value="' . $formel_forum_name . '" />&nbsp;&nbsp;';
+					$discuss_button		= '<input class="button1" type="button" onclick="window.location.href=\'' . $formel_forum_url . '\'" value="' . $formel_forum_name . '" />&nbsp;';
 				}
 
 				// Moderator switch and options

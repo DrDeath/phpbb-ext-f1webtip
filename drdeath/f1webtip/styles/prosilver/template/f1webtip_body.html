@@ -7,7 +7,7 @@
 {% INCLUDEJS '@drdeath_f1webtip/f1webtip_functions.js' %}
 {{ VAR_PLACES }}
 
-<form id="countdown" action="{{ U_FORM_ACTION }}" method="post" enctype="multipart/form-data">
+<form id="countdown" action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 	<h2>{{ lang('FORMEL_TITLE') }}</h2>
 
 	<div class="forumbg">
@@ -750,7 +750,7 @@
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
 					<p class="contentspacef1 centercontentf1">
-						<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_INDEX }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
+						<input class="button1" type="submit" name="rules" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
 					</p>
 				</div>
 			</form>
@@ -766,6 +766,7 @@
 			<li class="header">
 				<dl>
 					<dt class="racef1size">{{ lang('FORMEL_RULES_TITLE') }}</dt>
+					<dd></dd>
 				</dl>
 			</li>
 		</ul>
@@ -985,7 +986,7 @@ Please donate via paypal
 <div>
 	<p class="donatef1">
 		<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=F4HV6U5LZFBMN&source=url&item_name=Formel+1+Web+Tipp">
-			<img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.gif" border="0" alt="PayPal - The safer, easier way to pay online!" >
+			<img src="{{ EXT_PATH_IMAGES }}f1webtip_paypal_button.gif" alt="PayPal - The safer, easier way to pay online!" >
 		</a>
 	</p>
 	<p class="contentspacef1 donatef1">

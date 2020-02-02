@@ -394,7 +394,7 @@ class main
 
 				$this->template->assign_vars(array(
 					'S_RULES'					=> true,
-					'U_FORMEL_INDEX' 			=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'S_FORM_ACTION'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 					'FORMEL_RULES_MENTIONED' 	=> $rules_mentioned,
 					'FORMEL_RULES_PLACED' 		=> $rules_placed,
 					'FORMEL_RULES_FASTEST' 		=> $rules_fastest,
@@ -708,8 +708,8 @@ class main
 						$this->template->assign_block_vars('top_tippers', array(
 							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
 							'TIPPER_AVATAR'			=> '',
-							'TIPPER_AVATAR_WIDTH'	=> '',
-							'TIPPER_AVATAR_HEIGHT'	=> '',
+							'TIPPER_AVATAR_WIDTH'	=> '0',
+							'TIPPER_AVATAR_HEIGHT'	=> '0',
 							'TIPPER_NAME' 			=> $this->language->lang('FORMEL_NO_TIPPS'),
 							'TIPPER_POINTS' 		=> '',
 							)

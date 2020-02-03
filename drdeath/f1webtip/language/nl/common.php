@@ -274,7 +274,8 @@ $lang = array_merge($lang, array(
 	'ACP_F1_TEAMS_DELETE_TEAM'						=> 'Verwijder',
 	'ACP_F1_TEAMS_TEAM_UPDATED'						=> 'Team data is opgeslagen',
 	'ACP_F1_TEAMS_TEAM_DELETE_CONFIRM'				=> '<br/>Ben je zeker om dit team te verwijderen?',
-	'ACP_F1_TEAMS_TEAM_DELETED'						=> 'Team verwijderd',
+	'ACP_F1_TEAMS_TEAM_DELETED'						=> 'Team %s verwijderd',
+	'ACP_F1_TEAMS_TEAM_NOT_DELETED'					=> 'Team %s werd niet verwijderd, omdat er nog steeds coureurs in zitten. Verwijder eerst de coureurs uit het team.',
 	'ACP_F1_TEAMS_ERROR_TEAMNAME'					=> 'Plaats a.u.b. een naam van een team',
 	'ACP_F1_TEAMS_PENALTY'							=> 'Penalty',
 

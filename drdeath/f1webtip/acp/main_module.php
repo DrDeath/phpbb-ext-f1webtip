@@ -373,7 +373,7 @@ class main_module
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
 
-						$error = $language->lang('ACP_F1_DRIVERS_DRIVER_DELETED');
+						$error = sprintf($language->lang('ACP_F1_DRIVERS_DRIVER_DELETED'), $drivername);
 						trigger_error($error . adm_back_link($this->u_action));
 					}
 					// Create a confirmbox with yes and no.
@@ -668,14 +668,32 @@ class main_module
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
 					{
-						$sql = 'DELETE FROM ' . $table_teams . '
-								WHERE team_id = ' . (int) $team_id;
-						$db->sql_query($sql);
+						// prevent teams from being deleted when drivers are still assigned.
+						$sql = 'SELECT *
+							FROM ' . $table_drivers . '
+							WHERE driver_team = ' . (int) $team_id ;
+						$result = $db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($teamname . ' (ID ' . $team_id . ')' ));
+						if ($db->sql_fetchrow($result))
+						{
+							$db->sql_freeresult($result);
 
-						$error = $language->lang('ACP_F1_TEAMS_TEAM_DELETED');
-						trigger_error($error . adm_back_link($this->u_action));
+							$error = sprintf($language->lang('ACP_F1_TEAMS_TEAM_NOT_DELETED'), $teamname);
+							trigger_error($error . adm_back_link($this->u_action));
+						}
+						else
+						{
+							$db->sql_freeresult($result);
+
+							$sql = 'DELETE FROM ' . $table_teams . '
+									WHERE team_id = ' . (int) $team_id;
+							$db->sql_query($sql);
+
+							$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($teamname . ' (ID ' . $team_id . ')' ));
+
+							$error = sprintf($language->lang('ACP_F1_TEAMS_TEAM_DELETED'), $teamname);
+							trigger_error($error . adm_back_link($this->u_action));
+						}
 					}
 					// Create a confirmbox with yes and no.
 					else

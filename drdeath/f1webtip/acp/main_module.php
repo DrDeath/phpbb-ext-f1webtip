@@ -965,7 +965,6 @@ class main_module
 
 					// is_dst is deprecated since php 5.1 and was removed in php 7.0
 					$racetime = mktime($b_hour, $b_minute, $b_second, $b_month, $b_day, $b_year);
-					$racetime = $racetime - $user->timezone->getOffset(new \DateTime('UTC'));
 
 					if ( $race_id == 0 )
 					{

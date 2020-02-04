@@ -8,6 +8,7 @@
 	"license": "GPL-2.0-only",
 	"authors": [{
 			"name": "Stefan Temath",
+			"username": "Dr.Death",
 			"email": "dr.death@lpi-clan.de",
 			"homepage": "http://www.lpi-clan.de",
 			"role": "Lead Developer"
@@ -15,6 +16,7 @@
 		{
 			"name": "Falk Seidel",
 			"username": "Un1matr1x",
+			"email": "admin@un1matr1x.de",
 			"homepage": "http://un1matr1x.de",
 			"role": "Developer"
 		}],

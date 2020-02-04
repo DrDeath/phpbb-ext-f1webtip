@@ -11,12 +11,12 @@
 set -e
 set -x
 
-BRANCH=$1
+NOTESTS=$2
 
-# Copy extension to a temp folder
-mkdir ../../tmp
-cp -R . ../../tmp
-cd ../../
-
-# Clone phpBB
-git clone --depth=1 "git://github.com/phpbb/phpbb.git" "phpBB3" --branch=$BRANCH
+if [ "$NOTESTS" == "1" ]
+then
+	cd phpBB
+	composer remove sami/sami --dev --no-interaction
+	composer require phpbb/epv:dev-master --dev --no-interaction --ignore-platform-reqs
+	cd ../
+fi

@@ -3,33 +3,20 @@ dist: trusty
 
 matrix:
   include:
-    - php: 7.1.3
+    - php: 5.5
+      env: DB=mysqli
+    - php: 5.6
+      env: DB=mysqli
+    - php: 7.0
+      env: DB=mysqli
+    - php: 7.1
       env: DB=mysqli
     - php: 7.2
       env: DB=mysqli
-    - php: 7.2
-      env: DB=mariadb
-    - php: 7.2
-      env: DB=postgres
-    - php: 7.2
-      env: DB=sqlite3
     - php: 7.3
       env: DB=mysqli
     - php: 7.4
       env: DB=mysqli
-# Uncomment to also check in phpBB 3.2.x
-    - php: 7.1
-      env:
-        - DB=mysqli
-        - PHPBB_BRANCH="3.2.x"
-    - php: 7.0
-      env:
-        - DB=mysqli
-        - PHPBB_BRANCH="3.2.x"
-    - php: 5.6
-      env:
-        - DB=mysqli
-        - PHPBB_BRANCH="3.2.x"
   fast_finish: true
 
 env:
@@ -37,32 +24,27 @@ env:
     - EXTNAME="drdeath/f1webtip"  # CHANGE name of the extension HERE
     - SNIFF="1"                   # Should we run code sniffer on your code?
     - IMAGE_ICC="1"               # Should we run icc profile sniffer on your images?
-    - EPV="1"                     # Should we run EPV (Extension Pre Validator) on your code?
-    - PHPBB_BRANCH="3.3.x"
+    - EPV="0"                     # Should we run EPV (Extension Pre Validator) on your code?
+    - PHPBB_BRANCH="3.2.x"
 
 branches:
   only:
     - master
     - develop
-    - /^dev\/.*$/
+    - /^\d+(\.\d+)?\.x$/
 
 install:
-    - travis/prepare-phpbb.sh $PHPBB_BRANCH
-    - sh -c "if [ '$LANGTEST' = '1' ]; then composer remove phpbb/epv --dev --no-interaction; fi"
-    - sh -c "if [ '$LANGTEST' = '1' ]; then composer require phpbb/translation-validator:1.3.* --dev --no-interaction; fi"
-    - sh -c "if [ '$LANGTEST' = '1' ]; then travis/prepare-langtest.sh $EXTNAME $PHPBB_BRANCH ; fi"
-    - cd ../../phpBB3
-    - travis/prepare-extension.sh $EXTNAME $PHPBB_BRANCH
-    - travis/setup-phpbb.sh $DB $TRAVIS_PHP_VERSION $NOTESTS
-    - sh -c "if [ '$EPV' != '0' ] && [ '$NOTESTS' = '1' ] && [ '$LANGTEST' != '1' ]; then ../$GITREPO/travis/prepare-epv.sh $NOTESTS $NOTESTS; fi"
+  - travis/prepare-phpbb.sh $EXTNAME $PHPBB_BRANCH
+  - cd ../../phpBB3
+  - travis/prepare-extension.sh $EXTNAME $PHPBB_BRANCH
+  - travis/setup-phpbb.sh $DB $TRAVIS_PHP_VERSION
+  - sh -c "if [ '$EPV' != '0' -a '$TRAVIS_PHP_VERSION' = '5.5' -a '$DB' = 'mysqli' ]; then cd phpBB; composer require phpbb/epv:dev-master --dev --no-interaction; cd ../; fi"
 
 before_script:
-    - travis/setup-database.sh $DB $TRAVIS_PHP_VERSION $NOTESTS
+  - travis/setup-database.sh $DB $TRAVIS_PHP_VERSION
 
 script:
-    - sh -c "if [ '$SNIFF' != '0' ]; then travis/ext-sniff.sh $DB $TRAVIS_PHP_VERSION $EXTNAME $NOTESTS; fi"
-    - sh -c "if [ '$IMAGE_ICC' != '0' ]; then travis/check-image-icc-profiles.sh $DB $TRAVIS_PHP_VERSION; fi"
-    #- phpBB/vendor/bin/phpunit --configuration phpBB/ext/$EXTNAME/phpunit.xml.dist --bootstrap ./tests/bootstrap.php
-    - sh -c "if [ '$NOTESTS' != '1' ]; then phpBB/vendor/bin/phpunit --configuration phpBB/ext/$EXTNAME/travis/phpunit-$DB-travis.xml --bootstrap ./tests/bootstrap.php; fi"
-    - sh -c "if [ '$EPV' != '0' ] && [ '$NOTESTS' = '1' ] && [ '$LANGTEST' != '1' ]; then phpBB/vendor/bin/EPV.php run --dir='phpBB/ext/$EXTNAME/'; fi"
-    - sh -c "if [ '$NOTESTS' = '1' ] && [ '$LANGTEST' = '1' ]; then ../langtest/travis/test-lang.sh; fi"
+  - sh -c "if [ '$SNIFF' != '0' ]; then travis/ext-sniff.sh $DB $TRAVIS_PHP_VERSION $EXTNAME; fi"
+  - sh -c "if [ '$IMAGE_ICC' != '0' ]; then travis/check-image-icc-profiles.sh $DB $TRAVIS_PHP_VERSION; fi"
+  - phpBB/vendor/bin/phpunit --configuration phpBB/ext/$EXTNAME/travis/phpunit-$DB-travis.xml --bootstrap ./tests/bootstrap.php
+  - sh -c "if [ '$EPV' != '0' -a '$TRAVIS_PHP_VERSION' = '5.5' -a '$DB' = 'mysqli' ]; then phpBB/vendor/bin/EPV.php run --dir='phpBB/ext/$EXTNAME/'; fi"

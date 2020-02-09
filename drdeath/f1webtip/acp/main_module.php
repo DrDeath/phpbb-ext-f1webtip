@@ -417,35 +417,18 @@ class main_module
 					}
 					else
 					{
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
-						{
-							$sql_ary = array(
-								'driver_name'		=> $drivername,
-								'driver_img'		=> $driverimg,
-								'driver_team'		=> $driverteam,
-								'driver_penalty'	=> $driver_penalty,
-								'driver_disabled'	=> $driver_disabled,
-							);
+						$sql_ary = array(
+							'driver_name'		=> $drivername,
+							'driver_img'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $driverimg : '',
+							'driver_team'		=> $driverteam,
+							'driver_penalty'	=> $driver_penalty,
+							'driver_disabled'	=> $driver_disabled,
+						);
 
-							$sql = 'UPDATE ' . $table_drivers . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
-								WHERE driver_id = $driver_id";
-							$db->sql_query($sql);
-						}
-						else
-						{
-							$sql_ary = array(
-								'driver_name'		=> $drivername,
-								'driver_team'		=> $driverteam,
-								'driver_penalty'	=> $driver_penalty,
-								'driver_disabled'	=> $driver_disabled,
-							);
-
-							$sql = 'UPDATE ' . $table_drivers . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
-								WHERE driver_id = $driver_id";
-							$db->sql_query($sql);
-						}
+						$sql = 'UPDATE ' . $table_drivers . '
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
+							WHERE driver_id = $driver_id";
+						$db->sql_query($sql);
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
 					}
@@ -466,8 +449,7 @@ class main_module
 					if ($button_add && $drivername == '')
 					{
 						$error	 = $language->lang('ACP_F1_DRIVERS_ERROR_DRIVERNAME');
-						$error	.= ($button_add && $driverimg == '') ? '<br />' . $language->lang('ACP_F1_DRIVERS_ERROR_IMAGE') : '';
-						trigger_error($error . adm_back_link($this->u_action));
+						trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
 					// Init some vars
@@ -588,32 +570,17 @@ class main_module
 
 						$db->sql_freeresult($user_points);
 
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
-						{
-							$template->assign_block_vars('driverrows_gfx', array(
-								'DRIVERNAME'		=> $row['driver_name'],
-								'DRIVERID'			=> $row['driver_id'],
-								'DRIVERIMG'			=> $driverimg,
-								'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
-								'DRIVERPOINTS'		=> $points,
-								'DRIVER_PENALTY'	=> $driver_penalty,
-								'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $language->lang('NO') : $language->lang('YES'),
-								)
-							);
-						}
-						else
-						{
-							$template->assign_block_vars('driverrows', array(
-								'DRIVERNAME'		=> $row['driver_name'],
-								'DRIVERID'			=> $row['driver_id'],
-								'DRIVERIMG'			=> $driverimg,
-								'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
-								'DRIVERPOINTS'		=> $points,
-								'DRIVER_PENALTY'	=> $driver_penalty,
-								'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $language->lang('NO') : $language->lang('YES'),
-								)
-							);
-						}
+						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfx'] == 1) ? 'driverrows_gfx' : 'driverrows', array(
+							'DRIVERNAME'		=> $row['driver_name'],
+							'DRIVERID'			=> $row['driver_id'],
+							'DRIVERIMG'			=> $driverimg,
+							'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
+							'DRIVERPOINTS'		=> $points,
+							'DRIVER_PENALTY'	=> $driver_penalty,
+							'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $language->lang('NO') : $language->lang('YES'),
+							)
+						);
+
 					}
 
 					$db->sql_freeresult($result);
@@ -679,7 +646,7 @@ class main_module
 							$db->sql_freeresult($result);
 
 							$error = sprintf($language->lang('ACP_F1_TEAMS_TEAM_NOT_DELETED'), $teamname);
-							trigger_error($error . adm_back_link($this->u_action));
+							trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 						}
 						else
 						{
@@ -734,34 +701,18 @@ class main_module
 					}
 					else
 					{
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
-						{
-							$sql_ary = array(
-								'team_name'		=> $teamname,
-								'team_img'		=> $teamimg,
-								'team_car'		=> $teamcar,
-								'team_penalty'	=> $team_penalty,
-							);
+						$sql_ary = array(
+							'team_name'		=> $teamname,
+							'team_img'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $teamimg : '',
+							'team_car'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $teamcar : '',
+							'team_penalty'	=> $team_penalty,
+						);
 
-							$sql = 'UPDATE ' . $table_teams . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
-								WHERE team_id = ' . (int) $team_id;
+						$sql = 'UPDATE ' . $table_teams . '
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
+							WHERE team_id = ' . (int) $team_id;
 
-							$db->sql_query($sql);
-						}
-						else
-						{
-							$sql_ary = array(
-								'team_name'		=> $teamname,
-								'team_penalty'	=> $team_penalty,
-							);
-
-							$sql = 'UPDATE ' . $table_teams . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
-								WHERE team_id = ' . (int) $team_id;
-
-							$db->sql_query($sql);
-						}
+						$db->sql_query($sql);
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_EDITED', false, array($teamname . ' (ID ' . $team_id . ')' ));
 					}
@@ -779,7 +730,7 @@ class main_module
 					if ($button_add && $teamname == '')
 					{
 						$error  = $language->lang('ACP_F1_TEAMS_ERROR_TEAMNAME');
-						trigger_error($error . adm_back_link($this->u_action));
+						trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
 					// Init some vars
@@ -855,30 +806,15 @@ class main_module
 
 						$db->sql_freeresult($team_points);
 
-						if ($config['drdeath_f1webtip_show_gfx'] == 1)
-						{
-							$template->assign_block_vars('teamrows_gfx', array(
-								'TEAMNAME'		=> $row['team_name'],
-								'TEAMID'		=> $row['team_id'],
-								'POINTS'		=> $points,
-								'TEAMIMG'		=> $team_img,
-								'TEAMCAR'		=> $team_car,
-								'TEAM_PENALTY'	=> $team_penalty,
-								)
-							);
-						}
-						else
-						{
-							$template->assign_block_vars('teamrows', array(
-								'TEAMNAME'		=> $row['team_name'],
-								'TEAMID'		=> $row['team_id'],
-								'POINTS'		=> $points,
-								'TEAMIMG'		=> $team_img,
-								'TEAMCAR'		=> $team_car,
-								'TEAM_PENALTY'	=> $team_penalty,
-								)
-							);
-						}
+						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfx'] == 1) ? 'teamrows_gfx' : 'teamrows', array(
+							'TEAMNAME'		=> $row['team_name'],
+							'TEAMID'		=> $row['team_id'],
+							'POINTS'		=> $points,
+							'TEAMIMG'		=> $team_img,
+							'TEAMCAR'		=> $team_car,
+							'TEAM_PENALTY'	=> $team_penalty,
+							)
+						);
 					}
 
 					$db->sql_freeresult($result);
@@ -969,7 +905,7 @@ class main_module
 				if ($button_add && $racename == '')
 				{
 					$error  = $language->lang('ACP_F1_RACES_ERROR_RACENAME');
-					trigger_error($error . adm_back_link($this->u_action));
+					trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 				}
 
 				// add or update the race
@@ -1005,39 +941,20 @@ class main_module
 					}
 					else
 					{
-						if ($config['drdeath_f1webtip_show_gfxr'] == 1)
-						{
-							$sql_ary = array(
-								'race_name'		=> $racename,
-								'race_img'		=> $raceimg,
-								'race_time'		=> $racetime,
-								'race_length'	=> $racelength,
-								'race_laps'		=> $racelaps,
-								'race_distance'	=> $racedistance,
-								'race_debut'	=> $racedebut,
-							);
+						$sql_ary = array(
+							'race_name'		=> $racename,
+							'race_img'		=> ($config['drdeath_f1webtip_show_gfxr'] == 1) ? $raceimg : '',
+							'race_time'		=> $racetime,
+							'race_length'	=> $racelength,
+							'race_laps'		=> $racelaps,
+							'race_distance'	=> $racedistance,
+							'race_debut'	=> $racedebut,
+						);
 
-							$sql = 'UPDATE ' . $phpbb_container->getParameter('tables.f1webtip.races') . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
-								WHERE race_id = ' . (int) $race_id;
-							$db->sql_query($sql);
-						}
-						else
-						{
-							$sql_ary = array(
-								'race_name'		=> $racename,
-								'race_time'		=> $racetime,
-								'race_length'	=> $racelength,
-								'race_laps'		=> $racelaps,
-								'race_distance'	=> $racedistance,
-								'race_debut'	=> $racedebut,
-							);
-
-							$sql = 'UPDATE ' . $table_races . '
-								SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
-								WHERE race_id = ' . (int) $race_id;
-							$db->sql_query($sql);
-						}
+						$sql = 'UPDATE ' . $table_races . '
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
+							WHERE race_id = ' . (int) $race_id;
+						$db->sql_query($sql);
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_EDITED', false, array($racename . ' (ID ' . $race_id . ')' ));
 					}
@@ -1179,25 +1096,13 @@ class main_module
 						$race_img = $row['race_img'];
 						$race_img = ($race_img == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="">' : '<img src="' . $ext_path . 'images/' . $race_img . '" width="94" height="54" alt="">';
 
-						if ($config['drdeath_f1webtip_show_gfxr'] == 1)
-						{
-							$template->assign_block_vars('racerows_gfxr', array(
-								'RACEIMG' 	=> $race_img,
-								'RACENAME' 	=> $row['race_name'],
-								'RACEID' 	=> $row['race_id'],
-								'RACETIME' 	=> $user->format_date($row['race_time'], false, true),
-								'RACEDEAD' 	=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true)
-							));
-						}
-						else
-						{
-							$template->assign_block_vars('racerows', array(
-								'RACENAME' 	=> $row['race_name'],
-								'RACEID' 	=> $row['race_id'],
-								'RACETIME' 	=> $user->format_date( $row['race_time'] ),
-								'RACEDEAD' 	=> $user->format_date( $row['race_time'] - $config['drdeath_f1webtip_deadline_offset'] )
-							));
-						}
+						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', array(
+							'RACEIMG' 	=> $race_img,
+							'RACENAME' 	=> $row['race_name'],
+							'RACEID' 	=> $row['race_id'],
+							'RACETIME' 	=> $user->format_date($row['race_time'], false, true),
+							'RACEDEAD' 	=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true)
+						));
 					}
 
 					$db->sql_freeresult($result);

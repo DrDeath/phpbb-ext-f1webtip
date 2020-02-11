@@ -1,4 +1,5 @@
 [phpbb-ext-f1webtip] 
+
 http://drdeath.github.io/phpbb-ext-f1webtip/
 ==================
 
@@ -36,4 +37,4 @@ http://drdeath.github.io/phpbb-ext-f1webtip/
 
 ## License
 
-[GPLv2](license.txt)
+[GPLv2](LICENSE)

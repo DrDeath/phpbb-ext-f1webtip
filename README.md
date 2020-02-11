@@ -37,4 +37,4 @@ http://drdeath.github.io/phpbb-ext-f1webtip/
 
 ## License
 
-[GPLv2](LICENSE)
+[GPLv2](license.txt)

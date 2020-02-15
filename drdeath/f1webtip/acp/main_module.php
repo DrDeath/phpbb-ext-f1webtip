@@ -22,6 +22,9 @@ class main_module
 
 		$ext_path = $phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true);
 
+		// Load extension language file
+		$language->add_lang('acp_common', 'drdeath/f1webtip');
+
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
 		$table_teams	= $phpbb_container->getParameter('tables.f1webtip.teams');
 		$table_drivers 	= $phpbb_container->getParameter('tables.f1webtip.drivers');

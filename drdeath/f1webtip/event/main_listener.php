@@ -71,7 +71,18 @@ class main_listener implements EventSubscriberInterface
 	* @param \phpbb\user							$user
 	* @param \phpbb\language\language				$language
 	*/
-	public function __construct($php_ext, Container $phpbb_container, \phpbb\db\driver\driver_interface $db, \phpbb\config\config $config, \phpbb\controller\helper $helper, \phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\user $user, \phpbb\language\language $language)
+	public function __construct
+	(
+		$php_ext,
+		Container $phpbb_container,
+		\phpbb\db\driver\driver_interface $db,
+		\phpbb\config\config $config,
+		\phpbb\controller\helper $helper,
+		\phpbb\auth\auth $auth,
+		\phpbb\template\template $template,
+		\phpbb\user $user,
+		\phpbb\language\language $language
+	)
 	{
 		$this->php_ext 			= $php_ext;
 		$this->phpbb_container 	= $phpbb_container;

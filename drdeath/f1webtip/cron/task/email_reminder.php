@@ -123,12 +123,15 @@ class email_reminder extends \phpbb\cron\task\base
 		{
 			$race_id 		= $race['race_id'];
 
-			// Update the race_mail status
-			$sql_update = "	UPDATE  	$table_races
-							SET 		race_mail = 1
-							WHERE 		race_id = $race_id" ;
+			// Update the race_mail status to prevent sending mails again for the same race
+			$sql_ary = array(
+				'race_mail'	=> 1,
+			);
 
-			$result_mail = $this->db->sql_query($sql_update);
+			$sql = 'UPDATE ' . $table_races . '
+				SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
+				WHERE race_id = ' . (int) $race_id;
+			$this->db->sql_query($sql);
 
 			// prepare some variables
 			$race_name 		= $race['race_name'];

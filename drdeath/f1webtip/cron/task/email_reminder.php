@@ -154,23 +154,6 @@ class email_reminder extends \phpbb\cron\task\base
 			// In this case, remove the DEADLINETIME variable in email template
 
 			$event_stop			= date($race_time - $this->config['drdeath_f1webtip_deadline_offset']);
-			$user_date_format 	= $this->config['default_dateformat'];
-			$user_timezone 		= $this->config['board_timezone'];
-
-			$datetime = new \DateTime('now', new \DateTimeZone('UTC'));
-			$datetime->setTimestamp($event_stop);
-			$datetime->setTimezone(new \DateTimeZone($user_timezone));
-			$datetime->format($user_date_format);
-			$deadline  = $datetime->format($user_date_format);
-
-			$b_day			= $datetime->format('d');
-			$b_month		= $datetime->format('m');
-			$b_year			= $datetime->format('Y');
-			$b_hour			= $datetime->format('H');
-			$b_minute		= $datetime->format('i');
-
-			$deadline_date 	= $b_day . '.' . $b_month . '.' . $b_year;
-			$deadline_time	= $b_hour . ':' . $b_minute;
 
 			$subject 		= $this->language->lang('F1WEBTIP_PAGE') . " - " . $race_name;
 			$usernames 		= '';
@@ -193,6 +176,8 @@ class email_reminder extends \phpbb\cron\task\base
 			$sql = 'SELECT 		u.user_id,
 								u.username,
 								u.user_lang,
+								u.user_timezone,
+								u.user_dateformat,
 								u.user_email
 					FROM 		' . USERS_TABLE . ' u , ' . USER_GROUP_TABLE . " ug
 					WHERE 		ug.group_id = $formel_group_id
@@ -206,6 +191,25 @@ class email_reminder extends \phpbb\cron\task\base
 
 			while ($row = $this->db->sql_fetchrow($result))
 			{
+				// grep the user time zone and time format
+				$user_date_format 	= $row['user_dateformat'];
+				$user_timezone 		= $row['user_timezone'];
+
+				$datetime = new \DateTime('now', new \DateTimeZone('UTC'));
+				$datetime->setTimestamp($event_stop);
+				$datetime->setTimezone(new \DateTimeZone($user_timezone));
+				$datetime->format($user_date_format);
+				$deadline  = $datetime->format($user_date_format);
+
+				$b_day			= $datetime->format('d');
+				$b_month		= $datetime->format('m');
+				$b_year			= $datetime->format('Y');
+				$b_hour			= $datetime->format('H');
+				$b_minute		= $datetime->format('i');
+
+				$deadline_date 	= $b_day . '.' . $b_month . '.' . $b_year;
+				$deadline_time	= $b_hour . ':' . $b_minute;
+
 				// Send the messages
 				$used_lang = $row['user_lang'];
 				$mail_template_path = $ext_path . 'language/' . $used_lang . '/email/';

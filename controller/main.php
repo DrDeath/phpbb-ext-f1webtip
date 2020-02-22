@@ -284,7 +284,6 @@ class main
 	*/
 	public function handle($name)
 	{
-		include($this->root_path . 'includes/functions_user.' . $this->php_ext);
 
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
 		$ext_path = $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
@@ -330,6 +329,11 @@ class main
 			}
 		}
 		// At this point we have no bots, only registered user and if guest viewing is allowed we have also guests here.
+
+		if (!function_exists('group_memberships'))
+		{
+			include($this->root_path . 'includes/functions_user.' . $this->php_ext);
+		}
 
 		// Check if user has one of the formular 1 admin permission.
 		// If user has one or more of these permissions, he gets also formular 1 moderator permissions.

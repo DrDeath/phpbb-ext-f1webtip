@@ -10,6 +10,8 @@
 namespace drdeath\f1webtip\cron\task;
 
 use Symfony\Component\DependencyInjection\Container;
+use \phpbb\language\language;
+use \phpbb\language\language_file_loader;
 
 class email_reminder extends \phpbb\cron\task\base
 {
@@ -83,6 +85,44 @@ class email_reminder extends \phpbb\cron\task\base
 		$this->language 				= $language;
 	}
 
+	/*
+	* Format a timestamp in user's choosen date/time format and time zone
+	*
+	* Code borrowed from Mike-on-Tour
+	*
+	* @param 	string		$user_lang			addressed user's language
+	* @param 	string		$user_timezone		addressed user's time zone
+	* @param 	string		$user_dateformat	addressed user's date/time format
+	* @param 	int			$user_timestamp		addressed user's php timestamp (registration date, last login, reminder mails as UNIX timestamp from users table)
+	*
+	* @return 	string							the timestamp in user's choosen date/time format and time zone as DateTime string
+	*/
+	private function format_date_time($user_lang, $user_timezone, $user_dateformat, $user_timestamp)
+	{
+		$default_tz = date_default_timezone_get();
+		$date = new \DateTime('now', new \DateTimeZone($default_tz));
+		$date->setTimestamp($user_timestamp);
+		$date->setTimezone(new \DateTimeZone($user_timezone));
+		$time = $date->format($user_dateformat);
+
+		// Instantiate a new language class (with its own loader), set the user's chosen language and translate the date/time string
+		$lang = new language(new language_file_loader($this->root_path, $this->php_ext));
+		$lang->set_user_language($user_lang);
+
+		// Find all words in date/time string and replace them with the translations from user's language
+		preg_match_all("/[a-zA-Z]+/", $time, $matches, PREG_PATTERN_ORDER);
+		if (sizeof ($matches[0]) > 0)
+		{
+			foreach ($matches[0] as $value)
+			{
+				$time = preg_replace("/".$value."/", $lang->lang(array('datetime', $value)), $time);
+			}
+		}
+
+		// return the formatted and translated time in users timezone
+		return $time;
+	}
+
 	/**
 	* Runs this cron task.
 	*
@@ -150,10 +190,7 @@ class email_reminder extends \phpbb\cron\task\base
 			$race_time		= $race['race_time'];
 
 			// Get the race f1webtipp deadline.
-			// Could have problems if your users live in different timezones.
-			// In this case, remove the DEADLINETIME variable in email template
-
-			$event_stop			= date($race_time - $this->config['drdeath_f1webtip_deadline_offset']);
+			$event_stop		= date($race_time - $this->config['drdeath_f1webtip_deadline_offset']);
 
 			$subject 		= $this->language->lang('F1WEBTIP_PAGE') . " - " . $race_name;
 			$usernames 		= '';
@@ -191,36 +228,22 @@ class email_reminder extends \phpbb\cron\task\base
 
 			while ($row = $this->db->sql_fetchrow($result))
 			{
-				// grep the user time zone and time format
-				$user_date_format 	= $row['user_dateformat'];
-				$user_timezone 		= $row['user_timezone'];
+				// grep the user time zone, time format and language
+				$user_timezone		= $row['user_timezone'];
+				$user_dateformat	= $row['user_dateformat'];
+				$user_lang			= $row['user_lang'];
 
-				$datetime = new \DateTime('now', new \DateTimeZone('UTC'));
-				$datetime->setTimestamp($event_stop);
-				$datetime->setTimezone(new \DateTimeZone($user_timezone));
-				$datetime->format($user_date_format);
-				$deadline  = $datetime->format($user_date_format);
-
-				$b_day			= $datetime->format('d');
-				$b_month		= $datetime->format('m');
-				$b_year			= $datetime->format('Y');
-				$b_hour			= $datetime->format('H');
-				$b_minute		= $datetime->format('i');
-
-				$deadline_date 	= $b_day . '.' . $b_month . '.' . $b_year;
-				$deadline_time	= $b_hour . ':' . $b_minute;
-
+				$deadline			= $this->format_date_time($user_lang, $user_timezone, $user_dateformat, $event_stop);
 				// Send the messages
-				$used_lang = $row['user_lang'];
-				$mail_template_path = $ext_path . 'language/' . $used_lang . '/email/';
+
+				$mail_template_path = $ext_path . 'language/' . $user_lang . '/email/';
 
 				$messenger->to($row['user_email'], $row['username']);
-				$messenger->template('cron_formel', $used_lang, $mail_template_path);
+				$messenger->template('cron_formel', $user_lang, $mail_template_path);
 				$messenger->assign_vars(array(
 					'USERNAME'		=> $row['username'],
 					'RACENAME'		=> $race_name,
-					'DEADLINEDATE'	=> $deadline_date,
-					'DEADLINETIME'	=> $deadline_time,
+					'DEADLINEDATE'	=> $this->format_date_time($row['user_lang'], $row['user_timezone'], $row['user_dateformat'], $event_stop),
 					)
 				);
 
@@ -241,12 +264,12 @@ class email_reminder extends \phpbb\cron\task\base
 			if ($usernames <> '')
 			{
 				//send admin email
-				$used_lang 	= $this->config['default_lang'];
+				$user_lang 	= $this->config['default_lang'];
 				$subject 	= sprintf($this->language->lang('FORMEL_MAIL_ADMIN'), $race_name);
 
 				$messenger->to($this->config['board_email'], $this->config['sitename']);
 				$messenger->subject(htmlspecialchars_decode($subject));
-				$messenger->template('admin_send_email', $used_lang);
+				$messenger->template('admin_send_email', $user_lang);
 				$messenger->assign_vars(array(
 					'CONTACT_EMAIL' => $this->config['board_contact'],
 					'MESSAGE'		=> sprintf($this->language->lang('FORMEL_MAIL_ADMIN_MESSAGE'), $usernames),

@@ -5,8 +5,8 @@ vergiss bitte nicht Deinen Formel 1 WebTipp auf {{ SITENAME }}.
 Das nächste Rennen findet an diesem Wochende statt !!!
 
 Deadline für das Rennen in {{ RACENAME }} ist am
-Datum: 	{{ DEADLINEDATE }}
-Uhrzeit:  {{ DEADLINETIME }}
+{{ DEADLINEDATE }}
+
 
 Hier geht es zum Tippspiel: {{ U_BOARD }}
 

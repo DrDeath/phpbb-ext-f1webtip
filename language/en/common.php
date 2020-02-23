@@ -1,0 +1,160 @@
+<?php
+/**
+*
+* @package phpBB Extension - DrDeath F1WebTip
+* @copyright (c) 2014 Dr.Death - www.lpi-clan.de
+* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
+*
+*/
+
+if (!defined('IN_PHPBB'))
+{
+	exit;
+}
+
+if (empty($lang) || !is_array($lang))
+{
+	$lang = array();
+}
+
+$lang = array_merge($lang, array(
+	'F1WEBTIP_PAGE'					=> 'F1 WebTip',
+
+	'FORMEL_TITLE'					=> 'F1 WebTip',
+	'FORMEL_CURRENT_RACE'			=> 'Current race',
+	'FORMEL_CURRENT_QUALI'			=> 'Qualification',
+	'FORMEL_CURRENT_RESULT'			=> 'Result',
+	'FORMEL_NO_QUALI'				=> 'No qualification found',
+	'FORMEL_NO_RESULTS'				=> 'No result found',
+	'FORMEL_RACENAME'				=> 'Location',
+	'FORMEL_RACELENGTH'				=> 'Lap length',
+	'FORMEL_RACEDISTANCE'			=> 'Race length',
+	'FORMEL_RACELAPS'				=> 'Laps',
+	'FORMEL_RACEDEBUT'				=> 'First race',
+	'FORMEL_RACETIME'				=> 'Race begins',
+	'FORMEL_RACEDEAD'				=> 'Deadline',
+	'FORMEL_NEXT_RACE'				=> 'Next',
+	'FORMEL_PREV_RACE'				=> 'Previous',
+	'FORMEL_PLACE'					=> 'Place',
+	'FORMEL_EDIT'					=> 'Edit',
+	'FORMEL_RULES'					=> 'Rules',
+	'FORMEL_FORUM'					=> 'F1 Webtip Forum',
+	'FORMEL_STATISTICS'				=> 'Statistics',
+	'FORMEL_CALL_MOD'				=> 'Call moderator',
+	'FORMEL_POLE'					=> 'Poleposition',
+	'FORMEL_RACE_WINNER'			=> 'Winner',
+	'FORMEL_DELETE'					=> 'Delete',
+	'FORMEL_PACE'					=> 'Fastest lap',
+	'FORMEL_TIRED'					=> 'Tired count',
+	'FORMEL_SAFETYCAR'				=> 'Safety Cars',
+	'FORMEL_NO_TIPP'				=> 'No tip found',
+	'FORMEL_YOUR_TIPP'				=> 'Your tip',
+	'FORMEL_YOUR_POINTS'			=> 'Your points',
+	'FORMEL_GAME_OVER'				=> 'Time is over. No changes possible anymore.',
+	'FORMEL_ADD_TIPP'				=> 'Send tip',
+	'FORMEL_DEL_TIPP'				=> 'Delete tip',
+	'FORMEL_EDIT_TIPP'				=> 'Edit tip',
+	'FORMEL_TIPP_DELETED'			=> 'Tip was removed<br><br>Click %shere%s to go back to the F1 WebTip overview<br><br>Click %shere%s to go to forum',
+	'FORMEL_DUBLICATE_VALUES'		=> 'Error while sending your tip: You placed a driver more than once<br><br>Click %shere%s to go back to the F1 WbTip overview<br><br>Click %shere%s to go back to forum',
+	'FORMEL_ACCEPTED_TIPP'			=> 'You tip was accepted<br><br>Click %shere%s to place more F1 tips<br><br>Click %shere%s to go back to forum',
+	'FORMEL_RESULTS_TITLE'			=> 'F1 WebTip moderation',
+	'FORMEL_RESULTS_TITLE_EXP'		=> 'Here you can add or edit every events results',
+	'FORMEL_MOD_BUTTON_TEXT'		=> 'Moderation',
+	'FORMEL_RESULTS_DELETED'		=> 'Results deleted<br><br>Click %shere%s to go back to F1 WebTip moderation<br><br>Click %shere%s to go back to F1 WebTip',
+	'FORMEL_RESULTS_ERROR'			=> 'Error while saving. Please try again<br><br>Click %shere%s to go back to F1 WebTip moderation<br><br>Click %shere%s to go back to F1 WebTip',
+	'FORMEL_RESULTS_DOUBLE'			=> 'You placed a driver more than once. Please try again<br><br>Click %shere%s to go back to F1 WebTip moderation<br><br>Click %shere%s to go back to F1 WebTip',
+	'FORMEL_RESULTS_ACCEPTED'		=> 'Results saved<br><br>Click %shere%s to go back to F1 WebTip moderation<br><br>Click %shere%s to go back to F1 WebTip',
+	'FORMEL_RESULTS_ADD'			=> 'Add',
+	'FORMEL_RESULTS_QUALI_TITLE'	=> 'Add qualification',
+	'FORMEL_RESULTS_RESULT_TITLE'	=> 'Edit race results',
+	'FORMEL_TOP_POINTS'				=> 'Points',
+	'FORMEL_TOP_NAME'				=> 'Top players',
+	'FORMEL_TOP_DRIVER'				=> 'Top drivers',
+	'FORMEL_TOP_TEAMS'				=> 'Top teams',
+	'FORMEL_NO_TIPPS'				=> 'No tips made',
+	'FORMEL_TIPPS_MADE'				=> 'Placed tips',
+	'FORMEL_BACK_TO_TIPP'			=> 'Back to tip',
+	'FORMEL_USER_STATS'				=> 'User',
+	'FORMEL_DRIVER_STATS'			=> 'Driver',
+	'FORMEL_TEAM_STATS'				=> 'Teams',
+	'FORMEL_TOP_MORE'				=> 'Show all',
+	'FORMEL_STATS_TITLE'			=> 'Formula 1 statistics',
+	'FORMEL_POINTS_WON'				=> 'Points',
+	'FORMEL_ALL_POINTS'				=> 'Total points',
+	'FORMEL_RULES_TITLE'			=> 'Rules',
+	'FORMEL_RULES_GENERAL'			=> 'General',
+	'FORMEL_PROFILE_WEBTIPP'		=> 'Formula 1 points',
+	'FORMEL_PROFILE_RANK'			=> '%s. Place',
+	'FORMEL_PROFILE_NORANK'			=> 'No ranking',
+	'FORMEL_PROFILE_TIPSS'			=> '%s of %s races tiped',
+	'FORMEL_RULES_GENERAL_EXP'		=> 'Here you can show the other community members who really has a clue of the formula 1.<br><br>For every race you can place a tip and collect points. If you are away for a long time, you can now enter your tips for as many races as you want and change it whenever you want. To see the current ranking just visit the statistics page. If you want to know what the other tipers tiped, just click on their usernames on the overview page ( Tips are only shown if the deadline was reached )',
+	'FORMEL_RULES_SCORE'			=> 'Points',
+	'FORMEL_RULES_SCORE_EXP'		=> 'You can place your tip for the first 10 drivers, such as the fastest lap, the count of tired drivers and the count of safety car deployments.',
+	'FORMEL_RULES_MENTIONED'		=> 'For mention a Top 10 driver you can get <strong>%s</strong>.',
+	'FORMEL_RULES_PLACED'			=> 'For placing the exact drivers result you can get <strong>%s</strong>.',
+	'FORMEL_RULES_FASTEST'			=> 'If you got the fastest driver, you can get <strong>%s</strong>.',
+	'FORMEL_RULES_TIRED'			=> 'For the right tired count you can get <strong>%s</strong>.',
+	'FORMEL_RULES_SAFETYCAR'		=> 'For the right count of safety car deployments you can get <strong>%s</strong>.',
+	'FORMEL_RULES_TOTAL'			=> 'In total you can get <strong>%s</strong>.',
+	'FORMEL_RULES_POINTS'			=> array(
+		1	=> 'Point',
+		2	=> 'Points',
+	),
+	'FORMEL_DEFINE'					=> 'Not placed',
+	'FORMEL_ACCESS_DENIED'			=> 'Access denied. You have to be a certain group member to join this tip.<br><br>Click %shere%s to ask for membership<br>Click %shere%s to go back to forum',
+	'FORMEL_MOD_ACCESS_DENIED'		=> 'Access denied. You have to be a moderator or administrator to access the moderation panel.<br><br>Click %shere%s to go back to F1 Webtip.<br>Click %shere%s to go back to forum',
+	'FORMEL_ERROR_MODE' 			=> 'Error ! Unknown Mode !<br><br>Click %shere%s to go back to F1 Webtip.<br>Click %shere%s to go back to forum',
+	'FORMEL_CLOSE_WINDOW'			=> 'Close window',
+	'FORMEL_HIDDEN'					=> 'Hidden till deadline',
+	'FORMEL_COUNTDOWN_DEADLINE'		=> 'Countdown till deadline',
+	'FORMEL_DEADLINE_REACHED'		=> 'Deadline reached',
+
+	'FORMEL_GUESTS_PLACE_NO_TIP'	=> '<strong>Guests cannot place a tip.</strong><br><br>In order to place a tip you have to be registered and logged in.<br>',
+	'FORMEL_RACE_ABORD'				=> 'Race aborted (half points!)',
+	'FORMEL_RACE_DOUBLE'			=> 'Race with double points',
+
+	'VIEWING_F1WEBTIPP'				=> 'Viewing F1 WebTip',
+
+	'FORMEL_MAIL_ADMIN'				=> 'F1 WebTip - Sent reminder mails for race in %1$s',
+	'FORMEL_MAIL_ADMIN_MESSAGE'		=> 'Mail was sent to following users: %1$s',
+	'FORMEL_LOG'					=> 'F1 WebTip - Reminder mail sent to: %1$s',
+	'FORMEL_LOG_ERROR'				=> '<strong>F1 WebTip - Reminder mail to %1$s was not successful.</strong>',
+
+	'LOG_FORMEL_TIP_GIVEN'			=> 'F1 Webtip for race %s added.',
+	'LOG_FORMEL_TIP_EDITED'			=> 'F1 Webtip for race %s edited.',
+	'LOG_FORMEL_TIP_NOT_VALID'		=> 'F1 Webtip for race %s not valid. Tip rejected.',
+	'LOG_FORMEL_TIP_DELETED'		=> 'F1 Webtip for race %s deleted.',
+	'LOG_FORMEL_QUALI_DELETED'		=> 'F1 Webtip qualifying result for race %s deleted.',
+	'LOG_FORMEL_QUALI_ADDED'		=> 'F1 Webtip qualifying result for race %s added.',
+	'LOG_FORMEL_QUALI_NOT_VALID'	=> 'F1 Webtip qualifying result for race %s not valid. Entry rejected.',
+	'LOG_FORMEL_RESULT_DELETED'		=> 'F1 Webtip race result for race %s deleted.',
+	'LOG_FORMEL_RESULT_ADDED'		=> 'F1 Webtip race result for race %s added.',
+	'LOG_FORMEL_RESULT_NOT_VALID'	=> 'F1 Webtip race result for race %s not valid. Entry rejected.',
+	'LOG_FORMEL_SAISON_RESET'		=> 'F1 Webtip saison reseted.',
+	'LOG_FORMEL_SETTINGS'			=> 'F1 Webtip settings updated.',
+	'LOG_FORMEL_RACE_ADDED'			=> 'F1 Webtip race %s added.',
+	'LOG_FORMEL_RACE_EDITED'		=> 'F1 Webtip race %s edited.',
+	'LOG_FORMEL_RACE_DELETED'		=> 'F1 Webtip race %s deleted',
+	'LOG_FORMEL_TEAM_ADDED'			=> 'F1 Webtip team %s added.',
+	'LOG_FORMEL_TEAM_EDITED'		=> 'F1 Webtip team %s edited.',
+	'LOG_FORMEL_TEAM_DELETED'		=> 'F1 Webtip team %s deleted.',
+	'LOG_FORMEL_DRIVER_ADDED'		=> 'F1 Webtip driver %s added.',
+	'LOG_FORMEL_DRIVER_EDITED'		=> 'F1 Webtip driver %s edited.',
+	'LOG_FORMEL_DRIVER_DELETED'		=> 'F1 Webtip driver %s deleted.',
+	'LOG_FORMEL_CRON'				=> 'F1 WebTip Cronjob was executed.',
+
+	'FORMEL_STATS_TEAMNAME'			=> 'Team Name',
+	'FORMEL_STATS_TEAMIMAGE'		=> 'Team Logo',
+	'FORMEL_STATS_TEAMCAR'			=> 'Team Car',
+	'FORMEL_STATS_DRIVERNAME'		=> 'Driver Name',
+	'FORMEL_STATS_DRIVERIMAGE'		=> 'Driver Image',
+
+	'FORMEL_DONATE'					=> 'Donate to my extensions: This extension, as with all of my extensions, is totally free of charge. If you have benefited from using it then please consider making a donation by clicking the PayPal donation button above - I would appreciate it. I promise that there will be no spam nor requests for further donations, although they would always be welcome.',
+
+	'ACP_F1WEBTIP_TITLE'			=> 'F1 WebTip Module',
+	'ACP_FORMEL_SETTINGS'			=> 'F1 Settings',
+	'ACP_FORMEL_DRIVERS'			=> 'F1 Drivers',
+	'ACP_FORMEL_TEAMS'				=> 'F1 Teams',
+	'ACP_FORMEL_RACES'				=> 'F1 Races',
+
+));

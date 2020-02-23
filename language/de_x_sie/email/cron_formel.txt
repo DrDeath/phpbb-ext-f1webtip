@@ -1,0 +1,14 @@
+Hallo {{ USERNAME }},
+
+vergessen Sie bitte nicht Ihren Formel 1 WebTipp auf {{ SITENAME }}.
+
+Das nächste Rennen findet an diesem Wochende statt !!!
+
+Deadline für das Rennen in {{ RACENAME }} ist am
+{{ DEADLINEDATE }}
+
+
+Hier geht es zum Tippspiel: {{ U_BOARD }}
+
+
+{{ EMAIL_SIG }}

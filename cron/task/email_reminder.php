@@ -232,30 +232,32 @@ class email_reminder extends \phpbb\cron\task\base
 				$user_timezone		= $row['user_timezone'];
 				$user_dateformat	= $row['user_dateformat'];
 				$user_lang			= $row['user_lang'];
+				$user_email			= $row['user_email'];
+				$username			= $row['username'];
 
 				$deadline			= $this->format_date_time($user_lang, $user_timezone, $user_dateformat, $event_stop);
-				// Send the messages
 
+				// Send the messages
 				$mail_template_path = $ext_path . 'language/' . $user_lang . '/email/';
 
-				$messenger->to($row['user_email'], $row['username']);
+				$messenger->to($user_email, $username);
 				$messenger->template('cron_formel', $user_lang, $mail_template_path);
 				$messenger->assign_vars(array(
-					'USERNAME'		=> $row['username'],
+					'USERNAME'		=> $username,
 					'RACENAME'		=> $race_name,
-					'DEADLINEDATE'	=> $this->format_date_time($row['user_lang'], $row['user_timezone'], $row['user_dateformat'], $event_stop),
+					'DEADLINEDATE'	=> $deadline,
 					)
 				);
 
 				if (!($messenger->send($used_method)))
 				{
-					$usernames .= (($usernames != '') ? ', ' : '') . $row['username']. '!';
-					$message = sprintf($this->language->lang('FORMEL_LOG_ERROR'), $row['user_email']);
+					$usernames .= (($usernames != '') ? ', ' : '') . $username . '!';
+					$message = sprintf($this->language->lang('FORMEL_LOG_ERROR'), $user_email);
 					$this->phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
-					$usernames .= (($usernames != '') ? ', ' : '') . $row['username'];
+					$usernames .= (($usernames != '') ? ', ' : '') . $username;
 				}
 
 			}

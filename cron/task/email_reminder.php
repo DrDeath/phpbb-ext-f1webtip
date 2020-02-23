@@ -10,8 +10,8 @@
 namespace drdeath\f1webtip\cron\task;
 
 use Symfony\Component\DependencyInjection\Container;
-use \phpbb\language\language;
-use \phpbb\language\language_file_loader;
+use phpbb\language\language;
+use phpbb\language\language_file_loader;
 
 class email_reminder extends \phpbb\cron\task\base
 {

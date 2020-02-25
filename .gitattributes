@@ -4,3 +4,4 @@
 phpunit.xml.dist export-ignore
 README.md export-ignore
 travis/ export-ignore
+create_zip_file.sh export-ignore

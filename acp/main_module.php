@@ -174,7 +174,7 @@ class main_module
 					$config->set('drdeath_f1webtip_team_img_width', 	$request->variable('team_img_width', 	$config['drdeath_f1webtip_team_img_width']));
 
 					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_SETTINGS');
-					
+
 					$error = $language->lang('ACP_F1WEBTIP_SETTING_SAVED');
 					trigger_error($error . adm_back_link($this->u_action));
 				}
@@ -184,12 +184,13 @@ class main_module
 				//
 
 				$combo_mod_entries = '';
+				$mod_ary = $admin_ary = array();
 
 				//Get all possible moderators and administrators at once
 				$mod_ary			= $auth->acl_get_list(false, 'm_', false);
-				$mod_ary			= (!empty($mod_ary[0]['m_'])) ? $mod_ary[0]['m_'] : [];
+				$mod_ary			= (array($mod_ary[0]['m_']) == true) ? $mod_ary[0]['m_'] : array();
 				$admin_ary			= $auth->acl_get_list(false, 'a_', false);
-				$admin_ary			= (!empty($admin_ary[0]['a_'])) ? $admin_ary[0]['a_'] : [];
+				$admin_ary			= (array($admin_ary[0]['a_']) == true) ? $admin_ary[0]['a_'] : array();
 
 				$admin_mod_array 	= array_unique(array_merge($admin_ary, $mod_ary));
 

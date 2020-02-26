@@ -15,7 +15,7 @@ class main_module
 
 	function main($id, $mode)
 	{
-		global $db, $config, $user, $template, $request;
+		global $db, $config, $user, $template, $request, $auth;
 		global $phpbb_container, $phpbb_extension_manager, $phpbb_log;
 
 		$language = $phpbb_container->get('language');
@@ -177,19 +177,22 @@ class main_module
 				}
 
 				//
-				// Generate a moderator list for the F1 WebTip Forum
+				// Generate a moderator list for the F1 WebTip
 				//
 
 				$combo_mod_entries = '';
 
-				//Get all possible forum moderators
-				$sql = 'SELECT u.username, u.user_id
-					FROM	' . MODERATOR_CACHE_TABLE . ' mc, ' . USER_GROUP_TABLE . ' ug, 	' . USERS_TABLE. ' u
-					WHERE ug.group_id = mc.group_id
-						AND ug.user_id = u.user_id
-						AND ug.user_pending = 0
-					GROUP BY ug.user_id
-					ORDER BY u.username';
+				//Get all possible moderators and administrators at once
+				$mod_ary			= $auth->acl_get_list(false, 'm_', false);
+				$mod_ary			= (!empty($mod_ary[0]['m_'])) ? $mod_ary[0]['m_'] : [];
+				$admin_ary			= $auth->acl_get_list(false, 'a_', false);
+				$admin_ary			= (!empty($admin_ary[0]['a_'])) ? $admin_ary[0]['a_'] : [];
+
+				$admin_mod_array 	= array_unique(array_merge($admin_ary, $mod_ary));
+
+				$sql = 'SELECT user_id, username
+						FROM ' . USERS_TABLE . '
+						WHERE ' . $db->sql_in_set('user_id', $admin_mod_array);
 
 				$result = $db->sql_query($sql);
 
@@ -197,22 +200,6 @@ class main_module
 				{
 					$selected = ($row['user_id'] == $config['drdeath_f1webtip_mod_id']) ? 'selected' : '';
 					$combo_mod_entries .= '<option value="' . $row['user_id'] . '" ' . $selected . '>' . $row['username'] . '</option>';
-				}
-
-				// If no normal moderator was found, select all possible founders.
-				if (empty($combo_mod_entries))
-				{
-					$sql = ' SELECT username, user_id, user_type
-						FROM	' . USERS_TABLE. '
-						WHERE user_type = ' . USER_FOUNDER . '
-						ORDER BY username';
-					$result = $db->sql_query($sql);
-
-					while ($row = $db->sql_fetchrow($result))
-					{
-						$selected = ($row['user_id'] == $config['drdeath_f1webtip_mod_id']) ? 'selected' : '';
-						$combo_mod_entries .= '<option value="' . $row['user_id'] . '" ' . $selected . '>' . $row['username'] . '</option>';
-					}
 				}
 
 				// Generate possible moderator combobox

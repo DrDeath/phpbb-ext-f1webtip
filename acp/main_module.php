@@ -173,7 +173,10 @@ class main_module
 					$config->set('drdeath_f1webtip_team_img_height', 	$request->variable('team_img_height', 	$config['drdeath_f1webtip_team_img_height']));
 					$config->set('drdeath_f1webtip_team_img_width', 	$request->variable('team_img_width', 	$config['drdeath_f1webtip_team_img_width']));
 
-					trigger_error($language->lang('ACP_F1WEBTIP_SETTING_SAVED') . adm_back_link($this->u_action));
+					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_SETTINGS');
+					
+					$error = $language->lang('ACP_F1WEBTIP_SETTING_SAVED');
+					trigger_error($error . adm_back_link($this->u_action));
 				}
 
 				//

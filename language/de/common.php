@@ -120,29 +120,6 @@ $lang = array_merge($lang, array(
 	'FORMEL_LOG'					=> 'F1 WebTipp Erinnerungs-Mail gesendet an: %1$s',
 	'FORMEL_LOG_ERROR'				=> '<strong>F1 WebTipp - Erinnerungsmail an %1$s nicht erfolgreich.</strong>',
 
-	'LOG_FORMEL_TIP_GIVEN'			=> 'F1 WebTipp für Rennen %s abgegeben',
-	'LOG_FORMEL_TIP_EDITED'			=> 'F1 WebTipp für Rennen %s bearbeitet',
-	'LOG_FORMEL_TIP_NOT_VALID'		=> 'F1 WebTipp für Rennen %s ungültig. Tipp wurde abgewiesen',
-	'LOG_FORMEL_TIP_DELETED'		=> 'F1 WebTipp für Rennen %s gelöscht',
-	'LOG_FORMEL_QUALI_DELETED'		=> 'F1 WebTipp Qualifying Ergebnis für Rennen %s gelöscht',
-	'LOG_FORMEL_QUALI_ADDED'		=> 'F1 WebTipp Qualifying Ergebnis für Rennen %s eingetragen',
-	'LOG_FORMEL_QUALI_NOT_VALID'	=> 'F1 WebTipp Qualifying Ergebnis für Rennen %s ungültig. Eintragung wurde abgewiesen',
-	'LOG_FORMEL_RESULT_DELETED'		=> 'F1 WebTipp Rennergebnis für Rennen %s gelöscht',
-	'LOG_FORMEL_RESULT_ADDED'		=> 'F1 WebTipp Rennergebnis für Rennen %s eingetragen',
-	'LOG_FORMEL_RESULT_NOT_VALID'	=> 'F1 WebTipp Rennergebnis für Rennen %s ungültig. Eintragung wurde abgewiesen',
-	'LOG_FORMEL_SAISON_RESET'		=> 'F1 WebTipp Saison zurückgesetzt.',
-	'LOG_FORMEL_SETTINGS'			=> 'F1 WebTipp Einstellungen aktualisiert',
-	'LOG_FORMEL_RACE_ADDED'			=> 'F1 WebTipp Rennen %s hinzugefügt',
-	'LOG_FORMEL_RACE_EDITED'		=> 'F1 WebTipp Rennen %s bearbeitet',
-	'LOG_FORMEL_RACE_DELETED'		=> 'F1 WebTipp Rennen %s gelöscht',
-	'LOG_FORMEL_TEAM_ADDED'			=> 'F1 WebTipp Team %s hinzugefügt',
-	'LOG_FORMEL_TEAM_EDITED'		=> 'F1 WebTipp Team %s bearbeitet',
-	'LOG_FORMEL_TEAM_DELETED'		=> 'F1 WebTipp Team %s gelöscht',
-	'LOG_FORMEL_DRIVER_ADDED'		=> 'F1 WebTipp Fahrer %s hinzugefügt',
-	'LOG_FORMEL_DRIVER_EDITED'		=> 'F1 WebTipp Fahrer %s bearbeitet',
-	'LOG_FORMEL_DRIVER_DELETED'		=> 'F1 WebTipp Fahrer %s gelöscht',
-	'LOG_FORMEL_CRON'				=> 'F1 WebTipp Cronjob wurde ausgeführt.',
-
 	'FORMEL_STATS_TEAMNAME'			=> 'Teamname',
 	'FORMEL_STATS_TEAMIMAGE'		=> 'Team Logo',
 	'FORMEL_STATS_TEAMCAR'			=> 'Team Auto',
@@ -150,11 +127,5 @@ $lang = array_merge($lang, array(
 	'FORMEL_STATS_DRIVERIMAGE'		=> 'Portrait',
 
 	'FORMEL_DONATE'					=> 'Spende für die Formel 1 Erweiterung: Diese Erweiterung ist, wie alle meine Erweiterungen, völlig kostenlos. Wenn Du davon profitierst hast, kannst Du auch eine Spende über den PayPal-Spendenbutton (Donate) tätigen. Ich würde es begrüßen. Ich verspreche, dass es weder Spam noch Anfragen für weitere Spenden geben wird, obwohl sie immer willkommen wären.',
-
-	'ACP_F1WEBTIP_TITLE'			=> 'F1 WebTipp Module',
-	'ACP_FORMEL_SETTINGS'			=> 'F1 Einstellungen',
-	'ACP_FORMEL_DRIVERS'			=> 'F1 Fahrer',
-	'ACP_FORMEL_TEAMS'				=> 'F1 Teams',
-	'ACP_FORMEL_RACES'				=> 'F1 Rennen',
 
 ));

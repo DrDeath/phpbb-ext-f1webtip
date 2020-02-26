@@ -120,29 +120,6 @@ $lang = array_merge($lang, array(
 	'FORMEL_LOG'					=> 'F1 Voorspellingen - herinnering e-mail verstuurd naar: %1$s',
 	'FORMEL_LOG_ERROR'				=> '<strong>F1 Voorspellingen - herinnering e-mail naar %1$s is niet verstuurd.</strong>',
 
-	'LOG_FORMEL_TIP_GIVEN'			=> 'F1 Voorspellingen voor de race %s zijn toegevoegd.',
-	'LOG_FORMEL_TIP_EDITED'			=> 'F1 Voorspellingen voor de race %s zijn aangepast.',
-	'LOG_FORMEL_TIP_NOT_VALID'		=> 'F1 Voorspellingen voor de race %s zijn niet geldig. Voorspellingen zijn afgekeurd.',
-	'LOG_FORMEL_TIP_DELETED'		=> 'F1 Voorspellingen voor de  race %s zijn verwijderd.',
-	'LOG_FORMEL_QUALI_DELETED'		=> 'F1 Voorspellingen voor het resultaat van de qualificatie voor de race %s zijn verwijderd.',
-	'LOG_FORMEL_QUALI_ADDED'		=> 'F1 Voorspellingen voor het resultaat van de qualificatie voor de race %s zijn aangepast.',
-	'LOG_FORMEL_QUALI_NOT_VALID'	=> 'F1 Voorspellingen voor het resultaat van de qualificatie voor de race %s zijn niet geldig. Verzoek afgewezen.',
-	'LOG_FORMEL_RESULT_DELETED'		=> 'F1 Voorspellingen voor het resultaat van de race %s zijn verwijderd.',
-	'LOG_FORMEL_RESULT_ADDED'		=> 'F1 Voorspellingen voor het resultaat van de race %s zijn aangepast.',
-	'LOG_FORMEL_RESULT_NOT_VALID'	=> 'F1 Voorspellingen voor het resultaat van de race %s zijn niet geldig. Verzoek afgewezen.',
-	'LOG_FORMEL_SAISON_RESET'		=> 'F1 Voorspellingen voor het seizoen zijn ge-reset.',
-	'LOG_FORMEL_SETTINGS'			=> 'F1 Voorspellingen instellingen zijn bijgewerkt.',
-	'LOG_FORMEL_RACE_ADDED'			=> 'F1 Voorspellingen race %s toegevoegd.',
-	'LOG_FORMEL_RACE_EDITED'		=> 'F1 Voorspellingen race %s aangepast.',
-	'LOG_FORMEL_RACE_DELETED'		=> 'F1 Voorspellingen race %s verwijderd',
-	'LOG_FORMEL_TEAM_ADDED'			=> 'F1 Voorspellingen team %s toegevoegd.',
-	'LOG_FORMEL_TEAM_EDITED'		=> 'F1 Voorspellingen team %s aangepast.',
-	'LOG_FORMEL_TEAM_DELETED'		=> 'F1 Voorspellingen team %s verwijderd.',
-	'LOG_FORMEL_DRIVER_ADDED'		=> 'F1 Voorspellingen driver %s toegevoegd.',
-	'LOG_FORMEL_DRIVER_EDITED'		=> 'F1 Voorspellingen driver %s aangepast.',
-	'LOG_FORMEL_DRIVER_DELETED'		=> 'F1 Voorspellingen driver %s verwijderd.',
-	'LOG_FORMEL_CRON'				=> 'F1 Voorspellingen taak wordt niet uitgevoerd.',
-
 	'FORMEL_STATS_TEAMNAME'			=> 'Team naam',
 	'FORMEL_STATS_TEAMIMAGE'		=> 'Team Logo',
 	'FORMEL_STATS_TEAMCAR'			=> 'Team Auto',
@@ -150,11 +127,5 @@ $lang = array_merge($lang, array(
 	'FORMEL_STATS_DRIVERIMAGE'		=> 'Coureur afbeelding',
 
 	'FORMEL_DONATE'					=> 'Donatie voor de Formule 1-extensie: deze extensie is, net als al mijn extensies, volledig gratis. Als u hiervan hebt geprofiteerd, kunt u ook een donatie doen met de PayPal-donatieknop. Ik zou het waarderen. Ik beloof dat er geen spam of verzoeken om verdere donaties zullen zijn, hoewel ze altijd welkom zouden zijn.',
-
-	'ACP_F1WEBTIP_TITLE'			=> 'F1 Voorspellingen Module',
-	'ACP_FORMEL_SETTINGS'			=> 'F1 Instellingen',
-	'ACP_FORMEL_DRIVERS'			=> 'F1 Coureurs',
-	'ACP_FORMEL_TEAMS'				=> 'F1 Teams',
-	'ACP_FORMEL_RACES'				=> 'F1 Races',
 
 ));

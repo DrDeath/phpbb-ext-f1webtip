@@ -105,6 +105,8 @@ class main
 		$this->template 				= $template;
 		$this->user 					= $user;
 		$this->language 				= $language;
+
+		$this->language->add_lang('common', 'drdeath/f1webtip');
 	}
 
 

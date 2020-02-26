@@ -120,29 +120,6 @@ $lang = array_merge($lang, array(
 	'FORMEL_LOG'					=> 'F1 WebTip - Reminder mail sent to: %1$s',
 	'FORMEL_LOG_ERROR'				=> '<strong>F1 WebTip - Reminder mail to %1$s was not successful.</strong>',
 
-	'LOG_FORMEL_TIP_GIVEN'			=> 'F1 Webtip for race %s added.',
-	'LOG_FORMEL_TIP_EDITED'			=> 'F1 Webtip for race %s edited.',
-	'LOG_FORMEL_TIP_NOT_VALID'		=> 'F1 Webtip for race %s not valid. Tip rejected.',
-	'LOG_FORMEL_TIP_DELETED'		=> 'F1 Webtip for race %s deleted.',
-	'LOG_FORMEL_QUALI_DELETED'		=> 'F1 Webtip qualifying result for race %s deleted.',
-	'LOG_FORMEL_QUALI_ADDED'		=> 'F1 Webtip qualifying result for race %s added.',
-	'LOG_FORMEL_QUALI_NOT_VALID'	=> 'F1 Webtip qualifying result for race %s not valid. Entry rejected.',
-	'LOG_FORMEL_RESULT_DELETED'		=> 'F1 Webtip race result for race %s deleted.',
-	'LOG_FORMEL_RESULT_ADDED'		=> 'F1 Webtip race result for race %s added.',
-	'LOG_FORMEL_RESULT_NOT_VALID'	=> 'F1 Webtip race result for race %s not valid. Entry rejected.',
-	'LOG_FORMEL_SAISON_RESET'		=> 'F1 Webtip saison reseted.',
-	'LOG_FORMEL_SETTINGS'			=> 'F1 Webtip settings updated.',
-	'LOG_FORMEL_RACE_ADDED'			=> 'F1 Webtip race %s added.',
-	'LOG_FORMEL_RACE_EDITED'		=> 'F1 Webtip race %s edited.',
-	'LOG_FORMEL_RACE_DELETED'		=> 'F1 Webtip race %s deleted',
-	'LOG_FORMEL_TEAM_ADDED'			=> 'F1 Webtip team %s added.',
-	'LOG_FORMEL_TEAM_EDITED'		=> 'F1 Webtip team %s edited.',
-	'LOG_FORMEL_TEAM_DELETED'		=> 'F1 Webtip team %s deleted.',
-	'LOG_FORMEL_DRIVER_ADDED'		=> 'F1 Webtip driver %s added.',
-	'LOG_FORMEL_DRIVER_EDITED'		=> 'F1 Webtip driver %s edited.',
-	'LOG_FORMEL_DRIVER_DELETED'		=> 'F1 Webtip driver %s deleted.',
-	'LOG_FORMEL_CRON'				=> 'F1 WebTip Cronjob was executed.',
-
 	'FORMEL_STATS_TEAMNAME'			=> 'Team Name',
 	'FORMEL_STATS_TEAMIMAGE'		=> 'Team Logo',
 	'FORMEL_STATS_TEAMCAR'			=> 'Team Car',
@@ -150,11 +127,5 @@ $lang = array_merge($lang, array(
 	'FORMEL_STATS_DRIVERIMAGE'		=> 'Driver Image',
 
 	'FORMEL_DONATE'					=> 'Donate to my extensions: This extension, as with all of my extensions, is totally free of charge. If you have benefited from using it then please consider making a donation by clicking the PayPal donation button above - I would appreciate it. I promise that there will be no spam nor requests for further donations, although they would always be welcome.',
-
-	'ACP_F1WEBTIP_TITLE'			=> 'F1 WebTip Module',
-	'ACP_FORMEL_SETTINGS'			=> 'F1 Settings',
-	'ACP_FORMEL_DRIVERS'			=> 'F1 Drivers',
-	'ACP_FORMEL_TEAMS'				=> 'F1 Teams',
-	'ACP_FORMEL_RACES'				=> 'F1 Races',
 
 ));

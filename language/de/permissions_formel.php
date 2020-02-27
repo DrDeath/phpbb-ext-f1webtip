@@ -36,6 +36,7 @@ if (empty($lang) || !is_array($lang))
 // Adding the permissions
 // F1 WebTip permissions
 $lang = array_merge($lang, array(
+	'ACL_CAT_FORMEL'		=> 'F1 Webtipp',
 	'ACL_A_FORMEL_SETTINGS'	=> 'Kann F1 WebTipp Einstellungen verwalten',
 	'ACL_A_FORMEL_DRIVERS'	=> 'Kann F1 WebTipp Fahrer verwalten',
 	'ACL_A_FORMEL_TEAMS'	=> 'Kann F1 WebTipp Teams verwalten',

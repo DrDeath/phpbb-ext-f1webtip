@@ -36,6 +36,7 @@ if (empty($lang) || !is_array($lang))
 // Adding the permissions
 // F1 WebTip permissions
 $lang = array_merge($lang, array(
+	'ACL_CAT_FORMEL'		=> 'F1 Webtip',
 	'ACL_A_FORMEL_SETTINGS'	=> 'Can alter F1 WebTip settings',
 	'ACL_A_FORMEL_DRIVERS'	=> 'Can alter F1 WebTip driver',
 	'ACL_A_FORMEL_TEAMS'	=> 'Can alter F1 WebTip teams',

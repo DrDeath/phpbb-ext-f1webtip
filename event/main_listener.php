@@ -27,6 +27,7 @@ class main_listener implements EventSubscriberInterface
 			'core.memberlist_prepare_profile_data'		=> 'prepare_f1webtip_stats',
 			'core.viewtopic_modify_post_row'			=> 'modify_f1webtip_post_row',
 			'core.viewonline_overwrite_location'		=> 'add_page_viewonline',
+			'core.permissions'							=> 'add_formel_permission',
 		);
 	}
 
@@ -111,6 +112,30 @@ class main_listener implements EventSubscriberInterface
 			$event['location_url'] = $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index'));
 		}
 	}
+
+	/**
+	* Add administrative permissions to manage f1webtip
+	*
+	* @param \phpbb\event\data $event The event object
+	* @return void
+	* @access public
+	*/
+	public function add_formel_permission($event)
+	{
+		$permissions						= $event['permissions'];
+		$categories							= $event['categories'];
+
+		$categories['f1webtip']				= 'ACL_CAT_FORMEL';
+
+		$permissions['a_formel_races']		= array('lang' => 'ACL_A_FORMEL_RACES',		'cat' => 'f1webtip');
+		$permissions['a_formel_teams']		= array('lang' => 'ACL_A_FORMEL_TEAMS',		'cat' => 'f1webtip');
+		$permissions['a_formel_drivers']	= array('lang' => 'ACL_A_FORMEL_DRIVERS',	'cat' => 'f1webtip');
+		$permissions['a_formel_settings']	= array('lang' => 'ACL_A_FORMEL_SETTINGS',	'cat' => 'f1webtip');
+
+		$event['categories']				= $categories;
+		$event['permissions']				= $permissions;
+	}
+
 
 	public function prepare_f1webtip_stats($event)
 	{

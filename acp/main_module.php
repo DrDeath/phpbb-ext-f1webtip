@@ -13,10 +13,29 @@ class main_module
 {
 	var $u_action;
 
+	/*
+	* Loads all files of ext/drdeath/f1webtip/images
+	* Returns an array with all found files
+	*/
+	public function load_files($dir)
+	{
+		$result = array();
+		$image_ary = preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
+
+		// recreate array, shoud start with 0 ;-)
+		foreach ($image_ary as $key => $value)
+		{
+					$result[] = $value;
+		}
+
+		return $result;
+	}
+
+
 	function main($id, $mode)
 	{
 		global $db, $config, $user, $template, $request, $auth;
-		global $phpbb_container, $phpbb_extension_manager, $phpbb_log;
+		global $phpbb_container, $phpbb_extension_manager, $phpbb_log, $phpbb_root_path;
 
 		$language = $phpbb_container->get('language');
 
@@ -266,6 +285,92 @@ class main_module
 				$forums_combo	.= $combo_forums_entries;
 				$forums_combo	.= '</select>';
 
+				//
+				// Generate imageboxes
+				//
+
+				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images';
+				$images = $this->load_files($image_dir);
+				$image_headbanner1_entries = $image_headbanner2_entries = $image_headbanner3_entries ='';
+				$image_no_race_img_entries = $image_no_car_img_entries = $image_no_driver_img_entries = $image_no_team_img_entries = '';
+
+				// Generate imagebox for headerbanner1 index
+				foreach ($images as $image)
+				{
+					$selected = ($image == $config['drdeath_f1webtip_headbanner1_img']) ? 'selected' : '';
+					$image_headbanner1_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+				}
+
+				$image_headbanner1_combo	 = '<select name="headbanner1_img">';
+				$image_headbanner1_combo	.= $image_headbanner1_entries;
+				$image_headbanner1_combo	.= '</select>';
+
+				// Generate imagebox for headerbanner2 rules
+				foreach ($images as $image)
+				{
+					$selected = ($image == $config['drdeath_f1webtip_headbanner2_img']) ? 'selected' : '';
+					$image_headbanner2_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+				}
+
+				$image_headbanner2_combo	 = '<select name="headbanner2_img">';
+				$image_headbanner2_combo	.= $image_headbanner2_entries;
+				$image_headbanner2_combo	.= '</select>';
+
+				// Generate imagebox for headerbanner3 stats
+				foreach ($images as $image)
+				{
+					$selected = ($image == $config['drdeath_f1webtip_headbanner3_img']) ? 'selected' : '';
+					$image_headbanner3_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+				}
+
+				$image_headbanner3_combo	 = '<select name="headbanner3_img">';
+				$image_headbanner3_combo	.= $image_headbanner3_entries;
+				$image_headbanner3_combo	.= '</select>';
+
+				// Generate imagebox for no_race_img
+				foreach ($images as $image)
+				{
+					$selected = ($image == $config['drdeath_f1webtip_no_race_img']) ? 'selected' : '';
+					$image_no_race_img_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+				}
+
+				$image_no_race_img_combo	 = '<select name="no_race_img">';
+				$image_no_race_img_combo	.= $image_no_race_img_entries;
+				$image_no_race_img_combo	.= '</select>';
+
+				// Generate imagebox for no_car_img
+				foreach ($images as $image)
+				{
+					$selected = ($image == $config['drdeath_f1webtip_no_car_img']) ? 'selected' : '';
+					$image_no_car_img_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+				}
+
+				$image_no_car_img_combo	 = '<select name="no_car_img">';
+				$image_no_car_img_combo	.= $image_no_car_img_entries;
+				$image_no_car_img_combo	.= '</select>';
+
+				// Generate imagebox for no_driver_img
+				foreach ($images as $image)
+				{
+					$selected = ($image == $config['drdeath_f1webtip_no_driver_img']) ? 'selected' : '';
+					$image_no_driver_img_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+				}
+
+				$image_no_driver_img_combo	 = '<select name="no_driver_img">';
+				$image_no_driver_img_combo	.= $image_no_driver_img_entries;
+				$image_no_driver_img_combo	.= '</select>';
+
+				// Generate imagebox for no_team_img
+				foreach ($images as $image)
+				{
+					$selected = ($image == $config['drdeath_f1webtip_no_team_img']) ? 'selected' : '';
+					$image_no_team_img_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+				}
+
+				$image_no_team_img_combo	 = '<select name="no_team_img">';
+				$image_no_team_img_combo	.= $image_no_team_img_entries;
+				$image_no_team_img_combo	.= '</select>';
+
 				if ($config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('headbanner_on', array());
@@ -304,23 +409,24 @@ class main_module
 					'SHOW_HEADBANNER'					=> $config['drdeath_f1webtip_show_headbanner'],
 					'HEADBANNER_IMG_HEIGHT'				=> $config['drdeath_f1webtip_head_height'],
 					'HEADBANNER_IMG_WIDTH'				=> $config['drdeath_f1webtip_head_width'],
-					'HEADBANNER1_IMG'					=> $config['drdeath_f1webtip_headbanner1_img'],
-					'HEADBANNER2_IMG'					=> $config['drdeath_f1webtip_headbanner2_img'],
-					'HEADBANNER3_IMG'					=> $config['drdeath_f1webtip_headbanner3_img'],
+
+					'HEADBANNER1_IMG'					=> $image_headbanner1_combo,
+					'HEADBANNER2_IMG'					=> $image_headbanner2_combo,
+					'HEADBANNER3_IMG'					=> $image_headbanner3_combo,
 
 					'SHOW_GFXR'							=> $config['drdeath_f1webtip_show_gfxr'],
-					'NO_RACE_IMG'						=> $config['drdeath_f1webtip_no_race_img'],
+					'NO_RACE_IMG'						=> $image_no_race_img_combo,
 					'RACE_IMG_HEIGHT'					=> $config['drdeath_f1webtip_race_img_height'],
 					'RACE_IMG_WIDTH'					=> $config['drdeath_f1webtip_race_img_width'],
 
 					'SHOW_GFX'							=> $config['drdeath_f1webtip_show_gfx'],
-					'NO_CAR_IMG'						=> $config['drdeath_f1webtip_no_car_img'],
+					'NO_CAR_IMG'						=> $image_no_car_img_combo,
 					'CAR_IMG_HEIGHT'					=> $config['drdeath_f1webtip_car_img_height'],
 					'CAR_IMG_WIDTH'						=> $config['drdeath_f1webtip_car_img_width'],
-					'NO_DRIVER_IMG'						=> $config['drdeath_f1webtip_no_driver_img'],
+					'NO_DRIVER_IMG'						=> $image_no_driver_img_combo,
 					'DRIVER_IMG_HEIGHT'					=> $config['drdeath_f1webtip_driver_img_height'],
 					'DRIVER_IMG_WIDTH'					=> $config['drdeath_f1webtip_driver_img_width'],
-					'NO_TEAM_IMG'						=> $config['drdeath_f1webtip_no_team_img'],
+					'NO_TEAM_IMG'						=> $image_no_team_img_combo,
 					'TEAM_IMG_HEIGHT'					=> $config['drdeath_f1webtip_team_img_height'],
 					'TEAM_IMG_WIDTH'					=> $config['drdeath_f1webtip_team_img_width'],
 
@@ -500,6 +606,26 @@ class main_module
 
 					$db->sql_freeresult($result);
 
+					//
+					// Generate imageboxes
+					//
+
+					$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images';
+					$images = $this->load_files($image_dir);
+					$driverimg_entries = '';
+
+					// Generate imagebox for driver
+					foreach ($images as $image)
+					{
+						$selected = ($image == $driverimg) ? 'selected' : '';
+						$driverimg_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+					}
+
+					$image_driver_combo	 = '<select name="driverimg">';
+					$image_driver_combo	.= '<option value="" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_NO_DRIVER_IMG') . '</option>';
+					$image_driver_combo	.= $driverimg_entries;
+					$image_driver_combo	.= '</select>';
+
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
 					{
@@ -510,7 +636,7 @@ class main_module
 						'U_ACTION'					=> $this->u_action,
 						'S_ADDDRIVERS'				=> true,
 						'PREDEFINED_NAME'			=> $drivername,
-						'PREDEFINED_IMG'			=> $driverimg,
+						'PREDEFINED_IMG'			=> $image_driver_combo,
 						'PREDEFINED_PENALTY'		=> $driver_penalty,
 						'S_DRIVER_DISABLED'			=> ($driver_disabled == true) ? "checked=\"checked\"" : "",
 						'S_DRIVER_ENABLED'			=> ($driver_disabled == false) ? "checked=\"checked\"" : "",
@@ -753,6 +879,38 @@ class main_module
 						$db->sql_freeresult($result);
 					}
 
+					//
+					// Generate imageboxes
+					//
+
+					$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images';
+					$images = $this->load_files($image_dir);
+					$teamimg_entries = $teamcarimg_entries = '';
+
+					// Generate imagebox for team
+					foreach ($images as $image)
+					{
+						$selected = ($image == $teamimg) ? 'selected' : '';
+						$teamimg_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+					}
+
+					$image_team_combo	 = '<select name="teamimg">';
+					$image_team_combo	.= '<option value="" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_NO_TEAM_IMG') . '</option>';
+					$image_team_combo	.= $teamimg_entries;
+					$image_team_combo	.= '</select>';
+
+					// Generate imagebox for team car
+					foreach ($images as $image)
+					{
+						$selected = ($image == $teamcar) ? 'selected' : '';
+						$teamcarimg_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+					}
+
+					$image_teamcar_combo	 = '<select name="teamcar">';
+					$image_teamcar_combo	.= '<option value="" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_NO_CAR_IMG') . '</option>';
+					$image_teamcar_combo	.= $teamcarimg_entries;
+					$image_teamcar_combo	.= '</select>';
+
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
 					{
@@ -762,8 +920,8 @@ class main_module
 					$template->assign_vars(array(
 						'S_ADDTEAM'					=> true,
 						'PREDEFINED_NAME'			=> $teamname,
-						'PREDEFINED_IMG'			=> $teamimg,
-						'PREDEFINED_CAR'			=> $teamcar,
+						'PREDEFINED_IMG'			=> $image_team_combo,
+						'PREDEFINED_CAR'			=> $image_teamcar_combo,
 						'PREDEFINED_ID'				=> $team_id,
 						'PREDEFINED_PENALTY'		=> $team_penalty,
 						'L_ACP_F1_TEAMS_EXPLAIN'	=> $title_exp,
@@ -1051,6 +1209,27 @@ class main_module
 
 					$racetime_combos = $c_day . '&nbsp;.&nbsp;' . $c_month . '&nbsp;.&nbsp;' . $c_year . '<br/><br/>&nbsp;' . $c_hour . '&nbsp;:&nbsp;' . $c_minute . '&nbsp;:&nbsp;' . $c_second;
 
+					//
+					// Generate imageboxes
+					//
+
+					$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images';
+					$images = $this->load_files($image_dir);
+					$raceimg_entries = '';
+
+					// Generate imagebox for race
+					foreach ($images as $image)
+					{
+						$selected = ($image == $raceimg) ? 'selected' : '';
+						$raceimg_entries .= '<option value="' . $image . '" ' . $selected . '>' . $image . '</option>';
+					}
+
+					$image_race_combo	 = '<select name="raceimg">';
+					$image_race_combo	.= '<option value="" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_NO_RACE_IMG') . '</option>';
+					$image_race_combo	.= $raceimg_entries;
+					$image_race_combo	.= '</select>';
+
+
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfxr'] == 1)
 					{
@@ -1061,7 +1240,7 @@ class main_module
 						'S_ADD_RACES'			=> true,
 						'U_ACTION'				=> $this->u_action,
 						'PREDEFINED_NAME' 		=> $racename,
-						'PREDEFINED_IMG' 		=> $raceimg,
+						'PREDEFINED_IMG' 		=> $image_race_combo,
 						'PREDEFINED_LENGTH' 	=> $racelength,
 						'PREDEFINED_LAPS' 		=> $racelaps,
 						'PREDEFINED_DISTANCE' 	=> $racedistance,

@@ -116,15 +116,15 @@
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER1_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER1_IMG_EXPLAIN') }}</td>
-					<td><input type="text" class="post" maxsize="255" size="30" name="headbanner1_img" value="{{ HEADBANNER1_IMG }}" /></td>
+					<td>{{ HEADBANNER1_IMG }}</td>
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER2_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER2_IMG_EXPLAIN') }}</td>
-					<td><input type="text" class="post" maxsize="255" size="30" name="headbanner2_img" value="{{ HEADBANNER2_IMG }}" /></td>
+					<td>{{ HEADBANNER2_IMG }}</td>
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG_EXPLAIN') }}</td>
-					<td><input type="text" class="post" maxsize="255" size="30" name="headbanner3_img" value="{{ HEADBANNER3_IMG }}" /></td>
+					<td>{{ HEADBANNER3_IMG }}</td>
 				</tr>
 				{% endif %}
 				<tr class="row3">
@@ -136,7 +136,7 @@
 				{% if gfxr_on %}
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG_EXPLAIN') }}</td>
-					<td><input type="text" class="post" maxsize="64" size="30" name="no_race_img" value="{{ NO_RACE_IMG }}" /></td>
+					<td>{{ NO_RACE_IMG }}</td>
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_RACE_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_RACE_IMG_HEIGHT_EXPLAIN') }}</td>
@@ -156,7 +156,7 @@
 				{% if gfx_on %}
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG_EXPLAIN') }}</td>
-					<td><input type="text" class="post" maxsize="64" size="30" name="no_car_img" value="{{ NO_CAR_IMG }}" /></td>
+					<td>{{ NO_CAR_IMG }}</td>
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_CAR_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_CAR_IMG_HEIGHT_EXPLAIN') }}</td>
@@ -168,7 +168,7 @@
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_DRIVER_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_DRIVER_IMG_EXPLAIN') }}</td>
-					<td><input type="text" class="post" maxsize="64" size="30" name="no_driver_img" value="{{ NO_DRIVER_IMG }}" /></td>
+					<td>{{ NO_DRIVER_IMG }}</td>
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_HEIGHT_EXPLAIN') }}</td>
@@ -180,7 +180,7 @@
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_TEAM_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_TEAM_IMG_EXPLAIN') }}</td>
-					<td><input type="text" class="post" maxsize="64" size="30" name="no_team_img" value="{{ NO_TEAM_IMG }}" /></td>
+					<td>{{ NO_TEAM_IMG }}</td>
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_TEAM_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_TEAM_IMG_HEIGHT_EXPLAIN') }}</td>
@@ -325,7 +325,7 @@
 			{% if gfx_on %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERIMAGE') }}:</strong>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="driverimg" value="{{ PREDEFINED_IMG }}" /></td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_IMG }}</td>
 			</tr>
 			{% endif %}
 			<tr>
@@ -452,11 +452,11 @@
 			{% if gfx_on %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE') }}:</strong>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamimg" value="{{ PREDEFINED_IMG }}" /></td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_IMG }}</td>
 			</tr>
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMCAR') }}:</strong>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="255" size="30" name="teamcar" value="{{ PREDEFINED_CAR }}" /></td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_CAR }}</td>
 			</tr>
 			{% endif %}
 			<tr>
@@ -565,7 +565,7 @@
 			{% if gfxr_on %}
 			<tr>
 				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEIMAGE') }}:</strong>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="255" size="30" name="raceimg" value="{{ PREDEFINED_IMG }}" /></td>
+				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_IMG }}</td>
 			</tr>
 			{% endif %}
 			<tr>

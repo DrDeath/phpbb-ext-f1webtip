@@ -105,8 +105,6 @@ class main
 		$this->template 				= $template;
 		$this->user 					= $user;
 		$this->language 				= $language;
-
-		$this->language->add_lang('common', 'drdeath/f1webtip');
 	}
 
 
@@ -286,6 +284,8 @@ class main
 	*/
 	public function handle($name)
 	{
+		// load extension language
+		$this->language->add_lang('common', 'drdeath/f1webtip');
 
 		// Define the ext path. We will use it later for assigning the correct path to our local immages
 		$ext_path = $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));

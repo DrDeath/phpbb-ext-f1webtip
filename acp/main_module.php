@@ -325,7 +325,6 @@ class main_module
 				$image_no_driver_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_driver_img'], 	'no_driver_img');
 				$image_no_team_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_team_img'],		'no_team_img');
 
-
 				if ($config['drdeath_f1webtip_show_headbanner'])
 				{
 					$template->assign_block_vars('headbanner_on', array());

@@ -303,14 +303,21 @@ class main_module
 				// Generate imageboxes
 				//
 
-				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images';
-
+				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/banners';
 				$image_headbanner1_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_headbanner1_img'],	'headbanner1_img');
 				$image_headbanner2_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_headbanner2_img'],	'headbanner2_img');
 				$image_headbanner3_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_headbanner3_img'],	'headbanner3_img');
+
+				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/races';
 				$image_no_race_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_race_img'], 		'no_race_img');
+
+				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/cars';
 				$image_no_car_img_combo		= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_car_img'], 		'no_car_img');
+
+				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/drivers';
 				$image_no_driver_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_driver_img'], 	'no_driver_img');
+
+				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/teams';
 				$image_no_team_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_team_img'],		'no_team_img');
 
 				if ($config['drdeath_f1webtip_show_headbanner'])
@@ -543,7 +550,7 @@ class main_module
 					$db->sql_freeresult($result);
 
 					// Generate imagebox for driver
-					$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images';
+					$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/drivers';
 					$image_driver_combo	= $this->create_dropdown($image_dir, $driverimg, 'driverimg', $language->lang('ACP_F1_SETTINGS_NO_DRIVER_IMG'));
 
 					// Generate page
@@ -595,7 +602,7 @@ class main_module
 					while ($row = $db->sql_fetchrow($result))
 					{
 						$current_user_id	= $row['driver_id'];
-						$driverimg			= ($row['driver_img'] == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_driver_img'] . '" width="' . $config['drdeath_f1webtip_driver_img_width'] . '" height="' . $config['drdeath_f1webtip_driver_img_height'] . '" alt="">' : '<img src="' . $ext_path . 'images/' . $row['driver_img'] . '" width="' . $config['drdeath_f1webtip_driver_img_width'] . '" height="' . $config['drdeath_f1webtip_driver_img_height'] . '" alt="">';
+						$driverimg			= ($row['driver_img'] == '') ? '<img src="' . $ext_path . 'images/drivers/' . $config['drdeath_f1webtip_no_driver_img'] . '" width="' . $config['drdeath_f1webtip_driver_img_width'] . '" height="' . $config['drdeath_f1webtip_driver_img_height'] . '" alt="">' : '<img src="' . $ext_path . 'images/drivers/' . $row['driver_img'] . '" width="' . $config['drdeath_f1webtip_driver_img_width'] . '" height="' . $config['drdeath_f1webtip_driver_img_height'] . '" alt="">';
 						$driver_penalty 	= $row['driver_penalty'];
 						$driver_disabled 	= $row['driver_disabled'];
 
@@ -799,8 +806,10 @@ class main_module
 					}
 
 					// Generate imagebox for team
-					$image_dir 				= $phpbb_root_path . 'ext/drdeath/f1webtip/images';
+					$image_dir 				= $phpbb_root_path . 'ext/drdeath/f1webtip/images/teams';
 					$image_team_combo		= $this->create_dropdown($image_dir, $teamimg, 'teamimg', $language->lang('ACP_F1_SETTINGS_NO_TEAM_IMG'));
+
+					$image_dir 				= $phpbb_root_path . 'ext/drdeath/f1webtip/images/cars';
 					$image_teamcar_combo	= $this->create_dropdown($image_dir, $teamcar, 'teamcar', $language->lang('ACP_F1_SETTINGS_NO_CAR_IMG'));
 
 					// Generate page
@@ -833,8 +842,8 @@ class main_module
 					while ($row = $db->sql_fetchrow($result))
 					{
 						$current_team	= $row['team_id'];
-						$team_car		= ($row['team_car'] == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_car_img']  . '" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" alt="">' : '<img src="' . $ext_path . 'images/' . $row['team_car'] . '" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" alt="">';
-						$team_img		= ($row['team_img'] == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_team_img'] . '" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" alt="">' : '<img src="' . $ext_path . 'images/' . $row['team_img'] . '" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" alt="">';
+						$team_car		= ($row['team_car'] == '') ? '<img src="' . $ext_path . 'images/cars/'  . $config['drdeath_f1webtip_no_car_img']  . '" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" alt="">' : '<img src="' . $ext_path . 'images/cars/'  . $row['team_car'] . '" width="' . $config['drdeath_f1webtip_car_img_width']  . '" height="' . $config['drdeath_f1webtip_car_img_height']  . '" alt="">';
+						$team_img		= ($row['team_img'] == '') ? '<img src="' . $ext_path . 'images/teams/' . $config['drdeath_f1webtip_no_team_img'] . '" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" alt="">' : '<img src="' . $ext_path . 'images/teams/' . $row['team_img'] . '" width="' . $config['drdeath_f1webtip_team_img_width'] . '" height="' . $config['drdeath_f1webtip_team_img_height'] . '" alt="">';
 						$team_penalty 	= $row['team_penalty'];
 
 						$pointssql		= '	SELECT SUM(wm_points) AS total_points
@@ -1099,7 +1108,7 @@ class main_module
 					$racetime_combos = $c_day . '&nbsp;.&nbsp;' . $c_month . '&nbsp;.&nbsp;' . $c_year . '<br/><br/>&nbsp;' . $c_hour . '&nbsp;:&nbsp;' . $c_minute . '&nbsp;:&nbsp;' . $c_second;
 
 					// Generate imagebox for race
-					$image_dir 			= $phpbb_root_path . 'ext/drdeath/f1webtip/images';
+					$image_dir 			= $phpbb_root_path . 'ext/drdeath/f1webtip/images/races';
 					$image_race_combo	= $this->create_dropdown($image_dir, $raceimg, 'raceimg', $language->lang('ACP_F1_SETTINGS_NO_RACE_IMG'));
 
 					// Generate page
@@ -1138,7 +1147,7 @@ class main_module
 
 					while ($row = $db->sql_fetchrow($result))
 					{
-						$race_img = ($row['race_img'] == '') ? '<img src="' . $ext_path . 'images/' . $config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="">' : '<img src="' . $ext_path . 'images/' . $row['race_img'] . '" width="94" height="54" alt="">';
+						$race_img = ($row['race_img'] == '') ? '<img src="' . $ext_path . 'images/races/' . $config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="">' : '<img src="' . $ext_path . 'images/races/' . $row['race_img'] . '" width="94" height="54" alt="">';
 
 						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', array(
 							'RACEDEAD' 	=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),

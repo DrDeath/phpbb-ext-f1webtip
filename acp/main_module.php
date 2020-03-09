@@ -17,7 +17,7 @@ class main_module
 	* Loads all files of given directory
 	*
 	* Parameter: image directory to scan
-	* Returns an array with all found files
+	* Returns an array. Array includes all found files
 	*/
 	public function load_files($dir)
 	{
@@ -37,7 +37,7 @@ class main_module
 	* Creates dropdown boxes for image selection
 	*
 	* Parameters: image directory to scan, select_default, name, optional: first option value
-	* Returns a dropdown box with all found images in given image directory
+	* Returns a string. Dropdown box with all found images in given image directory
 	*/
 	public function create_dropdown($dir, $select_default, $name, $default = false)
 	{
@@ -51,7 +51,7 @@ class main_module
 		}
 
 						$image_combo	 = '<select name="' . $name . '">';
-		($default) ? 	$image_combo	.= '<option value="" ' . $selected . '>' . $default . '</option>' : '';
+		($default) ?	$image_combo	.= '<option value="" ' . $selected . '>' . $default . '</option>' : '';
 						$image_combo	.= $image_entries;
 						$image_combo	.= '</select>';
 
@@ -70,11 +70,19 @@ class main_module
 		// Load extension language file
 		$language->add_lang('acp_common', 'drdeath/f1webtip');
 
+		// short names for database tables
 		$table_races 	= $phpbb_container->getParameter('tables.f1webtip.races');
 		$table_teams	= $phpbb_container->getParameter('tables.f1webtip.teams');
 		$table_drivers 	= $phpbb_container->getParameter('tables.f1webtip.drivers');
 		$table_wm 		= $phpbb_container->getParameter('tables.f1webtip.wm');
 		$table_tips 	= $phpbb_container->getParameter('tables.f1webtip.tips');
+
+		// short names for image directories
+		$dir_banners	= $phpbb_root_path . 'ext/drdeath/f1webtip/images/banners';
+		$dir_races		= $phpbb_root_path . 'ext/drdeath/f1webtip/images/races';
+		$dir_cars		= $phpbb_root_path . 'ext/drdeath/f1webtip/images/cars';
+		$dir_drivers	= $phpbb_root_path . 'ext/drdeath/f1webtip/images/drivers';
+		$dir_teams		= $phpbb_root_path . 'ext/drdeath/f1webtip/images/teams';
 
 		$this->tpl_name = 'f1webtip_body';
 
@@ -300,25 +308,16 @@ class main_module
 				$forums_combo	.= '</select>';
 
 				//
-				// Generate imageboxes
+				// Generate image select dropdown boxes
 				//
 
-				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/banners';
-				$image_headbanner1_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_headbanner1_img'],	'headbanner1_img');
-				$image_headbanner2_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_headbanner2_img'],	'headbanner2_img');
-				$image_headbanner3_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_headbanner3_img'],	'headbanner3_img');
-
-				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/races';
-				$image_no_race_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_race_img'], 		'no_race_img');
-
-				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/cars';
-				$image_no_car_img_combo		= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_car_img'], 		'no_car_img');
-
-				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/drivers';
-				$image_no_driver_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_driver_img'], 	'no_driver_img');
-
-				$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/teams';
-				$image_no_team_img_combo	= $this->create_dropdown($image_dir, $config['drdeath_f1webtip_no_team_img'],		'no_team_img');
+				$image_headbanner1_combo	= $this->create_dropdown($dir_banners,	$config['drdeath_f1webtip_headbanner1_img'],	'headbanner1_img');
+				$image_headbanner2_combo	= $this->create_dropdown($dir_banners,	$config['drdeath_f1webtip_headbanner2_img'],	'headbanner2_img');
+				$image_headbanner3_combo	= $this->create_dropdown($dir_banners,	$config['drdeath_f1webtip_headbanner3_img'],	'headbanner3_img');
+				$image_no_race_img_combo	= $this->create_dropdown($dir_races,	$config['drdeath_f1webtip_no_race_img'],		'no_race_img');
+				$image_no_car_img_combo		= $this->create_dropdown($dir_cars,		$config['drdeath_f1webtip_no_car_img'],			'no_car_img');
+				$image_no_driver_img_combo	= $this->create_dropdown($dir_drivers,	$config['drdeath_f1webtip_no_driver_img'],		'no_driver_img');
+				$image_no_team_img_combo	= $this->create_dropdown($dir_teams,	$config['drdeath_f1webtip_no_team_img'],		'no_team_img');
 
 				if ($config['drdeath_f1webtip_show_headbanner'])
 				{
@@ -550,8 +549,7 @@ class main_module
 					$db->sql_freeresult($result);
 
 					// Generate imagebox for driver
-					$image_dir = $phpbb_root_path . 'ext/drdeath/f1webtip/images/drivers';
-					$image_driver_combo	= $this->create_dropdown($image_dir, $driverimg, 'driverimg', $language->lang('ACP_F1_SETTINGS_NO_DRIVER_IMG'));
+					$image_driver_combo	= $this->create_dropdown($dir_drivers, $driverimg, 'driverimg', $language->lang('ACP_F1_SETTINGS_NO_DRIVER_IMG'));
 
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
@@ -806,11 +804,8 @@ class main_module
 					}
 
 					// Generate imagebox for team
-					$image_dir 				= $phpbb_root_path . 'ext/drdeath/f1webtip/images/teams';
-					$image_team_combo		= $this->create_dropdown($image_dir, $teamimg, 'teamimg', $language->lang('ACP_F1_SETTINGS_NO_TEAM_IMG'));
-
-					$image_dir 				= $phpbb_root_path . 'ext/drdeath/f1webtip/images/cars';
-					$image_teamcar_combo	= $this->create_dropdown($image_dir, $teamcar, 'teamcar', $language->lang('ACP_F1_SETTINGS_NO_CAR_IMG'));
+					$image_team_combo		= $this->create_dropdown($dir_teams, $teamimg, 'teamimg', $language->lang('ACP_F1_SETTINGS_NO_TEAM_IMG'));
+					$image_teamcar_combo	= $this->create_dropdown($dir_cars, $teamcar, 'teamcar', $language->lang('ACP_F1_SETTINGS_NO_CAR_IMG'));
 
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
@@ -1108,8 +1103,7 @@ class main_module
 					$racetime_combos = $c_day . '&nbsp;.&nbsp;' . $c_month . '&nbsp;.&nbsp;' . $c_year . '<br/><br/>&nbsp;' . $c_hour . '&nbsp;:&nbsp;' . $c_minute . '&nbsp;:&nbsp;' . $c_second;
 
 					// Generate imagebox for race
-					$image_dir 			= $phpbb_root_path . 'ext/drdeath/f1webtip/images/races';
-					$image_race_combo	= $this->create_dropdown($image_dir, $raceimg, 'raceimg', $language->lang('ACP_F1_SETTINGS_NO_RACE_IMG'));
+					$image_race_combo	= $this->create_dropdown($dir_races, $raceimg, 'raceimg', $language->lang('ACP_F1_SETTINGS_NO_RACE_IMG'));
 
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfxr'] == 1)

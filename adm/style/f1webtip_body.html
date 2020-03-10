@@ -20,7 +20,7 @@
 			</thead>
 			<tbody>
 				<tr class="row2">
-					<td nowrap="nowrap"><strong>{{ lang('ACP_F1_SETTINGS_MODERATOR') }}</strong><br />{{ lang('ACP_F1_SETTINGS_MODERATOR_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_MODERATOR') }}</strong><br />{{ lang('ACP_F1_SETTINGS_MODERATOR_EXPLAIN') }}</td>
 					<td>{{ D_MODERATOR }}</td>
 				</tr>
 				<tr class="row2">
@@ -236,7 +236,7 @@
 	<p>{{ lang('ACP_F1_DRIVERS_EXPLAIN') }}</p>
 
 	<table cellspacing="1">
-	    <thead>
+		<thead>
 			<tr>
 				<th colspan="{{ COLSPAN }}" >{{ lang('ACP_F1_DRIVERS') }}</th>
 			</tr>
@@ -352,11 +352,11 @@
 	</fieldset>
 
 	<p class="submit-buttons">
-	    <form method="POST" enctype="multipart/form-data">
+		<form method="POST" enctype="multipart/form-data">
 			<input class="button1" type="submit" name="add" value="{{ lang('ACP_F1_DRIVERS_ADD') }}" />
 			<input type="hidden" name="driver_id" value="{{ DRIVER_ID }}" />
 			{{ S_FORM_TOKEN }}
-	    </form>
+		</form>
 	</p>
 	</form>
 {% endif %}

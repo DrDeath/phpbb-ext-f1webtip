@@ -156,13 +156,10 @@ class main_listener implements EventSubscriberInterface
 	{
 		if ($this->config['drdeath_f1webtip_show_in_profile'])
 		{
-			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
-			$is_admin = $this->auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
+			//Is the displayed user on the memberlist member of the restricted group?
+			$is_in_group = group_memberships($this->config['drdeath_f1webtip_restrict_to'], $event['data']['user_id'], true);
 
-			//Is the user member of the restricted group?
-			$is_in_group = group_memberships($this->config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
-
-			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $this->user->data['user_id'] == $this->config['drdeath_f1webtip_mod_id'])
+			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group)
 			{
 				$tippers_rank		= $this->language->lang('FORMEL_PROFILE_NORANK');
 				$tippers_points		= 0;
@@ -224,13 +221,10 @@ class main_listener implements EventSubscriberInterface
 	{
 		if ($this->config['drdeath_f1webtip_show_in_viewtopic'])
 		{
-			// Check if this user has one of the formular 1 admin permission. If this user has one or more of these permissions, he gets also moderator permissions.
-			$is_admin = $this->auth->acl_gets('a_formel_settings', 'a_formel_drivers', 'a_formel_teams', 'a_formel_races');
+			//Is the poster member of the restricted group?
+			$is_in_group = group_memberships($this->config['drdeath_f1webtip_restrict_to'], $event['post_row']['POSTER_ID'], true);
 
-			//Is the user member of the restricted group?
-			$is_in_group = group_memberships($this->config['drdeath_f1webtip_restrict_to'], $this->user->data['user_id'], true);
-
-			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group || $is_admin == 1 || $this->user->data['user_id'] == $this->config['drdeath_f1webtip_mod_id'])
+			if ($this->config['drdeath_f1webtip_restrict_to'] == 0 || $is_in_group)
 			{
 				$tippers_rank	= $this->language->lang('FORMEL_PROFILE_NORANK');
 				$tippers_points	= 0;

@@ -205,8 +205,6 @@ class email_reminder extends \phpbb\cron\task\base
 			$messenger->subject(htmlspecialchars_decode($subject));
 			$messenger->set_mail_priority($priority);
 
-			$ext_path = $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
-
 			// Get all the f1webtipp user
 			// what user exactly ?
 			// All member of the restrict_to group, admin mass mails allowed, user is normal (active) or founder
@@ -238,7 +236,7 @@ class email_reminder extends \phpbb\cron\task\base
 				$deadline			= $this->format_date_time($user_lang, $user_timezone, $user_dateformat, $event_stop);
 
 				// Send the messages
-				$mail_template_path = $ext_path . 'language/' . $user_lang . '/email/';
+				$mail_template_path = $this->root_path . 'ext/drdeath/f1webtip/language/' . $user_lang . '/email/';
 
 				$messenger->to($user_email, $username);
 				$messenger->template('cron_formel', $user_lang, $mail_template_path);

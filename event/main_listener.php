@@ -114,9 +114,18 @@ class main_listener implements EventSubscriberInterface
 
 	public function add_page_header_link($event)
 	{
+		// Should the user be able to see the link to the f1webtip ?
+		// Link should only visible if:
+		// f1webtip is not restricted to a group and guests viewing is allowed and user is not a bot --> or
+		// user is logged in
+		// if user logged in and not member of restriced group then he could ask some one to let him in or not
+		$formel_link	= 	(($this->config['drdeath_f1webtip_restrict_to'] == 0 && $this->config['drdeath_f1webtip_guest_viewing'] == '1' && !$this->user->data['is_bot']) || $this->user->data['is_registered']) ? true : false;
+
 		$this->template->assign_vars(array(
-			'U_F1WEBTIP_PAGE'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+			'S_F1WEBTIP_PAGE_LINK_ENABLED'	=> $formel_link,
+			'U_F1WEBTIP_PAGE'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 		));
+
 	}
 
 	public function add_page_viewonline($event)

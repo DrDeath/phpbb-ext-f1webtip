@@ -80,7 +80,7 @@ class email_reminder extends \phpbb\cron\task\base
 		$this->phpbb_path_helper		= $phpbb_path_helper;
 		$this->db 						= $db;
 		$this->config 					= $config;
-		$this->phpbb_log 				= $log;
+		$this->log 						= $log;
 		$this->user 					= $user;
 		$this->language 				= $language;
 	}
@@ -111,6 +111,7 @@ class email_reminder extends \phpbb\cron\task\base
 
 		// Find all words in date/time string and replace them with the translations from user's language
 		preg_match_all("/[a-zA-Z]+/", $time, $matches, PREG_PATTERN_ORDER);
+
 		if (sizeof ($matches[0]) > 0)
 		{
 			foreach ($matches[0] as $value)
@@ -131,10 +132,6 @@ class email_reminder extends \phpbb\cron\task\base
 	public function run()
 	{
 		$table_races 	= $this->phpbb_container->getParameter('tables.f1webtip.races');
-		$table_teams	= $this->phpbb_container->getParameter('tables.f1webtip.teams');
-		$table_drivers 	= $this->phpbb_container->getParameter('tables.f1webtip.drivers');
-		$table_wm 		= $this->phpbb_container->getParameter('tables.f1webtip.wm');
-		$table_tips 	= $this->phpbb_container->getParameter('tables.f1webtip.tips');
 
 		// Load extension language file
 		$this->language->add_lang('common', 'drdeath/f1webtip');
@@ -170,40 +167,15 @@ class email_reminder extends \phpbb\cron\task\base
 		$races = $this->db->sql_fetchrowset($result);
 		$this->db->sql_freeresult($result);
 
-		// If we found the race, get all data and send the mail
-		foreach ($races as $race)
+		// Update the race_mail status to prevent sending mails again for the same race
+		$race_ids = array_column($races, 'race_id');
+
+		if ($race_ids)
 		{
-			$race_id 		= $race['race_id'];
-
-			// Update the race_mail status to prevent sending mails again for the same race
-			$sql_ary = array(
-				'race_mail'	=> 1,
-			);
-
 			$sql = 'UPDATE ' . $table_races . '
-				SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
-				WHERE race_id = ' . (int) $race_id;
+				SET race_mail = 1
+				WHERE ' . $this->db->sql_in_set('race_id', $race_ids);
 			$this->db->sql_query($sql);
-
-			// prepare some variables
-			$race_name 		= $race['race_name'];
-			$race_time		= $race['race_time'];
-
-			// Get the race f1webtipp deadline.
-			$event_stop		= date($race_time - $this->config['drdeath_f1webtip_deadline_offset']);
-
-			$subject 		= $this->language->lang('F1WEBTIP_PAGE') . " - " . $race_name;
-			$usernames 		= '';
-
-			include_once($this->root_path . 'includes/functions_messenger.' . $this->php_ext);
-			$messenger = new \messenger($use_queue);
-
-			$errored = false;
-			$messenger->headers('X-AntiAbuse: Board servername - ' . $this->config['server_name']);
-			$messenger->headers('X-AntiAbuse: User_id - ' . ANONYMOUS);
-			$messenger->headers('X-AntiAbuse: Username - CRON TASK F1 WebTip Email Reminder');
-			$messenger->subject(htmlspecialchars_decode($subject));
-			$messenger->set_mail_priority($priority);
 
 			// Get all the f1webtipp user
 			// what user exactly ?
@@ -219,12 +191,34 @@ class email_reminder extends \phpbb\cron\task\base
 						AND 	u.user_id = ug.user_id
 						AND		u.user_allow_massemail = 1
 						AND		(u.user_type = " . USER_NORMAL . ' OR u.user_type = ' . USER_FOUNDER . ')
-					GROUP BY	u.user_id
-					ORDER BY 	u. username_clean ASC';
+					ORDER BY 	u.username_clean ASC';
 
-			$result = $this->db->sql_query($sql);
+			$user_result = $this->db->sql_query($sql);
+		}
 
-			while ($row = $this->db->sql_fetchrow($result))
+		// If we found the race, get all data and send the mail
+		foreach ($races as $race)
+		{
+			// prepare some variables
+			$race_name 		= $race['race_name'];
+			$race_time		= $race['race_time'];
+
+			// Get the race f1webtipp deadline.
+			$event_stop		= date($race_time - $this->config['drdeath_f1webtip_deadline_offset']);
+
+			$subject 		= $this->language->lang('F1WEBTIP_PAGE') . " - " . $race_name;
+			$usernames 		= '';
+
+			include_once($this->root_path . 'includes/functions_messenger.' . $this->php_ext);
+			$messenger = new \messenger($use_queue);
+
+			$messenger->headers('X-AntiAbuse: Board servername - ' . $this->config['server_name']);
+			$messenger->headers('X-AntiAbuse: User_id - ' . ANONYMOUS);
+			$messenger->headers('X-AntiAbuse: Username - CRON TASK F1 WebTip Email Reminder');
+			$messenger->subject(htmlspecialchars_decode($subject));
+			$messenger->set_mail_priority($priority);
+
+			while ($row = $this->db->sql_fetchrow($user_result))
 			{
 				// grep the user time zone, time format and language
 				$user_timezone		= $row['user_timezone'];
@@ -236,10 +230,8 @@ class email_reminder extends \phpbb\cron\task\base
 				$deadline			= $this->format_date_time($user_lang, $user_timezone, $user_dateformat, $event_stop);
 
 				// Send the messages
-				$mail_template_path = $this->root_path . 'ext/drdeath/f1webtip/language/' . $user_lang . '/email/';
-
+				$messenger->template('@drdeath_f1webtip/cron_formel', $user_lang);
 				$messenger->to($user_email, $username);
-				$messenger->template('cron_formel', $user_lang, $mail_template_path);
 				$messenger->assign_vars(array(
 					'USERNAME'		=> $username,
 					'RACENAME'		=> $race_name,
@@ -250,8 +242,8 @@ class email_reminder extends \phpbb\cron\task\base
 				if (!($messenger->send($used_method)))
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $username . '!';
-					$message = sprintf($this->language->lang('FORMEL_LOG_ERROR'), $user_email);
-					$this->phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
+					$message = $this->language->lang('FORMEL_LOG_ERROR', $user_email);
+					$this->log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
@@ -265,32 +257,32 @@ class email_reminder extends \phpbb\cron\task\base
 			{
 				//send admin email
 				$user_lang 	= $this->config['default_lang'];
-				$subject 	= sprintf($this->language->lang('FORMEL_MAIL_ADMIN'), $race_name);
+				$subject 	= $this->language->lang('FORMEL_MAIL_ADMIN', $race_name);
 
 				$messenger->to($this->config['board_email'], $this->config['sitename']);
 				$messenger->subject(htmlspecialchars_decode($subject));
 				$messenger->template('admin_send_email', $user_lang);
 				$messenger->assign_vars(array(
 					'CONTACT_EMAIL' => $this->config['board_contact'],
-					'MESSAGE'		=> sprintf($this->language->lang('FORMEL_MAIL_ADMIN_MESSAGE'), $usernames),
+					'MESSAGE'		=> $this->language->lang('FORMEL_MAIL_ADMIN_MESSAGE', $usernames),
 					)
 				);
 
 				if (!($messenger->send($used_method)))
 				{
-					$message = sprintf($this->language->lang('FORMEL_LOG_ERROR'), $this->config['board_email']);
-					$this->phpbb_log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
+					$message = $this->language->lang('FORMEL_LOG_ERROR', $this->config['board_email']);
+					$this->log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
 				}
 				else
 				{
-					$message = sprintf($this->language->lang('FORMEL_LOG'), $usernames) ;
-					$this->phpbb_log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
+					$message = $this->language->lang('FORMEL_LOG', $usernames) ;
+					$this->log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
 				}
 			}
 		}
 
 		// Log the cronjob run
-		$this->phpbb_log->add('admin', ANONYMOUS, '', 'LOG_FORMEL_CRON');
+		$this->log->add('admin', ANONYMOUS, '', 'LOG_FORMEL_CRON');
 
 		return;
 	}

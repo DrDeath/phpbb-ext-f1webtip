@@ -14,10 +14,10 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'ACP_F1_DRIVERS_ADD_DRIVER'						=> 'Add driver',
 	'ACP_F1_DRIVERS_ADD'							=> 'Send',
 	'ACP_F1_DRIVERS_DELETE_DRIVER'					=> 'Delete',
@@ -167,4 +167,4 @@ $lang = array_merge($lang, array(
 	'ACP_F1_TEAMS'									=> 'F1 Teams',
 	'ACP_F1WEBTIP_SETTING_SAVED'					=> 'Settings have been saved successfully!',
 
-));
+]);

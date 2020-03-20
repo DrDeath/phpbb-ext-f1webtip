@@ -14,7 +14,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -32,7 +32,7 @@ if (empty($lang) || !is_array($lang))
 // Some characters you may want to copy&paste:
 // ’ » “ ” …
 //
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'ACP_F1WEBTIP_TITLE'			=> 'F1 WebTipp Module',
 	'ACP_FORMEL_DRIVERS'			=> 'F1 Fahrer',
 	'ACP_FORMEL_RACES'				=> 'F1 Rennen',
@@ -61,4 +61,4 @@ $lang = array_merge($lang, array(
 	'LOG_FORMEL_TIP_GIVEN'			=> 'Formel 1 WebTipp für Rennen %s abgegeben',
 	'LOG_FORMEL_TIP_NOT_VALID'		=> 'Formel 1 WebTipp für Rennen %s ungültig. Tipp wurde abgewiesen',
 
-));
+]);

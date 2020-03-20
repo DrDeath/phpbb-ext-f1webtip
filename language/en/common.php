@@ -14,10 +14,10 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'F1WEBTIP_PAGE'					=> 'Formula 1',
 	'FORMEL_ACCEPTED_TIPP'			=> 'You tip was accepted<br><br>Click %shere%s to place more Formula 1 tips<br><br>Click %shere%s to go back to forum',
 	'FORMEL_ACCESS_DENIED'			=> 'Access denied. You have to be a certain group member to join this tip.<br><br>Click %shere%s to ask for membership<br>Click %shere%s to go back to forum',
@@ -123,4 +123,4 @@ $lang = array_merge($lang, array(
 		2	=> 'Points',
 	),
 
-));
+]);

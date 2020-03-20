@@ -14,10 +14,10 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'F1WEBTIP_PAGE'					=> 'Formel 1',
 	'FORMEL_ACCEPTED_TIPP'			=> 'Der Tipp wurde erfolgreich eingetragen<br><br>Klicken Sie %shier%s, um für weitere Rennen zu tippen<br><br>Klicken Sie %shier%s, um zum Forum zurückzukehren',
 	'FORMEL_ACCESS_DENIED'			=> 'Der Zugriff auf den Formel 1 WebTipp ist nur einer bestimmten Benutzergruppe gestattet.<br><br>Klicken Sie %shier%s, um einen Aufnahmeantrag zu stellen<br>Klicken Sie %shier%s, um zum Index zurückzukehren',
@@ -123,4 +123,4 @@ $lang = array_merge($lang, array(
 		2	=> 'Punkte',
 	),
 
-));
+]);

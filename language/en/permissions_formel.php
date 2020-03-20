@@ -17,7 +17,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -35,10 +35,10 @@ if (empty($lang) || !is_array($lang))
 
 // Adding the permissions
 // F1 WebTip permissions
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'ACL_CAT_FORMEL'		=> 'F1 Webtip',
 	'ACL_A_FORMEL_SETTINGS'	=> 'Can alter F1 WebTip settings',
 	'ACL_A_FORMEL_DRIVERS'	=> 'Can alter F1 WebTip driver',
 	'ACL_A_FORMEL_TEAMS'	=> 'Can alter F1 WebTip teams',
 	'ACL_A_FORMEL_RACES'	=> 'Can alter F1 WebTip races',
-));
+]);

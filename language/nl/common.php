@@ -14,10 +14,10 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'F1WEBTIP_PAGE'					=> 'Formule 1',
 	'FORMEL_ACCEPTED_TIPP'			=> 'You tip was accepted<br><br>Klik %shier%s om meer voorspellingen te maken<br><br>Klik %shier%s om terug te gaan naar het forum',
 	'FORMEL_ACCESS_DENIED'			=> 'Toegang niet toegestaan. Je moet een geregistreerde gebruiker zijn om voorspellingen  te kunnen maken.<br><br>Klik %shier%s om je te registreren<br>Klik %shier%s om terug te gaan naar het forum',
@@ -123,4 +123,4 @@ $lang = array_merge($lang, array(
 		2	=> 'Punten',
 	),
 
-));
+]);

@@ -17,7 +17,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -35,10 +35,10 @@ if (empty($lang) || !is_array($lang))
 
 // Adding the permissions
 // F1 WebTip permissions
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	'ACL_CAT_FORMEL'		=> 'F1 WebTip',
 	'ACL_A_FORMEL_SETTINGS'	=> 'Je kan van de F1 voorspellingen de instellingen veranderen',
 	'ACL_A_FORMEL_DRIVERS'	=> 'Je kan van de F1 voorspellingen de coureurs veranderen',
 	'ACL_A_FORMEL_TEAMS'	=> 'Je kan van de F1 voorspellingen de teams veranderen',
 	'ACL_A_FORMEL_RACES'	=> 'Je kan van de F1 voorspellingen de races veranderen',
-));
+]);

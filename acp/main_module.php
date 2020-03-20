@@ -229,9 +229,9 @@ class main_module
 
 				//Get all possible moderators and administrators at once
 				$mod_ary			= $auth->acl_get_list(false, 'm_', false);
-				$mod_ary			= (array($mod_ary[0]['m_']) == true) ? $mod_ary[0]['m_'] : array();
+				$mod_ary			= (!empty($mod_ary[0]['m_'])) ? $mod_ary[0]['m_'] : [];
 				$admin_ary			= $auth->acl_get_list(false, 'a_', false);
-				$admin_ary			= (array($admin_ary[0]['a_']) == true) ? $admin_ary[0]['a_'] : array();
+				$admin_ary			= (!empty($admin_ary[0]['a_'])) ? $admin_ary[0]['a_'] : [];
 
 				$admin_mod_array 	= array_unique(array_merge($admin_ary, $mod_ary));
 
@@ -415,13 +415,13 @@ class main_module
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
 
-						$error = sprintf($language->lang('ACP_F1_DRIVERS_DRIVER_DELETED'), $drivername);
+						$error = $language->lang('ACP_F1_DRIVERS_DRIVER_DELETED', $drivername);
 						trigger_error($error . adm_back_link($this->u_action));
 					}
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, sprintf($language->lang('ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM'), $drivername), build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM', $drivername), build_hidden_fields(array(
 							'del'				=> true,
 							'driver_id'			=> $driver_id,
 							'drivername'		=> $drivername,
@@ -689,7 +689,7 @@ class main_module
 						{
 							$db->sql_freeresult($result);
 
-							$error = sprintf($language->lang('ACP_F1_TEAMS_TEAM_NOT_DELETED'), $teamname);
+							$error = $language->lang('ACP_F1_TEAMS_TEAM_NOT_DELETED', $teamname);
 							trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 						}
 						else
@@ -702,14 +702,14 @@ class main_module
 
 							$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($teamname . ' (ID ' . $team_id . ')' ));
 
-							$error = sprintf($language->lang('ACP_F1_TEAMS_TEAM_DELETED'), $teamname);
+							$error = $language->lang('ACP_F1_TEAMS_TEAM_DELETED', $teamname);
 							trigger_error($error . adm_back_link($this->u_action));
 						}
 					}
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, sprintf($language->lang('ACP_F1_TEAMS_TEAM_DELETE_CONFIRM'), $teamname), build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_TEAMS_TEAM_DELETE_CONFIRM', $teamname), build_hidden_fields(array(
 							'del'				=> true,
 							'team_id'			=> $team_id,
 							'teamname'			=> $teamname,
@@ -933,7 +933,7 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, sprintf($language->lang('ACP_F1_RACES_RACE_DELETE_CONFIRM'), $racename), build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_RACES_RACE_DELETE_CONFIRM', $racename), build_hidden_fields(array(
 							'del'				=> true,
 							'race_id'			=> $race_id,
 							'racename'			=> $racename,

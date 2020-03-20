@@ -21,7 +21,7 @@ class main_module
 	*/
 	public function load_files($dir)
 	{
-		$result = array();
+		$result = [];
 		$image_ary = preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
 
 		// recreate array, shoud start with 0 ;-)
@@ -113,28 +113,28 @@ class main_module
 						$sql = 'TRUNCATE TABLE ' . $table_wm;
 						$result = $db->sql_query($sql);
 
-						$sql_ary = array(
+						$sql_ary = [
 							'race_result'		=> 0,
 							'race_quali'		=> 0,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_races . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
 						$db->sql_query($sql);
 
 						//remove penalty from drivers
-						$sql_ary = array(
+						$sql_ary = [
 							'driver_penalty'	=> 0,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_drivers . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
 						$db->sql_query($sql);
 
 						//remove penalty from teams
-						$sql_ary = array(
+						$sql_ary = [
 							'team_penalty'	=> 0,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_teams . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) ;
@@ -148,9 +148,9 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $language->lang('ACP_F1_SETTINGS_SEASON_RESET_EXPLAIN'), build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_SETTINGS_SEASON_RESET_EXPLAIN'), build_hidden_fields([
 							'reset_all'				=> true,
-							))
+							])
 						, 'confirm_body.html');
 					}
 				}
@@ -225,7 +225,7 @@ class main_module
 				//
 
 				$combo_mod_entries = '';
-				$mod_ary = $admin_ary = array();
+				$mod_ary = $admin_ary = [];
 
 				//Get all possible moderators and administrators at once
 				$mod_ary			= $auth->acl_get_list(false, 'm_', false);
@@ -321,20 +321,20 @@ class main_module
 
 				if ($config['drdeath_f1webtip_show_headbanner'])
 				{
-					$template->assign_block_vars('headbanner_on', array());
+					$template->assign_block_vars('headbanner_on', []);
 				}
 
 				if ($config['drdeath_f1webtip_show_gfxr'])
 				{
-					$template->assign_block_vars('gfxr_on', array());
+					$template->assign_block_vars('gfxr_on', []);
 				}
 
 				if ($config['drdeath_f1webtip_show_gfx'])
 				{
-					$template->assign_block_vars('gfx_on', array());
+					$template->assign_block_vars('gfx_on', []);
 				}
 
-				$template->assign_vars(array(
+				$template->assign_vars([
 					'CAR_IMG_HEIGHT'					=> $config['drdeath_f1webtip_car_img_height'],
 					'CAR_IMG_WIDTH'						=> $config['drdeath_f1webtip_car_img_width'],
 					'D_ACCESS_GROUP'					=> $group_combo,
@@ -373,7 +373,7 @@ class main_module
 					'TEAM_IMG_HEIGHT'					=> $config['drdeath_f1webtip_team_img_height'],
 					'TEAM_IMG_WIDTH'					=> $config['drdeath_f1webtip_team_img_width'],
 					'U_ACTION'							=> $this->u_action,
-				));
+				]);
 
 			break;
 
@@ -413,7 +413,7 @@ class main_module
 								WHERE driver_id = ' . (int) $driver_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_DELETED', false, [$drivername . ' (ID ' . $driver_id . ')']);
 
 						$error = $language->lang('ACP_F1_DRIVERS_DRIVER_DELETED', $drivername);
 						trigger_error($error . adm_back_link($this->u_action));
@@ -421,11 +421,11 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $language->lang('ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM', $drivername), build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_DRIVERS_DRIVER_DELETE_CONFIRM', $drivername), build_hidden_fields([
 							'del'				=> true,
 							'driver_id'			=> $driver_id,
 							'drivername'		=> $drivername,
-							))
+							])
 						, 'confirm_body.html');
 					}
 				}
@@ -445,34 +445,34 @@ class main_module
 
 					if ($driver_id == 0)
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'driver_name'		=> $drivername,
 							'driver_img'		=> $driverimg,
 							'driver_team'		=> $driverteam,
 							'driver_penalty'	=> $driver_penalty,
 							'driver_disabled'	=> $driver_disabled,
-						);
+						];
 
 						$db->sql_query('INSERT INTO ' . $table_drivers . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_ADDED', false, array($drivername));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_ADDED', false, [$drivername]);
 					}
 					else
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'driver_name'		=> $drivername,
 							'driver_img'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $driverimg : '',
 							'driver_team'		=> $driverteam,
 							'driver_penalty'	=> $driver_penalty,
 							'driver_disabled'	=> $driver_disabled,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_drivers . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
 							WHERE driver_id = $driver_id";
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, array($drivername . ' (ID ' . $driver_id . ')' ));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, [$drivername . ' (ID ' . $driver_id . ')']);
 					}
 
 					$error = $language->lang('ACP_F1_DRIVERS_DRIVER_UPDATED');
@@ -538,11 +538,11 @@ class main_module
 					{
 						$preselected = ($row['team_id'] == $preselected_id) ? 'selected' : '';
 
-						$template->assign_block_vars('teamrows', array(
+						$template->assign_block_vars('teamrows', [
 							'PRESELECTED'	=> $preselected,
 							'TEAM_ID'		=> $row['team_id'],
 							'TEAMNAME'		=> $row['team_name'],
-							)
+							]
 						);
 					}
 
@@ -554,10 +554,10 @@ class main_module
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
 					{
-						$template->assign_block_vars('gfx_on', array());
+						$template->assign_block_vars('gfx_on', []);
 					}
 
-					$template->assign_vars(array(
+					$template->assign_vars([
 						'DRIVER_ID'					=> $driver_id,
 						'L_ACP_F1_DRIVERS_EXPLAIN'	=> $title_exp,
 						'L_ACP_F1_DRIVERS'			=> $title,
@@ -568,7 +568,7 @@ class main_module
 						'S_DRIVER_DISABLED'			=> ($driver_disabled == true) ? "checked=\"checked\"" : "",
 						'S_DRIVER_ENABLED'			=> ($driver_disabled == false) ? "checked=\"checked\"" : "",
 						'U_ACTION'					=> $this->u_action,
-						)
+						]
 					);
 				}
 				else
@@ -614,7 +614,7 @@ class main_module
 
 						$db->sql_freeresult($user_points);
 
-						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfx'] == 1) ? 'driverrows_gfx' : 'driverrows', array(
+						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfx'] == 1) ? 'driverrows_gfx' : 'driverrows', [
 							'DRIVER_DISABLED'	=> ($driver_disabled == true) ? $language->lang('NO') : $language->lang('YES'),
 							'DRIVER_PENALTY'	=> $driver_penalty,
 							'DRIVERID'			=> $row['driver_id'],
@@ -622,7 +622,7 @@ class main_module
 							'DRIVERNAME'		=> $row['driver_name'],
 							'DRIVERPOINTS'		=> $points,
 							'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
-							)
+							]
 						);
 
 					}
@@ -634,16 +634,16 @@ class main_module
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
 					{
 						$colspan = 8;
-						$template->assign_block_vars('gfx_on', array());
+						$template->assign_block_vars('gfx_on', []);
 					}
 
 					// Generate page
-					$template->assign_vars(array(
+					$template->assign_vars([
 						'COLSPAN'			=> $colspan,
 						'DRIVER_ID'			=> $driver_id,
 						'S_DRIVERS'			=> true,
 						'U_ACTION'			=> $this->u_action,
-						)
+						]
 					);
 				}
 
@@ -666,9 +666,9 @@ class main_module
 
 				$teamimg 			= $request->variable('teamimg'		,	''	,	true	);
 				$teamcar 			= $request->variable('teamcar'		,	''	,	true	);
-				$teamname 			= $request->variable('teamname'	,	''	,	true	);
+				$teamname 			= $request->variable('teamname'		,	''	,	true	);
 				$team_id 			= $request->variable('team_id'		,	0	);
-				$team_penalty		= $request->variable('team_penalty',	0.0	);
+				$team_penalty		= $request->variable('team_penalty'	,	0.0	);
 
 				//
 				// Delete a team
@@ -700,7 +700,7 @@ class main_module
 									WHERE team_id = ' . (int) $team_id;
 							$db->sql_query($sql);
 
-							$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, array($teamname . ' (ID ' . $team_id . ')' ));
+							$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_DELETED', false, [$teamname . ' (ID ' . $team_id . ')']);
 
 							$error = $language->lang('ACP_F1_TEAMS_TEAM_DELETED', $teamname);
 							trigger_error($error . adm_back_link($this->u_action));
@@ -709,11 +709,11 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $language->lang('ACP_F1_TEAMS_TEAM_DELETE_CONFIRM', $teamname), build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_TEAMS_TEAM_DELETE_CONFIRM', $teamname), build_hidden_fields([
 							'del'				=> true,
 							'team_id'			=> $team_id,
 							'teamname'			=> $teamname,
-							))
+							])
 						, 'confirm_body.html');
 					}
 				}
@@ -732,25 +732,25 @@ class main_module
 
 					if ($team_id == 0)
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'team_name'		=> $teamname,
 							'team_img'		=> $teamimg,
 							'team_car'		=> $teamcar,
 							'team_penalty'	=> $team_penalty,
-						);
+						];
 
 						$db->sql_query('INSERT INTO ' . $table_teams . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_ADDED', false, array($teamname));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_ADDED', false, [$teamname]);
 					}
 					else
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'team_name'		=> $teamname,
 							'team_img'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $teamimg : '',
 							'team_car'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $teamcar : '',
 							'team_penalty'	=> $team_penalty,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_teams . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
@@ -758,7 +758,7 @@ class main_module
 
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_EDITED', false, array($teamname . ' (ID ' . $team_id . ')' ));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_TEAM_EDITED', false, [$teamname . ' (ID ' . $team_id . ')']);
 					}
 
 					$error = $language->lang('ACP_F1_TEAMS_TEAM_UPDATED');
@@ -810,10 +810,10 @@ class main_module
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
 					{
-						$template->assign_block_vars('gfx_on', array());
+						$template->assign_block_vars('gfx_on', []);
 					}
 
-					$template->assign_vars(array(
+					$template->assign_vars([
 						'L_ACP_F1_TEAMS_EXPLAIN'	=> $title_exp,
 						'L_ACP_F1_TEAMS'			=> $title,
 						'PREDEFINED_CAR'			=> $image_teamcar_combo,
@@ -822,7 +822,7 @@ class main_module
 						'PREDEFINED_NAME'			=> $teamname,
 						'PREDEFINED_PENALTY'		=> $team_penalty,
 						'S_ADDTEAM'					=> true,
-						)
+						]
 					);
 				}
 				else
@@ -852,14 +852,14 @@ class main_module
 
 						$db->sql_freeresult($team_points);
 
-						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfx'] == 1) ? 'teamrows_gfx' : 'teamrows', array(
+						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfx'] == 1) ? 'teamrows_gfx' : 'teamrows', [
 							'POINTS'		=> $points,
 							'TEAM_PENALTY'	=> $team_penalty,
 							'TEAMCAR'		=> $team_car,
 							'TEAMID'		=> $row['team_id'],
 							'TEAMIMG'		=> $team_img,
 							'TEAMNAME'		=> $row['team_name'],
-							)
+							]
 						);
 					}
 
@@ -871,14 +871,14 @@ class main_module
 					if ($config['drdeath_f1webtip_show_gfx'] == 1)
 					{
 						$colspan = 7;
-						$template->assign_block_vars('gfx_on', array());
+						$template->assign_block_vars('gfx_on', []);
 					}
 
-					$template->assign_vars(array(
+					$template->assign_vars([
 						'COLSPAN'		=> $colspan,
 						'S_TEAMS'		=> true,
 						'U_ACTION'		=> $this->u_action,
-						)
+						]
 					);
 				}
 
@@ -925,7 +925,7 @@ class main_module
 								WHERE race_id = ' . (int) $race_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, array($racename . ' (ID ' . $race_id . ')' ));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_DELETED', false, [$racename . ' (ID ' . $race_id . ')']);
 
 						$error = $language->lang('ACP_F1_RACES_RACE_DELETED');
 						trigger_error($error . adm_back_link($this->u_action));
@@ -933,11 +933,11 @@ class main_module
 					// Create a confirmbox with yes and no.
 					else
 					{
-						confirm_box(false, $language->lang('ACP_F1_RACES_RACE_DELETE_CONFIRM', $racename), build_hidden_fields(array(
+						confirm_box(false, $language->lang('ACP_F1_RACES_RACE_DELETE_CONFIRM', $racename), build_hidden_fields([
 							'del'				=> true,
 							'race_id'			=> $race_id,
 							'racename'			=> $racename,
-							))
+							])
 						, 'confirm_body.html');
 					}
 				}
@@ -962,12 +962,11 @@ class main_module
 						trigger_error('FORM_INVALID');
 					}
 
-					// is_dst is deprecated since php 5.1 and was removed in php 7.0
 					$racetime = mktime($b_hour, $b_minute, $b_second, $b_month, $b_day, $b_year);
 
 					if ( $race_id == 0 )
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'race_name'		=> $racename,
 							'race_img'		=> $raceimg,
 							'race_quali'	=> 0,
@@ -978,15 +977,15 @@ class main_module
 							'race_distance'	=> $racedistance,
 							'race_debut'	=> $racedebut,
 							'race_mail'		=> 0,
-						);
+						];
 
 						$db->sql_query('INSERT INTO ' . $table_races . ' ' . $db->sql_build_array('INSERT', $sql_ary));
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_ADDED', false, array($racename));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_ADDED', false, [$racename]);
 					}
 					else
 					{
-						$sql_ary = array(
+						$sql_ary = [
 							'race_name'		=> $racename,
 							'race_img'		=> ($config['drdeath_f1webtip_show_gfxr'] == 1) ? $raceimg : '',
 							'race_time'		=> $racetime,
@@ -994,14 +993,14 @@ class main_module
 							'race_laps'		=> $racelaps,
 							'race_distance'	=> $racedistance,
 							'race_debut'	=> $racedebut,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_races . '
 							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
 							WHERE race_id = ' . (int) $race_id;
 						$db->sql_query($sql);
 
-						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_EDITED', false, array($racename . ' (ID ' . $race_id . ')' ));
+						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_RACE_EDITED', false, [$racename . ' (ID ' . $race_id . ')']);
 					}
 
 					$error = $language->lang('ACP_F1_RACES_RACE_UPDATED');
@@ -1108,10 +1107,10 @@ class main_module
 					// Generate page
 					if ($config['drdeath_f1webtip_show_gfxr'] == 1)
 					{
-						$template->assign_block_vars('gfxr_on', array());
+						$template->assign_block_vars('gfxr_on', []);
 					}
 
-					$template->assign_vars(array(
+					$template->assign_vars([
 						'L_ACP_F1_RACES_EXPLAIN'=> $title_exp,
 						'L_ACP_F1_RACES' 		=> $title,
 						'PREDEFINED_DEBUT' 		=> $racedebut,
@@ -1124,7 +1123,7 @@ class main_module
 						'RACETIME_COMBOS' 		=> $racetime_combos,
 						'S_ADD_RACES'			=> true,
 						'U_ACTION'				=> $this->u_action,
-						)
+						]
 					);
 				}
 				else
@@ -1143,13 +1142,14 @@ class main_module
 					{
 						$race_img = ($row['race_img'] == '') ? '<img src="' . $ext_path . 'images/races/' . $config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="">' : '<img src="' . $ext_path . 'images/races/' . $row['race_img'] . '" width="94" height="54" alt="">';
 
-						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', array(
+						$template->assign_block_vars(($config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', [
 							'RACEDEAD' 	=> $user->format_date($row['race_time'] - $config['drdeath_f1webtip_deadline_offset'], false, true),
 							'RACEID' 	=> $row['race_id'],
 							'RACEIMG' 	=> $race_img,
 							'RACENAME' 	=> $row['race_name'],
 							'RACETIME' 	=> $user->format_date($row['race_time'], false, true),
-						));
+							]
+						);
 					}
 
 					$db->sql_freeresult($result);
@@ -1160,14 +1160,14 @@ class main_module
 					if ($config['drdeath_f1webtip_show_gfxr'] == 1)
 					{
 						$colspan = 6;
-						$template->assign_block_vars('gfxr_on', array());
+						$template->assign_block_vars('gfxr_on', []);
 					}
 
-					$template->assign_vars(array(
+					$template->assign_vars([
 						'COLSPAN' 		=> $colspan,
 						'S_RACES'		=> true,
 						'U_ACTION'		=> $this->u_action,
-						)
+						]
 					);
 				}
 

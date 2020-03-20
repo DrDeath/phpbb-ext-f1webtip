@@ -104,7 +104,7 @@ class email_reminder extends \phpbb\cron\task\base
 		{
 			foreach ($matches[0] as $value)
 			{
-				$time = preg_replace("/".$value."/", $lang->lang(array('datetime', $value)), $time);
+				$time = preg_replace("/".$value."/", $lang->lang(['datetime', $value]), $time);
 			}
 		}
 
@@ -220,18 +220,18 @@ class email_reminder extends \phpbb\cron\task\base
 				// Send the messages
 				$messenger->template('@drdeath_f1webtip/cron_formel', $user_lang);
 				$messenger->to($user_email, $username);
-				$messenger->assign_vars(array(
+				$messenger->assign_vars([
 					'USERNAME'		=> $username,
 					'RACENAME'		=> $race_name,
 					'DEADLINEDATE'	=> $deadline,
-					)
+					]
 				);
 
 				if (!($messenger->send($used_method)))
 				{
 					$usernames .= (($usernames != '') ? ', ' : '') . $username . '!';
 					$message = $this->language->lang('FORMEL_LOG_ERROR', $user_email);
-					$this->log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
+					$this->log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, [$message]);
 				}
 				else
 				{
@@ -250,21 +250,21 @@ class email_reminder extends \phpbb\cron\task\base
 				$messenger->to($this->config['board_email'], $this->config['sitename']);
 				$messenger->subject(htmlspecialchars_decode($subject));
 				$messenger->template('admin_send_email', $user_lang);
-				$messenger->assign_vars(array(
+				$messenger->assign_vars([
 					'CONTACT_EMAIL' => $this->config['board_contact'],
 					'MESSAGE'		=> $this->language->lang('FORMEL_MAIL_ADMIN_MESSAGE', $usernames),
-					)
+					]
 				);
 
 				if (!($messenger->send($used_method)))
 				{
 					$message = $this->language->lang('FORMEL_LOG_ERROR', $this->config['board_email']);
-					$this->log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, array($message));
+					$this->log->add('critical', ANONYMOUS, '', 'LOG_ERROR_EMAIL', false, [$message]);
 				}
 				else
 				{
 					$message = $this->language->lang('FORMEL_LOG', $usernames) ;
-					$this->log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, array($message));
+					$this->log->add('admin', ANONYMOUS, '', 'LOG_MASS_EMAIL', false, [$message]);
 				}
 			}
 		}

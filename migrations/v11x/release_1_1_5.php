@@ -18,14 +18,14 @@ class release_1_1_5 extends \phpbb\db\migration\migration
 
 	static public function depends_on()
 	{
-		return array('\drdeath\f1webtip\migrations\v10x\release_1_0_0');
+		return ['\drdeath\f1webtip\migrations\v10x\release_1_0_0'];
 	}
 
 	public function update_data()
 	{
 		return array(
 			// Set the current version
-			array('config.update', array('drdeath_f1webtip_version', '1.1.5')),
+			['config.update', ['drdeath_f1webtip_version', '1.1.5']],
 		);
 	}
 }

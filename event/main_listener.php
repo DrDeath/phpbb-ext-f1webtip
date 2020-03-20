@@ -22,14 +22,14 @@ class main_listener implements EventSubscriberInterface
 {
 	static public function getSubscribedEvents()
 	{
-		return array(
+		return [
 			'core.user_setup'							=> 'load_language_on_setup',
 			'core.page_header'							=> 'add_page_header_link',
 			'core.memberlist_prepare_profile_data'		=> 'prepare_f1webtip_stats',
 			'core.viewtopic_modify_post_row'			=> 'modify_f1webtip_post_row',
 			'core.viewonline_overwrite_location'		=> 'add_page_viewonline',
 			'core.permissions'							=> 'add_formel_permission',
-		);
+		];
 	}
 
 	/* @var string phpEx */
@@ -105,10 +105,10 @@ class main_listener implements EventSubscriberInterface
 	public function load_language_on_setup($event)
 	{
 		$lang_set_ext = $event['lang_set_ext'];
-		$lang_set_ext[] = array(
+		$lang_set_ext[] = [
 			'ext_name' => 'drdeath/f1webtip',
 			'lang_set' => 'common',
-		);
+		];
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
@@ -121,10 +121,11 @@ class main_listener implements EventSubscriberInterface
 		// if user logged in and not member of restriced group then he could ask some one to let him in or not
 		$formel_link	= 	(($this->config['drdeath_f1webtip_restrict_to'] == 0 && $this->config['drdeath_f1webtip_guest_viewing'] == '1' && !$this->user->data['is_bot']) || $this->user->data['is_registered']) ? true : false;
 
-		$this->template->assign_vars(array(
+		$this->template->assign_vars([
 			'S_F1WEBTIP_PAGE_LINK_ENABLED'	=> $formel_link,
-			'U_F1WEBTIP_PAGE'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
-		));
+			'U_F1WEBTIP_PAGE'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+			]
+		);
 
 	}
 
@@ -133,7 +134,7 @@ class main_listener implements EventSubscriberInterface
 		if (strrpos($event['row']['session_page'], 'app.' . $this->php_ext . '/f1webtip') === 0)
 		{
 			$event['location'] = $this->language->lang('VIEWING_F1WEBTIPP');
-			$event['location_url'] = $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index'));
+			$event['location_url'] = $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']);
 		}
 	}
 
@@ -151,10 +152,10 @@ class main_listener implements EventSubscriberInterface
 
 		$categories['f1webtip']				= 'ACL_CAT_FORMEL';
 
-		$permissions['a_formel_races']		= array('lang' => 'ACL_A_FORMEL_RACES',		'cat' => 'f1webtip');
-		$permissions['a_formel_teams']		= array('lang' => 'ACL_A_FORMEL_TEAMS',		'cat' => 'f1webtip');
-		$permissions['a_formel_drivers']	= array('lang' => 'ACL_A_FORMEL_DRIVERS',	'cat' => 'f1webtip');
-		$permissions['a_formel_settings']	= array('lang' => 'ACL_A_FORMEL_SETTINGS',	'cat' => 'f1webtip');
+		$permissions['a_formel_races']		= ['lang' => 'ACL_A_FORMEL_RACES',		'cat' => 'f1webtip'];
+		$permissions['a_formel_teams']		= ['lang' => 'ACL_A_FORMEL_TEAMS',		'cat' => 'f1webtip'];
+		$permissions['a_formel_drivers']	= ['lang' => 'ACL_A_FORMEL_DRIVERS',	'cat' => 'f1webtip'];
+		$permissions['a_formel_settings']	= ['lang' => 'ACL_A_FORMEL_SETTINGS',	'cat' => 'f1webtip'];
 
 		$event['categories']				= $categories;
 		$event['permissions']				= $permissions;
@@ -216,12 +217,13 @@ class main_listener implements EventSubscriberInterface
 				$race_total = $this->db->sql_affectedrows($result);
 				$this->db->sql_freeresult($result);
 
-				$this->template->assign_block_vars('f1webtips', array(
+				$this->template->assign_block_vars('f1webtips', [
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
 					'RACE_DONE'			=> $this->language->lang('FORMEL_PROFILE_TIPSS', $race_done, $race_total),
-					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
-				));
+					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
+					]
+				);
 			}
 		}
 	}
@@ -282,13 +284,13 @@ class main_listener implements EventSubscriberInterface
 				$race_total = $this->db->sql_affectedrows($result);
 				$this->db->sql_freeresult($result);
 
-				$f1webtip = array(
+				$f1webtip = [
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
 					'RACE_DONE'			=> $this->language->lang('FORMEL_PROFILE_TIPSS', $race_done, $race_total),
-					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
-					'U_FORMEL_WEB_TIPP'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
-				);
+					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
+					'U_FORMEL_WEB_TIPP'	=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+				];
 
 				// Add the new vars to the post_row array
 				$f1webtip_array = array_merge($event['post_row'], $f1webtip);

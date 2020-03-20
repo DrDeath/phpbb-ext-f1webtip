@@ -24,12 +24,6 @@ class email_reminder extends \phpbb\cron\task\base
 	/* @var Container */
 	protected $phpbb_container;
 
-	/* @var \phpbb\extension\manager */
-	protected $phpbb_extension_manager;
-
-	/* @var \phpbb\path_helper */
-	protected $phpbb_path_helper;
-
 	/* @var \phpbb\db\driver\driver_interface */
 	protected $db;
 
@@ -51,8 +45,6 @@ class email_reminder extends \phpbb\cron\task\base
 	* @param string									$root_path
 	* @param string									$php_ext
 	* @param Container								$phpbb_container
-	* @param \phpbb\extension\manager				$phpbb_extension_manager
-	* @param \phpbb\path_helper						$phpbb_path_helper
 	* @param \phpbb\db\driver\driver_interfacer		$db
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\log\log_interface 				$log
@@ -64,8 +56,6 @@ class email_reminder extends \phpbb\cron\task\base
 		$root_path,
 		$php_ext,
 		Container $phpbb_container,
-		\phpbb\extension\manager $phpbb_extension_manager,
-		\phpbb\path_helper $phpbb_path_helper,
 		\phpbb\db\driver\driver_interface $db,
 		\phpbb\config\config $config,
 		\phpbb\log\log_interface $log,
@@ -76,8 +66,6 @@ class email_reminder extends \phpbb\cron\task\base
 		$this->root_path				= $root_path;
 		$this->php_ext 					= $php_ext;
 		$this->phpbb_container			= $phpbb_container;
-		$this->phpbb_extension_manager 	= $phpbb_extension_manager;
-		$this->phpbb_path_helper		= $phpbb_path_helper;
 		$this->db 						= $db;
 		$this->config 					= $config;
 		$this->log 						= $log;

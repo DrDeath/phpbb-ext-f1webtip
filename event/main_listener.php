@@ -199,7 +199,7 @@ class main_listener implements EventSubscriberInterface
 					{
 						$tippers_points	= $row['total_points'];
 						$race_done		= $row['tips_made'];
-						$tippers_rank	= sprintf($this->language->lang('FORMEL_PROFILE_RANK'), $rank_count);
+						$tippers_rank	= $this->language->lang('FORMEL_PROFILE_RANK', $rank_count);
 						break;
 					}
 					$real_rank++;
@@ -219,7 +219,7 @@ class main_listener implements EventSubscriberInterface
 				$this->template->assign_block_vars('f1webtips', array(
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
-					'RACE_DONE'			=> sprintf($this->language->lang('FORMEL_PROFILE_TIPSS'), $race_done, $race_total),
+					'RACE_DONE'			=> $this->language->lang('FORMEL_PROFILE_TIPSS', $race_done, $race_total),
 					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
 				));
 			}
@@ -264,7 +264,7 @@ class main_listener implements EventSubscriberInterface
 					{
 						$tippers_points	= $row_f1['total_points'];
 						$race_done		= $row_f1['tips_made'];
-						$tippers_rank	= sprintf($this->language->lang('FORMEL_PROFILE_RANK'), $rank_count);
+						$tippers_rank	= $this->language->lang('FORMEL_PROFILE_RANK', $rank_count);
 						break;
 					}
 
@@ -285,7 +285,7 @@ class main_listener implements EventSubscriberInterface
 				$f1webtip = array(
 					'TIPPER_POINTS'		=> $tippers_points,
 					'TIPPER_RANK'		=> $tippers_rank,
-					'RACE_DONE'			=> sprintf($this->language->lang('FORMEL_PROFILE_TIPSS'), $race_done, $race_total),
+					'RACE_DONE'			=> $this->language->lang('FORMEL_PROFILE_TIPSS', $race_done, $race_total),
 					'U_FORMEL_STATS'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
 					'U_FORMEL_WEB_TIPP'	=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
 				);

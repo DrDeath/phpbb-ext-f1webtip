@@ -41,8 +41,6 @@ services:
             - '%core.root_path%'
             - '%core.php_ext%'
             - '@service_container'
-            - '@ext.manager'
-            - '@path_helper'
             - '@dbal.conn'
             - '@config'
             - '@log'

@@ -14,10 +14,10 @@ class main_module
 	var $u_action;
 
 	/*
-	* Loads all files of given directory
+	* Reads all files in the given directory and scans for images
 	*
-	* Parameter: image directory to scan
-	* Returns an array. Array includes all found files
+	* Parameter: directory to scan
+	* Returns an array including all found images
 	*/
 	public function load_files($dir)
 	{
@@ -36,8 +36,8 @@ class main_module
 	/*
 	* Creates dropdown boxes for image selection
 	*
-	* Parameters: image directory to scan, select_default, name, optional: first option value
-	* Returns a string. Dropdown box with all found images in given image directory
+	* Parameters: directory to scan, default selection, selection name, optional: first option value
+	* Returns a string as dropdown box with all found images in given directory
 	*/
 	public function create_dropdown($dir, $select_default, $name, $default = false)
 	{
@@ -107,12 +107,15 @@ class main_module
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
 					{
+						// remove all user tips
 						$sql = 'TRUNCATE TABLE ' . $table_tips;
 						$result = $db->sql_query($sql);
 
+						// remove all wm points
 						$sql = 'TRUNCATE TABLE ' . $table_wm;
 						$result = $db->sql_query($sql);
 
+						// remove all race and qualifying results
 						$sql_ary = [
 							'race_result'		=> 0,
 							'race_quali'		=> 0,
@@ -202,7 +205,7 @@ class main_module
 					$config->set('drdeath_f1webtip_team_img_width', 	$request->variable('team_img_width', 	$config['drdeath_f1webtip_team_img_width']));
 
 					// Guest viewing can only be activated, if the F1 WebTip is not restricted to a specific group (restrict_to == 0)
-					// Cron Reminder can only be activated, if the F1 WebTip is     restricted to a specific group (restrict_to <> 0)
+					// Cron reminder can only be activated, if the F1 WebTip is     restricted to a specific group (restrict_to <> 0)
 					if ($request->variable('restrict_to', 	'0') == 0)
 					{
 						$config->set('drdeath_f1webtip_guest_viewing', 		$request->variable('guest_viewing', 	'0'));
@@ -224,9 +227,6 @@ class main_module
 				// Generate a moderator list for the F1 WebTip
 				//
 
-				$combo_mod_entries = '';
-				$mod_ary = $admin_ary = [];
-
 				//Get all possible moderators and administrators at once
 				$mod_ary			= $auth->acl_get_list(false, 'm_', false);
 				$mod_ary			= (!empty($mod_ary[0]['m_'])) ? $mod_ary[0]['m_'] : [];
@@ -241,16 +241,18 @@ class main_module
 
 				$result = $db->sql_query($sql);
 
+				// Fill combobox
 				while ($row = $db->sql_fetchrow($result))
 				{
-					$selected = ($row['user_id'] == $config['drdeath_f1webtip_mod_id']) ? 'selected' : '';
-					$combo_mod_entries .= '<option value="' . $row['user_id'] . '" ' . $selected . '>' . $row['username'] . '</option>';
-				}
+					$preselected = ($row['user_id'] == $config['drdeath_f1webtip_mod_id']) ? 'selected' : '';
 
-				// Generate possible moderator combobox
-				$mods_combo		 = '<select name="mod_id">';
-				$mods_combo		.= $combo_mod_entries;
-				$mods_combo		.= '</select>';
+					$template->assign_block_vars('moderators', [
+						'PRESELECTED'	=> $preselected,
+						'USER_ID'		=> $row['user_id'],
+						'USERNAME'		=> $row['username'],
+						]
+					);
+				}
 
 				//
 				// Get all group data
@@ -258,27 +260,31 @@ class main_module
 				// If choosen "deactivated" - all "registered user" have access.
 				//
 
-				$combo_groups_entries = '';
-
 				$sql = 'SELECT *
 					FROM ' . GROUPS_TABLE . '
 					WHERE group_type <> ' . GROUP_SPECIAL ;
 				$result = $db->sql_query($sql);
 
+				$preselected = ($config['drdeath_f1webtip_restrict_to'] == 0) ? 'selected' : '';
+
+				$template->assign_block_vars('accessgroups', [
+					'PRESELECTED'	=> $preselected,
+					'GROUP_ID'		=> 0,
+					'GROUPNAME'		=> $language->lang('ACP_F1_SETTINGS_DEACTIVATED'),
+					]
+				);
+
 				while ($row = $db->sql_fetchrow($result))
 				{
-					$selected = ($row['group_id'] == $config['drdeath_f1webtip_restrict_to']) ? 'selected' : '';
-					$combo_groups_entries .= '<option value="' . $row['group_id'] . '" ' . $selected . '>' . $row['group_name'] . '</option>';
+					$preselected = ($row['group_id'] == $config['drdeath_f1webtip_restrict_to']) ? 'selected' : '';
+
+					$template->assign_block_vars('accessgroups', [
+						'PRESELECTED'	=> $preselected,
+						'GROUP_ID'		=> $row['group_id'],
+						'GROUPNAME'		=> $row['group_name'],
+						]
+					);
 				}
-
-				$db->sql_freeresult($result);
-
-				// Generate groups combobox
-				$selected = ($config['drdeath_f1webtip_restrict_to'] == 0) ? 'selected' : '';
-				$group_combo	 = '<select name="restrict_to">';
-				$group_combo	.= '<option value="0" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_DEACTIVATED') . '</option>';
-				$group_combo	.= $combo_groups_entries;
-				$group_combo	.= '</select>';
 
 				//
 				// Get all forum data - Don't select categories or links
@@ -293,19 +299,28 @@ class main_module
 					ORDER BY forum_name ASC';
 				$result = $db->sql_query($sql);
 
+				$preselected = ($config['drdeath_f1webtip_forum_id'] == 0) ? 'selected' : '';
+
+				$template->assign_block_vars('forums', [
+					'PRESELECTED'	=> $preselected,
+					'FORUM_ID'		=> 0,
+					'FORUMNAME'		=> $language->lang('ACP_F1_SETTINGS_DEACTIVATED'),
+					]
+				);
+
 				while ($row = $db->sql_fetchrow($result))
 				{
-					$selected = ($row['forum_id'] == $config['drdeath_f1webtip_forum_id'] ) ? 'selected' : '';
-					$combo_forums_entries .= '<option value="' . $row['forum_id'] . '" ' . $selected . '>' . $row['forum_name'] . '</option>';
-				}
-				$db->sql_freeresult($result);
+					$preselected = ($row['forum_id'] == $config['drdeath_f1webtip_forum_id']) ? 'selected' : '';
 
-				// Generate forums combobox
-				$selected		 = ($config['drdeath_f1webtip_forum_id'] == 0) ? 'selected' : '';
-				$forums_combo	 = '<select name="forum_id">';
-				$forums_combo	.= '<option value="0" ' . $selected . '>' . $language->lang('ACP_F1_SETTINGS_DEACTIVATED') . '</option>';
-				$forums_combo	.= $combo_forums_entries;
-				$forums_combo	.= '</select>';
+					$template->assign_block_vars('forums', [
+						'PRESELECTED'	=> $preselected,
+						'FORUM_ID'		=> $row['forum_id'],
+						'FORUMNAME'		=> $row['forum_name'],
+						]
+					);
+				}
+
+				$db->sql_freeresult($result);
 
 				//
 				// Generate image select dropdown boxes
@@ -337,9 +352,6 @@ class main_module
 				$template->assign_vars([
 					'CAR_IMG_HEIGHT'					=> $config['drdeath_f1webtip_car_img_height'],
 					'CAR_IMG_WIDTH'						=> $config['drdeath_f1webtip_car_img_width'],
-					'D_ACCESS_GROUP'					=> $group_combo,
-					'D_FORUM'							=> $forums_combo,
-					'D_MODERATOR'						=> $mods_combo,
 					'DRIVER_IMG_HEIGHT'					=> $config['drdeath_f1webtip_driver_img_height'],
 					'DRIVER_IMG_WIDTH'					=> $config['drdeath_f1webtip_driver_img_width'],
 					'GUEST_VIEWING'						=> $config['drdeath_f1webtip_guest_viewing'],
@@ -409,6 +421,7 @@ class main_module
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
 					{
+						// Delete the driver
 						$sql = 'DELETE FROM ' . $table_drivers . '
 								WHERE driver_id = ' . (int) $driver_id;
 						$db->sql_query($sql);
@@ -445,6 +458,7 @@ class main_module
 
 					if ($driver_id == 0)
 					{
+						// Add the driver
 						$sql_ary = [
 							'driver_name'		=> $drivername,
 							'driver_img'		=> $driverimg,
@@ -459,6 +473,7 @@ class main_module
 					}
 					else
 					{
+						// Edit the driver
 						$sql_ary = [
 							'driver_name'		=> $drivername,
 							'driver_img'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $driverimg : '',
@@ -487,7 +502,7 @@ class main_module
 				{
 					$preselected_id = '';
 
-					// Create error messages
+					// Create error message if drivername is empty
 					if ($button_add && $drivername == '')
 					{
 						$error	 = $language->lang('ACP_F1_DRIVERS_ERROR_DRIVERNAME');
@@ -499,7 +514,7 @@ class main_module
 					$title 		= $language->lang('ACP_F1_DRIVERS_TITEL_ADD_DRIVER');
 
 					// Load initial values
-					if ($button_edit || ($button_add && $drivername == ''))
+					if ($button_edit)
 					{
 						// overwrites the "add driver" title and sets the "edit driver" title
 						$title_exp 	= $language->lang('ACP_F1_DRIVERS_TITEL_EDIT_DRIVER_EXPLAIN'); // overwrites the "add driver" title and sets the "edit driver" title
@@ -514,14 +529,10 @@ class main_module
 
 						$row = $db->sql_fetchrow($result);
 
-						if ($button_edit)
-						{
-							$drivername 	= $row['driver_name'];
-						}
-
 						$driver_disabled 	= $row['driver_disabled'];
 						$driver_penalty 	= $row['driver_penalty'];
 						$driverimg 			= $row['driver_img'];
+						$drivername 		= $row['driver_name'];
 						$preselected_id 	= $row['driver_team'];
 
 						$db->sql_freeresult($result);
@@ -687,6 +698,7 @@ class main_module
 
 						if ($db->sql_fetchrow($result))
 						{
+							// Team contains one or more driver - don't delete the team
 							$db->sql_freeresult($result);
 
 							$error = $language->lang('ACP_F1_TEAMS_TEAM_NOT_DELETED', $teamname);
@@ -696,6 +708,7 @@ class main_module
 						{
 							$db->sql_freeresult($result);
 
+							// Delete the team
 							$sql = 'DELETE FROM ' . $table_teams . '
 									WHERE team_id = ' . (int) $team_id;
 							$db->sql_query($sql);
@@ -732,6 +745,7 @@ class main_module
 
 					if ($team_id == 0)
 					{
+						// Add the team
 						$sql_ary = [
 							'team_name'		=> $teamname,
 							'team_img'		=> $teamimg,
@@ -745,6 +759,7 @@ class main_module
 					}
 					else
 					{
+						// Edit the team
 						$sql_ary = [
 							'team_name'		=> $teamname,
 							'team_img'		=> ($config['drdeath_f1webtip_show_gfx'] == 1) ? $teamimg : '',
@@ -773,6 +788,7 @@ class main_module
 				{
 					if ($button_add && $teamname == '')
 					{
+						// Create error message if teamname is empty
 						$error  = $language->lang('ACP_F1_TEAMS_ERROR_TEAMNAME');
 						trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 					}
@@ -921,6 +937,7 @@ class main_module
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
 					{
+						// Delete the race
 						$sql = 'DELETE FROM ' . $table_races . '
 								WHERE race_id = ' . (int) $race_id;
 						$db->sql_query($sql);
@@ -949,6 +966,7 @@ class main_module
 				// Check if a race location is given
 				if ($button_add && $racename == '')
 				{
+					// Create error message if racename is empty
 					$error  = $language->lang('ACP_F1_RACES_ERROR_RACENAME');
 					trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 				}
@@ -962,10 +980,19 @@ class main_module
 						trigger_error('FORM_INVALID');
 					}
 
+					// prevent error for timestamp out of range
+					if ($b_year < 1970 || $b_year > 2105)
+					{
+						// Create error message if year is out of timestamp range
+						$error  = $language->lang('ACP_F1_RACES_ERROR_DATE_YEAR');
+						trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
+					}
+
 					$racetime = mktime($b_hour, $b_minute, $b_second, $b_month, $b_day, $b_year);
 
 					if ( $race_id == 0 )
 					{
+						// Add the race
 						$sql_ary = [
 							'race_name'		=> $racename,
 							'race_img'		=> $raceimg,
@@ -985,6 +1012,7 @@ class main_module
 					}
 					else
 					{
+						// Edit the race
 						$sql_ary = [
 							'race_name'		=> $racename,
 							'race_img'		=> ($config['drdeath_f1webtip_show_gfxr'] == 1) ? $raceimg : '',
@@ -1092,12 +1120,13 @@ class main_module
 					$c_minute .= '</select>';
 					$c_second .= '</select>';
 
-					$c_day 		= str_replace("value=\"" . $b_day . "\">", "value=\"" . $b_day . "\" SELECTED>" ,$c_day);
-					$c_month 	= str_replace("value=\"" . $b_month . "\">", "value=\"" . $b_month . "\" SELECTED>" ,$c_month);
+					$c_day 		= str_replace("value=\"" . $b_day		. "\">", "value=\"" . $b_day	. "\" SELECTED>" , $c_day);
+					$c_month 	= str_replace("value=\"" . $b_month		. "\">", "value=\"" . $b_month	. "\" SELECTED>" , $c_month);
+					$c_hour 	= str_replace("value=\"" . $b_hour		. "\">", "value=\"" . $b_hour	. "\" SELECTED>" , $c_hour);
+					$c_minute 	= str_replace("value=\"" . $b_minute	. "\">", "value=\"" . $b_minute	. "\" SELECTED>" , $c_minute);
+					$c_second 	= str_replace("value=\"" . $b_second	. "\">", "value=\"" . $b_second	. "\" SELECTED>" , $c_second);
+
 					$c_year 	= '<input type="text" class="post" name="c_year" size="4" maxlength="4" value="' . $b_year . '" />';
-					$c_hour 	= str_replace("value=\"" . $b_hour . "\">", "value=\"" . $b_hour . "\" SELECTED>" ,$c_hour);
-					$c_minute 	= str_replace("value=\"" . $b_minute . "\">", "value=\"" . $b_minute . "\" SELECTED>" ,$c_minute);
-					$c_second 	= str_replace("value=\"" . $b_second . "\">", "value=\"" . $b_second . "\" SELECTED>" ,$c_second);
 
 					$racetime_combos = $c_day . '&nbsp;.&nbsp;' . $c_month . '&nbsp;.&nbsp;' . $c_year . '<br/><br/>&nbsp;' . $c_hour . '&nbsp;:&nbsp;' . $c_minute . '&nbsp;:&nbsp;' . $c_second;
 

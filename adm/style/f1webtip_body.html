@@ -21,16 +21,28 @@
 			<tbody>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_MODERATOR') }}</strong><br />{{ lang('ACP_F1_SETTINGS_MODERATOR_EXPLAIN') }}</td>
-					<td>{{ D_MODERATOR }}</td>
+					<td>
+						<select name="mod_id">
+						{% for moderator in moderators %}
+						<option value="{{ moderator.USER_ID }}" {{ moderator.PRESELECTED }}>{{ moderator.USERNAME }}</option>
+						{% endfor %}
+						</select>
+					</td>
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_ACCESS_GROUP') }}</strong><br />{{ lang('ACP_F1_SETTINGS_ACCESS_GROUP_EXPLAIN') }}</td>
-					<td>{{ D_ACCESS_GROUP }}</td>
+					<td>
+						<select name="restrict_to">
+						{% for accessgroup in accessgroups %}
+						<option value="{{ accessgroup.GROUP_ID }}" {{ accessgroup.PRESELECTED }}>{{ accessgroup.GROUPNAME }}</option>
+						{% endfor %}
+						</select>
+					</td>
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTING_GUEST_VIEWING') }}:</strong><br />{{ lang('ACP_F1_SETTING_GUEST_VIEWING_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="guest_viewing" value="1" {% if GUEST_VIEWING %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-					    <input type="radio" class="radio" name="guest_viewing" value="0" {% if not GUEST_VIEWING %}checked="checked"{% endif %} /> {{ lang('NO') }}
+						<input type="radio" class="radio" name="guest_viewing" value="0" {% if not GUEST_VIEWING %}checked="checked"{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row1">
@@ -49,7 +61,13 @@
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_FORUM') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_FORUM_EXPLAIN') }}</td>
-					<td>{{ D_FORUM }}</td>
+					<td>
+						<select name="forum_id">
+						{% for forum in forums %}
+						<option value="{{ forum.FORUM_ID }}" {{ forum.PRESELECTED }}>{{ forum.FORUMNAME }}</option>
+						{% endfor %}
+						</select>
+					</td>
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE_EXPLAIN') }}</td>

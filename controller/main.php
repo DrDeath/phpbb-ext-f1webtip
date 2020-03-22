@@ -10,6 +10,7 @@
 namespace drdeath\f1webtip\controller;
 
 use Symfony\Component\DependencyInjection\Container;
+use \DateTime;
 
 class main
 {
@@ -1870,7 +1871,9 @@ class main
 						//Countdown data
 						if ($this->config['drdeath_f1webtip_show_countdown'] == 1)
 						{
-							$event_stop	= date($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset']);
+							// ToDo: Check if $offset ist still valid if DST is ON.
+							$offset		= $this->user->timezone->getOffset(new DateTime($this->config['board_timezone'])) - 3600;
+							$event_stop	= $races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] - $offset;
 							$b_day		= $this->user->format_date($event_stop, 'd');
 							$b_month	= $this->user->format_date($event_stop, 'n');
 							$b_year		= $this->user->format_date($event_stop, 'Y');

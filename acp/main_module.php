@@ -8,6 +8,7 @@
 */
 
 namespace drdeath\f1webtip\acp;
+use \DateTime;
 
 class main_module
 {
@@ -988,7 +989,10 @@ class main_module
 						trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
-					$racetime = mktime($b_hour, $b_minute, $b_second, $b_month, $b_day, $b_year);
+					$gmt_time	= gmmktime($b_hour, $b_minute, $b_second, $b_month, $b_day, $b_year);
+					$offset		= $user->timezone->getOffset(new DateTime($config['board_timezone']));
+
+					$racetime 	= $gmt_time - $offset ;
 
 					if ( $race_id == 0 )
 					{

@@ -1,14 +1,15 @@
 #!/bin/bash
 #
-# This file is part of the F1WebTip Extension
+# Formula 1 WebTip. An extension for the phpBB Forum Software package.
+#
+# @copyright (c) 2014, Dr.Death, http://www.lpi-clan.de
+# @license GNU General Public License, version 2 (GPL-2.0)
+#
 # Execute this script in your checked out git repository
 #
 # usage:   create_zip_file.sh vendor extension version branch
 # example: create_zip_file.sh drdeath f1webtip 1.1.2 master
 # result: a zip file named drdeath_f1webtip_1.1.2.zip containing the git repository with prefix folder structure drdeath/f1webtip/
-#
-# @copyright (c) Dr.Death <http://www.lpi-clan.de>
-# @license GNU General Public License, version 2 (GPL-2.0)
 #
 #
 

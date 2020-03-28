@@ -1,12 +1,16 @@
 <?php
 /**
-*
-* @package phpBB Extension - DrDeath F1WebTip
-* @copyright (c) 2014 Dr.Death - www.lpi-clan.de
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * Formula 1 WebTip. An extension for the phpBB Forum Software package.
+ *
+ * @copyright (c) 2014, Dr.Death, http://www.lpi-clan.de
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
+/**
+ * DO NOT CHANGE
+ */
 if (!defined('IN_PHPBB'))
 {
 	exit;

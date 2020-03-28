@@ -1,12 +1,16 @@
 <?php
 /**
-*
-* @package phpBB Extension - DrDeath F1WebTip
-* @copyright (c) 2014 Dr.Death - www.lpi-clan.de
-* @license http://opensource.org/licenses/gpl-2.0.php GNU General Public License v2
-*
-*/
+ *
+ * Formula 1 WebTip. An extension for the phpBB Forum Software package.
+ *
+ * @copyright (c) 2014, Dr.Death, http://www.lpi-clan.de
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
 
+/**
+ * DO NOT CHANGE
+ */
 if (!defined('IN_PHPBB'))
 {
 	exit;
@@ -28,10 +32,8 @@ if (empty($lang) || !is_array($lang))
 // You do not need this where single placeholders are used, e.g. 'Message %d' is fine
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
-//
-// Some characters you may want to copy&paste:
-// ’ » “ ” …
-//
+
+// Info ACP Common
 $lang = array_merge($lang, [
 	'ACP_F1WEBTIP_TITLE'			=> 'F1 Voorspellingen Module',
 	'ACP_FORMEL_DRIVERS'			=> 'F1 Coureurs',

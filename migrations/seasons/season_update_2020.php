@@ -47,8 +47,8 @@ class season_update_2020 extends \phpbb\db\migration\migration
 
 		if ($this->db_tools->sql_table_exists($table_drivers))
 		{
-			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
-			$db->sql_query('TRUNCATE TABLE ' . $table_drivers);
+			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
+			$db->sql_query('DELETE FROM ' . $table_drivers);
 
 			$sql_ary = [];
 
@@ -97,8 +97,8 @@ class season_update_2020 extends \phpbb\db\migration\migration
 
 		if ($this->db_tools->sql_table_exists($table_teams))
 		{
-			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
-			$db->sql_query('TRUNCATE TABLE ' . $table_teams);
+			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
+			$db->sql_query('DELETE FROM ' . $table_teams);
 
 			$sql_ary = [];
 
@@ -118,8 +118,8 @@ class season_update_2020 extends \phpbb\db\migration\migration
 
 		if ($this->db_tools->sql_table_exists($table_races))
 		{
-			// before we fill anything in this table, we truncate it. Maybe someone missed an old installation.
-			$db->sql_query('TRUNCATE TABLE ' . $table_races);
+			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
+			$db->sql_query('DELETE FROM ' . $table_races);
 
 			$sql_ary = [];
 

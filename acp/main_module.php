@@ -114,11 +114,11 @@ class main_module
 					if (confirm_box(true))
 					{
 						// remove all user tips
-						$sql = 'TRUNCATE TABLE ' . $table_tips;
+						$sql = 'DELETE FROM ' . $table_tips;
 						$result = $db->sql_query($sql);
 
 						// remove all wm points
-						$sql = 'TRUNCATE TABLE ' . $table_wm;
+						$sql = 'DELETE FROM ' . $table_wm;
 						$result = $db->sql_query($sql);
 
 						// remove all race and qualifying results

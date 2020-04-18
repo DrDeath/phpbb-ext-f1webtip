@@ -130,7 +130,7 @@
 	<p class="stat-block"></p>
 
 	{% for racerow in racerows %}
-	<h2>{{ lang('FORMEL_CURRENT_RACE') }}:&nbsp;&nbsp;&nbsp;{{ racerow.RACENAME }}</h2>
+	<h2>{{ lang('FORMEL_CURRENT_RACE') }}{{ lang('COLON') }}&nbsp;&nbsp;&nbsp;{{ racerow.RACENAME }}</h2>
 
 	<div >
 
@@ -163,7 +163,7 @@
 					<li class="row">
 						<dl class="text-strong">
 							<dt class="racef1">
-								{{ lang('FORMEL_RACETIME') }}:
+								{{ lang('FORMEL_RACETIME') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="responsive-show-inline-block racef1">
 								{{ racerow.RACETIME }}
@@ -173,7 +173,7 @@
 					<li class="row">
 						<dl class="text-strong">
 							<dt class="racef1">
-								{{ lang('FORMEL_RACEDEAD') }}:
+								{{ lang('FORMEL_RACEDEAD') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="responsive-show-inline-block countdownf1 racef1">
 								{{ racerow.RACEDEAD }}
@@ -188,8 +188,8 @@
 							<dt class="racef1" id="time_event">
 								{{ lang('DAYS') }}&nbsp;<input name="days" class="bg2 countdownf1" size="4" />
 								<span id="time_string">{{ lang('HOURS') }}
-									<input name="hours" class="bg2 countdownf1" size="3" />:
-									<input name="mins" class="bg2 countdownf1" size="3" />:
+									<input name="hours" class="bg2 countdownf1" size="3" />{{ lang('COLON') }}
+									<input name="mins" class="bg2 countdownf1" size="3" />{{ lang('COLON') }}
 									<input name="secs" class="bg2 countdownf1" size="3" />
 								</span>
 							</dt>
@@ -203,7 +203,7 @@
 					<li class="responsive-hide row">
 						<dl class="text-strong">
 							<dt class="racef1">
-								{{ lang('FORMEL_RACELENGTH') }}:
+								{{ lang('FORMEL_RACELENGTH') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="racef1">
 								{{ racerow.RACELENGTH }}
@@ -211,7 +211,7 @@
 						</dl>
 						<dl class="text-strong">
 							<dt class="racef1">
-								{{ lang('FORMEL_RACELAPS') }}:
+								{{ lang('FORMEL_RACELAPS') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="racef1">
 								{{ racerow.RACELAPS }}
@@ -219,7 +219,7 @@
 						</dl>
 						<dl class="text-strong">
 							<dt class="racef1">
-								{{ lang('FORMEL_RACEDISTANCE') }}:
+								{{ lang('FORMEL_RACEDISTANCE') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="racef1">
 								{{ racerow.RACEDISTANCE }}
@@ -227,7 +227,7 @@
 						</dl>
 						<dl class="text-strong">
 							<dt class="racef1">
-								{{ lang('FORMEL_RACEDEBUT') }}:
+								{{ lang('FORMEL_RACEDEBUT') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="racef1">
 								{{ racerow.RACEDEBUT }}
@@ -353,29 +353,29 @@
 								{% endfor %}
 								{% for extended_result in extended_results %}
 								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_PACE') }}:</strong></td>
+									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_result.PACE }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_TIRED') }}:</strong></td>
+									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_result.TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
+									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_result.SAFETYCAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_result_gfx in extended_results_gfx %}
 								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_PACE') }}:</strong></td>
+									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_result_gfx.PACE }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_TIRED') }}:</strong></td>
+									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_result_gfx.TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
+									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_result_gfx.SAFETYCAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
@@ -408,7 +408,7 @@
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
-									<td class="rightf1"><strong>&nbsp;{{ user_tipp.L_PLACE }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ user_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
 									<td class="nowrapf1">&nbsp;{{ user_tipp.DRIVERCOMBO }}&nbsp;</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ user_tipp.SINGLE_POINTS }}&nbsp;</td>
 								</tr>
@@ -430,34 +430,34 @@
 								{% endfor %}
 								{% for extended_user_tipp in extended_users_tipp %}
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_user_tipp.DRIVERCOMBO }}&nbsp;</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_FASTEST }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_user_tipp.TIREDCOMBO }}&nbsp;</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_user_tipp.SAFETYCARCOMBO }}&nbsp;</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_user_tipp_gfx in extended_users_tipp_gfx %}
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_user_tipp_gfx.DRIVERCOMBO }}&nbsp;</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_FASTEST }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_user_tipp_gfx.TIREDCOMBO }}&nbsp;</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_user_tipp_gfx.SAFETYCARCOMBO }}&nbsp;</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
@@ -475,32 +475,32 @@
 								{% endfor %}
 								{% for extended_add_tipp in extended_add_tipps %}
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
 
 									<td>&nbsp;{{ extended_add_tipp.DRIVERCOMBO }}&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_add_tipp.TIREDCOMBO }}&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
 								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}:</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;{{ extended_add_tipp.SAFETYCARCOMBO }}&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_result in extended_results %}
 								<tr class="bg1">
-									<td class="rightf1"><span class="pointsf1"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
+									<td class="rightf1"><span class="pointsf1"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}{{ lang('COLON') }}</strong></span></td>
 									<td class="responsive-hide">&nbsp;</td>
 									<td class="centerf1"><span class="pointsf1"><strong>&nbsp;{{ extended_result.YOUR_POINTS }}</strong></span></td>
 								</tr>
 								{% endfor %}
 								{% for extended_result_gfx in extended_results_gfx %}
 								<tr class="bg1">
-									<td class="rightf1"><span class="pointsf1"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}:</strong></span></td>
+									<td class="rightf1"><span class="pointsf1"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}{{ lang('COLON') }}</strong></span></td>
 									<td class="responsive-hide">&nbsp;</td>
 									<td class="centerf1"><span class="pointsf1"><strong>&nbsp;{{ extended_result_gfx.YOUR_POINTS }}</strong></span></td>
 								</tr>
@@ -570,9 +570,9 @@
 					<td class="nowrapfullf1">
 						<strong>{{ racerow_gfxr.RACENAME }}</strong>
 						<br>
-						<strong>{{ lang('TIME') }}:</strong> {{ racerow_gfxr.RACETIME }}
+						<strong>{{ lang('TIME') }}{{ lang('COLON') }}</strong> {{ racerow_gfxr.RACETIME }}
 						<br>
-						<strong>{{ lang('FORMEL_RACEDEAD') }}:</strong> {{ racerow_gfxr.RACEDEAD }}
+						<strong>{{ lang('FORMEL_RACEDEAD') }}{{ lang('COLON') }}</strong> {{ racerow_gfxr.RACEDEAD }}
 					</td>
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
@@ -605,9 +605,9 @@
 					<td class="nowrapfullf1" colspan="2">
 						<strong>{{ racerow.RACENAME }}</strong>
 						<br>
-						<strong>{{ lang('TIME') }}:</strong> {{ racerow.RACETIME }}
+						<strong>{{ lang('TIME') }}{{ lang('COLON') }}</strong> {{ racerow.RACETIME }}
 						<br>
-						<strong>{{ lang('FORMEL_RACEDEAD') }}:</strong> {{ racerow.RACEDEAD }}
+						<strong>{{ lang('FORMEL_RACEDEAD') }}{{ lang('COLON') }}</strong> {{ racerow.RACEDEAD }}
 					</td>
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
@@ -1023,24 +1023,24 @@ Please donate via paypal
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ user_driver.POSITION }}:&nbsp;</strong></td>
+					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ user_driver.POSITION }}{{ lang('COLON') }}&nbsp;</strong></td>
 					<td class="halff1">&nbsp;{{ user_driver.DRIVER_PLACED }}&nbsp;</td>
 					<td class="twentyf1">&nbsp;{{ user_driver.SINGLE_POINTS }}&nbsp;</td>
 				</tr>
 				{% endfor %}
 				{% for user_tipp in user_tipps %}
 				<tr class="bg1">
-					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}:&nbsp;</strong></td>
+					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}&nbsp;</strong></td>
 					<td class="halff1">&nbsp;{{ user_tipp.FASTEST_DRIVER }}&nbsp;</td>
 					<td class="twentyf1">&nbsp;{{ user_tipp.SINGLE_FASTEST }}&nbsp;</td>
 				</tr>
 				<tr class="bg2">
-					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}:&nbsp;</strong></td>
+					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}&nbsp;</strong></td>
 					<td class="halff1">&nbsp;{{ user_tipp.TIRED }}&nbsp;</td>
 					<td class="twentyf1">&nbsp;{{ user_tipp.SINGLE_TIRED }}&nbsp;</td>
 				</tr>
 				<tr class="bg1">
-					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}:&nbsp;</strong></td>
+					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}&nbsp;</strong></td>
 					<td class="halff1">&nbsp;{{ user_tipp.SAFETYCAR }}&nbsp;</td>
 					<td class="twentyf1">&nbsp;{{ user_tipp.SINGLE_SAFETY_CAR }}&nbsp;</td>
 				</tr>
@@ -1048,11 +1048,11 @@ Please donate via paypal
 					<td colspan="3">&nbsp;</td>
 				</tr>
 				<tr class="bg1">
-					<td class="pointsf1 halff1 rightf1"><strong>&nbsp;{{ lang('FORMEL_POINTS_WON') }}:&nbsp;</strong></td>
+					<td class="pointsf1 halff1 rightf1"><strong>&nbsp;{{ lang('FORMEL_POINTS_WON') }}{{ lang('COLON') }}&nbsp;</strong></td>
 					<td class="pointsf1 halff1 rightf1" colspan="2"><strong>&nbsp;{{ user_tipp.POINTS }}&nbsp;</strong></td>
 				</tr>
 				<tr class="bg2">
-					<td class="halff1 rightf1"><strong>&nbsp;{{ lang('FORMEL_ALL_POINTS') }}:&nbsp;</strong></td>
+					<td class="halff1 rightf1"><strong>&nbsp;{{ lang('FORMEL_ALL_POINTS') }}{{ lang('COLON') }}&nbsp;</strong></td>
 					<td class="halff1" colspan="2">&nbsp;{{ user_tipp.ALL_POINTS }}&nbsp;</td>
 				</tr>
 				{% endfor %}

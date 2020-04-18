@@ -40,27 +40,27 @@
 					</td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTING_GUEST_VIEWING') }}:</strong><br />{{ lang('ACP_F1_SETTING_GUEST_VIEWING_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTING_GUEST_VIEWING') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTING_GUEST_VIEWING_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="guest_viewing" value="1" {% if GUEST_VIEWING %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="guest_viewing" value="0" {% if not GUEST_VIEWING %}checked="checked"{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_REMINDER_ENABLED') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_REMINDER_ENABLED_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_REMINDER_ENABLED') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_REMINDER_ENABLED_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="reminder_enabled" value="1" {% if REMINDER_ENABLED %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="reminder_enabled" value="0" {% if not REMINDER_ENABLED %}checked="checked"{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_OFFSET') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_OFFSET_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_OFFSET') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_OFFSET_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="30" name="deadline_offset" value="{{ SETTING_OFFSET }}" /></td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_RACEOFFSET') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_RACEOFFSET_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_RACEOFFSET') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_RACEOFFSET_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="30" name="event_change" value="{{ SETTING_RACEOFFSET }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_FORUM') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_FORUM_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_FORUM') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_FORUM_EXPLAIN') }}</td>
 					<td>
 						<select name="forum_id">
 						{% for forum in forums %}
@@ -70,19 +70,19 @@
 					</td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_in_profile" value="1" {% if SHOW_PROFILE %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_in_profile" value="0" {% if not SHOW_PROFILE %}checked="checked"{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_VIEWTOPIC') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_VIEWTOPIC_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_VIEWTOPIC') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_VIEWTOPIC_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_in_viewtopic" value="1" {% if SHOW_VIEWTOPIC %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_in_viewtopic" value="0" {% if not SHOW_VIEWTOPIC %}checked="checked"{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_COUNTDOWN') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_COUNTDOWN_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_COUNTDOWN') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_COUNTDOWN_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_countdown" value="1" {% if SHOW_COUNTDOWN %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_countdown" value="0" {% if not SHOW_COUNTDOWN %}checked="checked"{% endif %} /> {{ lang('NO') }}
 					</td>
@@ -91,121 +91,121 @@
 					<th colspan="2">{{ lang('ACP_F1_SETTINGS_POINTS') }}</th>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_MENTIONED') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_MENTIONED_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_MENTIONED') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_MENTIONED_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="points_mentioned" value="{{ POINTS_MENTIONED }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_PLACED') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_PLACED_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_PLACED') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_PLACED_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="points_placed" value="{{ POINTS_PLACED }}" /></td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_FASTEST') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_FASTEST_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_FASTEST') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_FASTEST_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="points_fastest" value="{{ POINTS_FASTEST }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_TIRED') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_TIRED_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_POINTS_TIRED') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_POINTS_TIRED_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="points_tired" value="{{ POINTS_TIRED }}" /></td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SAFETY_CAR') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SAFETY_CAR_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SAFETY_CAR') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SAFETY_CAR_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="points_safety_car" value="{{ POINTS_SAFETY_CAR }}" /></td>
 				</tr>
 				<tr>
 					<th colspan="2">{{ lang('ACP_F1_SETTINGS_PICS') }}</th>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_AVATAR') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_AVATAR_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_AVATAR') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_AVATAR_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_avatar" value="1" {% if SHOW_AVATAR %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 					    <input type="radio" class="radio" name="show_avatar" value="0" {% if not SHOW_AVATAR %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 				<tr class="row3">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_HEADBANNER') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_HEADBANNER_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_HEADBANNER') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_HEADBANNER_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_headbanner" value="1" {% if SHOW_HEADBANNER %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_headbanner" value="0" {% if not SHOW_HEADBANNER %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 				{% if headbanner_on %}
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_HEIGHT_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="head_height" value="{{ HEADBANNER_IMG_HEIGHT }}" /></td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_WIDTH') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_WIDTH_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_WIDTH') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER_IMG_WIDTH_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="head_width" value="{{ HEADBANNER_IMG_WIDTH }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER1_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER1_IMG_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER1_IMG') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER1_IMG_EXPLAIN') }}</td>
 					<td>{{ HEADBANNER1_IMG }}</td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER2_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER2_IMG_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER2_IMG') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER2_IMG_EXPLAIN') }}</td>
 					<td>{{ HEADBANNER2_IMG }}</td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_HEADBANNER3_IMG_EXPLAIN') }}</td>
 					<td>{{ HEADBANNER3_IMG }}</td>
 				</tr>
 				{% endif %}
 				<tr class="row3">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFXR') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFXR_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFXR') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFXR_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_gfxr" value="1" {% if SHOW_GFXR %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_gfxr" value="0" {% if not SHOW_GFXR %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 
 				{% if gfxr_on %}
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_NO_RACE_IMG_EXPLAIN') }}</td>
 					<td>{{ NO_RACE_IMG }}</td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_RACE_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_RACE_IMG_HEIGHT_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_RACE_IMG_HEIGHT') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_RACE_IMG_HEIGHT_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="race_img_height" value="{{ RACE_IMG_HEIGHT }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_RACE_IMG_WIDTH') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_RACE_IMG_WIDTH_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_RACE_IMG_WIDTH') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_RACE_IMG_WIDTH_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="race_img_width" value="{{ RACE_IMG_WIDTH }}" /></td>
 				</tr>
 				{% endif %}
 				<tr class="row3">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFX') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFX_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFX') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFX_EXPLAIN') }}</td>
 					<td><input type="radio" class="radio" name="show_gfx" value="1" {% if SHOW_GFX %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
 						<input type="radio" class="radio" name="show_gfx" value="0" {% if not SHOW_GFX %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 
 				{% if gfx_on %}
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_NO_CAR_IMG_EXPLAIN') }}</td>
 					<td>{{ NO_CAR_IMG }}</td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_CAR_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_CAR_IMG_HEIGHT_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_CAR_IMG_HEIGHT') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_CAR_IMG_HEIGHT_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="car_img_height" value="{{ CAR_IMG_HEIGHT }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_CAR_IMG_WIDTH') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_CAR_IMG_WIDTH_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_CAR_IMG_WIDTH') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_CAR_IMG_WIDTH_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="car_img_width" value="{{ CAR_IMG_WIDTH }}" /></td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_DRIVER_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_DRIVER_IMG_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_DRIVER_IMG') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_NO_DRIVER_IMG_EXPLAIN') }}</td>
 					<td>{{ NO_DRIVER_IMG }}</td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_HEIGHT_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_HEIGHT') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_HEIGHT_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="driver_img_height" value="{{ DRIVER_IMG_HEIGHT }}" /></td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_WIDTH') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_WIDTH_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_WIDTH') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_DRIVER_IMG_WIDTH_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="driver_img_width" value="{{ DRIVER_IMG_WIDTH }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_TEAM_IMG') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_NO_TEAM_IMG_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_NO_TEAM_IMG') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_NO_TEAM_IMG_EXPLAIN') }}</td>
 					<td>{{ NO_TEAM_IMG }}</td>
 				</tr>
 				<tr class="row2">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_TEAM_IMG_HEIGHT') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_TEAM_IMG_HEIGHT_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_TEAM_IMG_HEIGHT') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_TEAM_IMG_HEIGHT_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="team_img_height" value="{{ TEAM_IMG_HEIGHT }}" /></td>
 				</tr>
 				<tr class="row1">
-					<td><strong>{{ lang('ACP_F1_SETTINGS_TEAM_IMG_WIDTH') }}:</strong><br />{{ lang('ACP_F1_SETTINGS_TEAM_IMG_WIDTH_EXPLAIN') }}</td>
+					<td><strong>{{ lang('ACP_F1_SETTINGS_TEAM_IMG_WIDTH') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_TEAM_IMG_WIDTH_EXPLAIN') }}</td>
 					<td><input type="text" class="post" maxsize="64" size="8" name="team_img_width" value="{{ TEAM_IMG_WIDTH }}" /></td>
 				</tr>
 				{% endif %}
@@ -337,19 +337,19 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERNAME') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERNAME') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="drivername" value="{{ PREDEFINED_NAME }}" /></td>
 			</tr>
 			{% if gfx_on %}
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERIMAGE') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERIMAGE') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_IMG }}</td>
 			</tr>
 			{% endif %}
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERTEAM') }}:</strong>&nbsp;</td>
-				<td class="row1" align="left" width="50%" valign="middle">&nbsp;
-					<select size="1" name="driverteam">
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DRIVERTEAM') }}{{ lang('COLON') }}</strong>&nbsp;</td>
+				<td class="row1" align="left" width="50%" valign="middle">
+					&nbsp;<select name="driverteam">
 					{% for teamrow in teamrows %}
 						<option value="{{ teamrow.TEAM_ID }}" {{ teamrow.PRESELECTED }}>{{ teamrow.TEAMNAME }}</option>
 					{% endfor %}
@@ -357,11 +357,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_PENALTY') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_PENALTY') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="driver_penalty" value="{{ PREDEFINED_PENALTY }}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DISABLED') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_DRIVERS_DISABLED') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td><input type="radio" class="radio" name="driver_disabled" value="0" {{ S_DRIVER_ENABLED }} /> {{ lang('YES') }}&nbsp;&nbsp;<input type="radio" class="radio" name="driver_disabled" value="1" {{ S_DRIVER_DISABLED }} /> {{ lang('NO') }}</td>
 			</tr>
 		</tbody>
@@ -464,21 +464,21 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMNAME') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMNAME') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="teamname" value="{{ PREDEFINED_NAME }}" /></td>
 			</tr>
 			{% if gfx_on %}
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMIMAGE') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_IMG }}</td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMCAR') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_ADDTEAM_TEAMCAR') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_CAR }}</td>
 			</tr>
 			{% endif %}
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_PENALTY') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_TEAMS_PENALTY') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxsize="64" size="30" name="team_penalty" value="{{ PREDEFINED_PENALTY }}" /></td>
 			</tr>
 		</tbody>
@@ -577,33 +577,33 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACENAME') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACENAME') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="64" size="30" name="racename" value="{{ PREDEFINED_NAME }}" /></td>
 			</tr>
 			{% if gfxr_on %}
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEIMAGE') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEIMAGE') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ PREDEFINED_IMG }}</td>
 			</tr>
 			{% endif %}
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACELENGTH') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACELENGTH') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="8" size="10" name="racelength" value="{{ PREDEFINED_LENGTH }}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEDISTANCE') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEDISTANCE') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="8" size="10" name="racedistance" value="{{ PREDEFINED_DISTANCE }}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACELAPS') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACELAPS') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="3" size="5" name="racelaps" value="{{ PREDEFINED_LAPS }}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEDEBUT') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACEDEBUT') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;<input type="text" class="post" maxlength="4" size="5" name="racedebut" value="{{ PREDEFINED_DEBUT }}" /></td>
 			</tr>
 			<tr>
-				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACETIME') }}:</strong>&nbsp;</td>
+				<td class="row1" align="right" width="50%" valign="middle"><strong>{{ lang('ACP_F1_RACES_RACETIME') }}{{ lang('COLON') }}</strong>&nbsp;</td>
 				<td class="row1" align="left" width="50%" valign="middle">&nbsp;{{ RACETIME_COMBOS }}</td>
 			</tr>
 		</tbody>

@@ -1875,9 +1875,12 @@ class main
 						//Countdown data
 						if ($this->config['drdeath_f1webtip_show_countdown'] == 1)
 						{
-							// ToDo: Check if $offset_user ist still valid if DST is ON / OFF.
-							$dst			= (int) date('I');
-							$offset_user	= $this->user->timezone->getOffset(new DateTime($this->config['board_timezone'])) - 3600 - $dst * 3600;
+							$one_hour		= 3600;
+							$dst			= (int) date('I') * $one_hour;
+							//$utc_diff is the difference in seconds from UTC to local server time zone i.E. UTC + 1 hour
+							$utc_diff		= 3600;
+							// ToDo: Check if $offset_user is still valid if DST is ON or OFF.
+							$offset_user	= $this->user->timezone->getOffset(new DateTime($this->config['board_timezone'])) - $utc_diff - $dst;
 							$event_stop		= $races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] - $offset_user;
 							$b_day			= $this->user->format_date($event_stop, 'd');
 							$b_month		= $this->user->format_date($event_stop, 'n');

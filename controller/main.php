@@ -304,7 +304,6 @@ class main
 
 		// Short names for the tables
 		$table_races 	= $this->phpbb_container->getParameter('tables.f1webtip.races');
-		$table_teams	= $this->phpbb_container->getParameter('tables.f1webtip.teams');
 		$table_drivers 	= $this->phpbb_container->getParameter('tables.f1webtip.drivers');
 		$table_wm 		= $this->phpbb_container->getParameter('tables.f1webtip.wm');
 		$table_tips 	= $this->phpbb_container->getParameter('tables.f1webtip.tips');
@@ -394,7 +393,6 @@ class main
 				$points_tired 		= $this->config['drdeath_f1webtip_points_tired'];
 				$points_safetycar	= $this->config['drdeath_f1webtip_points_safety_car'];
 
-				$points 			= $this->language->lang('FORMEL_RULES_POINTS');
 				$points_total 		= 10 * ($points_mentioned + $points_placed) + $points_fastest + $points_tired + $points_safetycar;
 
 				$points_mentioned	.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_mentioned);
@@ -629,7 +627,6 @@ class main
 
 					$rank = $real_rank  = 0;
 					$previous_points = false;
-					$alt = 'USER_AVATAR';
 
 					while ($row = $this->db->sql_fetchrow($result))
 					{
@@ -1057,7 +1054,7 @@ class main
 								SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
 								WHERE tip_race = ' . (int) $race_id . '
 									AND tip_user = ' . (int) $current_user;
-							$update = $this->db->sql_query($sql);
+							$this->db->sql_query($sql);
 						}
 
 						$this->db->sql_freeresult($result);
@@ -1399,6 +1396,8 @@ class main
 						ORDER BY driver_id ASC';
 					$result = $this->db->sql_query($sql);
 
+					$driver_name = [];
+
 					while ($row = $this->db->sql_fetchrow($result))
 					{
 						$driver_name[$row['driver_id']] = $row['driver_name'];
@@ -1552,7 +1551,6 @@ class main
 				//Define some vars
 				$my_tipp_array 		= [];
 				$my_tipp 			= '';
-				$driver_team_name 	= '';
 				$driverteamname 	= '';
 				$gfxdrivercar 		= '';
 				$gfxdrivercombo 	= '';
@@ -2442,7 +2440,6 @@ class main
 					'RACENAME'							=> (isset($races[$chosen_race]['race_name'])) ? $races[$chosen_race]['race_name'] : '',
 					'RACE_TIME'							=> (isset($races[$chosen_race]['race_time'])) ? $races[$chosen_race]['race_time'] : 1,
 					'RACE_OFFSET'						=> $race_offset,
-					'COUNTDOWN'							=> (isset($countdown)) ? $countdown : '',
 					'VAR_PLACES'						=> $var_places,
 					'VAR_COUNTDOWN_STOP'				=> $var_countdown_stop,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',

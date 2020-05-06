@@ -39,7 +39,7 @@ class season_update_2020 extends \phpbb\db\migration\migration
 	// $value is equal to the value returned on the previous call (false if this is the first time it is run)
 	public function season_2020($value)
 	{
-		global $db, $config;
+		global $db;
 
 		$table_drivers 	= $this->table_prefix . 'f1webtip_drivers';
 		$table_teams	= $this->table_prefix . 'f1webtip_teams';

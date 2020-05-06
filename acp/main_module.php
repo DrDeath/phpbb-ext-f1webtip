@@ -296,8 +296,6 @@ class main_module
 				// Get all forum data - Don't select categories or links
 				//
 
-				$combo_forums_entries = '';
-
 				$sql = 'SELECT forum_id, forum_name, forum_type
 					FROM ' . FORUMS_TABLE . '
 					WHERE forum_type <> ' . FORUM_CAT . '
@@ -401,8 +399,6 @@ class main_module
 			case 'drivers':
 
 				$this->page_title = $language->lang('ACP_F1_DRIVERS');
-
-				$reset_all = (isset($_POST['reset_all'])) ? true : false;
 
 				// Check buttons
 				$button_adddriver 	= $request->is_set_post('adddriver');
@@ -600,10 +596,11 @@ class main_module
 						ORDER BY team_name';
 					$result = $db->sql_query($sql);
 
+					$teams = [];
+
 					while ($row = $db->sql_fetchrow($result))
 					{
 						$teams[$row['team_id']]		= $row['team_name'];
-						$teamlogos[$row['team_id']]	= $row['team_img'];
 					}
 
 					$db->sql_freeresult($result);
@@ -672,8 +669,6 @@ class main_module
 			case 'teams':
 
 				$this->page_title = $language->lang('ACP_F1_TEAMS');
-
-				$lang = 'ACP_F1_TEAMS';
 
 				// Check buttons & data
 				$button_addteam 	= $request->is_set_post('addteam');

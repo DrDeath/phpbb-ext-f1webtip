@@ -914,7 +914,7 @@ class main_module
 				$button_del 	= $request->is_set_post('del');
 				$button_edit 	= $request->is_set_post('edit');
 
-				$b_day 			= $request->variable('c_day'			,	$user->format_date(time(),"d")	);
+				$b_day 			= $request->variable('c_day'			,	$user->format_date(time(),"j")	);
 				$b_month 		= $request->variable('c_month'			,	$user->format_date(time(),"n")	);
 				$b_year 		= $request->variable('c_year'			,	$user->format_date(time(),"Y")	);
 				$b_hour 		= $request->variable('c_hour'			,	$user->format_date(time(),"G")	);

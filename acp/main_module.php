@@ -175,40 +175,41 @@ class main_module
 						trigger_error('FORM_INVALID');
 					}
 
-					$config->set('drdeath_f1webtip_car_img_height', 	$request->variable('car_img_height', 	$config['drdeath_f1webtip_car_img_height']));
-					$config->set('drdeath_f1webtip_car_img_width', 		$request->variable('car_img_width', 	$config['drdeath_f1webtip_car_img_width']));
-					$config->set('drdeath_f1webtip_deadline_offset', 	$request->variable('deadline_offset', 	'0'));
-					$config->set('drdeath_f1webtip_driver_img_height', 	$request->variable('driver_img_height',	$config['drdeath_f1webtip_driver_img_height']));
-					$config->set('drdeath_f1webtip_driver_img_width', 	$request->variable('driver_img_width', 	$config['drdeath_f1webtip_driver_img_width']));
-					$config->set('drdeath_f1webtip_event_change', 		$request->variable('event_change', 		'0'));
-					$config->set('drdeath_f1webtip_forum_id', 			$request->variable('forum_id', 			'0'));
-					$config->set('drdeath_f1webtip_head_height', 		$request->variable('head_height', 		$config['drdeath_f1webtip_head_height']));
-					$config->set('drdeath_f1webtip_head_width', 		$request->variable('head_width', 		$config['drdeath_f1webtip_head_width']));
-					$config->set('drdeath_f1webtip_headbanner1_img', 	$request->variable('headbanner1_img', 	$config['drdeath_f1webtip_headbanner1_img']));
-					$config->set('drdeath_f1webtip_headbanner2_img', 	$request->variable('headbanner2_img', 	$config['drdeath_f1webtip_headbanner2_img']));
-					$config->set('drdeath_f1webtip_headbanner3_img', 	$request->variable('headbanner3_img', 	$config['drdeath_f1webtip_headbanner3_img']));
-					$config->set('drdeath_f1webtip_mod_id', 			$request->variable('mod_id', 			'0'));
-					$config->set('drdeath_f1webtip_no_car_img', 		$request->variable('no_car_img', 		$config['drdeath_f1webtip_no_car_img']));
-					$config->set('drdeath_f1webtip_no_driver_img', 		$request->variable('no_driver_img', 	$config['drdeath_f1webtip_no_driver_img']));
-					$config->set('drdeath_f1webtip_no_race_img', 		$request->variable('no_race_img', 		$config['drdeath_f1webtip_no_race_img']));
-					$config->set('drdeath_f1webtip_no_team_img', 		$request->variable('no_team_img', 		$config['drdeath_f1webtip_no_team_img']));
-					$config->set('drdeath_f1webtip_points_fastest', 	$request->variable('points_fastest', 	'0'));
-					$config->set('drdeath_f1webtip_points_mentioned', 	$request->variable('points_mentioned', 	'0'));
-					$config->set('drdeath_f1webtip_points_placed', 		$request->variable('points_placed', 	'0'));
-					$config->set('drdeath_f1webtip_points_safety_car', 	$request->variable('points_safety_car', '0'));
-					$config->set('drdeath_f1webtip_points_tired', 		$request->variable('points_tired', 		'0'));
-					$config->set('drdeath_f1webtip_race_img_height', 	$request->variable('race_img_height', 	$config['drdeath_f1webtip_race_img_height']));
-					$config->set('drdeath_f1webtip_race_img_width', 	$request->variable('race_img_width', 	$config['drdeath_f1webtip_race_img_width']));
-					$config->set('drdeath_f1webtip_restrict_to', 		$request->variable('restrict_to', 		'0'));
-					$config->set('drdeath_f1webtip_show_avatar', 		$request->variable('show_avatar', 		'0'));
-					$config->set('drdeath_f1webtip_show_countdown', 	$request->variable('show_countdown', 	'0'));
-					$config->set('drdeath_f1webtip_show_gfx', 			$request->variable('show_gfx', 			'0'));
-					$config->set('drdeath_f1webtip_show_gfxr', 			$request->variable('show_gfxr', 		'0'));
-					$config->set('drdeath_f1webtip_show_headbanner', 	$request->variable('show_headbanner', 	'0'));
-					$config->set('drdeath_f1webtip_show_in_profile', 	$request->variable('show_in_profile', 	'0'));
-					$config->set('drdeath_f1webtip_show_in_viewtopic', 	$request->variable('show_in_viewtopic', '0'));
-					$config->set('drdeath_f1webtip_team_img_height', 	$request->variable('team_img_height', 	$config['drdeath_f1webtip_team_img_height']));
-					$config->set('drdeath_f1webtip_team_img_width', 	$request->variable('team_img_width', 	$config['drdeath_f1webtip_team_img_width']));
+					$config->set('drdeath_f1webtip_headbanner1_img', 	$request->variable('headbanner1_img',			$config['drdeath_f1webtip_headbanner1_img']));
+					$config->set('drdeath_f1webtip_headbanner2_img', 	$request->variable('headbanner2_img',			$config['drdeath_f1webtip_headbanner2_img']));
+					$config->set('drdeath_f1webtip_headbanner3_img', 	$request->variable('headbanner3_img',			$config['drdeath_f1webtip_headbanner3_img']));
+					$config->set('drdeath_f1webtip_no_car_img', 		$request->variable('no_car_img',				$config['drdeath_f1webtip_no_car_img']));
+					$config->set('drdeath_f1webtip_no_driver_img', 		$request->variable('no_driver_img',				$config['drdeath_f1webtip_no_driver_img']));
+					$config->set('drdeath_f1webtip_no_race_img', 		$request->variable('no_race_img',				$config['drdeath_f1webtip_no_race_img']));
+					$config->set('drdeath_f1webtip_no_team_img', 		$request->variable('no_team_img',				$config['drdeath_f1webtip_no_team_img']));
+
+					$config->set('drdeath_f1webtip_car_img_height', 	(int) $request->variable('car_img_height',		$config['drdeath_f1webtip_car_img_height']));
+					$config->set('drdeath_f1webtip_car_img_width', 		(int) $request->variable('car_img_width',		$config['drdeath_f1webtip_car_img_width']));
+					$config->set('drdeath_f1webtip_deadline_offset', 	(int) $request->variable('deadline_offset',		'0'));
+					$config->set('drdeath_f1webtip_driver_img_height', 	(int) $request->variable('driver_img_height',	$config['drdeath_f1webtip_driver_img_height']));
+					$config->set('drdeath_f1webtip_driver_img_width', 	(int) $request->variable('driver_img_width',	$config['drdeath_f1webtip_driver_img_width']));
+					$config->set('drdeath_f1webtip_event_change', 		(int) $request->variable('event_change',		'0'));
+					$config->set('drdeath_f1webtip_forum_id', 			(int) $request->variable('forum_id',			'0'));
+					$config->set('drdeath_f1webtip_head_height', 		(int) $request->variable('head_height',			$config['drdeath_f1webtip_head_height']));
+					$config->set('drdeath_f1webtip_head_width', 		(int) $request->variable('head_width',			$config['drdeath_f1webtip_head_width']));
+					$config->set('drdeath_f1webtip_mod_id', 			(int) $request->variable('mod_id',				'0'));
+					$config->set('drdeath_f1webtip_points_fastest', 	(int) $request->variable('points_fastest',		'0'));
+					$config->set('drdeath_f1webtip_points_mentioned', 	(int) $request->variable('points_mentioned',	'0'));
+					$config->set('drdeath_f1webtip_points_placed', 		(int) $request->variable('points_placed',		'0'));
+					$config->set('drdeath_f1webtip_points_safety_car', 	(int) $request->variable('points_safety_car',	'0'));
+					$config->set('drdeath_f1webtip_points_tired', 		(int) $request->variable('points_tired',		'0'));
+					$config->set('drdeath_f1webtip_race_img_height', 	(int) $request->variable('race_img_height',		$config['drdeath_f1webtip_race_img_height']));
+					$config->set('drdeath_f1webtip_race_img_width', 	(int) $request->variable('race_img_width',		$config['drdeath_f1webtip_race_img_width']));
+					$config->set('drdeath_f1webtip_restrict_to', 		(int) $request->variable('restrict_to',			'0'));
+					$config->set('drdeath_f1webtip_show_avatar', 		(int) $request->variable('show_avatar',			'0'));
+					$config->set('drdeath_f1webtip_show_countdown', 	(int) $request->variable('show_countdown',		'0'));
+					$config->set('drdeath_f1webtip_show_gfx', 			(int) $request->variable('show_gfx',			'0'));
+					$config->set('drdeath_f1webtip_show_gfxr', 			(int) $request->variable('show_gfxr',			'0'));
+					$config->set('drdeath_f1webtip_show_headbanner', 	(int) $request->variable('show_headbanner',		'0'));
+					$config->set('drdeath_f1webtip_show_in_profile', 	(int) $request->variable('show_in_profile',		'0'));
+					$config->set('drdeath_f1webtip_show_in_viewtopic', 	(int) $request->variable('show_in_viewtopic',	'0'));
+					$config->set('drdeath_f1webtip_team_img_height', 	(int) $request->variable('team_img_height',		$config['drdeath_f1webtip_team_img_height']));
+					$config->set('drdeath_f1webtip_team_img_width', 	(int) $request->variable('team_img_width',		$config['drdeath_f1webtip_team_img_width']));
 
 					// Guest viewing can only be activated, if the F1 WebTip is not restricted to a specific group (restrict_to == 0)
 					// Cron reminder can only be activated, if the F1 WebTip is     restricted to a specific group (restrict_to <> 0)

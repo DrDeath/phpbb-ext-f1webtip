@@ -212,7 +212,6 @@ class main_module
 					$config->set('drdeath_f1webtip_show_in_profile',	(int) $request->variable('show_in_profile',		'0'));
 					$config->set('drdeath_f1webtip_show_in_viewtopic',	(int) $request->variable('show_in_viewtopic',	'0'));
 
-
 					// Guest viewing can only be activated, if the F1 WebTip is not restricted to a specific group (restrict_to == 0)
 					// Cron reminder can only be activated, if the F1 WebTip is     restricted to a specific group (restrict_to <> 0)
 					if ($request->variable('restrict_to', 	'0') == 0)

@@ -10,11 +10,11 @@
 
 namespace drdeath\f1webtip\migrations\seasons;
 
-class season_update_2020 extends \phpbb\db\migration\migration
+class season_update_2021 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['drdeath_f1webtip_season']) && version_compare($this->config['drdeath_f1webtip_season'], '2020', '>=');
+		return isset($this->config['drdeath_f1webtip_season']) && version_compare($this->config['drdeath_f1webtip_season'], '2021', '>=');
 	}
 
 	static public function depends_on()
@@ -27,17 +27,17 @@ class season_update_2020 extends \phpbb\db\migration\migration
 		return [
 			//Call the Season Data routine
 			['custom', [
-				[&$this, 'season_2020']
+				[&$this, 'season_2021']
 			]],
 			// Set the current version
 			['config.update', [
-				'drdeath_f1webtip_season', '2020'
+				'drdeath_f1webtip_season', '2021'
 			]],
 		];
 	}
 
 	// $value is equal to the value returned on the previous call (false if this is the first time it is run)
-	public function season_2020()
+	public function season_2021($value)
 	{
 		global $db;
 
@@ -57,7 +57,7 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			$sql_ary[] = ['driver_id' => 77, 'driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 1,];
 
 			# -- Team 2 Scuderia Ferrari
-			$sql_ary[] = ['driver_id' => 5,  'driver_name' => 'Vettel, Sebastian', 		'driver_img' => '', 'driver_team' => 2,];
+			$sql_ary[] = ['driver_id' => 55, 'driver_name' => 'Sainz, Carlos',			'driver_img' => '',	'driver_team' => 2,];
 			$sql_ary[] = ['driver_id' => 16, 'driver_name' => 'Leclerc, Charles',		'driver_img' => '',	'driver_team' => 2,];
 
 			# -- Team 3 Red Bull Racing
@@ -66,10 +66,10 @@ class season_update_2020 extends \phpbb\db\migration\migration
 
 			# -- Team 4 McLaren F1 Team
 			$sql_ary[] = ['driver_id' => 4,  'driver_name' => 'Norris, Lando',			'driver_img' => '',	'driver_team' => 4,];
-			$sql_ary[] = ['driver_id' => 55, 'driver_name' => 'Sainz, Carlos',			'driver_img' => '',	'driver_team' => 4,];
+			$sql_ary[] = ['driver_id' => 3,  'driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 4,];
 
 			# -- Team 5 Renault F1 Team
-			$sql_ary[] = ['driver_id' => 3,  'driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 5,];
+
 			$sql_ary[] = ['driver_id' => 31, 'driver_name' => 'Ocon, Esteban',			'driver_img' => '',	'driver_team' => 5,];
 
 			# -- Team 6 Alpha Tauri F1 Team
@@ -91,6 +91,9 @@ class season_update_2020 extends \phpbb\db\migration\migration
 			# -- Team 10 Williams Racing
 			$sql_ary[] = ['driver_id' => 63, 'driver_name' => 'Russell, George',		'driver_img' => '',	'driver_team' => 10,];
 			$sql_ary[] = ['driver_id' => 6,  'driver_name' => 'Latifi, Nicholas',		'driver_img' => '',	'driver_team' => 10,];
+
+			# -- Not defined --
+			$sql_ary[] = ['driver_id' => 5,  'driver_name' => 'Vettel, Sebastian', 		'driver_img' => '', 'driver_team' => 99,];
 
 			$db->sql_multi_insert($table_drivers, $sql_ary);
 		}

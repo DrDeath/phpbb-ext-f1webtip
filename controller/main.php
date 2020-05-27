@@ -1753,7 +1753,7 @@ class main
 				$rank = $limit = 0;
 				$previous_points = false;
 
-				foreach ($recalc_drivers as $driver_id => $driver)
+				foreach ($recalc_drivers as $driver)
 				{
 					if ($limit == 5)
 					{
@@ -1813,7 +1813,7 @@ class main
 				$rank = $real_rank = $limit = 0;
 				$previous_points = false;
 
-				foreach ($recalc_teams as $team_id => $team)
+				foreach ($recalc_teams as $team)
 				{
 					if ($limit == 5)
 					{

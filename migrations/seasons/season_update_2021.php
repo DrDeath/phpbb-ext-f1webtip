@@ -36,8 +36,7 @@ class season_update_2021 extends \phpbb\db\migration\migration
 		];
 	}
 
-	// $value is equal to the value returned on the previous call (false if this is the first time it is run)
-	public function season_2021($value)
+	public function season_2021()
 	{
 		global $db;
 

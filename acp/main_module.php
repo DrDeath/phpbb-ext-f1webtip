@@ -31,7 +31,7 @@ class main_module
 		$image_ary = preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
 
 		// recreate array, shoud start with 0 ;-)
-		foreach ($image_ary as $key => $value)
+		foreach ($image_ary as $value)
 		{
 			$result[] = $value;
 		}

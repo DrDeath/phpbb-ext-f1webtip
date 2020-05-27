@@ -482,7 +482,7 @@ class main
 					$rank = $real_rank  = 0;
 					$previous_points = false;
 
-					foreach ($recalc_teams as $team_id => $team)
+					foreach ($recalc_teams as $team)
 					{
 						++$real_rank;
 
@@ -575,7 +575,7 @@ class main
 					$rank = 0;
 					$previous_points = false;
 
-					foreach ($recalc_drivers as $driver_id => $driver)
+					foreach ($recalc_drivers as $driver)
 					{
 						++$rank;
 

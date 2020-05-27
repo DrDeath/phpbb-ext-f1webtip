@@ -113,7 +113,7 @@ class main_listener implements EventSubscriberInterface
 		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
-	public function add_page_header_link($event)
+	public function add_page_header_link()
 	{
 		// Should the user be able to see the link to the f1webtip ?
 		// Link should only visible if:

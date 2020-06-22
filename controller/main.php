@@ -127,7 +127,7 @@ class main
 					AND user_id <> ' . ANONYMOUS;
 		$result = $this->db->sql_query($sql);
 
-		$row = $this->db->sql_fetchrow($result)) ? $row : false;
+		$row = $this->db->sql_fetchrow($result);
 
 		$this->db->sql_freeresult($result);
 

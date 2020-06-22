@@ -115,11 +115,11 @@ class main_module
 					{
 						// remove all user tips
 						$sql = 'DELETE FROM ' . $table_tips;
-						$result = $db->sql_query($sql);
+						$db->sql_query($sql);
 
 						// remove all wm points
 						$sql = 'DELETE FROM ' . $table_wm;
-						$result = $db->sql_query($sql);
+						$db->sql_query($sql);
 
 						// remove all race and qualifying results
 						$sql_ary = [
@@ -194,35 +194,35 @@ class main_module
 					$config->set('drdeath_f1webtip_team_img_height',	(int) $request->variable('team_img_height',		$config['drdeath_f1webtip_team_img_height']));
 					$config->set('drdeath_f1webtip_team_img_width',		(int) $request->variable('team_img_width',		$config['drdeath_f1webtip_team_img_width']));
 
-					$config->set('drdeath_f1webtip_deadline_offset',	(int) $request->variable('deadline_offset',		'0'));
-					$config->set('drdeath_f1webtip_event_change',		(int) $request->variable('event_change',		'0'));
-					$config->set('drdeath_f1webtip_forum_id',			(int) $request->variable('forum_id',			'0'));
-					$config->set('drdeath_f1webtip_mod_id',				(int) $request->variable('mod_id',				'0'));
-					$config->set('drdeath_f1webtip_points_fastest',		(int) $request->variable('points_fastest',		'0'));
-					$config->set('drdeath_f1webtip_points_mentioned',	(int) $request->variable('points_mentioned',	'0'));
-					$config->set('drdeath_f1webtip_points_placed',		(int) $request->variable('points_placed',		'0'));
-					$config->set('drdeath_f1webtip_points_safety_car',	(int) $request->variable('points_safety_car',	'0'));
-					$config->set('drdeath_f1webtip_points_tired',		(int) $request->variable('points_tired',		'0'));
-					$config->set('drdeath_f1webtip_restrict_to',		(int) $request->variable('restrict_to',			'0'));
-					$config->set('drdeath_f1webtip_show_avatar',		(int) $request->variable('show_avatar',			'0'));
-					$config->set('drdeath_f1webtip_show_countdown',		(int) $request->variable('show_countdown',		'0'));
-					$config->set('drdeath_f1webtip_show_gfx',			(int) $request->variable('show_gfx',			'0'));
-					$config->set('drdeath_f1webtip_show_gfxr',			(int) $request->variable('show_gfxr',			'0'));
-					$config->set('drdeath_f1webtip_show_headbanner',	(int) $request->variable('show_headbanner',		'0'));
-					$config->set('drdeath_f1webtip_show_in_profile',	(int) $request->variable('show_in_profile',		'0'));
-					$config->set('drdeath_f1webtip_show_in_viewtopic',	(int) $request->variable('show_in_viewtopic',	'0'));
+					$config->set('drdeath_f1webtip_deadline_offset',	(int) $request->variable('deadline_offset',		0));
+					$config->set('drdeath_f1webtip_event_change',		(int) $request->variable('event_change',		0));
+					$config->set('drdeath_f1webtip_forum_id',			(int) $request->variable('forum_id',			0));
+					$config->set('drdeath_f1webtip_mod_id',				(int) $request->variable('mod_id',				0));
+					$config->set('drdeath_f1webtip_points_fastest',		(int) $request->variable('points_fastest',		0));
+					$config->set('drdeath_f1webtip_points_mentioned',	(int) $request->variable('points_mentioned',	0));
+					$config->set('drdeath_f1webtip_points_placed',		(int) $request->variable('points_placed',		0));
+					$config->set('drdeath_f1webtip_points_safety_car',	(int) $request->variable('points_safety_car',	0));
+					$config->set('drdeath_f1webtip_points_tired',		(int) $request->variable('points_tired',		0));
+					$config->set('drdeath_f1webtip_restrict_to',		(int) $request->variable('restrict_to',			0));
+					$config->set('drdeath_f1webtip_show_avatar',		(int) $request->variable('show_avatar',			0));
+					$config->set('drdeath_f1webtip_show_countdown',		(int) $request->variable('show_countdown',		0));
+					$config->set('drdeath_f1webtip_show_gfx',			(int) $request->variable('show_gfx',			0));
+					$config->set('drdeath_f1webtip_show_gfxr',			(int) $request->variable('show_gfxr',			0));
+					$config->set('drdeath_f1webtip_show_headbanner',	(int) $request->variable('show_headbanner',		0));
+					$config->set('drdeath_f1webtip_show_in_profile',	(int) $request->variable('show_in_profile',		0));
+					$config->set('drdeath_f1webtip_show_in_viewtopic',	(int) $request->variable('show_in_viewtopic',	0));
 
 					// Guest viewing can only be activated, if the F1 WebTip is not restricted to a specific group (restrict_to == 0)
-					// Cron reminder can only be activated, if the F1 WebTip is     restricted to a specific group (restrict_to <> 0)
-					if ($request->variable('restrict_to', 	'0') == 0)
+					// Cron reminder can only be activated, if the F1 WebTip is     restricted to a specific group (restrict_to != 0)
+					if ($request->variable('restrict_to', 	0) == 0)
 					{
-						$config->set('drdeath_f1webtip_guest_viewing',		(int) $request->variable('guest_viewing',		'0'));
-						$config->set('drdeath_f1webtip_reminder_enabled', 	'0');
+						$config->set('drdeath_f1webtip_guest_viewing',		(int) $request->variable('guest_viewing',		0));
+						$config->set('drdeath_f1webtip_reminder_enabled', 	0);
 					}
 					else
 					{
-						$config->set('drdeath_f1webtip_guest_viewing', 		'0');
-						$config->set('drdeath_f1webtip_reminder_enabled',	(int) $request->variable('reminder_enabled',	'0'));
+						$config->set('drdeath_f1webtip_guest_viewing', 		0);
+						$config->set('drdeath_f1webtip_reminder_enabled',	(int) $request->variable('reminder_enabled',	0));
 					}
 
 					$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_SETTINGS');
@@ -420,7 +420,7 @@ class main_module
 				// Delete a driver
 				//
 
-				if ($button_del && $driver_id <> 0)
+				if ($button_del && $driver_id != 0)
 				{
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
@@ -452,7 +452,7 @@ class main_module
 				//
 
 				// add or update the driver
-				if ($button_add && $drivername <> '')
+				if ($button_add && $drivername != '')
 				{
 					// Is it salty ?
 					if (!check_form_key('drdeath/f1webtip'))
@@ -487,8 +487,8 @@ class main_module
 						];
 
 						$sql = 'UPDATE ' . $table_drivers . '
-							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . "
-							WHERE driver_id = $driver_id";
+							SET ' . $db->sql_build_array('UPDATE', $sql_ary) . '
+							WHERE driver_id = ' . (int) $driver_id;
 						$db->sql_query($sql);
 
 						$phpbb_log->add('admin', $user->data['user_id'], $user->ip, 'LOG_FORMEL_DRIVER_EDITED', false, [$drivername . ' (ID ' . $driver_id . ')']);
@@ -502,7 +502,7 @@ class main_module
 				// Load, add or update driver
 				//
 
-				if ($button_adddriver || ($button_edit && $driver_id <> 0) || ($button_add && $drivername == ''))
+				if ($button_adddriver || ($button_edit && $driver_id != 0) || ($button_add && $drivername == ''))
 				{
 					$preselected_id = '';
 
@@ -626,7 +626,7 @@ class main_module
 						$user_points = $db->sql_query($pointssql);
 
 						$driver_points = $db->sql_fetchrow($user_points);
-						$points = ($driver_points['total_points'] <> '') ? $driver_points['total_points'] - $driver_penalty : 0 - $driver_penalty;
+						$points = ($driver_points['total_points'] != '') ? $driver_points['total_points'] - $driver_penalty : 0 - $driver_penalty;
 
 						$db->sql_freeresult($user_points);
 
@@ -688,7 +688,7 @@ class main_module
 				// Delete a team
 				//
 
-				if ($button_del && $team_id <> 0)
+				if ($button_del && $team_id != 0)
 				{
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
@@ -738,7 +738,7 @@ class main_module
 				// Add a new team
 				//
 
-				if ($button_add && $teamname <> '')
+				if ($button_add && $teamname != '')
 				{
 					// Is it salty ?
 					if (!check_form_key('drdeath/f1webtip'))
@@ -787,7 +787,7 @@ class main_module
 				// Load, add or update team
 				//
 
-				if ($button_addteam || ($button_edit && $team_id <> 0) || ($button_add && $teamname == ''))
+				if ($button_addteam || ($button_edit && $team_id != 0) || ($button_add && $teamname == ''))
 				{
 					if ($button_add && $teamname == '')
 					{
@@ -867,7 +867,7 @@ class main_module
 
 						$current_points = $db->sql_fetchrow($team_points);
 
-						$points = ($current_points['total_points'] <> '') ? $current_points['total_points'] - $team_penalty: 0 - $team_penalty;
+						$points = ($current_points['total_points'] != '') ? $current_points['total_points'] - $team_penalty: 0 - $team_penalty;
 
 						$db->sql_freeresult($team_points);
 
@@ -935,7 +935,7 @@ class main_module
 				// Delete a race
 				//
 
-				if ($button_del && $race_id <> 0)
+				if ($button_del && $race_id != 0)
 				{
 					// Have we confirmed with yes ?
 					if (confirm_box(true))
@@ -975,7 +975,7 @@ class main_module
 				}
 
 				// add or update the race
-				if ($button_add && $racename <> '')
+				if ($button_add && $racename != '')
 				{
 					// Is it salty ?
 					if (!check_form_key('drdeath/f1webtip'))
@@ -1045,7 +1045,7 @@ class main_module
 				// Load add oder edit race
 				//
 
-				if ($button_addrace || ($button_edit && $race_id <> 0) || ($button_add && $racename == ''))
+				if ($button_addrace || ($button_edit && $race_id != 0) || ($button_add && $racename == ''))
 				{
 					$title_exp 	= $language->lang('ACP_F1_RACES_TITEL_ADD_RACE_EXPLAIN');
 					$title 		= $language->lang('ACP_F1_RACES_TITEL_ADD_RACE');

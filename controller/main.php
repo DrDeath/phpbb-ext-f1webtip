@@ -127,7 +127,11 @@ class main
 					AND user_id <> ' . ANONYMOUS;
 		$result = $this->db->sql_query($sql);
 
-		return ($row = $this->db->sql_fetchrow($result)) ? $row : false;
+		$row = $this->db->sql_fetchrow($result)) ? $row : false;
+
+		$this->db->sql_freeresult($result);
+
+		return $row;
 	}
 
 
@@ -140,7 +144,6 @@ class main
 	protected function get_formel_races()
 	{
 		$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
-		$races 			= array();
 
 		$sql = 'SELECT *
 				FROM ' . $table_races . '
@@ -202,9 +205,9 @@ class main
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
-			if ($row['driver_team'] <> 0)
+			if ($row['driver_team'] != 0)
 			{
-				$drivercar = ($teams[$row['driver_team']]['team_car'] <> '') ? '<img src="' . $ext_path . 'images/cars/' . $teams[$row['driver_team']]['team_car'] . '" width="' . $this->config['drdeath_f1webtip_car_img_width'] . '" height="' . $this->config['drdeath_f1webtip_car_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/cars/' . $this->config['drdeath_f1webtip_no_car_img'] . '" width="' . $this->config['drdeath_f1webtip_car_img_width'] . '" height="' . $this->config['drdeath_f1webtip_car_img_height'] . '" alt="" />';
+				$drivercar = ($teams[$row['driver_team']]['team_car'] != '') ? '<img src="' . $ext_path . 'images/cars/' . $teams[$row['driver_team']]['team_car'] . '" width="' . $this->config['drdeath_f1webtip_car_img_width'] . '" height="' . $this->config['drdeath_f1webtip_car_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/cars/' . $this->config['drdeath_f1webtip_no_car_img'] . '" width="' . $this->config['drdeath_f1webtip_car_img_width'] . '" height="' . $this->config['drdeath_f1webtip_car_img_height'] . '" alt="" />';
 			}
 			else
 			{
@@ -267,7 +270,7 @@ class main
 	{
 		$ret = false;
 
-		if ($value <> 0)
+		if ($value != 0)
 		{
 			for ($i = 0; $i < count($array); ++$i)
 			{
@@ -349,7 +352,7 @@ class main
 		$is_in_group = group_memberships($formel_group_id, $this->user->data['user_id'], true);
 
 		// Check for : restricted group access - admin access - formular 1 moderator access
-		if ($formel_group_id <> 0 && !$is_in_group && $is_admin <> 1 && $this->user->data['user_id'] <> $formel_mod_id)
+		if ($formel_group_id != 0 && !$is_in_group && $is_admin != 1 && $this->user->data['user_id'] != $formel_mod_id)
 		{
 			$auth_msg = $this->language->lang('FORMEL_ACCESS_DENIED', '<a href="' . append_sid($this->root_path . "ucp." . $this->php_ext . "?i=groups") . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
 			trigger_error($auth_msg);
@@ -486,7 +489,7 @@ class main
 					{
 						++$real_rank;
 
-						if ($team['total_points'] <> $previous_points)
+						if ($team['total_points'] != $previous_points)
 						{
 							$rank = $real_rank;
 							$previous_points = $team['total_points'];
@@ -548,6 +551,8 @@ class main
 					{
 						$drivers[$row['wm_driver']]['gold_medals']	= $row['gold_medals'];
 					}
+
+					$this->db->sql_freeresult($result);
 
 					// Get all wm points and fill top10 drivers
 					$sql = 'SELECT sum(wm_points) AS total_points, wm_driver, wm_team
@@ -632,7 +637,7 @@ class main
 					{
 						++$real_rank;
 
-						if ($row['total_points'] <> $previous_points)
+						if ($row['total_points'] != $previous_points)
 						{
 							$rank = $real_rank;
 							$previous_points = $row['total_points'];
@@ -728,7 +733,7 @@ class main
 				);
 
 				// Check URL hijacker . Access only for formel moderators or admins
-				if ($this->user->data['user_id'] <> $formel_mod_id && $is_admin <> 1)
+				if ($this->user->data['user_id'] != $formel_mod_id && $is_admin != 1)
 				{
 					$auth_msg = $this->language->lang('FORMEL_MOD_ACCESS_DENIED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error($auth_msg);
@@ -793,7 +798,7 @@ class main
 				);
 
 				// Check URL hijacker . Access only for formel moderators or admins
-				if ($this->user->data['user_id'] <> $formel_mod_id && $is_admin <> 1)
+				if ($this->user->data['user_id'] != $formel_mod_id && $is_admin != 1)
 				{
 					$auth_msg = $this->language->lang('FORMEL_MOD_ACCESS_DENIED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error($auth_msg);
@@ -828,7 +833,7 @@ class main
 				$var_places			= "<script>var places = $places</script>";
 
 				// Reset a quali
-				if ($resetquali && $race_id <> 0)
+				if ($resetquali && $race_id != 0)
 				{
 					// Check the salt... yumyum
 					if (!check_form_key('drdeath/f1webtip'))
@@ -852,7 +857,7 @@ class main
 				}
 
 				// Reset a result
-				if ($resetresult && $race_id <> 0)
+				if ($resetresult && $race_id != 0)
 				{
 					// Check the salt... yumyum
 					if (!check_form_key('drdeath/f1webtip'))
@@ -908,7 +913,7 @@ class main
 						trigger_error('FORM_INVALID');
 					}
 
-					if ($race_id <> 0)
+					if ($race_id != 0)
 					{
 						//We have 10 Teams with 2 cars each --> 20 drivers
 						for ($i = 0; $i < 20; ++$i)
@@ -953,7 +958,7 @@ class main
 						trigger_error('FORM_INVALID');
 					}
 
-					if ($race_id <> 0)
+					if ($race_id != 0)
 					{
 						if ($addeditresult)
 						{
@@ -1014,7 +1019,7 @@ class main
 
 							for ($i = 0; $i < count($current_tipp_array) - 3; ++$i)
 							{
-								if ($current_tipp_array[$i] <> '0')
+								if ($current_tipp_array[$i] != '0')
 								{
 									if ($this->checkarrayforvalue($current_tipp_array[$i], $temp_results_array))
 									{
@@ -1029,7 +1034,7 @@ class main
 							}
 
 							// array['10'] : fastest driver
-							if ($current_tipp_array['10'] == $result_array['10'] && $current_tipp_array['10'] <> 0)
+							if ($current_tipp_array['10'] == $result_array['10'] && $current_tipp_array['10'] != 0)
 							{
 								$user_tipp_points += $this->config['drdeath_f1webtip_points_fastest'];
 							}
@@ -1105,7 +1110,7 @@ class main
 								$wm[$i] = $wm[$i] + 1;
 							}
 
-							if ($current_driver <> '0')
+							if ($current_driver != '0')
 							{
 								$current_team 	= $teams[$current_driver];
 								$wm_points 		= $wm[$i];
@@ -1129,7 +1134,7 @@ class main
 				}
 
 				// Load add/edit quali
-				if (($quali || $editquali) && $race_id <> 0)
+				if (($quali || $editquali) && $race_id != 0)
 				{
 					if ($editquali)
 					{
@@ -1207,7 +1212,7 @@ class main
 				}
 
 				// Load add or edit result
-				if (($results || $editresult) && $race_id <> 0)
+				if (($results || $editresult) && $race_id != 0)
 				{
 					if ($editresult)
 					{
@@ -1405,6 +1410,8 @@ class main
 
 					$this->db->sql_freeresult($result);
 
+					$tipper_all_points = '';
+
 					// Get all tip points
 					$sql = 'SELECT sum(tip_points) AS total_points
 						FROM ' . $table_tips . '
@@ -1424,7 +1431,7 @@ class main
 					$tipper_name 		= get_username_string('username', $tipp_userdata['user_id'], $tipp_userdata['username'], $tipp_userdata['user_colour']);
 					$tipp_user_colour	= get_username_string('colour', $tipp_userdata['user_id'], $tipp_userdata['username'], $tipp_userdata['user_colour']);
 					$tipper_style		= ($tipp_user_colour) ? ' style="color: ' . $tipp_user_colour . '; font-weight: bold;"' : '' ;
-					$tipper_link 		= ($tipper_name <> $this->language->lang('GUEST')) ? '<a href="' . append_sid("{$this->root_path}memberlist." . $this->php_ext, 'mode=viewprofile&amp;u=' . (int) $tipp_userdata['user_id']) . '"' . $tipper_style . ' onclick="window.open(this.href); return false">' . $tipper_name . '</a>' : $tipper_name;
+					$tipper_link 		= ($tipper_name != $this->language->lang('GUEST')) ? '<a href="' . append_sid("{$this->root_path}memberlist." . $this->php_ext, 'mode=viewprofile&amp;u=' . (int) $tipp_userdata['user_id']) . '"' . $tipper_style . ' onclick="window.open(this.href); return false">' . $tipper_name . '</a>' : $tipper_name;
 					$tipper_points 		= $tippdata['0']['tip_points'];
 					$tipp_array 		= explode(',', $tippdata['0']['tip_result']);
 					$is_hidden			= ($race[$race_id]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset']  <= $current_time ) ? false : true ;
@@ -1440,7 +1447,7 @@ class main
 
 						if (isset($results[$i]))
 						{
-							if (($driverid == $results[$i]) && $driverid <> 0)
+							if (($driverid == $results[$i]) && $driverid != 0)
 							{
 								$single_points += $this->config['drdeath_f1webtip_points_placed'];
 							}
@@ -1450,7 +1457,7 @@ class main
 						{
 							if (isset($results[$j]))
 							{
-								if (($driverid == $results[$j]) && $driverid <> 0)
+								if (($driverid == $results[$j]) && $driverid != 0)
 								{
 									$single_points += $this->config['drdeath_f1webtip_points_mentioned'];
 								}
@@ -1463,7 +1470,7 @@ class main
 						}
 
 						$this->template->assign_block_vars('user_drivers', [
-							'DRIVER_PLACED' 	=> ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $driver_placed,
+							'DRIVER_PLACED' 	=> ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $driver_placed,
 							'POSITION' 			=> $position,
 							'SINGLE_POINTS' 	=> $single_points,
 							]
@@ -1477,7 +1484,7 @@ class main
 					//Recalc tip points for fastest driver, tired count and safety cars
 					$single_fastest	= $single_tired = $single_safety_car = '';
 
-					if (isset($results['10']) && $results['10'] <> 0)
+					if (isset($results['10']) && $results['10'] != 0)
 					{
 						if ($tipp_array['10'] == $results['10'])
 						{
@@ -1505,9 +1512,9 @@ class main
 						'TIPPER' 			=> $tipper_link,
 						'POINTS' 			=> $tipper_points,
 						'ALL_POINTS' 		=> $tipper_all_points,
-						'FASTEST_DRIVER' 	=> (isset($fastest_driver_name)) 	? ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $fastest_driver_name : '',
-						'TIRED' 			=> (isset($tired)) 					? ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $tired : '',
-						'SAFETYCAR' 		=> (isset($safetycar)) 				? ($is_hidden == true && $tipp_userdata['user_id'] <> $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $safetycar : '',
+						'FASTEST_DRIVER' 	=> (isset($fastest_driver_name)) 	? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $fastest_driver_name : '',
+						'TIRED' 			=> (isset($tired)) 					? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $tired : '',
+						'SAFETYCAR' 		=> (isset($safetycar)) 				? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $safetycar : '',
 						'SINGLE_FASTEST' 	=> (isset($single_fastest)) 		? $single_fastest : '',
 						'SINGLE_TIRED' 		=> (isset($single_tired)) 			? $single_tired : '',
 						'SINGLE_SAFETY_CAR' => (isset($single_safety_car)) 		? $single_safety_car : '',
@@ -1683,7 +1690,7 @@ class main
 				{
 					++$real_rank;
 
-					if ($row['total_points'] <> $previous_points)
+					if ($row['total_points'] != $previous_points)
 					{
 						$rank = $real_rank;
 						$previous_points = $row['total_points'];
@@ -1730,6 +1737,8 @@ class main
 					$drivers[$row['wm_driver']]['gold_medals']	= $row['gold_medals'];
 				}
 
+				$this->db->sql_freeresult($result);
+
 				// Get all wm points and fill top10 drivers
 				$sql = 'SELECT sum(wm_points) AS total_points, wm_driver
 					FROM ' . $table_wm . '
@@ -1751,7 +1760,6 @@ class main
 				arsort($recalc_drivers);
 
 				$rank = $limit = 0;
-				$previous_points = false;
 
 				foreach ($recalc_drivers as $driver)
 				{
@@ -1822,7 +1830,7 @@ class main
 
 					++$real_rank;
 
-					if ($team['total_points'] <> $previous_points)
+					if ($team['total_points'] != $previous_points)
 					{
 						$rank = $real_rank;
 						$previous_points = $team['total_points'];
@@ -2135,7 +2143,7 @@ class main
 								$safetycarcombo	= (isset($tipp_array['12'])) ? $tipp_array['12'] : '';
 
 								//Recalc tip points for fastest driver
-								if (isset($results['10']) && $results['10'] <> 0)
+								if (isset($results['10']) && $results['10'] != 0)
 								{
 									if ($tipp_array['10'] == $results['10'])
 									{
@@ -2299,7 +2307,7 @@ class main
 						}
 
 						// Checks for a saved quali
-						if ($races[$chosen_race]['race_quali'] <> '0')
+						if ($races[$chosen_race]['race_quali'] != '0')
 						{
 							// Get the driver ids
 							$quali = explode(",", $races[$chosen_race]['race_quali']);
@@ -2327,7 +2335,7 @@ class main
 						}
 
 						// Checks for a saved result
-						if ($races[$chosen_race]['race_result'] <> '0')
+						if ($races[$chosen_race]['race_result'] != '0')
 						{
 							// Get the driver ids
 							$results = explode(",", $races[$chosen_race]['race_result']);

@@ -245,7 +245,7 @@ class email_reminder extends \phpbb\cron\task\base
 			}
 
 			// Only if some emails have already been sent previously.
-			if ($usernames <> '')
+			if ($usernames != '')
 			{
 				//send admin email
 				$user_lang 	= $this->config['default_lang'];
@@ -298,6 +298,6 @@ class email_reminder extends \phpbb\cron\task\base
 	public function should_run()
 	{
 		$check_time = (int) gmdate('mdY',time());
-		return $this->config['drdeath_f1webtip_reminder_last_run'] <> $check_time;
+		return $this->config['drdeath_f1webtip_reminder_last_run'] != $check_time;
 	}
 }

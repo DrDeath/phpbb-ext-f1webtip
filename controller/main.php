@@ -1634,6 +1634,14 @@ class main
 
 					if ($place_my_tipp)
 					{
+						// Prevent inserting more than one tipp
+						$sql = 'DELETE
+							FROM ' . $table_tips . '
+							WHERE tip_user = ' . (int) $user_id . '
+								AND tip_race = ' . (int) $race_id;
+						$this->db->sql_query($sql);
+
+						// Now insert new tipp
 						$sql_ary = [
 							'tip_user'		=> (int) $user_id,
 							'tip_race'		=> (int) $race_id,

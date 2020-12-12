@@ -1149,9 +1149,10 @@ class main
 						$this->db->sql_freeresult($result);
 					}
 
-					// Fetch all drivers
+					// Fetch all available drivers
 					$sql = 'SELECT *
 						FROM ' . $table_drivers . '
+						WHERE driver_disabled <> 1
 						ORDER BY driver_name ASC';
 					$result = $this->db->sql_query($sql);
 
@@ -1227,9 +1228,10 @@ class main
 						$this->db->sql_freeresult($result);
 					}
 
-					// Fetch all drivers
+					// Fetch all available drivers
 					$sql = 'SELECT *
 						FROM ' . $table_drivers . '
+						WHERE driver_disabled <> 1
 						ORDER BY driver_name ASC';
 					$result = $this->db->sql_query($sql);
 

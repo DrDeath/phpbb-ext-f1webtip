@@ -84,7 +84,7 @@ class season_update_2021 extends \phpbb\db\migration\migration
 			$sql_ary[] = ['driver_id' => 99, 'driver_name' => 'Giovinazzi, Antonio',	'driver_img' => '',	'driver_team' => 8,];
 
 			# -- Team 9 Haas F1 Team
-			$sql_ary[] = ['driver_id' => 47, 'driver_name' => 'Schumacher,Mick',		'driver_img' => '',	'driver_team' => 9,];
+			$sql_ary[] = ['driver_id' => 47, 'driver_name' => 'Schumacher, Mick',		'driver_img' => '',	'driver_team' => 9,];
 			$sql_ary[] = ['driver_id' => 9,  'driver_name' => 'Masepin, Nikita',		'driver_img' => '',	'driver_team' => 9,];
 
 			# -- Team 10 Williams Racing

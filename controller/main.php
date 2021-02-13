@@ -14,6 +14,7 @@ namespace drdeath\f1webtip\controller;
  * @ignore
  */
 use Symfony\Component\DependencyInjection\Container;
+use phpbb\exception\http_exception;
 use \DateTime;
 
 class main

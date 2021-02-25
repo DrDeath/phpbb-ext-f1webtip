@@ -1,24 +1,20 @@
 <?php
 /**
- *
  * Formula 1 WebTip. An extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2014, Dr.Death, http://www.lpi-clan.de
  * @license GNU General Public License, version 2 (GPL-2.0)
- *
  */
 
 /**
- * DO NOT CHANGE
+ * DO NOT CHANGE.
  */
-if (!defined('IN_PHPBB'))
-{
-	exit;
+if (!defined('IN_PHPBB')) {
+    exit;
 }
 
-if (empty($lang) || !is_array($lang))
-{
-	$lang = [];
+if (empty($lang) || !is_array($lang)) {
+    $lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -35,32 +31,32 @@ if (empty($lang) || !is_array($lang))
 
 // Info ACP Common
 $lang = array_merge($lang, [
-	'ACP_F1WEBTIP_TITLE'			=> 'F1 Voorspellingen Module',
-	'ACP_FORMEL_DRIVERS'			=> 'F1 Coureurs',
-	'ACP_FORMEL_RACES'				=> 'F1 Races',
-	'ACP_FORMEL_SETTINGS'			=> 'F1 Instellingen',
-	'ACP_FORMEL_TEAMS'				=> 'F1 Teams',
-	'LOG_FORMEL_CRON'				=> 'Formule 1 taak wordt niet uitgevoerd.',
-	'LOG_FORMEL_DRIVER_ADDED'		=> 'Formule 1 driver %s toegevoegd.',
-	'LOG_FORMEL_DRIVER_DELETED'		=> 'Formule 1 driver %s verwijderd.',
-	'LOG_FORMEL_DRIVER_EDITED'		=> 'Formule 1 driver %s aangepast.',
-	'LOG_FORMEL_QUALI_ADDED'		=> 'Formule 1 voor het resultaat van de qualificatie voor de race %s zijn aangepast.',
-	'LOG_FORMEL_QUALI_DELETED'		=> 'Formule 1 voor het resultaat van de qualificatie voor de race %s zijn verwijderd.',
-	'LOG_FORMEL_QUALI_NOT_VALID'	=> 'Formule 1 voor het resultaat van de qualificatie voor de race %s zijn niet geldig. Verzoek afgewezen.',
-	'LOG_FORMEL_RACE_ADDED'			=> 'Formule 1 race %s toegevoegd.',
-	'LOG_FORMEL_RACE_DELETED'		=> 'Formule 1 race %s verwijderd',
-	'LOG_FORMEL_RACE_EDITED'		=> 'Formule 1 race %s aangepast.',
-	'LOG_FORMEL_RESULT_ADDED'		=> 'Formule 1 voor het resultaat van de race %s zijn aangepast.',
-	'LOG_FORMEL_RESULT_DELETED'		=> 'Formule 1 voor het resultaat van de race %s zijn verwijderd.',
-	'LOG_FORMEL_RESULT_NOT_VALID'	=> 'Formule 1 voor het resultaat van de race %s zijn niet geldig. Verzoek afgewezen.',
-	'LOG_FORMEL_SAISON_RESET'		=> 'Formule 1 voor het seizoen zijn ge-reset.',
-	'LOG_FORMEL_SETTINGS'			=> 'Formule 1 instellingen zijn bijgewerkt.',
-	'LOG_FORMEL_TEAM_ADDED'			=> 'Formule 1 team %s toegevoegd.',
-	'LOG_FORMEL_TEAM_DELETED'		=> 'Formule 1 team %s verwijderd.',
-	'LOG_FORMEL_TEAM_EDITED'		=> 'Formule 1 team %s aangepast.',
-	'LOG_FORMEL_TIP_DELETED'		=> 'Formule 1 Voorspellingen voor de  race %s zijn verwijderd.',
-	'LOG_FORMEL_TIP_EDITED'			=> 'Formule 1 Voorspellingen voor de race %s zijn aangepast.',
-	'LOG_FORMEL_TIP_GIVEN'			=> 'Formule 1 Voorspellingen voor de race %s zijn toegevoegd.',
-	'LOG_FORMEL_TIP_NOT_VALID'		=> 'Formule 1 Voorspellingen voor de race %s zijn niet geldig. Voorspellingen zijn afgekeurd.',
+    'ACP_F1WEBTIP_TITLE'			       => 'F1 Voorspellingen Module',
+    'ACP_FORMEL_DRIVERS'			       => 'F1 Coureurs',
+    'ACP_FORMEL_RACES'				        => 'F1 Races',
+    'ACP_FORMEL_SETTINGS'			      => 'F1 Instellingen',
+    'ACP_FORMEL_TEAMS'				        => 'F1 Teams',
+    'LOG_FORMEL_CRON'				         => 'Formule 1 taak wordt niet uitgevoerd.',
+    'LOG_FORMEL_DRIVER_ADDED'		   => 'Formule 1 driver %s toegevoegd.',
+    'LOG_FORMEL_DRIVER_DELETED'		 => 'Formule 1 driver %s verwijderd.',
+    'LOG_FORMEL_DRIVER_EDITED'		  => 'Formule 1 driver %s aangepast.',
+    'LOG_FORMEL_QUALI_ADDED'		    => 'Formule 1 voor het resultaat van de qualificatie voor de race %s zijn aangepast.',
+    'LOG_FORMEL_QUALI_DELETED'		  => 'Formule 1 voor het resultaat van de qualificatie voor de race %s zijn verwijderd.',
+    'LOG_FORMEL_QUALI_NOT_VALID'	 => 'Formule 1 voor het resultaat van de qualificatie voor de race %s zijn niet geldig. Verzoek afgewezen.',
+    'LOG_FORMEL_RACE_ADDED'			    => 'Formule 1 race %s toegevoegd.',
+    'LOG_FORMEL_RACE_DELETED'		   => 'Formule 1 race %s verwijderd',
+    'LOG_FORMEL_RACE_EDITED'		    => 'Formule 1 race %s aangepast.',
+    'LOG_FORMEL_RESULT_ADDED'		   => 'Formule 1 voor het resultaat van de race %s zijn aangepast.',
+    'LOG_FORMEL_RESULT_DELETED'		 => 'Formule 1 voor het resultaat van de race %s zijn verwijderd.',
+    'LOG_FORMEL_RESULT_NOT_VALID'	=> 'Formule 1 voor het resultaat van de race %s zijn niet geldig. Verzoek afgewezen.',
+    'LOG_FORMEL_SAISON_RESET'		   => 'Formule 1 voor het seizoen zijn ge-reset.',
+    'LOG_FORMEL_SETTINGS'			      => 'Formule 1 instellingen zijn bijgewerkt.',
+    'LOG_FORMEL_TEAM_ADDED'			    => 'Formule 1 team %s toegevoegd.',
+    'LOG_FORMEL_TEAM_DELETED'		   => 'Formule 1 team %s verwijderd.',
+    'LOG_FORMEL_TEAM_EDITED'		    => 'Formule 1 team %s aangepast.',
+    'LOG_FORMEL_TIP_DELETED'		    => 'Formule 1 Voorspellingen voor de  race %s zijn verwijderd.',
+    'LOG_FORMEL_TIP_EDITED'			    => 'Formule 1 Voorspellingen voor de race %s zijn aangepast.',
+    'LOG_FORMEL_TIP_GIVEN'			     => 'Formule 1 Voorspellingen voor de race %s zijn toegevoegd.',
+    'LOG_FORMEL_TIP_NOT_VALID'		  => 'Formule 1 Voorspellingen voor de race %s zijn niet geldig. Voorspellingen zijn afgekeurd.',
 
 ]);

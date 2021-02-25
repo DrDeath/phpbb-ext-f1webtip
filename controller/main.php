@@ -14,6 +14,7 @@ namespace drdeath\f1webtip\controller;
  * @ignore
  */
 use Symfony\Component\DependencyInjection\Container;
+use phpbb\exception\http_exception;
 use \DateTime;
 
 class main
@@ -1541,6 +1542,12 @@ class main
 			###########################
 			case 'index':
 			default:
+
+				// honeypot
+				if ($this->request->variable('honeypot', '', true) != '')
+				{
+					throw new http_exception(401, 'NOT_AUTHORISED');
+				}
 
 				$page_title 	= $this->language->lang('FORMEL_TITLE');
 

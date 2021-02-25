@@ -206,3 +206,7 @@ ul.topiclist li.row dd.rulesf1content {
 .twentyf1 {
 	width: 20%;
 }
+
+#honeypot {
+	display: none;
+}

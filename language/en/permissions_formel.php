@@ -1,24 +1,20 @@
 <?php
 /**
- *
  * Formula 1 WebTip. An extension for the phpBB Forum Software package.
  *
  * @copyright (c) 2014, Dr.Death, http://www.lpi-clan.de
  * @license GNU General Public License, version 2 (GPL-2.0)
- *
  */
 
 /**
- * DO NOT CHANGE
+ * DO NOT CHANGE.
  */
-if (!defined('IN_PHPBB'))
-{
-	exit;
+if (!defined('IN_PHPBB')) {
+    exit;
 }
 
-if (empty($lang) || !is_array($lang))
-{
-	$lang = [];
+if (empty($lang) || !is_array($lang)) {
+    $lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -36,9 +32,9 @@ if (empty($lang) || !is_array($lang))
 // Adding the permissions
 // F1 WebTip permissions
 $lang = array_merge($lang, [
-	'ACL_CAT_FORMEL'		=> 'F1 Webtip',
-	'ACL_A_FORMEL_SETTINGS'	=> 'Can alter F1 WebTip settings',
-	'ACL_A_FORMEL_DRIVERS'	=> 'Can alter F1 WebTip driver',
-	'ACL_A_FORMEL_TEAMS'	=> 'Can alter F1 WebTip teams',
-	'ACL_A_FORMEL_RACES'	=> 'Can alter F1 WebTip races',
+    'ACL_CAT_FORMEL'		      => 'F1 Webtip',
+    'ACL_A_FORMEL_SETTINGS'	=> 'Can alter F1 WebTip settings',
+    'ACL_A_FORMEL_DRIVERS'	 => 'Can alter F1 WebTip driver',
+    'ACL_A_FORMEL_TEAMS'	   => 'Can alter F1 WebTip teams',
+    'ACL_A_FORMEL_RACES'	   => 'Can alter F1 WebTip races',
 ]);

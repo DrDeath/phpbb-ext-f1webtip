@@ -41,9 +41,9 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 
 	public function update_data()
 	{
-		$data = array(
+		$data = [
 			// Set the current version
-			array('config.add', array('drdeath_f1webtip_version', '1.0.0')),
+			array['config.add', ['drdeath_f1webtip_version', '1.0.0']],
 
 			// now populate some default config data
 			['config.add', ['drdeath_f1webtip_mod_id'				, '2']],
@@ -105,7 +105,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			['permission.add', ['a_formel_teams']],		// New global admin permission a_formel_teams
 			['permission.add', ['a_formel_drivers']],	// New global admin permission a_formel_drivers
 			['permission.add', ['a_formel_settings']],	// New global admin permission a_formel_settings
-		);
+		];
 
 		// Before we add additional permissions to an existing standard role, we need to first check if this role actually exists.
 		if ($this->role_exists('ROLE_ADMIN_FULL'))

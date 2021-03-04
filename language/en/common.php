@@ -135,9 +135,9 @@ $lang = array_merge($lang, [
 	'FORMEL_YOUR_TIPP'				=> 'Your tip',
 	'VIEWING_F1WEBTIPP'				=> 'Viewing Formula 1 WebTip',
 
-	'FORMEL_RULES_POINTS'			=> array(
+	'FORMEL_RULES_POINTS'			=> [
 		1	=> 'Point',
 		2	=> 'Points',
-	),
+	],
 
 ]);

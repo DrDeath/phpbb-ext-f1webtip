@@ -24,9 +24,9 @@ class release_1_1_6 extends \phpbb\db\migration\migration
 
 	public function update_data()
 	{
-		return array(
+		return [
 			// Set the current version
 			['config.update', ['drdeath_f1webtip_version', '1.1.6']],
-		);
+		];
 	}
 }

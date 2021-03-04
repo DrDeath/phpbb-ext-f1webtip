@@ -168,7 +168,7 @@ class main
 	protected function get_formel_teams()
 	{
 		$table_teams	= $this->phpbb_container->getParameter('tables.f1webtip.teams');
-		$teams 			= array();
+		$teams 			= [];
 
 		$sql = 'SELECT *
 				FROM ' . $table_teams;
@@ -197,7 +197,7 @@ class main
 		$ext_path 		= $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 		$teams 			= $this->get_formel_teams();
 		$table_drivers	= $this->phpbb_container->getParameter('tables.f1webtip.drivers');
-		$drivers 		= array();
+		$drivers 		= [];
 
 		$sql = 'SELECT *
 			FROM ' . $table_drivers . '
@@ -236,7 +236,7 @@ class main
 	protected function get_formel_drivers_data()
 	{
 		$table_drivers	= $this->phpbb_container->getParameter('tables.f1webtip.drivers');
-		$drivers 		= array();
+		$drivers 		= [];
 
 		$sql = 'SELECT *
 			FROM ' . $table_drivers . '
@@ -362,10 +362,10 @@ class main
 		//
 		// Creating breadcrumps
 		//
-		$this->template->assign_block_vars('navlinks', array(
-			'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+		$this->template->assign_block_vars('navlinks', [
+			'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 			'FORUM_NAME' => $this->language->lang('F1WEBTIP_PAGE'),
-			));
+			]);
 
 		// Salting the form...yumyum ...
 		add_form_key('drdeath/f1webtip');
@@ -385,10 +385,10 @@ class main
 				$page_title = $this->language->lang('FORMEL_TITLE');
 
 				// Creating breadcrumps rules
-				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'rules')),
+				$this->template->assign_block_vars('navlinks', [
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'rules']),
 					'FORUM_NAME' => $this->language->lang('FORMEL_RULES'),
-				   ));
+					]);
 
 				// Build rules
 				$points_mentioned 	= $this->config['drdeath_f1webtip_points_mentioned'];
@@ -416,12 +416,12 @@ class main
 				// Show headerbanner ?
 				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
-					$this->template->assign_block_vars('heads_on', array());
+					$this->template->assign_block_vars('heads_on', []);
 				}
 
-				$this->template->assign_vars(array(
+				$this->template->assign_vars([
 					'S_RULES'					=> true,
-					'S_FORM_ACTION'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'S_FORM_ACTION'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					'FORMEL_RULES_MENTIONED' 	=> $rules_mentioned,
 					'FORMEL_RULES_PLACED' 		=> $rules_placed,
 					'FORMEL_RULES_FASTEST' 		=> $rules_fastest,
@@ -432,7 +432,7 @@ class main
 					'HEADER_HEIGHT' 			=> $this->config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 				=> $this->config['drdeath_f1webtip_head_width'],
 					'EXT_PATH_IMAGES'			=> $ext_path . 'images/',
-				));
+				]);
 
 			break;
 
@@ -444,10 +444,10 @@ class main
 				$page_title = $this->language->lang('FORMEL_TITLE');
 
 				// Creating breadcrumps rules
-				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
+				$this->template->assign_block_vars('navlinks', [
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
 					'FORUM_NAME' => $this->language->lang('FORMEL_STATISTICS'),
-				   ));
+					]);
 
 				// Check buttons & data
 				$show_drivers 	= $this->request->is_set_post('show_drivers');
@@ -471,7 +471,7 @@ class main
 					$result = $this->db->sql_query($sql);
 
 					//Stop! we have to recalc the team WM points... maybe we have some penalty !
-					$recalc_teams = array();
+					$recalc_teams = [];
 
 					while ($row = $this->db->sql_fetchrow($result))
 					{
@@ -503,26 +503,26 @@ class main
 						$wm_teamimg 	= ( $wm_teamimg == '' ) ? '<img src="' . $ext_path . 'images/teams/' . $this->config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/teams/' . $wm_teamimg . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />';
 						$wm_teamcar 	= ( $wm_teamcar == '' ) ? '<img src="' . $ext_path . 'images/cars/'  . $this->config['drdeath_f1webtip_no_car_img']  . '" alt="" width="' . $this->config['drdeath_f1webtip_car_img_width']  . '" height="' . $this->config['drdeath_f1webtip_car_img_height']  . '" />' : '<img src="' . $ext_path . 'images/cars/'  . $wm_teamcar . '" alt="" width="' . $this->config['drdeath_f1webtip_car_img_width']  . '" height="' . $this->config['drdeath_f1webtip_car_img_height']  . '" />';
 
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', array(
+						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', [
 							'RANK' 			=> $rank,
 							'WM_TEAMNAME' 	=> $wm_teamname,
 							'WM_TEAMIMG' 	=> $wm_teamimg,
 							'WM_TEAMCAR' 	=> $wm_teamcar,
 							'WM_POINTS' 	=> $wm_points,
-							)
+							]
 						);
 					}
 
 					// Do we have some team points yet?
 					if ($real_rank == 0)
 					{
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', array(
+						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', [
 							'RANK' 			=> '',
 							'WM_TEAMNAME' 	=> $this->language->lang('FORMEL_NO_RESULTS'),
 							'WM_TEAMIMG' 	=> '',
 							'WM_TEAMCAR' 	=> '',
 							'WM_POINTS' 	=> '',
-							)
+							]
 						);
 					}
 
@@ -563,7 +563,7 @@ class main
 					$result = $this->db->sql_query($sql);
 
 					//Stop! we have to recalc the driver WM points... maybe we have some penalty !
-					$recalc_drivers = array();
+					$recalc_drivers = [];
 
 					while ($row = $this->db->sql_fetchrow($result))
 					{
@@ -591,28 +591,28 @@ class main
 						$wm_driverteam 	= $driver['team_img'];
 						$wm_driverteam 	= ( $wm_driverteam == '' ) ? '<img src="' . $ext_path . 'images/teams/' . $this->config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/teams/' . $wm_driverteam . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />';
 
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', array(
+						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', [
 							'RANK' 				=> $rank,
 							'WM_DRIVERNAME' 	=> $wm_drivername,
 							'WM_DRIVERIMG' 		=> $wm_driverimg,
 							'WM_DRIVERCAR' 		=> $wm_drivercar,
 							'WM_DRIVERTEAM' 	=> $wm_driverteam,
 							'WM_POINTS' 		=> $driver['total_points'],
-							)
+							]
 						);
 					}
 
 					// Do we have some driver points yet?
 					if ($rank == 0)
 					{
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', array(
+						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', [
 							'RANK' 				=> '',
 							'WM_DRIVERNAME' 	=> $this->language->lang('FORMEL_NO_RESULTS'),
 							'WM_DRIVERIMG' 		=> '',
 							'WM_DRIVERCAR' 		=> '',
 							'WM_DRIVERTEAM' 	=> '',
 							'WM_POINTS' 		=> '',
-							)
+							]
 						);
 					}
 
@@ -661,7 +661,7 @@ class main
 								$show_avatar_switch 	= true;
 						}
 
-						$this->template->assign_block_vars('top_tippers', array(
+						$this->template->assign_block_vars('top_tippers', [
 							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
 							'TIPPER_AVATAR'			=> $tip_user_avatar,
 							'TIPPER_AVATAR_WIDTH'	=> $this->config['avatar_max_width'] + 10,
@@ -669,7 +669,7 @@ class main
 							'TIPPER_NAME'			=> $tip_username_link,
 							'RANK'					=> ($rank == 1 || $rank == 2 || $rank == 3) ? "<b>" . $rank . "</b>" : $rank,
 							'TIPPER_POINTS'			=> $row['total_points'],
-							)
+							]
 						);
 					}
 
@@ -683,14 +683,14 @@ class main
 							$show_avatar_switch 	= true;
 						}
 
-						$this->template->assign_block_vars('top_tippers', array(
+						$this->template->assign_block_vars('top_tippers', [
 							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
 							'TIPPER_AVATAR'			=> '',
 							'TIPPER_AVATAR_WIDTH'	=> '0',
 							'TIPPER_AVATAR_HEIGHT'	=> '0',
 							'TIPPER_NAME' 			=> $this->language->lang('FORMEL_NO_TIPPS'),
 							'TIPPER_POINTS' 		=> '',
-							)
+							]
 						);
 					}
 
@@ -700,21 +700,21 @@ class main
 				// Show headerbanner ?
 				if ($this->config['drdeath_f1webtip_show_headbanner'])
 				{
-					$this->template->assign_block_vars('heads_on', array());
+					$this->template->assign_block_vars('heads_on', []);
 				}
 
-				$this->template->assign_vars(array(
+				$this->template->assign_vars([
 					'S_STATS'				=> true,
-					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
-					'U_FORMEL_STATS' 		=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
+					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
+					'U_FORMEL_STATS' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
 					'HEADER_IMG' 			=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner3_img'],
 					'HEADER_HEIGHT' 		=> $this->config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 			=> $this->config['drdeath_f1webtip_head_width'],
 					'L_STAT_TABLE_TITLE' 	=> $stat_table_title,
-					'U_FORMEL' 				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
-					'U_BACK_TO_TIPP' 		=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'U_FORMEL' 				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'U_BACK_TO_TIPP' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
-					)
+					]
 				);
 
 			break;
@@ -727,16 +727,16 @@ class main
 				// Set template vars
 				$page_title = $this->language->lang('FORMEL_TITLE');
 
-				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
+				$this->template->assign_block_vars('navlinks', [
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
 					'FORUM_NAME'	=> $this->language->lang('FORMEL_RESULTS_TITLE'),
-					)
+					]
 				);
 
 				// Check URL hijacker . Access only for formel moderators or admins
 				if ($this->user->data['user_id'] != $formel_mod_id && $is_admin != 1)
 				{
-					$auth_msg = $this->language->lang('FORMEL_MOD_ACCESS_DENIED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
+					$auth_msg = $this->language->lang('FORMEL_MOD_ACCESS_DENIED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error($auth_msg);
 				}
 
@@ -759,7 +759,7 @@ class main
 					$quali_buttons 		= ($row['race_quali'] == '0') 		? '<input class="button1" type="submit" name="quali"  value="' . $l_add . '" />' : '<input class="button1" type="submit" name="editquali"  value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button1" type="submit" name="resetquali"  value="' . $l_del . '" />';
 					$result_buttons 	= ($row['race_result'] == '0') 		? '<input class="button1" type="submit" name="result" value="' . $l_add . '" />' : '<input class="button1" type="submit" name="editresult" value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button1" type="submit" name="resetresult" value="' . $l_del . '" />';
 
-					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', array(
+					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', [
 						'RACEIMG'			=> $race_img,
 						'QUALI_BUTTONS'		=> $quali_buttons,
 						'RESULT_BUTTONS'	=> $result_buttons,
@@ -767,19 +767,19 @@ class main
 						'RACENAME'			=> $row['race_name'],
 						'RACETIME'			=> $this->user->format_date($row['race_time'], false, true),
 						'RACEDEAD'			=> $this->user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
-						)
+						]
 					);
 				}
 
 				$this->db->sql_freeresult($result);
 
-				$this->template->assign_vars(array(
+				$this->template->assign_vars([
 					'S_RESULTS'						=> true,
-					'S_FORM_ACTION'					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'addresults')),
-					'U_FORMEL'						=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
-					'U_FORMEL_RESULTS'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
+					'S_FORM_ACTION'					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
+					'U_FORMEL'						=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'U_FORMEL_RESULTS'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
 					'EXT_PATH_IMAGES'				=> $ext_path . 'images/',
-					)
+					]
 				);
 
 			break;
@@ -792,16 +792,16 @@ class main
 				// Set template vars
 				$page_title = $this->language->lang('FORMEL_TITLE');
 
-				$this->template->assign_block_vars('navlinks', array(
-					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
+				$this->template->assign_block_vars('navlinks', [
+					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
 					'FORUM_NAME'	=> $this->language->lang('FORMEL_RESULTS_TITLE'),
-					)
+					]
 				);
 
 				// Check URL hijacker . Access only for formel moderators or admins
 				if ($this->user->data['user_id'] != $formel_mod_id && $is_admin != 1)
 				{
-					$auth_msg = $this->language->lang('FORMEL_MOD_ACCESS_DENIED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
+					$auth_msg = $this->language->lang('FORMEL_MOD_ACCESS_DENIED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');
 					trigger_error($auth_msg);
 				}
 
@@ -826,8 +826,8 @@ class main
 				$racename		= $this->request->variable('racename'			,	'', true	);
 
 				// Init some vars
-				$quali_array	= array();
-				$result_array	= array();
+				$quali_array	= [];
+				$result_array	= [];
 
 				//We have 10 Teams with 2 cars each --> 20 drivers
 				$places				= ($quali||$addquali||$editquali) ? 20 : 10;
@@ -842,18 +842,18 @@ class main
 						trigger_error('FORM_INVALID');
 					}
 
-					$sql_ary = array(
+					$sql_ary = [
 						'race_quali'		=> 0,
-					);
+					];
 
 					$sql = 'UPDATE ' . $table_races . '
 						SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
 						WHERE race_id = ' . (int) $race_id;
 					$this->db->sql_query($sql);
 
-					$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
+					$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_DELETED', false, ['forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')']);
 
-					$tipp_msg = $this->language->lang('FORMEL_RESULTS_DELETED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+					$tipp_msg = $this->language->lang('FORMEL_RESULTS_DELETED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
 				}
 
@@ -873,9 +873,9 @@ class main
 					$this->db->sql_query($sql);
 
 					// Delete the race result for this race
-					$sql_ary = array(
+					$sql_ary = [
 						'race_result'	=> 0,
-					);
+					];
 
 					$sql = 'UPDATE ' . $table_races . '
 						SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
@@ -883,9 +883,9 @@ class main
 					$this->db->sql_query($sql);
 
 					// Delete all gathered tip points for this race
-					$sql_ary = array(
+					$sql_ary = [
 						'tip_points'	=> 0,
-					);
+					];
 
 					$sql = 'UPDATE ' . $table_tips . '
 						SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
@@ -893,15 +893,15 @@ class main
 					$this->db->sql_query($sql);
 
 					// Pull out a success message
-					$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_DELETED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
+					$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_DELETED', false, ['forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')']);
 
-					$tipp_msg = $this->language->lang('FORMEL_RESULTS_DELETED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+					$tipp_msg = $this->language->lang('FORMEL_RESULTS_DELETED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>');
 					trigger_error($tipp_msg);
 				}
 
 				if (($reset || $resetresult || $resetquali) && $race_id == 0)
 				{
-					$reset_msg = $this->language->lang('FORMEL_RESULTS_ERROR', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+					$reset_msg = $this->language->lang('FORMEL_RESULTS_ERROR', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>');
 					trigger_error($reset_msg);
 				}
 
@@ -923,9 +923,9 @@ class main
 
 							if ($this->checkarrayforvalue($value, $quali_array))
 							{
-								$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
+								$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_NOT_VALID', false, ['forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')']);
 
-								$quali_msg = $this->language->lang('FORMEL_RESULTS_DOUBLE', '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+								$quali_msg = $this->language->lang('FORMEL_RESULTS_DOUBLE', '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>');
 								trigger_error($quali_msg);
 							}
 
@@ -934,18 +934,18 @@ class main
 
 						$new_quali = implode(",", $quali_array);
 
-						$sql_ary = array(
+						$sql_ary = [
 							'race_quali'	=> $new_quali,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_races . '
 							SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
 							WHERE race_id = ' . (int) $race_id;
 						$this->db->sql_query($sql);
 
-						$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
+						$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_QUALI_ADDED', false, ['forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')']);
 
-						$quali_msg = $this->language->lang('FORMEL_RESULTS_ACCEPTED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+						$quali_msg = $this->language->lang('FORMEL_RESULTS_ACCEPTED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>');
 						trigger_error($quali_msg);
 					}
 				}
@@ -975,9 +975,9 @@ class main
 
 							if ($this->checkarrayforvalue($value, $result_array))
 							{
-								$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_NOT_VALID', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
+								$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_NOT_VALID', false, ['forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')']);
 
-								$result_msg = $this->language->lang('FORMEL_RESULTS_DOUBLE', '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+								$result_msg = $this->language->lang('FORMEL_RESULTS_DOUBLE', '<a href="javascript:history.back()" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>');
 								trigger_error($result_msg);
 							}
 
@@ -990,9 +990,9 @@ class main
 
 						$new_result = implode(",", $result_array);
 
-						$sql_ary = array(
+						$sql_ary = [
 							'race_result'	=> $new_result,
-						);
+						];
 
 						$sql = 'UPDATE ' . $table_races . '
 							SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
@@ -1011,7 +1011,7 @@ class main
 							$user_tipp_points = 0;
 							$current_user = $row['tip_user'];
 							$current_tipp_array = explode(',', $row['tip_result']);
-							$temp_results_array = array();
+							$temp_results_array = [];
 
 							for ($i = 0; $i < count($current_tipp_array) - 3; ++$i)
 							{
@@ -1052,9 +1052,9 @@ class main
 								$user_tipp_points += $this->config['drdeath_f1webtip_points_safety_car'];
 							}
 
-							$sql_ary = array(
+							$sql_ary = [
 								'tip_points'	=> $user_tipp_points,
-							);
+							];
 
 							$sql = 'UPDATE ' . $table_tips . '
 								SET ' . $this->db->sql_build_array('UPDATE', $sql_ary) . '
@@ -1079,7 +1079,7 @@ class main
 						$this->db->sql_freeresult($result);
 
 						// wm points:  25-18-15-12-10-8-6-4-2-1
-						$wm = array();
+						$wm = [];
 						$wm['0'] = ($race_abort == false) ? 25 : 12.5;	// first place
 						$wm['1'] = ($race_abort == false) ? 18 : 9;		// second place
 						$wm['2'] = ($race_abort == false) ? 15 : 7.5;	// third place
@@ -1115,21 +1115,21 @@ class main
 							{
 								$current_team 	= $teams[$current_driver];
 								$wm_points 		= $wm[$i];
-								$sql_ary = array(
+								$sql_ary = [
 									'wm_race'	=> (int) $race_id,
 									'wm_driver'	=> (int) $current_driver,
 									'wm_team'	=> (int) $current_team,
 									'wm_points'	=> $wm_points,
-								);
+								];
 
 								$this->db->sql_query('INSERT INTO ' . $table_wm . ' ' . $this->db->sql_build_array('INSERT', $sql_ary));
 							}
 						}
 						// END points calc
 
-						$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_ADDED', false, array('forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')'));
+						$this->phpbb_log->add('mod', $this->user->data['user_id'], $this->user->ip, 'LOG_FORMEL_RESULT_ADDED', false, ['forum_id' => 0, 'topic_id' => 0, $racename . ' (ID ' . $race_id . ')']);
 
-						$result_msg = $this->language->lang('FORMEL_RESULTS_ACCEPTED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')) . '" class="gen">', '</a>');
+						$result_msg = $this->language->lang('FORMEL_RESULTS_ACCEPTED', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']) . '" class="gen">', '</a>', '<a href="' . $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']) . '" class="gen">', '</a>');
 						trigger_error($result_msg);
 					}
 				}
@@ -1197,19 +1197,19 @@ class main
 
 						$drivercombo .= '</select>';
 
-						$this->template->assign_block_vars('qualirows', array(
+						$this->template->assign_block_vars('qualirows', [
 							'L_PLACE'		=> $position,
 							'DRIVERCOMBO'	=> $drivercombo,
-							)
+							]
 						);
 					}
 
-					$this->template->assign_block_vars('qualifications', array());
+					$this->template->assign_block_vars('qualifications', []);
 
-					$this->template->assign_vars(array(
+					$this->template->assign_vars([
 							'S_QUALI'			=> true,
 							'VAR_PLACES'		=> $var_places,
-							)
+							]
 						);
 				}
 
@@ -1275,10 +1275,10 @@ class main
 
 						$drivercombo .= '</select>';
 
-						$this->template->assign_block_vars('resultsrow', array(
+						$this->template->assign_block_vars('resultsrow', [
 							'L_PLACE' 		=> $position,
 							'DRIVERCOMBO' 	=> $drivercombo,
-							)
+							]
 						);
 					}
 
@@ -1343,25 +1343,25 @@ class main
 
 					$modus = ($editresult) ? 'addeditresult' : 'addresult';
 
-					$this->template->assign_block_vars('results', array(
+					$this->template->assign_block_vars('results', [
 						'PACECOMBO' 		=> $drivercombo_pace,
 						'MODE' 				=> $modus,
 						'TIREDCOMBO' 		=> $combo_tired,
 						'SAFETYCARCOMBO'	=> $combo_safetycar,
-						)
+						]
 					);
 				}
 
-				$this->template->assign_vars(array(
+				$this->template->assign_vars([
 					'S_ADDRESULTS'					=> true,
-					'S_FORM_ACTION' 				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'addresults')),
-					'U_FORMEL' 						=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
-					'U_FORMEL_RESULTS' 				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'results')),
+					'S_FORM_ACTION' 				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
+					'U_FORMEL' 						=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'U_FORMEL_RESULTS' 				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
 					'RACE_ID' 						=> $race_id,
 					'RACENAME' 						=> $racename,
 					'VAR_PLACES'					=> $var_places,
 					'EXT_PATH_IMAGES'				=> $ext_path . 'images/',
-					)
+					]
 				);
 
 			break;
@@ -2451,15 +2451,15 @@ class main
 				$this->template->assign_vars([
 					'S_INDEX'							=> true,
 					'S_COUNTDOWN'						=> ($this->config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
-					'S_FORM_ACTION'						=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'index')),
+					'S_FORM_ACTION'						=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					'S_CALL_MOD'						=> ($this->user->data['is_registered'] == 1) ? true : false,
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
 					'U_FORMEL_FORUM'					=> $discuss_button,
-					'U_FORMEL_RULES' 					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'rules')),
-					'U_FORMEL_STATISTICS'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats')),
-					'U_TOP_MORE_USERS'					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats', 'mode' => 'users')),
-					'U_TOP_MORE_DRIVERS'				=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats', 'mode' => 'drivers')),
-					'U_TOP_MORE_TEAMS'					=> $this->helper->route('drdeath_f1webtip_controller', array('name' => 'stats', 'mode' => 'teams')),
+					'U_FORMEL_RULES' 					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'rules']),
+					'U_FORMEL_STATISTICS'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
+					'U_TOP_MORE_USERS'					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'users']),
+					'U_TOP_MORE_DRIVERS'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'drivers']),
+					'U_TOP_MORE_TEAMS'					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'teams']),
 					'HEADER_IMG' 						=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner1_img'],
 					'HEADER_HEIGHT' 					=> $this->config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],

@@ -43,7 +43,7 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 	{
 		$data = [
 			// Set the current version
-			array['config.add', ['drdeath_f1webtip_version', '1.0.0']],
+			['config.add', ['drdeath_f1webtip_version', '1.0.0']],
 
 			// now populate some default config data
 			['config.add', ['drdeath_f1webtip_mod_id'				, '2']],

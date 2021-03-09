@@ -47,7 +47,16 @@ class season_update_2021 extends \phpbb\db\migration\migration
 		if ($this->db_tools->sql_table_exists($table_drivers))
 		{
 			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
-			$db->sql_query('DELETE FROM ' . $table_drivers);
+			switch ($db->get_sql_layer())
+			{
+				case 'sqlite3':
+					$db->sql_query('DELETE FROM ' . $table_drivers);
+				break;
+
+				default:
+					$db->sql_query('TRUNCATE TABLE ' . $table_drivers);
+				break;
+			}
 
 			$sql_ary = [];
 
@@ -97,7 +106,16 @@ class season_update_2021 extends \phpbb\db\migration\migration
 		if ($this->db_tools->sql_table_exists($table_teams))
 		{
 			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
-			$db->sql_query('DELETE FROM ' . $table_teams);
+			switch ($db->get_sql_layer())
+			{
+				case 'sqlite3':
+					$db->sql_query('DELETE FROM ' . $table_teams);
+				break;
+
+				default:
+					$db->sql_query('TRUNCATE TABLE ' . $table_teams);
+				break;
+			}
 
 			$sql_ary = [];
 
@@ -118,7 +136,16 @@ class season_update_2021 extends \phpbb\db\migration\migration
 		if ($this->db_tools->sql_table_exists($table_races))
 		{
 			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
-			$db->sql_query('DELETE FROM ' . $table_races);
+			switch ($db->get_sql_layer())
+			{
+				case 'sqlite3':
+					$db->sql_query('DELETE FROM ' . $table_races);
+				break;
+
+				default:
+					$db->sql_query('TRUNCATE TABLE ' . $table_races);
+				break;
+			}
 
 			$sql_ary = [];
 

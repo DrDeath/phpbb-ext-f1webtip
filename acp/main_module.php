@@ -114,12 +114,28 @@ class main_module
 					if (confirm_box(true))
 					{
 						// remove all user tips
-						$sql = 'DELETE FROM ' . $table_tips;
-						$db->sql_query($sql);
+						switch ($db->get_sql_layer())
+						{
+							case 'sqlite3':
+								$db->sql_query('DELETE FROM ' . $table_tips);
+							break;
+
+							default:
+								$db->sql_query('TRUNCATE TABLE ' . $table_tips);
+							break;
+						}
 
 						// remove all wm points
-						$sql = 'DELETE FROM ' . $table_wm;
-						$db->sql_query($sql);
+						switch ($db->get_sql_layer())
+						{
+							case 'sqlite3':
+								$db->sql_query('DELETE FROM ' . $table_wm);
+							break;
+
+							default:
+								$db->sql_query('TRUNCATE TABLE ' . $table_wm);
+							break;
+						}
 
 						// remove all race and qualifying results
 						$sql_ary = [

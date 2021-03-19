@@ -756,8 +756,8 @@ class main
 					$race_img 			= $row['race_img'];
 					$race_id 			= $row['race_id'];
 					$race_img 			= ($race_img == '') 				? '<img src="' . $ext_path . 'images/races/' . $this->config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="" />' : '<img src="' . $ext_path . 'images/races/' . $race_img . '" width="94" height="54" alt="" />';
-					$quali_buttons 		= ($row['race_quali'] == '0') 		? '<input class="button1" type="submit" name="quali"  value="' . $l_add . '" />' : '<input class="button1" type="submit" name="editquali"  value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button1" type="submit" name="resetquali"  value="' . $l_del . '" />';
-					$result_buttons 	= ($row['race_result'] == '0') 		? '<input class="button1" type="submit" name="result" value="' . $l_add . '" />' : '<input class="button1" type="submit" name="editresult" value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button1" type="submit" name="resetresult" value="' . $l_del . '" />';
+					$quali_buttons 		= ($row['race_quali'] == '0') 		? '<input class="button" type="submit" name="quali"  value="' . $l_add . '" />' : '<input class="button" type="submit" name="editquali"  value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali"  value="' . $l_del . '" />';
+					$result_buttons 	= ($row['race_result'] == '0') 		? '<input class="button" type="submit" name="result" value="' . $l_add . '" />' : '<input class="button" type="submit" name="editresult" value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="' . $l_del . '" />';
 
 					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', [
 						'RACEIMG'			=> $race_img,
@@ -2052,7 +2052,7 @@ class main
 				{
 					$tipp_button		= $this->language->lang('FORMEL_EDIT_TIPP');
 					$tipp_button_name	= 'edit_my_tipp';
-					$delete_button		= '<input class="button1" type="submit" name="del_tipp" value="' . $this->language->lang('FORMEL_DEL_TIPP') . '" />&nbsp;';
+					$delete_button		= '&nbsp;<input class="button" type="submit" name="del_tipp" value="' . $this->language->lang('FORMEL_DEL_TIPP') . '" />&nbsp;&nbsp;';
 					$tipp_array			= explode(",", $tipp_data['0']['tip_result']);
 					$user_tipp_points	= $tipp_data['0']['tip_points'];
 
@@ -2426,7 +2426,7 @@ class main
 				{
 					$formel_forum_url	= append_sid($this->root_path . "viewforum." . $this->php_ext . "?f=$formel_forum_id");
 					$formel_forum_name	= $this->language->lang('FORMEL_FORUM');
-					$discuss_button		= '<input class="button1" type="button" onclick="window.location.href=\'' . $formel_forum_url . '\'" value="' . $formel_forum_name . '" />&nbsp;';
+					$discuss_button		= '<input class="button" type="button" onclick="window.location.href=\'' . $formel_forum_url . '\'" value="' . $formel_forum_name . '" />&nbsp;';
 				}
 
 				// Moderator switch and options

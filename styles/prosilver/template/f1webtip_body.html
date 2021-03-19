@@ -22,18 +22,18 @@
 				</div>
 				{% endif %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;
 					{{ U_FORMEL_FORUM }}
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
 				</p>
 				{% if S_CALL_MOD %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
 				</p>
 				{% endif %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
-					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
+					<input class="button" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
+					<input class="button" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
 			</div>
 
@@ -524,14 +524,17 @@
 				<p class="contentspacef1 centercontentf1">
 					{{ lang('FORMEL_GAME_OVER') }}
 				</p>
-				{% endif %}
+				{% else %}
 				<p class="centercontentf1 contentspacef1">
-					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
 					{% for place_tipp in place_tipps %}
-					<input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />&nbsp;
+					<input class="button" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />
 					{{ place_tipp.DELETE_TIPP }}
 					{% endfor %}
-					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
+				</p>
+				{% endif %}
+				<p class="centercontentf1 contentspacef1">
+					<input class="button" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
+					<input class="button" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
 			</div>
 
@@ -674,7 +677,7 @@
 				{% endfor %}
 				{% if qualifications %}
 					<tr>
-						<td class="bg3 nowrapf1 centerf1" colspan="2">&nbsp;<input class="button1" type="submit" name="addquali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;</td>
+						<td class="bg3 nowrapf1 centerf1" colspan="2">&nbsp;<input class="button" type="submit" name="addquali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;</td>
 					</tr>
 				{% endif %}
 				{% if results %}
@@ -717,7 +720,7 @@
 						<td class="halff1">&nbsp;<input type="radio" name="race_double" value="1" />&nbsp;{{ lang('YES') }}&nbsp;&nbsp;<input type="radio" name="race_double" value="0" checked />&nbsp;{{ lang('NO') }}&nbsp;</td>
 					</tr>
 					<tr class="bg3">
-						<td class="centerf1" colspan="2"><input class="button1" type="submit" name="{{ result.MODE }}" value="{{ lang('FORMEL_RESULTS_ADD') }}" /></td>
+						<td class="centerf1" colspan="2"><input class="button" type="submit" name="{{ result.MODE }}" value="{{ lang('FORMEL_RESULTS_ADD') }}" /></td>
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -752,7 +755,7 @@
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
 					<p class="contentspacef1 centercontentf1">
-						<input class="button1" type="submit" name="rules" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
+						<input class="button" type="submit" name="rules" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
 					</p>
 				</div>
 			</form>
@@ -824,10 +827,10 @@
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
 					<p class="contentspacef1 centercontentf1">
-						<input class="button1" type="button" onclick="window.location.href='{{ U_BACK_TO_TIPP }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />&nbsp;&nbsp;
-						<input class="button1" type="submit" name="show_users" value="{{ lang('FORMEL_USER_STATS') }}" />&nbsp;&nbsp;
-						<input class="button1" type="submit" name="show_drivers" value="{{ lang('FORMEL_DRIVER_STATS') }}" />&nbsp;&nbsp;
-						<input class="button1" type="submit" name="show_teams" value="{{ lang('FORMEL_TEAM_STATS') }}" />
+						<input class="button" type="button" onclick="window.location.href='{{ U_BACK_TO_TIPP }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />&nbsp;&nbsp;
+						<input class="button" type="submit" name="show_users" value="{{ lang('FORMEL_USER_STATS') }}" />&nbsp;&nbsp;
+						<input class="button" type="submit" name="show_drivers" value="{{ lang('FORMEL_DRIVER_STATS') }}" />&nbsp;&nbsp;
+						<input class="button" type="submit" name="show_teams" value="{{ lang('FORMEL_TEAM_STATS') }}" />
 					</p>
 				</div>
 			</form>
@@ -1067,7 +1070,7 @@ Please donate via paypal
 		</table>
 		<div style="text-align: center;">
 			<p class="contentspacef1 submit-buttons">
-				<input class="button1" id="submit" type="submit" onclick="javascript:window.close()" value="{{ lang('FORMEL_CLOSE_WINDOW') }}" />
+				<input class="button" id="submit" type="submit" onclick="javascript:window.close()" value="{{ lang('FORMEL_CLOSE_WINDOW') }}" />
 			</p>
 		</div>
 

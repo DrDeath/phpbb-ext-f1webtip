@@ -13,7 +13,7 @@ namespace drdeath\f1webtip\acp;
 /**
  * @ignore
  */
-use \DateTime;
+use DateTime;
 
 class main_module
 {

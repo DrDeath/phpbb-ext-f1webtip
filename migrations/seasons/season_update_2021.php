@@ -17,7 +17,7 @@ class season_update_2021 extends \phpbb\db\migration\migration
 		return isset($this->config['drdeath_f1webtip_season']) && version_compare($this->config['drdeath_f1webtip_season'], '2021', '>=');
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return ['\drdeath\f1webtip\migrations\v10x\release_1_0_0'];
 	}

@@ -17,7 +17,7 @@ class release_1_1_6 extends \phpbb\db\migration\migration
 		return isset($this->config['drdeath_f1webtip_version']) && version_compare($this->config['drdeath_f1webtip_version'], '1.1.6', '>=');
 	}
 
-	static public function depends_on()
+	public static function depends_on()
 	{
 		return ['\drdeath\f1webtip\migrations\v10x\release_1_0_0'];
 	}

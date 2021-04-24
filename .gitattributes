@@ -1,8 +1,5 @@
 .github/ export-ignore
-travis/ export-ignore
 .editorconfig export-ignore
 .gitattributes export-ignore
-.travis.yml export-ignore
 README.md export-ignore
-phpunit.xml.dist export-ignore
 create_zip_file.sh export-ignore

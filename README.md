@@ -8,7 +8,7 @@
 
 F1Webtip is an Extension for [phpBB](https://www.phpbb.com/)
 
-![](https://img.shields.io/badge/phpBB-3.2.8%20Compatible%20-blue.svg) ![](https://img.shields.io/badge/phpBB-3.3.x%20Compatible%20-blue.svg) 
+![](https://img.shields.io/badge/phpBB-3.3.x%20Compatible%20-blue.svg) 
 
 ![](https://img.shields.io/github/v/release/DrDeath/phpbb-ext-f1webtip?color=1)
 

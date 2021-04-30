@@ -14,6 +14,7 @@ namespace drdeath\f1webtip\cron\task;
  * @ignore
  */
 use Symfony\Component\DependencyInjection\Container;
+use phpbb\language\language;
 use phpbb\language\language_file_loader;
 
 class email_reminder extends \phpbb\cron\task\base
@@ -52,7 +53,7 @@ class email_reminder extends \phpbb\cron\task\base
 	* @param \phpbb\config\config					$config
 	* @param \phpbb\log\log_interface 				$log
 	* @param \phpbb\user							$user
-	* @param \phpbb\language\language				$language
+	* @param language								$language
 	*/
 	public function __construct
 	(
@@ -63,7 +64,7 @@ class email_reminder extends \phpbb\cron\task\base
 		\phpbb\config\config $config,
 		\phpbb\log\log_interface $log,
 		\phpbb\user $user,
-		\phpbb\language\language $language
+		language $language
 	)
 	{
 		$this->root_path				= $root_path;

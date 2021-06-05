@@ -45,3 +45,10 @@ table.hoverf1 tbody tr:hover {
 .pointsf1 {
 	color: #009900;
 }
+
+
+/* Dropbox styles colours
+----------------------------------------*/
+select:focus {
+	border-color: #FF6633;
+}

@@ -568,11 +568,11 @@ class main
 					while ($row = $this->db->sql_fetchrow($result))
 					{
 						$recalc_drivers[$row['wm_driver']]['total_points'] 	= (isset($drivers[$row['wm_driver']]['driver_penalty'])) 	? $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'] 	: $row['total_points'];
-						$recalc_drivers[$row['wm_driver']]['gold_medals']	= (isset($drivers[$row['wm_driver']]['gold_medals'])) 		? $drivers[$row['wm_driver']]['gold_medals'] 							: 0;
-						$recalc_drivers[$row['wm_driver']]['driver_name']	= (isset($drivers[$row['wm_driver']]['driver_name'])) 		? $drivers[$row['wm_driver']]['driver_name'] 							: '';
-						$recalc_drivers[$row['wm_driver']]['driver_img']	= (isset($drivers[$row['wm_driver']]['driver_img']))		? $drivers[$row['wm_driver']]['driver_img']								: '';
-						$recalc_drivers[$row['wm_driver']]['driver_car']	= (isset($drivers[$row['wm_driver']]['driver_car']))		? $drivers[$row['wm_driver']]['driver_car']								: '';
-						$recalc_drivers[$row['wm_driver']]['team_img']		= (isset($teams[$row['wm_team']]['team_img']))				? $teams[$row['wm_team']]['team_img']									: '';
+						$recalc_drivers[$row['wm_driver']]['gold_medals']	= $drivers[$row['wm_driver']]['gold_medals'] 				?? 0;
+						$recalc_drivers[$row['wm_driver']]['driver_name']	= $drivers[$row['wm_driver']]['driver_name'] 				?? '';
+						$recalc_drivers[$row['wm_driver']]['driver_img']	= $drivers[$row['wm_driver']]['driver_img']					?? '';
+						$recalc_drivers[$row['wm_driver']]['driver_car']	= $drivers[$row['wm_driver']]['driver_car']					?? '';
+						$recalc_drivers[$row['wm_driver']]['team_img']		= $teams[$row['wm_team']]['team_img']						?? '';
 					}
 
 					// re-sort the drivers. Big points first ;-)
@@ -1442,8 +1442,8 @@ class main
 					for ($i = 0; $i < count($tipp_array) - 3; ++$i)
 					{
 						$position 		= ($i == 0) ? $this->language->lang('FORMEL_RACE_WINNER') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
-						$driver_placed 	= (isset($driver_name[$tipp_array[$i]])) ? $driver_name[$tipp_array[$i]] : '';
-						$driverid 		= (isset($tipp_array[$i])) ? $tipp_array[$i] : '';
+						$driver_placed 	= $driver_name[$tipp_array[$i]] ?? '';
+						$driverid 		= $tipp_array[$i] ?? '';
 
 						//Recalc Tipp Points for Place 1 - 10
 						$single_points = 0;
@@ -1480,9 +1480,9 @@ class main
 						);
 					}
 
-					$fastest_driver_name 	= (isset($driver_name[$tipp_array['10']])) ? $driver_name[$tipp_array['10']] : '';
-					$tired 					= (isset($tipp_array['11'])) ? $tipp_array['11'] : '';
-					$safetycar				= (isset($tipp_array['12'])) ? $tipp_array['12'] : '';
+					$fastest_driver_name 	= $driver_name[$tipp_array['10']] ?? '';
+					$tired 					= $tipp_array['11'] ?? '';
+					$safetycar				= $tipp_array['12'] ?? '';
 
 					//Recalc tip points for fastest driver, tired count and safety cars
 					$single_fastest	= $single_tired = $single_safety_car = '';
@@ -1518,9 +1518,9 @@ class main
 						'FASTEST_DRIVER' 	=> (isset($fastest_driver_name)) 	? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $fastest_driver_name : '',
 						'TIRED' 			=> (isset($tired)) 					? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $tired : '',
 						'SAFETYCAR' 		=> (isset($safetycar)) 				? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $safetycar : '',
-						'SINGLE_FASTEST' 	=> (isset($single_fastest)) 		? $single_fastest : '',
-						'SINGLE_TIRED' 		=> (isset($single_tired)) 			? $single_tired : '',
-						'SINGLE_SAFETY_CAR' => (isset($single_safety_car)) 		? $single_safety_car : '',
+						'SINGLE_FASTEST' 	=> $single_fastest 					?? '',
+						'SINGLE_TIRED' 		=> $single_tired 					?? '',
+						'SINGLE_SAFETY_CAR' => $single_safety_car 				?? '',
 						]
 					);
 				}
@@ -1768,9 +1768,9 @@ class main
 
 				while ($row = $this->db->sql_fetchrow($result))
 				{
-					$recalc_drivers[$row['wm_driver']]['total_points'] 	= (isset($drivers[$row['wm_driver']]['driver_penalty'])) ? $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'] : $row['total_points'];
-					$recalc_drivers[$row['wm_driver']]['gold_medals']	= (isset($drivers[$row['wm_driver']]['gold_medals'])) ? $drivers[$row['wm_driver']]['gold_medals'] : 0;
-					$recalc_drivers[$row['wm_driver']]['driver_name']	= (isset($drivers[$row['wm_driver']]['driver_name'])) ? $drivers[$row['wm_driver']]['driver_name'] : '';
+					$recalc_drivers[$row['wm_driver']]['total_points'] 	= (isset($drivers[$row['wm_driver']]['driver_penalty'])) 	? $row['total_points'] - $drivers[$row['wm_driver']]['driver_penalty'] : $row['total_points'];
+					$recalc_drivers[$row['wm_driver']]['gold_medals']	= $drivers[$row['wm_driver']]['gold_medals'] 				?? 0;
+					$recalc_drivers[$row['wm_driver']]['driver_name']	= $drivers[$row['wm_driver']]['driver_name'] 				?? '';
 				}
 
 				// re-sort the drivers. Big points first ;-)
@@ -2066,11 +2066,11 @@ class main
 						if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 						{
 							//Actual race is over
-							$driverid 			= (isset($drivers[$tipp_array[$i]]['driver_id']))			?	$drivers[$tipp_array[$i]]['driver_id']			:	'';
-							$drivercombo 		= (isset($drivers[$tipp_array[$i]]['driver_name']))			?	$drivers[$tipp_array[$i]]['driver_name']		:	'';
-							$driverteamname 	= (isset($drivers[$tipp_array[$i]]['driver_team_name']))	?	$drivers[$tipp_array[$i]]['driver_team_name']	:	'';
-							$gfxdrivercar 		= (isset($drivers[$tipp_array[$i]]['driver_car']))			?	$drivers[$tipp_array[$i]]['driver_car']			:	'';
-							$gfxdrivercombo 	= (isset($drivers[$tipp_array[$i]]['driver_img']))			?	$drivers[$tipp_array[$i]]['driver_img']			:	'';
+							$driverid 			= $drivers[$tipp_array[$i]]['driver_id']		??	'';
+							$drivercombo 		= $drivers[$tipp_array[$i]]['driver_name']		??	'';
+							$driverteamname 	= $drivers[$tipp_array[$i]]['driver_team_name']	??	'';
+							$gfxdrivercar 		= $drivers[$tipp_array[$i]]['driver_car']		??	'';
+							$gfxdrivercombo 	= $drivers[$tipp_array[$i]]['driver_img']		??	'';
 
 							//Recalc tip points for every single placed tip
 							if (isset($results[$i]))
@@ -2162,9 +2162,9 @@ class main
 						$single_tired		= '';
 						$single_safety_car 	= '';
 
-						$drivercombo	= (isset($drivers[$tipp_array['10']]['driver_name'])) ? $drivers[$tipp_array['10']]['driver_name'] : '';
-						$tiredcombo		= (isset($tipp_array['11'])) ? $tipp_array['11'] : '';
-						$safetycarcombo	= (isset($tipp_array['12'])) ? $tipp_array['12'] : '';
+						$drivercombo	= $drivers[$tipp_array['10']]['driver_name'] 	?? '';
+						$tiredcombo		= $tipp_array['11'] 							?? '';
+						$safetycarcombo	= $tipp_array['12'] 							?? '';
 
 						//Recalc tip points for fastest driver
 						if (isset($results['10']) && $results['10'] != 0)
@@ -2344,10 +2344,10 @@ class main
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'qualirows_gfx' : 'qualirows', [
 							'L_PLACE'			=> $position,
-							'DRIVERIMG'			=> (isset($drivers[$current_driver_id]['driver_img'])) 			? $drivers[$current_driver_id]['driver_img'] 		: '',
-							'DRIVERCAR'			=> (isset($drivers[$current_driver_id]['driver_car'])) 			? $drivers[$current_driver_id]['driver_car'] 		: '',
-							'DRIVERNAME'		=> (isset($drivers[$current_driver_id]['driver_name'])) 		? $drivers[$current_driver_id]['driver_name'] 		: '',
-							'DRIVERTEAMNAME'	=> (isset($drivers[$current_driver_id]['driver_team_name'])) 	? $drivers[$current_driver_id]['driver_team_name'] 	: '',
+							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
+							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
+							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
+							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name']		?? '',
 							]
 						);
 					}
@@ -2372,18 +2372,18 @@ class main
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'resultsrow_gfx' : 'resultsrow', [
 							'L_PLACE'			=> $position,
-							'DRIVERIMG'			=> (isset($drivers[$current_driver_id]['driver_img'])) 			? $drivers[$current_driver_id]['driver_img'] 		: '',
-							'DRIVERCAR'			=> (isset($drivers[$current_driver_id]['driver_car'])) 			? $drivers[$current_driver_id]['driver_car'] 		: '',
-							'DRIVERNAME'		=> (isset($drivers[$current_driver_id]['driver_name'])) 		? $drivers[$current_driver_id]['driver_name'] 		: '',
-							'DRIVERTEAMNAME'	=> (isset($drivers[$current_driver_id]['driver_team_name'])) 	? $drivers[$current_driver_id]['driver_team_name'] 	: '',
+							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
+							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
+							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
+							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name'] 	?? '',
 							]
 						);
 					}
 
 					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'extended_results_gfx' : 'extended_results', [
-						'PACE'				=> (isset($drivers[$results['10']]['driver_name']))	? $drivers[$results['10']]['driver_name'] 	: '',
-						'TIRED'				=> (isset($results['11'])) 							? $results['11'] 							: '',
-						'SAFETYCAR'			=> (isset($results['12'])) 							? $results['12'] 							: '',
+						'PACE'				=> $drivers[$results['10']]['driver_name'] 	?? '',
+						'TIRED'				=> $results['11'] 							?? '',
+						'SAFETYCAR'			=> $results['12'] 							?? '',
 						'YOUR_POINTS'		=> $user_tipp_points,
 						]
 					);
@@ -2464,9 +2464,9 @@ class main
 					'HEADER_HEIGHT' 					=> $this->config['drdeath_f1webtip_head_height'],
 					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],
 					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
-					'RACE_ID'							=> (isset($races[$chosen_race]['race_id']))   ? $races[$chosen_race]['race_id']   : 1,
-					'RACENAME'							=> (isset($races[$chosen_race]['race_name'])) ? $races[$chosen_race]['race_name'] : '',
-					'RACE_TIME'							=> (isset($races[$chosen_race]['race_time'])) ? $races[$chosen_race]['race_time'] : 1,
+					'RACE_ID'							=> $races[$chosen_race]['race_id']   ?? 1,
+					'RACENAME'							=> $races[$chosen_race]['race_name'] ?? '',
+					'RACE_TIME'							=> $races[$chosen_race]['race_time'] ?? 1,
 					'RACE_OFFSET'						=> $race_offset,
 					'VAR_PLACES'						=> $var_places,
 					'VAR_COUNTDOWN_STOP'				=> $var_countdown_stop,

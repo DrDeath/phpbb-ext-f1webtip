@@ -653,7 +653,7 @@ class main_module
 							'DRIVERIMG'			=> $driverimg,
 							'DRIVERNAME'		=> $row['driver_name'],
 							'DRIVERPOINTS'		=> $points,
-							'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
+							'DRIVERTEAM'		=> $teams[$row['driver_team']] ?? '',
 							]
 						);
 

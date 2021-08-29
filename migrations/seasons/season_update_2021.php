@@ -10,7 +10,7 @@
 
 namespace drdeath\f1webtip\migrations\seasons;
 
-class season_update_2021 extends \phpbb\db\migration\migration
+class season_update_2021 extends \phpbb\db\migration\container_aware_migration
 {
 	public function effectively_installed()
 	{
@@ -38,7 +38,7 @@ class season_update_2021 extends \phpbb\db\migration\migration
 
 	public function season_2021()
 	{
-		global $db;
+		$db = $this->container->get('dbal.conn');
 
 		$table_drivers 	= $this->table_prefix . 'f1webtip_drivers';
 		$table_teams	= $this->table_prefix . 'f1webtip_teams';

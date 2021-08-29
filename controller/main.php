@@ -558,7 +558,7 @@ class main
 					// Get all wm points and fill top10 drivers
 					$sql = 'SELECT sum(wm_points) AS total_points, wm_driver, wm_team
 						FROM ' . $table_wm . '
-						GROUP BY wm_driver
+						GROUP BY wm_driver, wm_team
 						ORDER BY total_points DESC';
 					$result = $this->db->sql_query($sql);
 

@@ -43,6 +43,8 @@ class season_update_2021 extends \phpbb\db\migration\migration
 		$table_drivers 	= $this->table_prefix . 'f1webtip_drivers';
 		$table_teams	= $this->table_prefix . 'f1webtip_teams';
 		$table_races 	= $this->table_prefix . 'f1webtip_races';
+		$table_tips 	= $this->table_prefix . 'f1webtip_tips';
+		$table_wm 		= $this->table_prefix . 'f1webtip_wm';
 
 		if ($this->db_tools->sql_table_exists($table_drivers))
 		{
@@ -175,6 +177,21 @@ class season_update_2021 extends \phpbb\db\migration\migration
 
 			$db->sql_multi_insert($table_races, $sql_ary);
 		}
+		
+		switch ($db->get_sql_layer())
+			{
+				// We have to update the sequences (auto increments) for postgres manually after migration
+				case 'postgres':
+					$db->sql_query("SELECT SETVAL('" . $table_drivers . "_seq', COALESCE( MAX( driver_id ), 1) ) FROM " . $table_drivers );
+					$db->sql_query("SELECT SETVAL('" . $table_teams   . "_seq', COALESCE( MAX( team_id )  , 1) ) FROM " . $table_teams   );
+					$db->sql_query("SELECT SETVAL('" . $table_races   . "_seq', COALESCE( MAX( race_id )  , 1) ) FROM " . $table_races   );
+					$db->sql_query("SELECT SETVAL('" . $table_tips    . "_seq', COALESCE( MAX( tip_id )   , 1) ) FROM " . $table_tips    );
+					$db->sql_query("SELECT SETVAL('" . $table_wm      . "_seq', COALESCE( MAX( wm_id )    , 1) ) FROM " . $table_wm      );
+				break;
+
+				default:
+				break;
+			}
 
 		return;
 	}

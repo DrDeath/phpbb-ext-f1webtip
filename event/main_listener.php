@@ -180,9 +180,9 @@ class main_listener implements EventSubscriberInterface
 				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 
 				// Get tip data for this user
-				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
+				$sql = 'SELECT sum(tip_id), tip_user, sum(tip_points) as total_points, count(tip_points) as tips_made
 					FROM ' . $table_tips . '
-					GROUP BY tip_user, tip_id
+					GROUP BY tip_user
 					ORDER BY total_points DESC';
 				$result = $this->db->sql_query($sql);
 
@@ -246,9 +246,9 @@ class main_listener implements EventSubscriberInterface
 				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 
 				// Get tipp data for this user
-				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
+				$sql = 'SELECT sum(tip_id), tip_user, sum(tip_points) as total_points, count(tip_points) as tips_made
 					FROM ' . $table_tips . '
-					GROUP BY tip_user, tip_id
+					GROUP BY tip_user
 					ORDER BY total_points DESC';
 				$result = $this->db->sql_query($sql);
 

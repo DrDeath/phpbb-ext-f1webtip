@@ -191,13 +191,13 @@ class main_module
 						trigger_error('FORM_INVALID');
 					}
 
-					$config->set('drdeath_f1webtip_headbanner1_img',	$request->variable('headbanner1_img',			$config['drdeath_f1webtip_headbanner1_img']));
-					$config->set('drdeath_f1webtip_headbanner2_img',	$request->variable('headbanner2_img',			$config['drdeath_f1webtip_headbanner2_img']));
-					$config->set('drdeath_f1webtip_headbanner3_img',	$request->variable('headbanner3_img',			$config['drdeath_f1webtip_headbanner3_img']));
-					$config->set('drdeath_f1webtip_no_car_img',			$request->variable('no_car_img',				$config['drdeath_f1webtip_no_car_img']));
-					$config->set('drdeath_f1webtip_no_driver_img',		$request->variable('no_driver_img',				$config['drdeath_f1webtip_no_driver_img']));
-					$config->set('drdeath_f1webtip_no_race_img',		$request->variable('no_race_img',				$config['drdeath_f1webtip_no_race_img']));
-					$config->set('drdeath_f1webtip_no_team_img',		$request->variable('no_team_img',				$config['drdeath_f1webtip_no_team_img']));
+					$config->set('drdeath_f1webtip_headbanner1_img',	$request->variable('headbanner1_img',			$config['drdeath_f1webtip_headbanner1_img'],	true));
+					$config->set('drdeath_f1webtip_headbanner2_img',	$request->variable('headbanner2_img',			$config['drdeath_f1webtip_headbanner2_img'],	true));
+					$config->set('drdeath_f1webtip_headbanner3_img',	$request->variable('headbanner3_img',			$config['drdeath_f1webtip_headbanner3_img'],	true));
+					$config->set('drdeath_f1webtip_no_car_img',			$request->variable('no_car_img',				$config['drdeath_f1webtip_no_car_img'],			true));
+					$config->set('drdeath_f1webtip_no_driver_img',		$request->variable('no_driver_img',				$config['drdeath_f1webtip_no_driver_img'],		true));
+					$config->set('drdeath_f1webtip_no_race_img',		$request->variable('no_race_img',				$config['drdeath_f1webtip_no_race_img'],		true));
+					$config->set('drdeath_f1webtip_no_team_img',		$request->variable('no_team_img',				$config['drdeath_f1webtip_no_team_img'],		true));
 
 					$config->set('drdeath_f1webtip_car_img_height',		(int) $request->variable('car_img_height',		$config['drdeath_f1webtip_car_img_height']));
 					$config->set('drdeath_f1webtip_car_img_width',		(int) $request->variable('car_img_width',		$config['drdeath_f1webtip_car_img_width']));
@@ -425,7 +425,7 @@ class main_module
 				$button_edit 		= $request->is_set_post('edit');
 
 				// Check data
-				$driverimg			= $request->variable('driverimg'		,	''	);
+				$driverimg			= $request->variable('driverimg'		,	''	,	true	);
 				$drivername			= $request->variable('drivername'		,	''	,	true	);
 				$driverteam			= $request->variable('driverteam'		,	0	);
 				$driver_id			= $request->variable('driver_id'		,	0	);

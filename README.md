@@ -20,8 +20,6 @@ With this extension you can add a Formula 1 tip game to your phpBB forum.
 Your forum users can tip race results and collect points.
 Current season standings ( users / drivers / teams ) are listet on a statistic page and on the user profile.
 
-## Notice
-This extension supports only database types mySQL and MariaDB 
 
 ## Installation
 

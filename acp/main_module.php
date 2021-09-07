@@ -23,26 +23,33 @@ class main_module
 	* Reads all files in the given directory and scans for images
 	*
 	* Parameter: directory to scan
-	* Returns an array including all found images
+	* @param string			$dir
+	*
+	* Returns a file array including all found images
 	*/
 	public function load_files($dir)
 	{
-		$result = [];
-		$image_ary = preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
+		$file_ary	= [];
+		$scan_ary 	= preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
 
-		// recreate array, shoud start with 0 ;-)
-		foreach ($image_ary as $value)
+		// recreate array, should start with 0 ;-)
+		foreach ($scan_ary as $file)
 		{
-			$result[] = $value;
+			$file_ary[] = $file;
 		}
 
-		return $result;
+		return $file_ary;
 	}
 
 	/*
 	* Creates dropdown boxes for image selection
 	*
 	* Parameters: directory to scan, default selection, selection name, optional: first option value
+	* @param string			$dir
+	* @param string			$select_default
+	* @param string			$name
+	* @param string			$default
+	*
 	* Returns a string as dropdown box with all found images in given directory
 	*/
 	public function create_dropdown($dir, $select_default, $name, $default = false)

@@ -11,11 +11,11 @@ env:
 on:
     push:
         branches:        # Run tests when commits are pushed to these branches in your repo
-            - master
+            - main
             - develop
     pull_request:        # Run tests when pull requests are made on these branches in your repo
         branches:
-            - master
+            - main
             - develop
 
 jobs:

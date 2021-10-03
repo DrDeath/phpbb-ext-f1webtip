@@ -50,6 +50,7 @@ $lang = array_merge($lang, [
 	'ACP_F1_DRIVERS_ERROR_DRIVERNAME'				=> 'Please give a drivername',
 	'ACP_F1_DRIVERS_ERROR_IMAGE'					=> 'Please give a driver pic',
 	'ACP_F1_DRIVERS_EXPLAIN'						=> 'Here you can add or edit the drivers',
+	'ACP_F1_DRIVERS_NOT_ADDED'						=> 'The driver %s was not added because he could not be assigned to a team.<br>Please create a team first to assign a driver afterwards.',
 	'ACP_F1_DRIVERS_PENALTY'						=> 'Penalty',
 	'ACP_F1_DRIVERS_TITEL_ADD_DRIVER_EXPLAIN'		=> 'Here you can add a new driver',
 	'ACP_F1_DRIVERS_TITEL_ADD_DRIVER'				=> 'Add F1 driver',

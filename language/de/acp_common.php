@@ -50,6 +50,7 @@ $lang = array_merge($lang, [
 	'ACP_F1_DRIVERS_ERROR_DRIVERNAME'				=> 'Bitte gib einen Fahrernamen an',
 	'ACP_F1_DRIVERS_ERROR_IMAGE'					=> 'Bitte gib ein Fahrerbild an',
 	'ACP_F1_DRIVERS_EXPLAIN'						=> 'Hier kannst Du neue F1 Fahrer erstellen oder vorhandene bearbeiten',
+	'ACP_F1_DRIVERS_NOT_ADDED'						=> 'Der Fahrer %s wurde nicht hinzugefügt, da er keinem Team zugeordnet werden konnte.<br>Bitte erstelle erst ein Team um anschliessend einen Fahrer zuzuweisen.',
 	'ACP_F1_DRIVERS_PENALTY'						=> 'Strafpunkte',
 	'ACP_F1_DRIVERS_TITEL_ADD_DRIVER_EXPLAIN'		=> 'Hier kannst Du einen neuen F1 Fahrer erstellen',
 	'ACP_F1_DRIVERS_TITEL_ADD_DRIVER'				=> 'F1 Fahrer eintragen',

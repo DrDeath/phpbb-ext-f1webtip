@@ -50,6 +50,7 @@ $lang = array_merge($lang, [
 	'ACP_F1_DRIVERS_ERROR_DRIVERNAME'				=> 'Plaats a.u.b. een naam van een coureur',
 	'ACP_F1_DRIVERS_ERROR_IMAGE'					=> 'Plaats a.u.b. een afbeelding van een coureur',
 	'ACP_F1_DRIVERS_EXPLAIN'						=> 'Hier kan je soureurs toevoegen of aanpassen',
+	'ACP_F1_DRIVERS_NOT_ADDED'						=> 'De coureur %s was niet toegevoegd omdat hij niet aan een team kon worden toegewezen.<br>Maak eerst een team aan en wijs dan een coureur toe.',
 	'ACP_F1_DRIVERS_PENALTY'						=> 'Penalty',
 	'ACP_F1_DRIVERS_TITEL_ADD_DRIVER_EXPLAIN'		=> 'Hier kan je een nieuwe coureur toevoegen',
 	'ACP_F1_DRIVERS_TITEL_ADD_DRIVER'				=> 'toevoegen F1 coureur',

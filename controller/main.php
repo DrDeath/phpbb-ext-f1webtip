@@ -155,6 +155,26 @@ class main
 
 		$this->db->sql_freeresult($result);
 
+		// If no races exists, we have to create an empty race array to prevent errors
+		if ($races == null)
+		{
+			$races = [
+				[
+					'race_id' => 0,
+					'race_name' => '',
+					'race_img' => '',
+					'race_quali' => 0,
+					'race_result' => 0,
+					'race_time' => 0,
+					'race_length' => '0',
+					'race_laps' => '0',
+					'race_distance' => '0',
+					'race_debut' => 0,
+					'race_mail' => 1,
+				]
+			];
+		}
+
 		return $races;
 	}
 
@@ -181,6 +201,19 @@ class main
 
 		$this->db->sql_freeresult($result);
 
+		// If no teams exists, we have to create an empty team array to prevent errors
+		if ($teams == null)
+		{
+			$teams = [
+				[
+					'team_id' => 0,
+					'team_name' => '',
+					'team_img' => '',
+					'team_car' => 0,
+					'team_penalty' => 0,
+				]
+			];
+		}
 		return $teams;
 	}
 

@@ -483,6 +483,12 @@ class main_module
 						trigger_error('FORM_INVALID');
 					}
 
+					if (!$driverteam)
+					{
+							$error = $language->lang('ACP_F1_DRIVERS_NOT_ADDED', $drivername);
+							trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
+					}
+
 					if ($driver_id == 0)
 					{
 						// Add the driver

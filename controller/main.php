@@ -83,18 +83,18 @@ class main
 	(
 		$root_path,
 		$php_ext,
-		Container							$phpbb_container,
-		\phpbb\extension\manager			$phpbb_extension_manager,
-		\phpbb\path_helper					$phpbb_path_helper,
-		\phpbb\db\driver\driver_interface	$db,
-		\phpbb\config\config				$config,
-		\phpbb\log\log_interface			$log,
-		\phpbb\controller\helper			$helper,
-		\phpbb\auth\auth					$auth,
-		\phpbb\request\request_interface	$request,
-		\phpbb\template\template			$template,
-		\phpbb\user							$user,
-		\phpbb\language\language			$language
+		Container $phpbb_container,
+		\phpbb\extension\manager $phpbb_extension_manager,
+		\phpbb\path_helper $phpbb_path_helper,
+		\phpbb\db\driver\driver_interface $db,
+		\phpbb\config\config $config,
+		\phpbb\log\log_interface $log,
+		\phpbb\controller\helper $helper,
+		\phpbb\auth\auth $auth,
+		\phpbb\request\request_interface $request,
+		\phpbb\template\template $template,
+		\phpbb\user $user,
+		\phpbb\language\language $language
 	)
 	{
 		$this->root_path					= $root_path;

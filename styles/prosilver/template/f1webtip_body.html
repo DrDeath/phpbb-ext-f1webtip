@@ -5,7 +5,7 @@
 {% if S_INDEX %}
 
 {% INCLUDEJS '@drdeath_f1webtip/f1webtip_functions.js' %}
-{{ VAR_PLACES }}
+<script>var places = {{ PLACES }}</script>
 
 <form id="countdown" action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 	<h2>{{ lang('FORMEL_TITLE') }}</h2>
@@ -182,7 +182,7 @@
 					</li>
 					{% if S_COUNTDOWN %}
 					{% INCLUDEJS '@drdeath_f1webtip/f1webtip_countdown.js' %}
-					{{ VAR_COUNTDOWN_STOP }}
+					<script>var countdown_stop = "{{ COUNTDOWN_STOP }}"</script>
 					<li class="row">
 						<dl class="text-strong">
 							<dt class="racef1" id="time_event">
@@ -645,7 +645,7 @@
 {% if S_ADDRESULTS %}
 
 {% INCLUDEJS '@drdeath_f1webtip/f1webtip_functions.js' %}
-{{ VAR_PLACES }}
+<script>var places = {{ PLACES }}</script>
 
 <h2>{{ lang('FORMEL_RESULTS_TITLE') }}</h2>
 {{ lang('FORMEL_RESULTS_TITLE_EXP') }}

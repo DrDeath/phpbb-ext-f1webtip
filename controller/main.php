@@ -864,7 +864,6 @@ class main
 
 				//We have 10 Teams with 2 cars each --> 20 drivers
 				$places			= ($quali||$addquali||$editquali) ? 20 : 10;
-				$var_places		= "<script>var places = $places</script>";
 
 				// Reset a quali
 				if ($resetquali && $race_id != 0)
@@ -1241,7 +1240,7 @@ class main
 
 					$this->template->assign_vars([
 							'S_QUALI'		=> true,
-							'VAR_PLACES'	=> $var_places,
+							'PLACES'		=> $places,
 							]
 						);
 				}
@@ -1392,7 +1391,7 @@ class main
 					'U_FORMEL_RESULTS' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
 					'RACE_ID' 				=> $race_id,
 					'RACENAME' 				=> $racename,
-					'VAR_PLACES'			=> $var_places,
+					'PLACES'				=> $places,
 					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
 					]
 				);
@@ -1608,8 +1607,7 @@ class main
 				$single_safety_car 	= '';
 				$chosen_race 		= '';
 				$places				= 10;
-				$var_places			= "<script>var places = $places</script>";
-				$var_countdown_stop = '';
+				$countdown_stop 	= '';
 
 				$current_time = time();
 
@@ -2004,7 +2002,6 @@ class main
 					}
 
 					$countdown_stop 	= $b_month . ' ' . $b_day . ', ' . $b_year . ' ' . $b_hour . ':' . $b_minute . ':' . $b_second;
-					$var_countdown_stop	= "<script>var countdown_stop = '" . $countdown_stop . "'</script>";
 				}
 
 				// Get race image and data
@@ -2501,8 +2498,8 @@ class main
 					'RACENAME'							=> $races[$chosen_race]['race_name'] ?? '',
 					'RACE_TIME'							=> $races[$chosen_race]['race_time'] ?? 1,
 					'RACE_OFFSET'						=> $race_offset,
-					'VAR_PLACES'						=> $var_places,
-					'VAR_COUNTDOWN_STOP'				=> $var_countdown_stop,
+					'PLACES'							=> $places,
+					'COUNTDOWN_STOP'					=> $countdown_stop,
 					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
 				]);
 

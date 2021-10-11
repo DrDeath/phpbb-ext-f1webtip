@@ -30,12 +30,16 @@ class main_module
 	public function load_files($dir)
 	{
 		$file_ary	= [];
-		$scan_ary 	= preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
-
-		// recreate array, should start with 0 ;-)
-		foreach ($scan_ary as $file)
+		
+		if (is_dir($dir))
 		{
-			$file_ary[] = $file;
+			$scan_ary 	= preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
+
+			// recreate array, should start with 0 ;-)
+			foreach ($scan_ary as $file)
+			{
+				$file_ary[] = $file;
+			}
 		}
 
 		return $file_ary;

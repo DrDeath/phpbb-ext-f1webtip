@@ -30,7 +30,7 @@ class main_module
 	public function load_files($dir)
 	{
 		$file_ary	= [];
-		
+
 		if (is_dir($dir))
 		{
 			$scan_ary 	= preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));

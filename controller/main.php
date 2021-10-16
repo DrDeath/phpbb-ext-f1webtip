@@ -385,7 +385,14 @@ class main
 		//Is the user member of the restricted group?
 		$is_in_group = group_memberships($formel_group_id, $this->user->data['user_id'], true);
 
-		// Check for : restricted group access - admin access - formular 1 moderator access
+		/**
+		* Deny access if
+		*
+		* restricted group	is enabled					and
+		* user				is not in this group		and
+		* user				is not formular 1 admin		and
+		* user				is not formular 1 moderator
+		*/
 		if ($formel_group_id != 0 && !$is_in_group && $is_admin != 1 && $this->user->data['user_id'] != $formel_mod_id)
 		{
 			$auth_msg = $this->language->lang('FORMEL_ACCESS_DENIED', '<a href="' . append_sid($this->root_path . "ucp." . $this->php_ext . "?i=groups") . '" class="gen">', '</a>', '<a href="' . append_sid($this->root_path . "index." . $this->php_ext) . '" class="gen">', '</a>');

@@ -306,12 +306,9 @@ class main
 
 		if ($value != 0)
 		{
-			for ($i = 0; $i < count($array); ++$i)
+			if (in_array($value, $array))
 			{
-				if ($value == $array[$i])
-				{
-					$ret = true;
-				}
+				$ret = true;
 			}
 		}
 

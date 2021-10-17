@@ -10,11 +10,11 @@
 
 namespace drdeath\f1webtip\migrations\seasons;
 
-class season_update_2021 extends \phpbb\db\migration\container_aware_migration
+class season_update_2022 extends \phpbb\db\migration\container_aware_migration
 {
 	public function effectively_installed()
 	{
-		return isset($this->config['drdeath_f1webtip_season']) && version_compare($this->config['drdeath_f1webtip_season'], '2021', '>=');
+		return isset($this->config['drdeath_f1webtip_season']) && version_compare($this->config['drdeath_f1webtip_season'], '2022', '>=');
 	}
 
 	public static function depends_on()
@@ -27,16 +27,16 @@ class season_update_2021 extends \phpbb\db\migration\container_aware_migration
 		return [
 			//Call the Season Data routine
 			['custom', [
-				[&$this, 'season_2021']
+				[&$this, 'season_2022']
 			]],
 			// Set the current version
 			['config.update', [
-				'drdeath_f1webtip_season', '2021'
+				'drdeath_f1webtip_season', '2022'
 			]],
 		];
 	}
 
-	public function season_2021()
+	public function season_2022()
 	{
 		$db = $this->container->get('dbal.conn');
 
@@ -59,7 +59,7 @@ class season_update_2021 extends \phpbb\db\migration\container_aware_migration
 			}
 
 			$sql_ary = [];
-
+			# TBD in 2022
 			# -- Team 1 Mercedes F1 Team
 			$sql_ary[] = ['driver_name' => 'Hamilton, Lewis',		'driver_img' => '',	'driver_team' => 1,];
 			$sql_ary[] = ['driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 1,];
@@ -118,7 +118,7 @@ class season_update_2021 extends \phpbb\db\migration\container_aware_migration
 			}
 
 			$sql_ary = [];
-
+			# TBD in 2022
 			$sql_ary[] = ['team_name' => 'Mercedes F1 Team',	'team_img' => '', 'team_car' => '',]; # 'team_id' =>  1
 			$sql_ary[] = ['team_name' => 'Scuderia Ferrari',	'team_img' => '', 'team_car' => '',]; # 'team_id' =>  2
 			$sql_ary[] = ['team_name' => 'Red Bull Racing',		'team_img' => '', 'team_car' => '',]; # 'team_id' =>  3
@@ -148,17 +148,19 @@ class season_update_2021 extends \phpbb\db\migration\container_aware_migration
 			}
 
 			$sql_ary = [];
-
+			# TBD in 2022 - temp. entries, first draft, date/times are not set yet, miami circuits data not available yet
 			$sql_ary[] = ['race_name' => 'Bahrain / Sachir',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1616943600, 'race_length' => '5,412', 'race_laps' => 57, 'race_distance' => '308,238', 'race_debut' => 2004,];
+			$sql_ary[] = ['race_name' => 'Saudi-Arabien / Dschidda',		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1638720000, 'race_length' => '6,175', 'race_laps' => 50, 'race_distance' => '308,450', 'race_debut' => 2021,];
+			$sql_ary[] = ['race_name' => 'Australien / Melbourne',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1637474400, 'race_length' => '5,303', 'race_laps' => 58, 'race_distance' => '307,574', 'race_debut' => 1996,];
 			$sql_ary[] = ['race_name' => 'Italien / Imola',					'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1618750800, 'race_length' => '4.959', 'race_laps' => 63, 'race_distance' => '309,267', 'race_debut' => 1980,];
-			$sql_ary[] = ['race_name' => 'Portugal / Portimao',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1619960400, 'race_length' => '4,635', 'race_laps' => 66, 'race_distance' => '308,877', 'race_debut' => 2020,];
+			$sql_ary[] = ['race_name' => 'Miami / Miami',					'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1619960400, 'race_length' => '5,410', 'race_laps' => 0,  'race_distance' => '0',       'race_debut' => 2022,];
 			$sql_ary[] = ['race_name' => 'Spanien / Barcelona',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1620565200, 'race_length' => '4,655', 'race_laps' => 66, 'race_distance' => '307,104', 'race_debut' => 1991,];
 			$sql_ary[] = ['race_name' => 'Monaco / Monte Carlo',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1621774800, 'race_length' => '3,337', 'race_laps' => 78, 'race_distance' => '260,286', 'race_debut' => 1950,];
 			$sql_ary[] = ['race_name' => 'Aserbaidschan / Baku',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1622980800, 'race_length' => '6,003', 'race_laps' => 51, 'race_distance' => '306,049', 'race_debut' => 2016,];
 			$sql_ary[] = ['race_name' => 'Kanada / Montreal',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1623607200, 'race_length' => '4,361', 'race_laps' => 70, 'race_distance' => '305,270', 'race_debut' => 1978,];
-			$sql_ary[] = ['race_name' => 'Frankreich / Le Castellet',		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1624798800, 'race_length' => '5,759', 'race_laps' => 53, 'race_distance' => '310,633', 'race_debut' => 1971,];
-			$sql_ary[] = ['race_name' => 'Österreich / Spielberg',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1625403600, 'race_length' => '4,318', 'race_laps' => 71, 'race_distance' => '306,452', 'race_debut' => 1970,];
 			$sql_ary[] = ['race_name' => 'Großbritannien / Silverstone',	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1626616800, 'race_length' => '5,891', 'race_laps' => 52, 'race_distance' => '306,198', 'race_debut' => 1950,];
+			$sql_ary[] = ['race_name' => 'Österreich / Spielberg',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1625403600, 'race_length' => '4,318', 'race_laps' => 71, 'race_distance' => '306,452', 'race_debut' => 1970,];
+			$sql_ary[] = ['race_name' => 'Frankreich / Le Castellet',		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1624798800, 'race_length' => '5,759', 'race_laps' => 53, 'race_distance' => '310,633', 'race_debut' => 1971,];
 			$sql_ary[] = ['race_name' => 'Ungarn / Budapest',				'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1627822800, 'race_length' => '4,381', 'race_laps' => 70, 'race_distance' => '306,630', 'race_debut' => 1986,];
 			$sql_ary[] = ['race_name' => 'Belgien / Spa-Francorchamps',		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1630242000, 'race_length' => '7,004', 'race_laps' => 44, 'race_distance' => '308,052', 'race_debut' => 1950,];
 			$sql_ary[] = ['race_name' => 'Niederlande / Zandvoort',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1630846800, 'race_length' => '4,252', 'race_laps' => 72, 'race_distance' => '306,144', 'race_debut' => 1952,];
@@ -169,8 +171,6 @@ class season_update_2021 extends \phpbb\db\migration\container_aware_migration
 			$sql_ary[] = ['race_name' => 'USA / Austin',					'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1635102000, 'race_length' => '5,513', 'race_laps' => 56, 'race_distance' => '308,405', 'race_debut' => 2012,];
 			$sql_ary[] = ['race_name' => 'Mexico / Mexico City',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1635706800, 'race_length' => '4,304', 'race_laps' => 71, 'race_distance' => '305,354', 'race_debut' => 1963,];
 			$sql_ary[] = ['race_name' => 'Brasilien / São Paulo',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1636909200, 'race_length' => '4,309', 'race_laps' => 71, 'race_distance' => '305,909', 'race_debut' => 1973,];
-			$sql_ary[] = ['race_name' => 'Australien / Melbourne',			'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1637474400, 'race_length' => '5,303', 'race_laps' => 58, 'race_distance' => '307,574', 'race_debut' => 1996,];
-			$sql_ary[] = ['race_name' => 'Saudi-Arabien / Dschidda',		'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1638720000, 'race_length' => '0',     'race_laps' => 0,  'race_distance' => '0',       'race_debut' => 2021,];
 			$sql_ary[] = ['race_name' => 'Arabische Emirate / Abu Dhabi',	'race_img' => '', 'race_quali' => '0', 'race_result' => '0', 'race_time' => 1639314000, 'race_length' => '5,554', 'race_laps' => 55, 'race_distance' => '305,355', 'race_debut' => 2009,];
 
 			$db->sql_multi_insert($table_races, $sql_ary);

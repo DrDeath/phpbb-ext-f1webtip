@@ -241,14 +241,14 @@ class main
 		{
 			if ($row['driver_team'] != 0)
 			{
-				$drivercar = ($teams[$row['driver_team']]['team_car'] != '') ? '<img src="' . $ext_path . 'images/cars/' . $teams[$row['driver_team']]['team_car'] . '" width="' . $this->config['drdeath_f1webtip_car_img_width'] . '" height="' . $this->config['drdeath_f1webtip_car_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/cars/' . $this->config['drdeath_f1webtip_no_car_img'] . '" width="' . $this->config['drdeath_f1webtip_car_img_width'] . '" height="' . $this->config['drdeath_f1webtip_car_img_height'] . '" alt="" />';
+				$drivercar = ($teams[$row['driver_team']]['team_car'] != '') ? $teams[$row['driver_team']]['team_car'] : $this->config['drdeath_f1webtip_no_car_img'];
 			}
 			else
 			{
-				$drivercar = '<img src="' . $ext_path . 'images/cars/' . $this->config['drdeath_f1webtip_no_car_img'] . '" width="' . $this->config['drdeath_f1webtip_car_img_width'] . '" height="' . $this->config['drdeath_f1webtip_car_img_height'] . '" alt="" />';
+				$drivercar = $this->config['drdeath_f1webtip_no_car_img'];
 			}
 
-			$row['driver_img'] 			= ($row['driver_img'] == '') ? '<img src="' . $ext_path . 'images/drivers/' . $this->config['drdeath_f1webtip_no_driver_img'] . '" width="' . $this->config['drdeath_f1webtip_driver_img_width'] . '" height="' . $this->config['drdeath_f1webtip_driver_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/drivers/' . $row['driver_img'] . '" width="' . $this->config['drdeath_f1webtip_driver_img_width'] . '" height="' . $this->config['drdeath_f1webtip_driver_img_height'] . '" alt="" />';
+			$row['driver_img'] 			= ($row['driver_img'] == '') ? $this->config['drdeath_f1webtip_no_driver_img'] : $row['driver_img'];
 			$row['driver_car'] 			= $drivercar;
 			$row['driver_team_name'] 	= $teams[$row['driver_team']]['team_name'];
 			$drivers[$row['driver_id']]	= $row;
@@ -537,15 +537,20 @@ class main
 						$wm_teamimg 	= $team['team_img'];
 						$wm_teamcar 	= $team['team_car'];
 						$wm_points		= $team['total_points'];
-						$wm_teamimg 	= ( $wm_teamimg == '' ) ? '<img src="' . $ext_path . 'images/teams/' . $this->config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/teams/' . $wm_teamimg . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />';
-						$wm_teamcar 	= ( $wm_teamcar == '' ) ? '<img src="' . $ext_path . 'images/cars/'  . $this->config['drdeath_f1webtip_no_car_img']  . '" alt="" width="' . $this->config['drdeath_f1webtip_car_img_width']  . '" height="' . $this->config['drdeath_f1webtip_car_img_height']  . '" />' : '<img src="' . $ext_path . 'images/cars/'  . $wm_teamcar . '" alt="" width="' . $this->config['drdeath_f1webtip_car_img_width']  . '" height="' . $this->config['drdeath_f1webtip_car_img_height']  . '" />';
+						$wm_teamimg 	= ( $wm_teamimg == '' ) ? $this->config['drdeath_f1webtip_no_team_img'] : $wm_teamimg;
+						$wm_teamcar 	= ( $wm_teamcar == '' ) ? $this->config['drdeath_f1webtip_no_car_img']  : $wm_teamcar;
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', [
-							'RANK' 			=> $rank,
-							'WM_TEAMNAME' 	=> $wm_teamname,
-							'WM_TEAMIMG' 	=> $wm_teamimg,
-							'WM_TEAMCAR' 	=> $wm_teamcar,
-							'WM_POINTS' 	=> $wm_points,
+							'RANK' 				=> $rank,
+							'WM_TEAMNAME' 		=> $wm_teamname,
+							'WM_TEAMIMG' 		=> $wm_teamimg,
+							'WM_TEAMIMG_WIDTH'	=> $this->config['drdeath_f1webtip_team_img_width'],
+							'WM_TEAMIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_team_img_height'],
+							'WM_TEAMCAR' 		=> $wm_teamcar,
+							'WM_TEAMCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
+							'WM_TEAMCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
+							'WM_POINTS' 		=> $wm_points,
+							'EXT_PATH'			=> $ext_path,
 							]
 						);
 					}
@@ -626,15 +631,22 @@ class main
 						$wm_driverimg 	= $driver['driver_img'];
 						$wm_drivercar 	= $driver['driver_car'];
 						$wm_driverteam 	= $driver['team_img'];
-						$wm_driverteam 	= ( $wm_driverteam == '' ) ? '<img src="' . $ext_path . 'images/teams/' . $this->config['drdeath_f1webtip_no_team_img'] . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />' : '<img src="' . $ext_path . 'images/teams/' . $wm_driverteam . '" alt="" width="' . $this->config['drdeath_f1webtip_team_img_width'] . '" height="' . $this->config['drdeath_f1webtip_team_img_height'] . '" />';
+						$wm_driverteam 	= ( $wm_driverteam == '' ) ? $this->config['drdeath_f1webtip_no_team_img'] : $wm_driverteam;
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', [
-							'RANK' 				=> $rank,
-							'WM_DRIVERNAME' 	=> $wm_drivername,
-							'WM_DRIVERIMG' 		=> $wm_driverimg,
-							'WM_DRIVERCAR' 		=> $wm_drivercar,
-							'WM_DRIVERTEAM' 	=> $wm_driverteam,
-							'WM_POINTS' 		=> $driver['total_points'],
+							'RANK' 					=> $rank,
+							'WM_DRIVERNAME' 		=> $wm_drivername,
+							'WM_DRIVERIMG' 			=> $wm_driverimg,
+							'WM_DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
+							'WM_DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],	
+							'WM_DRIVERCAR' 			=> $wm_drivercar,
+							'WM_DRIVERCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
+							'WM_DRIVERCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
+							'WM_DRIVERTEAM' 		=> $wm_driverteam,
+							'WM_DRIVERTEAM_WIDTH'	=> $this->config['drdeath_f1webtip_team_img_width'],
+							'WM_DRIVERTEAM_HEIGHT'	=> $this->config['drdeath_f1webtip_team_img_height'],
+							'WM_POINTS' 			=> $driver['total_points'],
+							'EXT_PATH'				=> $ext_path,
 							]
 						);
 					}
@@ -692,7 +704,7 @@ class main
 								// No User Avatar? Display the "no_avatar.gif" from the prosilver styles
 								if ($tip_user_avatar == '')
 								{
-									$tip_user_avatar = '<img src="' . $corrected_path . 'styles/prosilver/theme/images/no_avatar.gif" alt="" />';
+									$tip_user_avatar = false;
 								}
 
 								$show_avatar_switch = true;
@@ -792,7 +804,7 @@ class main
 				{
 					$race_img 				= $row['race_img'];
 					$race_id 				= $row['race_id'];
-					$race_img 				= ($race_img == '') 				? '<img src="' . $ext_path . 'images/races/' . $this->config['drdeath_f1webtip_no_race_img'] . '" width="94" height="54" alt="" />' : '<img src="' . $ext_path . 'images/races/' . $race_img . '" width="94" height="54" alt="" />';
+					$race_img 				= ($race_img == '') 				? $this->config['drdeath_f1webtip_no_race_img'] : $race_img;
 					$quali_buttons 			= ($row['race_quali'] == '0') 		? '<input class="button" type="submit" name="quali"  value="' . $l_add . '" />' : '<input class="button" type="submit" name="editquali"  value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali"  value="' . $l_del . '" />';
 					$result_buttons 		= ($row['race_result'] == '0') 		? '<input class="button" type="submit" name="result" value="' . $l_add . '" />' : '<input class="button" type="submit" name="editresult" value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="' . $l_del . '" />';
 
@@ -804,6 +816,7 @@ class main
 						'RACENAME'			=> $row['race_name'],
 						'RACETIME'			=> $this->user->format_date($row['race_time'], false, true),
 						'RACEDEAD'			=> $this->user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
+						'EXT_PATH'			=> $ext_path,
 						]
 					);
 				}
@@ -2010,17 +2023,20 @@ class main
 
 				// Get race image and data
 				$race_img = $races[$chosen_race]['race_img'];
-				$race_img = ($race_img == '') ? '<img src="' . $ext_path . 'images/races/' . $this->config['drdeath_f1webtip_no_race_img'] . '" width="' . $this->config['drdeath_f1webtip_race_img_width'] . '" height="' . $this->config['drdeath_f1webtip_race_img_height'] . '" alt="" />' : '<img src="' . $ext_path . 'images/races/' . $race_img . '" width="' . $this->config['drdeath_f1webtip_race_img_width'] . '" height="' . $this->config['drdeath_f1webtip_race_img_height'] . '" alt="" />';
+				$race_img = ($race_img == '') ? $this->config['drdeath_f1webtip_no_race_img']: $race_img ;
 
 				$this->template->assign_block_vars('racerows', [
-					'RACEIMG'		=> $race_img,
-					'RACENAME'		=> $races[$chosen_race]['race_name'],
-					'RACELENGTH'	=> $races[$chosen_race]['race_length'] . ' km',
-					'RACEDEBUT'		=> $races[$chosen_race]['race_debut'],
-					'RACEDISTANCE'	=> $races[$chosen_race]['race_distance'] . ' km',
-					'RACELAPS'		=> $races[$chosen_race]['race_laps'],
-					'RACETIME'		=> $this->user->format_date($races[$chosen_race]['race_time'], false, true),
-					'RACEDEAD'		=> $this->user->format_date($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
+					'RACEIMG'			=> $race_img,
+					'RACEIMG_WIDTH'		=> $this->config['drdeath_f1webtip_race_img_width'],
+					'RACEIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_race_img_height'],
+					'RACENAME'			=> $races[$chosen_race]['race_name'],
+					'RACELENGTH'		=> $races[$chosen_race]['race_length'] . ' km',
+					'RACEDEBUT'			=> $races[$chosen_race]['race_debut'],
+					'RACEDISTANCE'		=> $races[$chosen_race]['race_distance'] . ' km',
+					'RACELAPS'			=> $races[$chosen_race]['race_laps'],
+					'RACETIME'			=> $this->user->format_date($races[$chosen_race]['race_time'], false, true),
+					'RACEDEAD'			=> $this->user->format_date($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
+					'EXT_PATH'			=> $ext_path,
 					]
 				);
 

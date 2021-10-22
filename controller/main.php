@@ -638,7 +638,7 @@ class main
 							'WM_DRIVERNAME' 		=> $wm_drivername,
 							'WM_DRIVERIMG' 			=> $wm_driverimg,
 							'WM_DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
-							'WM_DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],	
+							'WM_DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
 							'WM_DRIVERCAR' 			=> $wm_drivercar,
 							'WM_DRIVERCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
 							'WM_DRIVERCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],

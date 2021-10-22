@@ -140,7 +140,7 @@
 
 				<div class="responsive-hide">
 					<p class="contentspacef1 centercontentf1">
-						{{ racerow.RACEIMG }}
+						<img src="{{ racerow.EXT_PATH }}images/races/{{ racerow.RACEIMG }}" width="{{ racerow.RACEIMG_WIDTH }}" height="{{ racerow.RACEIMG_HEIGHT }}" alt="" />
 					</p>
 				</div>
 
@@ -570,7 +570,7 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="nowrapf1">
-						&nbsp;{{ racerow_gfxr.RACEIMG }}&nbsp;
+						&nbsp;<img src="{{ racerow_gfxr.EXT_PATH }}images/races/{{ racerow_gfxr.RACEIMG }}" width="94" height="54" alt="" />&nbsp;
 					</td>
 					<td class="nowrapfullf1">
 						<strong>{{ racerow_gfxr.RACENAME }}</strong>
@@ -865,8 +865,11 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_tipper.RANK }}</td>
-					{% if top_tipper.S_AVATAR_SWITCH == true %}
-					<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>
+					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == false%}
+						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
+					{% endif %}
+					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == true%}
+						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>	
 					{% endif %}
 					<td class="nowrapf1 centerf1">{{ top_tipper.TIPPER_NAME }}</td>
 					<td class="centerf1">{{ top_tipper.TIPPER_POINTS }}</td>
@@ -893,9 +896,9 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_driver_gfx.RANK }}</td>
-					<td class="centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERTEAM }}&nbsp;</td>
-					<td class="centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERCAR }}&nbsp;</td>
-					<td class="centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERIMG }}&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/teams/{{ top_driver_gfx.WM_DRIVERTEAM }}"  alt="" width="{{ top_driver_gfx.WM_DRIVERTEAM_WIDTH }}" height="{{ top_driver_gfx.WM_DRIVERTEAM_HEIGHT }}">&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/cars/{{ top_driver_gfx.WM_DRIVERCAR }}"    alt="" width="{{ top_driver_gfx.WM_DRIVERCAR_WIDTH }}"  height="{{ top_driver_gfx.WM_DRIVERCAR_HEIGHT }}" >&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/drivers/{{ top_driver_gfx.WM_DRIVERIMG }}" alt="" width="{{ top_driver_gfx.WM_DRIVERIMG_WIDTH }}"  height="{{ top_driver_gfx.WM_DRIVERIMG_HEIGHT }}" >&nbsp;</td>
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERNAME }}</td>
 					<td class="centerf1">{{ top_driver_gfx.WM_POINTS }}</td>
 				</tr>
@@ -942,8 +945,8 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_team_gfx.RANK }}</td>
-					<td class="centerf1">{{ top_team_gfx.WM_TEAMIMG }}</td>
-					<td class="centerf1">{{ top_team_gfx.WM_TEAMCAR }}</td>
+					<td class="centerf1"><img src="{{ top_team_gfx.EXT_PATH }}images/teams/{{ top_team_gfx.WM_TEAMIMG }}" alt="" width="{{ top_team_gfx.WM_TEAMIMG_WIDTH }}" height="{{ top_team_gfx.WM_TEAMIMG_HEIGHT }}"</td>
+					<td class="centerf1"><img src="{{ top_team_gfx.EXT_PATH }}images/cars/{{ top_team_gfx.WM_TEAMCAR }}"  alt="" width="{{ top_team_gfx.WM_TEAMCAR_WIDTH }}" height="{{ top_team_gfx.WM_TEAMCAR_HEIGHT }}"</td>
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_team_gfx.WM_TEAMNAME }}</td>
 					<td class="centerf1">{{ top_team_gfx.WM_POINTS }}</td>
 				</tr>

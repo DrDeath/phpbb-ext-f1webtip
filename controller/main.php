@@ -2171,13 +2171,15 @@ class main
 							{
 								//Race is over - Show driverimage and so on
 								$this->template->assign_block_vars('gfx_users_tipp', [
-									'L_PLACE'			=>	'&nbsp;' . $position . '<br />',
-									'DRIVERCOMBO'		=>	$drivercombo . '<br />',
-									'DRIVERTEAMNAME'	=>	'&nbsp;' . $driverteamname,
-									'GFXDRIVERCOMBO'	=>	$gfxdrivercombo,
-									'GXFDRIVERCAR'		=>	$gfxdrivercar,
-									'SINGLE_POINTS'		=>	$single_points,
-									'EXT_PATH'			=>	$ext_path,
+									'L_PLACE'				=>	'&nbsp;' . $position . '<br />',
+									'DRIVERCOMBO'			=>	$drivercombo . '<br />',
+									'DRIVERTEAMNAME'		=>	'&nbsp;' . $driverteamname,
+									'GFXDRIVERCOMBO'		=>	$gfxdrivercombo,
+									'GFXDRIVERCOMBO_WIDTH'	=>	$this->config['drdeath_f1webtip_driver_img_width'],
+									'GFXDRIVERCOMBO_HEIGHT'	=>	$this->config['drdeath_f1webtip_driver_img_height'],
+									'GXFDRIVERCAR'			=>	$gfxdrivercar,
+									'SINGLE_POINTS'			=>	$single_points,
+									'EXT_PATH'				=>	$ext_path,
 									]
 								);
 							}
@@ -2397,6 +2399,8 @@ class main
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'qualirows_gfx' : 'qualirows', [
 							'L_PLACE'			=> $position,
 							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
+							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
+							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
 							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name']		?? '',
@@ -2426,6 +2430,8 @@ class main
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'resultsrow_gfx' : 'resultsrow', [
 							'L_PLACE'			=> $position,
 							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
+							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
+							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
 							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name'] 	?? '',

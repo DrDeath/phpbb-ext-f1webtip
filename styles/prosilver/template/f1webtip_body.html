@@ -287,7 +287,7 @@
 								{% else %}
 								<tr class="bg3">
 								{% endif %}
-									<td class="rightf1"><img src="{{ qualirow_gfx.EXT_PATH }}images/drivers/{{ qualirow_gfx.DRIVERIMG }}" alt=""></td>
+									<td class="rightf1"><img src="{{ qualirow_gfx.EXT_PATH }}images/drivers/{{ qualirow_gfx.DRIVERIMG }}" width="{{ qualirow_gfx.DRIVERIMG_WIDTH }}" height="{{ qualirow_gfx.DRIVERIMG_HEIGHT }}" alt=""></td>
 									<td class="nowrapf1">
 										<strong>&nbsp;{{ qualirow_gfx.L_PLACE }}&nbsp;</strong>
 										<br>
@@ -331,7 +331,7 @@
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
-									<td class="rightf1"><img src="{{ resultrow_gfx.EXT_PATH }}images/drivers/{{ resultrow_gfx.DRIVERIMG }}" alt=""></td>
+									<td class="rightf1"><img src="{{ resultrow_gfx.EXT_PATH }}images/drivers/{{ resultrow_gfx.DRIVERIMG }}" width="{{ resultrow_gfx.DRIVERIMG_WIDTH }}" height="{{ resultrow_gfx.DRIVERIMG_HEIGHT }}" alt=""></td>
 									<td class="nowrapf1">
 										<strong>&nbsp;{{ resultrow_gfx.L_PLACE }}</strong>
 										<br>
@@ -422,7 +422,7 @@
 								{% if gfx_user_tipp.L_PLACE == '' %}
 									<td class="rightf1">{{ gfx_user_tipp.GFXDRIVERCOMBO }}</td>
 								{% else %}
-									<td class="rightf1"><img src="{{ gfx_user_tipp.EXT_PATH }}images/drivers/{{ gfx_user_tipp.GFXDRIVERCOMBO }}" alt=""></td>
+									<td class="rightf1"><img src="{{ gfx_user_tipp.EXT_PATH }}images/drivers/{{ gfx_user_tipp.GFXDRIVERCOMBO }}" width="{{ gfx_user_tipp.GFXDRIVERCOMBO_WIDTH }}" height="{{ gfx_user_tipp.GFXDRIVERCOMBO_HEIGHT }}" alt=""></td>
 								{% endif %}
 									<td class="nowrapf1">
 										<strong>{{ gfx_user_tipp.L_PLACE }}</strong>

@@ -2177,6 +2177,7 @@ class main
 									'GFXDRIVERCOMBO'	=>	$gfxdrivercombo,
 									'GXFDRIVERCAR'		=>	$gfxdrivercar,
 									'SINGLE_POINTS'		=>	$single_points,
+									'EXT_PATH'			=>	$ext_path,
 									]
 								);
 							}
@@ -2190,6 +2191,7 @@ class main
 									'GFXDRIVERCOMBO'	=>	$position,
 									'GXFDRIVERCAR'		=>	$gfxdrivercar,
 									'SINGLE_POINTS'		=>	$single_points,
+									'EXT_PATH'			=>	$ext_path,
 									]
 								);
 							}
@@ -2398,6 +2400,7 @@ class main
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
 							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name']		?? '',
+							'EXT_PATH'			=> $ext_path,
 							]
 						);
 					}
@@ -2426,6 +2429,7 @@ class main
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
 							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name'] 	?? '',
+							'EXT_PATH'			=> $ext_path,
 							]
 						);
 					}

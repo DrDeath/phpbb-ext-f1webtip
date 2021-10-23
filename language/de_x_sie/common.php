@@ -51,6 +51,7 @@ $lang = array_merge($lang, [
 	'FORMEL_DEFINE'					=> 'Nicht gesetzt',
 	'FORMEL_DEL_TIPP'				=> 'Tipp löschen',
 	'FORMEL_DELETE'					=> 'Löschen',
+	'FORMEL_DISTANCE_UNIT'			=> 'km',
 	'FORMEL_DONATE'					=> 'Spenden Sie für die Formel 1 Erweiterung: Diese Erweiterung ist, wie alle meine Erweiterungen, völlig kostenlos. Wenn Sie davon profitiert haben, könnten Sie auch eine Spende über den PayPal-Spendenbutton (Donate) tätigen. Ich würde es begrüßen. Ich verspreche, dass es weder Spam noch Anfragen für weitere Spenden geben wird, obwohl sie immer willkommen wären.',
 	'FORMEL_DRIVER_STATS'			=> 'Fahrer',
 	'FORMEL_DUBLICATE_VALUES'		=> '<span style="color:red; font-weight:bold; font-size: 1.5em">Der Tipp wurde nicht angenommen: Ein Fahrer wurde mehrfach platziert</span><br><br>Klicken Sie %shier%s, um zu dem Formel 1 Tipp zurückzukehren<br><br>Klicken Sie %shier%s, um zum Forum zurückzukehren',

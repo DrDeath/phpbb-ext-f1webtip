@@ -2474,7 +2474,6 @@ class main
 					}
 				}
 
-
 				// Moderator switch and options
 				$u_call_mod = append_sid($this->root_path . "ucp." . $this->php_ext . "?i=pm&amp;mode=compose&amp;u=$formel_mod_id");
 				$l_call_mod = $this->language->lang('FORMEL_CALL_MOD');

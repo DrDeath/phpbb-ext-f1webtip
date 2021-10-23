@@ -23,7 +23,9 @@
 				{% endif %}
 				<p class="contentspacef1 centercontentf1">
 					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;
-					{{ U_FORMEL_FORUM }}
+					{% if S_DISCUSS_BUTTON %}
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_FORUM }}'" value="{{ lang('FORMEL_FORUM') }}" />&nbsp;
+					{% endif %}
 					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
 				</p>
 				{% if S_CALL_MOD %}
@@ -532,7 +534,9 @@
 				<p class="centercontentf1 contentspacef1">
 					{% for place_tipp in place_tipps %}
 					<input class="button" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />
-					{{ place_tipp.DELETE_TIPP }}
+					{% if place_tipp.DELETE_TIPP %}
+					&nbsp;<input class="button" type="submit" name="del_tipp" value="{{ lang('FORMEL_DEL_TIPP') }}" />&nbsp;&nbsp;
+					{% endif %}
 					{% endfor %}
 				</p>
 				{% endif %}
@@ -586,7 +590,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow_gfxr.QUALI_BUTTONS }}&nbsp;
+								{% if racerow_gfxr.QUALI_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="quali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow_gfxr.QUALI_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editquali" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow_gfxr.RACEID }}" />
 								<input type="hidden" name="racename" value="{{ racerow_gfxr.RACENAME }}" />
 								{{ S_FORM_TOKEN }}
@@ -596,7 +604,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow_gfxr.RESULT_BUTTONS }}&nbsp;
+								{% if racerow_gfxr.RESULT_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="result" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow_gfxr.RESULT_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editresult" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow_gfxr.RACEID }}" />
 								<input type="hidden" name="racename" value="{{ racerow_gfxr.RACENAME }}" />
 								{{ S_FORM_TOKEN }}
@@ -869,10 +881,10 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_tipper.RANK }}</td>
-					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == false%}
+					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == false %}
 						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
 					{% endif %}
-					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == true%}
+					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == true %}
 						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>	
 					{% endif %}
 					<td class="nowrapf1 centerf1">{{ top_tipper.TIPPER_NAME }}</td>

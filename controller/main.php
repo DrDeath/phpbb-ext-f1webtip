@@ -789,11 +789,6 @@ class main
 					trigger_error($auth_msg);
 				}
 
-				// Init some language vars
-				$l_edit 	= $this->language->lang('FORMEL_EDIT');
-				$l_del 		= $this->language->lang('FORMEL_DELETE');
-				$l_add 		= $this->language->lang('FORMEL_RESULTS_ADD');
-
 				// Fetch all races
 				$sql = 'SELECT *
 					FROM ' . $table_races . '
@@ -805,8 +800,8 @@ class main
 					$race_img 				= $row['race_img'];
 					$race_id 				= $row['race_id'];
 					$race_img 				= ($race_img == '') 				? $this->config['drdeath_f1webtip_no_race_img'] : $race_img;
-					$quali_buttons 			= ($row['race_quali'] == '0') 		? '<input class="button" type="submit" name="quali"  value="' . $l_add . '" />' : '<input class="button" type="submit" name="editquali"  value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali"  value="' . $l_del . '" />';
-					$result_buttons 		= ($row['race_result'] == '0') 		? '<input class="button" type="submit" name="result" value="' . $l_add . '" />' : '<input class="button" type="submit" name="editresult" value="' . $l_edit . '" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="' . $l_del . '" />';
+					$quali_buttons 			= ($row['race_quali']  == '0') 		? 'add' : 'edit';
+					$result_buttons 		= ($row['race_result'] == '0') 		? 'add' : 'edit';
 
 					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', [
 						'RACEIMG'			=> $race_img,
@@ -2090,7 +2085,7 @@ class main
 				$result = $this->db->sql_query($sql);
 
 				$tipp_active		= $this->db->sql_affectedrows($result);
-				$delete_button		= '';
+				$delete_button		= false;
 				$tipp_button		= $this->language->lang('FORMEL_ADD_TIPP');
 				$tipp_button_name	= 'place_my_tipp';
 				$tipp_data			= $this->db->sql_fetchrowset($result);
@@ -2102,7 +2097,7 @@ class main
 				{
 					$tipp_button		= $this->language->lang('FORMEL_EDIT_TIPP');
 					$tipp_button_name	= 'edit_my_tipp';
-					$delete_button		= '&nbsp;<input class="button" type="submit" name="del_tipp" value="' . $this->language->lang('FORMEL_DEL_TIPP') . '" />&nbsp;&nbsp;';
+					$delete_button		= true;
 					$tipp_array			= explode(",", $tipp_data['0']['tip_result']);
 					$user_tipp_points	= $tipp_data['0']['tip_points'];
 
@@ -2479,15 +2474,6 @@ class main
 					}
 				}
 
-				// Forum button
-				$discuss_button = '';
-
-				if ($formel_forum_id)
-				{
-					$formel_forum_url	= append_sid($this->root_path . "viewforum." . $this->php_ext . "?f=$formel_forum_id");
-					$formel_forum_name	= $this->language->lang('FORMEL_FORUM');
-					$discuss_button		= '<input class="button" type="button" onclick="window.location.href=\'' . $formel_forum_url . '\'" value="' . $formel_forum_name . '" />&nbsp;';
-				}
 
 				// Moderator switch and options
 				$u_call_mod = append_sid($this->root_path . "ucp." . $this->php_ext . "?i=pm&amp;mode=compose&amp;u=$formel_mod_id");
@@ -2513,8 +2499,9 @@ class main
 					'S_COUNTDOWN'						=> ($this->config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
 					'S_FORM_ACTION'						=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					'S_CALL_MOD'						=> ($this->user->data['is_registered'] == 1) ? true : false,
+					'S_DISCUSS_BUTTON'					=> ($formel_forum_id == 0) ? false : true,
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
-					'U_FORMEL_FORUM'					=> $discuss_button,
+					'U_FORMEL_FORUM'					=> append_sid($this->root_path . "viewforum." . $this->php_ext . "?f=$formel_forum_id"),
 					'U_FORMEL_RULES' 					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'rules']),
 					'U_FORMEL_STATISTICS'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
 					'U_TOP_MORE_USERS'					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'users']),

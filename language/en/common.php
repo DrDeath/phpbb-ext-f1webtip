@@ -51,6 +51,7 @@ $lang = array_merge($lang, [
 	'FORMEL_DEFINE'					=> 'Not placed',
 	'FORMEL_DEL_TIPP'				=> 'Delete tip',
 	'FORMEL_DELETE'					=> 'Delete',
+	'FORMEL_DISTANCE_UNIT'			=> 'km',
 	'FORMEL_DONATE'					=> 'Donate to my extensions: This extension, as with all of my extensions, is totally free of charge. If you have benefited from using it then please consider making a donation by clicking the PayPal donation button above - I would appreciate it. I promise that there will be no spam nor requests for further donations, although they would always be welcome.',
 	'FORMEL_DRIVER_STATS'			=> 'Driver',
 	'FORMEL_DUBLICATE_VALUES'		=> 'Error while sending your tip: You placed a driver more than once<br><br>Click %shere%s to go back to the Formula 1 WbTip overview<br><br>Click %shere%s to go back to forum',

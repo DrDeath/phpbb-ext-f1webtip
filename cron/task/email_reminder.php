@@ -201,7 +201,11 @@ class email_reminder extends \phpbb\cron\task\base
 			$subject 		= $this->language->lang('F1WEBTIP_PAGE') . " - " . $race_name;
 			$usernames 		= '';
 
-			include_once($this->root_path . 'includes/functions_messenger.' . $this->php_ext);
+			if (!class_exists('messenger'))
+			{
+				include($this->root_path . 'includes/functions_messenger.' . $this->php_ext);
+			}
+
 			$messenger = new \messenger($use_queue);
 
 			$messenger->headers('X-AntiAbuse: Board servername - ' . $this->config['server_name']);

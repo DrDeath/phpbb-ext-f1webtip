@@ -2194,7 +2194,7 @@ class main
 						{
 							// Simple layout without images
 							$race_over = false;
-							
+
 							if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 							{
 								$race_over = true;

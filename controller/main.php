@@ -2096,11 +2096,15 @@ class main
 
 					for ($i = 0; $i < count($tipp_array) - 3; ++$i)
 					{
-						$results		= explode(",", $races[$chosen_race]['race_result']);
-						$position		= ($i == 0) ? $this->language->lang('FORMEL_RACE_WINNER') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
-						$box_name		= 'place' . ($i + 1);
-						$single_points	= 0;
-						$drivername		= '';
+						$results				= explode(",", $races[$chosen_race]['race_result']);
+						$position				= ($i == 0) ? $this->language->lang('FORMEL_RACE_WINNER') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
+						$box_name				= 'place' . ($i + 1);
+						$single_points			= 0;
+						$drivername				= '';
+						$option_list_driver		= '';
+						$option_list_pace		= '';
+						$option_list_tired		= '';
+						$option_list_safetycar	= '';
 
 						if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 						{
@@ -2135,7 +2139,6 @@ class main
 						else
 						{
 							//Actual race is not over
-							$option_list_driver = '';
 
 							for ($k = 0; $k < count($driver_combodata); ++$k)
 							{
@@ -2189,10 +2192,21 @@ class main
 						}
 						else
 						{
+							// Simple layout without images
+							$race_over = false;
+							
+							if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
+							{
+								$race_over = true;
+							}
+
 							$this->template->assign_block_vars('users_tipp', [
-								'L_PLACE'		=>	$position,
-								'DRIVERCOMBO'	=>	$drivercombo,
-								'SINGLE_POINTS'	=>	$single_points,
+								'S_RACE_OVER'			=>	$race_over,
+								'L_PLACE'				=>	$position,
+								'BOX_NAME'				=>	$box_name,
+								'OPTION_LIST_DRIVER'	=>	$option_list_driver,
+								'DRIVERNAME'			=>	$drivername,
+								'SINGLE_POINTS'			=>	$single_points,
 								]
 							);
 						}
@@ -2243,8 +2257,6 @@ class main
 						$race_over = false;
 
 						//Fastest Driver DropDown
-						$option_list_pace = '';
-
 						for ($k = 0; $k < count($driver_combodata); ++$k)
 						{
 							$this_driver_id		 = $driver_combodata[$k]['driver_id'];
@@ -2254,8 +2266,6 @@ class main
 						}
 
 						//Count Tired DropDown
-						$option_list_tired = '';
-
 						//We have 10 Teams with 2 cars each --> 20 drivers
 						for ($k = 0; $k < 21; ++$k)
 						{
@@ -2264,8 +2274,6 @@ class main
 						}
 
 						//Count Safety Car Deployments DropDown
-						$option_list_safetycar = '';
-
 						//We assume to have no more then 10 safety car placed in a normal race ;-)
 						for ($k = 0; $k < 11; ++$k)
 						{

@@ -411,7 +411,11 @@
 								<tr class="bg2">
 								{% endif %}
 									<td class="rightf1"><strong>&nbsp;{{ user_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
-									<td class="nowrapf1">&nbsp;{{ user_tipp.DRIVERCOMBO }}&nbsp;</td>
+									{% if not user_tipp.S_RACE_OVER %}
+									<td class="nowrapf1">&nbsp;<select id="{{ user_tipp.BOX_NAME }}" name="{{ user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">2{{ user_tipp.OPTION_LIST_DRIVER }}</select>&nbsp;</td>
+									{% else %}
+									<td class="nowrapf1">&nbsp;{{ user_tipp.DRIVERNAME }}</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ user_tipp.SINGLE_POINTS }}&nbsp;</td>
 								</tr>
 								{% endfor %}
@@ -441,17 +445,29 @@
 								{% for extended_user_tipp in extended_users_tipp %}
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp.DRIVERCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp.S_RACE_OVER %}
+									<td>&nbsp;<select name="place11" size="1">{{ extended_user_tipp.OPTION_LIST_PACE }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp.DRIVER_FASTEST }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_FASTEST }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp.TIREDCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp.S_RACE_OVER %}
+									<td>&nbsp;<select name="place12" size="1">{{ extended_user_tipp.OPTION_LIST_TIRED }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp.TIRED_CARS }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp.SAFETYCARCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp.S_RACE_OVER %}
+									<td>&nbsp;<select name="place13" size="1">{{ extended_user_tipp.OPTION_LIST_SAFETYCAR }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp.SAFETYCARS }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}

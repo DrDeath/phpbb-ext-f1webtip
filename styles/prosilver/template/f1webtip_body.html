@@ -430,6 +430,8 @@
 										<strong>{% if gfx_user_tipp.S_RACE_OVER %}&nbsp;{{ gfx_user_tipp.L_PLACE }}<br />{% endif %}</strong>
 										{% if not gfx_user_tipp.S_RACE_OVER %}
 										&nbsp;<select id="{{ gfx_user_tipp.BOX_NAME }}" name="{{ gfx_user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ gfx_user_tipp.OPTION_LIST_DRIVER }}</select>
+										{% else %}
+										&nbsp;{{ gfx_user_tipp.DRIVERNAME }}<br>
 										{% endif %}
 										{% if gfx_user_tipp.S_RACE_OVER %}&nbsp;{% endif %}{{ gfx_user_tipp.DRIVERTEAMNAME }}
 									</td>

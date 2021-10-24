@@ -2100,12 +2100,13 @@ class main
 						$position		= ($i == 0) ? $this->language->lang('FORMEL_RACE_WINNER') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
 						$box_name		= 'place' . ($i + 1);
 						$single_points	= 0;
+						$drivername		= '';
 
 						if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 						{
 							//Actual race is over
 							$driverid			= $drivers[$tipp_array[$i]]['driver_id']		??	'';
-							$drivercombo		= $drivers[$tipp_array[$i]]['driver_name']		??	'';
+							$drivername			= $drivers[$tipp_array[$i]]['driver_name']		??	'';
 							$driverteamname		= $drivers[$tipp_array[$i]]['driver_team_name']	??	'';
 							$gfxdrivercar		= $drivers[$tipp_array[$i]]['driver_car']		??	'';
 							$gfxdrivercombo		= $drivers[$tipp_array[$i]]['driver_img']		??	'';
@@ -2160,6 +2161,7 @@ class main
 									'S_RACE_OVER'			=>	true,
 									'L_PLACE'				=>	$position,
 									'DRIVERTEAMNAME'		=>	$driverteamname,
+									'DRIVERNAME'			=>	$drivername,
 									'GFXDRIVERCOMBO'		=>	$gfxdrivercombo,
 									'GFXDRIVERCOMBO_WIDTH'	=>	$this->config['drdeath_f1webtip_driver_img_width'],
 									'GFXDRIVERCOMBO_HEIGHT'	=>	$this->config['drdeath_f1webtip_driver_img_height'],
@@ -2176,7 +2178,6 @@ class main
 									'S_RACE_OVER'			=>	false,
 									'BOX_NAME'				=>	$box_name,
 									'OPTION_LIST_DRIVER'	=>	$option_list_driver,
-									'DRIVERCOMBO'			=>	$drivercombo,
 									'DRIVERTEAMNAME'		=>	$driverteamname,
 									'GFXDRIVERCOMBO'		=>	$position,
 									'GXFDRIVERCAR'			=>	$gfxdrivercar,

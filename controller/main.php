@@ -1217,10 +1217,9 @@ class main
 					//We have 10 Teams with 2 cars each --> 20 drivers
 					for ($i = 0; $i < 20; ++$i)
 					{
-						$position = ($i == 0) ? $this->language->lang('FORMEL_POLE') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
-						$box_name = 'place' . ($i + 1);
-
-						$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
+						$position			= ($i == 0) ? $this->language->lang('FORMEL_POLE') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
+						$box_name			= 'place' . ($i + 1);
+						$option_list_driver	= '';
 
 						for ($k = 0; $k < count($drivers); ++$k)
 						{
@@ -1236,14 +1235,13 @@ class main
 								$selected = '';
 							}
 
-							$drivercombo .= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
+							$option_list_driver .= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
 						}
 
-						$drivercombo .= '</select>';
-
 						$this->template->assign_block_vars('qualirows', [
-							'L_PLACE'		=> $position,
-							'DRIVERCOMBO'	=> $drivercombo,
+							'L_PLACE'				=> $position,
+							'BOX_NAME'				=> $box_name,
+							'OPTION_LIST_DRIVER'	=> $option_list_driver,
 							]
 						);
 					}
@@ -1295,10 +1293,9 @@ class main
 
 					for ($i = 0; $i < 10; ++$i)
 					{
-						$position = ($i == 0) ? $this->language->lang('FORMEL_RACE_WINNER') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
-						$box_name = 'place' . ($i + 1);
-
-						$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
+						$position			= ($i == 0) ? $this->language->lang('FORMEL_RACE_WINNER') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
+						$box_name			= 'place' . ($i + 1);
+						$option_list_driver	= '';
 
 						for ($k = 0; $k < count($drivers); ++$k)
 						{
@@ -1314,19 +1311,18 @@ class main
 								$selected = '';
 							}
 
-							$drivercombo .= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
+							$option_list_driver .= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
 						}
 
-						$drivercombo .= '</select>';
-
 						$this->template->assign_block_vars('resultsrow', [
-							'L_PLACE'		=> $position,
-							'DRIVERCOMBO'	=> $drivercombo,
+							'L_PLACE'				=> $position,
+							'BOX_NAME'				=> $box_name,
+							'OPTION_LIST_DRIVER'	=> $option_list_driver,
 							]
 						);
 					}
 
-					$drivercombo_pace = '<select name="place11" size="1">';
+					$option_list_pace = '';
 
 					for ($k = 0; $k < count($drivers); ++$k)
 					{
@@ -1342,12 +1338,10 @@ class main
 							$selected = '';
 						}
 
-						$drivercombo_pace .= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
+						$option_list_pace .= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
 					}
 
-					$drivercombo_pace .= '</select>';
-
-					$combo_tired = '<select name="place12" size="1">';
+					$option_list_tired = '';
 
 					//We have 10 Teams with 2 cars each --> 20 drivers
 					for ($k = 0; $k < 21; ++$k)
@@ -1361,12 +1355,10 @@ class main
 							$selected = '';
 						}
 
-						$combo_tired .= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
+						$option_list_tired .= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
 					}
 
-					$combo_tired .= '</select>';
-
-					$combo_safetycar = '<select name="place13" size="1">';
+					$option_list_safetycar = '';
 
 					//We assume to have no more then 10 safety car placed in a normal race ;-)
 					for ($k = 0; $k < 11; ++$k)
@@ -1380,18 +1372,16 @@ class main
 							$selected = '';
 						}
 
-						$combo_safetycar .= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
+						$option_list_safetycar .= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
 					}
 
-					$combo_safetycar .= '</select>';
-
-					$modus = ($editresult) ? 'addeditresult' : 'addresult';
+					$mode = ($editresult) ? 'addeditresult' : 'addresult';
 
 					$this->template->assign_block_vars('results', [
-						'PACECOMBO' 		=> $drivercombo_pace,
-						'MODE' 				=> $modus,
-						'TIREDCOMBO' 		=> $combo_tired,
-						'SAFETYCARCOMBO'	=> $combo_safetycar,
+						'MODE' 					=> $mode,
+						'OPTION_LIST_PACE' 		=> $option_list_pace,
+						'OPTION_LIST_TIRED' 	=> $option_list_tired,
+						'OPTION_LIST_SAFETYCAR'	=> $option_list_safetycar,
 						]
 					);
 				}
@@ -2100,6 +2090,9 @@ class main
 					$delete_button		= true;
 					$tipp_array			= explode(",", $tipp_data['0']['tip_result']);
 					$user_tipp_points	= $tipp_data['0']['tip_points'];
+					$driver_fastest		= '';
+					$tired_cars			= '';
+					$safetycars			= '';
 
 					for ($i = 0; $i < count($tipp_array) - 3; ++$i)
 					{
@@ -2141,17 +2134,15 @@ class main
 						else
 						{
 							//Actual race is not over
-							$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
+							$option_list_driver = '';
 
 							for ($k = 0; $k < count($driver_combodata); ++$k)
 							{
 								$this_driver_id		 = $driver_combodata[$k]['driver_id'];
 								$this_driver_name	 = $driver_combodata[$k]['driver_name'];
 								$selected			 = ($this_driver_id == $tipp_array[$i]) ? 'selected' : '';
-								$drivercombo		.= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
+								$option_list_driver	.= '<option value="' . $this_driver_id . '" ' . $selected . '>' . $this_driver_name . '</option>';
 							}
-
-							$drivercombo .= '</select>';
 						}
 
 						if ($single_points == 0)
@@ -2166,9 +2157,9 @@ class main
 							{
 								//Race is over - Show driverimage and so on
 								$this->template->assign_block_vars('gfx_users_tipp', [
-									'L_PLACE'				=>	'&nbsp;' . $position . '<br />',
-									'DRIVERCOMBO'			=>	$drivercombo . '<br />',
-									'DRIVERTEAMNAME'		=>	'&nbsp;' . $driverteamname,
+									'S_RACE_OVER'			=>	true,
+									'L_PLACE'				=>	$position,
+									'DRIVERTEAMNAME'		=>	$driverteamname,
 									'GFXDRIVERCOMBO'		=>	$gfxdrivercombo,
 									'GFXDRIVERCOMBO_WIDTH'	=>	$this->config['drdeath_f1webtip_driver_img_width'],
 									'GFXDRIVERCOMBO_HEIGHT'	=>	$this->config['drdeath_f1webtip_driver_img_height'],
@@ -2182,13 +2173,15 @@ class main
 							{
 								// Race is not over - Show position instead of driverimage
 								$this->template->assign_block_vars('gfx_users_tipp', [
-									'L_PLACE'			=>	'',
-									'DRIVERCOMBO'		=>	$drivercombo,
-									'DRIVERTEAMNAME'	=>	$driverteamname,
-									'GFXDRIVERCOMBO'	=>	$position,
-									'GXFDRIVERCAR'		=>	$gfxdrivercar,
-									'SINGLE_POINTS'		=>	$single_points,
-									'EXT_PATH'			=>	$ext_path,
+									'S_RACE_OVER'			=>	false,
+									'BOX_NAME'				=>	$box_name,
+									'OPTION_LIST_DRIVER'	=>	$option_list_driver,
+									'DRIVERCOMBO'			=>	$drivercombo,
+									'DRIVERTEAMNAME'		=>	$driverteamname,
+									'GFXDRIVERCOMBO'		=>	$position,
+									'GXFDRIVERCAR'			=>	$gfxdrivercar,
+									'SINGLE_POINTS'			=>	$single_points,
+									'EXT_PATH'				=>	$ext_path,
 									]
 								);
 							}
@@ -2207,13 +2200,14 @@ class main
 					if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
 					{
 						//Actual Race is over
+						$race_over 			= true;
 						$single_fastest		= '';
 						$single_tired		= '';
 						$single_safety_car 	= '';
 
-						$drivercombo	= $drivers[$tipp_array['10']]['driver_name']	?? '';
-						$tiredcombo		= $tipp_array['11']								?? '';
-						$safetycarcombo	= $tipp_array['12']								?? '';
+						$driver_fastest	= $drivers[$tipp_array['10']]['driver_name']	?? '';
+						$tired_cars		= $tipp_array['11']								?? '';
+						$safetycars		= $tipp_array['12']								?? '';
 
 						//Recalc tip points for fastest driver
 						if (isset($results['10']) && $results['10'] != 0)
@@ -2245,53 +2239,52 @@ class main
 					else
 					{
 						//Actual Race is not over
+						$race_over = false;
 
 						//Fastest Driver DropDown
-						$drivercombo = '<select name="place11" size="1">';
+						$option_list_pace = '';
 
 						for ($k = 0; $k < count($driver_combodata); ++$k)
 						{
 							$this_driver_id		 = $driver_combodata[$k]['driver_id'];
 							$this_driver_name	 = $driver_combodata[$k]['driver_name'];
 							$selected			 = ($this_driver_id == $tipp_array['10']) ? 'selected' : '';
-							$drivercombo		.= '<option value="' . $this_driver_id . '" ' . $selected .'>' . $this_driver_name . '</option>';
+							$option_list_pace	.= '<option value="' . $this_driver_id . '" ' . $selected .'>' . $this_driver_name . '</option>';
 						}
 
-						$drivercombo .= '</select>';
-
 						//Count Tired DropDown
-						$tiredcombo = '<select name="place12" size="1">';
+						$option_list_tired = '';
 
 						//We have 10 Teams with 2 cars each --> 20 drivers
 						for ($k = 0; $k < 21; ++$k)
 						{
 							$selected			 = ($k == $tipp_array['11']) ? 'selected' : '';
-							$tiredcombo			.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
+							$option_list_tired	.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
 						}
 
-						$tiredcombo .= '</select>';
-
 						//Count Safety Car Deployments DropDown
-						$safetycarcombo = '<select name="place13" size="1">';
+						$option_list_safetycar = '';
 
 						//We assume to have no more then 10 safety car placed in a normal race ;-)
 						for ($k = 0; $k < 11; ++$k)
 						{
-							$selected			 = ( $k == $tipp_array['12']) ? 'selected' : '';
-							$safetycarcombo		.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
+							$selected			 	 = ( $k == $tipp_array['12']) ? 'selected' : '';
+							$option_list_safetycar	.= '<option value="' . $k . '" ' . $selected . '>' . $k . '</option>';
 						}
-
-						$safetycarcombo .= '</select>';
 					}
 
 					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'extended_users_tipp_gfx' : 'extended_users_tipp', [
-						'TIREDCOMBO'		=> $tiredcombo,
-						'DRIVERCOMBO'		=> $drivercombo,
-						'SAFETYCARCOMBO'	=> $safetycarcombo,
-						'GFXDRIVERCOMBO'	=> $gfxdrivercombo,
-						'SINGLE_FASTEST'	=> $single_fastest,
-						'SINGLE_TIRED'		=> $single_tired,
-						'SINGLE_SAFETY_CAR'	=> $single_safety_car,
+						'DRIVER_FASTEST'		=> $driver_fastest,
+						'GFXDRIVERCOMBO'		=> $gfxdrivercombo,
+						'OPTION_LIST_PACE' 		=> $option_list_pace,
+						'OPTION_LIST_SAFETYCAR'	=> $option_list_safetycar,
+						'OPTION_LIST_TIRED' 	=> $option_list_tired,
+						'S_RACE_OVER'			=> $race_over,
+						'SAFETYCARS'			=> $safetycars,
+						'SINGLE_FASTEST'		=> $single_fastest,
+						'SINGLE_SAFETY_CAR'		=> $single_safety_car,
+						'SINGLE_TIRED'			=> $single_tired,
+						'TIRED_CARS'			=> $tired_cars,
 						]
 					);
 				}
@@ -2309,63 +2302,56 @@ class main
 							{
 								$position = ($i == 0) ? $this->language->lang('FORMEL_RACE_WINNER') : $i + 1 . '. ' . $this->language->lang('FORMEL_PLACE');
 								$box_name = 'place' . ($i + 1);
-
-								$drivercombo = '<select id="' . $box_name . '" name="' . $box_name . '" onchange="javascript:drivers()" size="1">';
+								$option_list_driver = '';
 
 								for ($k = 0; $k < count($driver_combodata); ++$k)
 								{
 									$this_driver_id		 = $driver_combodata[$k]['driver_id'];
 									$this_driver_name	 = $driver_combodata[$k]['driver_name'];
-									$drivercombo		.= '<option value="' . $this_driver_id . '">' . $this_driver_name . '</option>';
+									$option_list_driver	.= '<option value="' . $this_driver_id . '">' . $this_driver_name . '</option>';
 								}
 
-								$drivercombo .= '</select>';
-
 								$this->template->assign_block_vars('add_tipps', [
-									'L_PLACE'		=> $position,
-									'DRIVERCOMBO'	=> $drivercombo,
+									'BOX_NAME'				=> $box_name,
+									'L_PLACE'				=> $position,
+									'OPTION_LIST_DRIVER'	=> $option_list_driver,
 									]
 								);
 							}
 
 							//Fastest Driver DropDown
-							$drivercombo = '<select name="place11" size="1">';
+							$option_list_pace = '';
 
 							for ($k = 0; $k < count($driver_combodata); ++$k)
 							{
 								$this_driver_id		 = $driver_combodata[$k]['driver_id'];
 								$this_driver_name	 = $driver_combodata[$k]['driver_name'];
-								$drivercombo 		.= '<option value="' . $this_driver_id . '">' . $this_driver_name . '</option>';
+								$option_list_pace	.= '<option value="' . $this_driver_id . '">' . $this_driver_name . '</option>';
 							}
 
-							$drivercombo .= '</select>';
-
 							//Count Tired DropDown
-							$tiredcombo = '<select name="place12" size="1">';
+							$option_list_tired = '';
 
 							//We have 10 Teams with 2 cars each --> 20 drivers
 							for ($k = 0; $k < 21; ++$k)
 							{
-								$tiredcombo .= '<option value="' . $k . '">' . $k . '</option>';
+								$option_list_tired .= '<option value="' . $k . '">' . $k . '</option>';
 							}
 
-							$tiredcombo .= '</select>';
-
 							//Count Safety Car Deployments DropDown
-							$safetycarcombo = '<select name="place13" size="1">';
+							$option_list_safetycar = '';
 
 							//We assume to have no more then 10 safety car placed in a normal race ;-)
 							for ($k = 0; $k < 11; ++$k)
 							{
-								$safetycarcombo .= '<option value="' . $k . '">' . $k . '</option>';
+								$option_list_safetycar .= '<option value="' . $k . '">' . $k . '</option>';
 							}
 
-							$safetycarcombo .= '</select>';
-
 							$this->template->assign_block_vars('extended_add_tipps', [
-								'TIREDCOMBO'		=> $tiredcombo,
-								'DRIVERCOMBO'		=> $drivercombo,
-								'SAFETYCARCOMBO'	=> $safetycarcombo,
+								'S_GUEST'				=> false,
+								'OPTION_LIST_PACE' 		=> $option_list_pace,
+								'OPTION_LIST_TIRED' 	=> $option_list_tired,
+								'OPTION_LIST_SAFETYCAR'	=> $option_list_safetycar,
 								]
 							);
 						}
@@ -2373,7 +2359,7 @@ class main
 					else
 					{
 						$this->template->assign_block_vars('add_tipps', [
-							'DRIVERCOMBO'	=> '<br /> ' . $this->language->lang('FORMEL_GUESTS_PLACE_NO_TIP'),
+							'S_GUEST'			=> true,
 							]
 						);
 					}

@@ -214,6 +214,7 @@ class main
 				]
 			];
 		}
+
 		return $teams;
 	}
 
@@ -226,8 +227,6 @@ class main
 	*/
 	protected function get_formel_drivers()
 	{
-		// Define the ext path. We will use it later for assigning the correct path to our local immages
-		$ext_path 		= $this->phpbb_path_helper->update_web_root_path($this->phpbb_extension_manager->get_extension_path('drdeath/f1webtip', true));
 		$teams 			= $this->get_formel_teams();
 		$table_drivers	= $this->phpbb_container->getParameter('tables.f1webtip.drivers');
 		$drivers 		= [];
@@ -296,7 +295,8 @@ class main
 	/**
 	* checkarrayforvalue
 	*
-	* Checks if a driver is already in the array. (0 is an undefined driver)
+	* Checks if a driver is already in the array.
+	* Value 0 is an unset driver and may occur more than once
 	* Returns true or false
 	* If returns true, the tip is invalid.
 	*/
@@ -352,19 +352,19 @@ class main
 		// Check all permission to access the f1webtip
 		//
 
-		//If user is a bot.... redirect to the index.
+		//If user is a bot, redirect to the index.
 		if ($this->user->data['is_bot'])
 		{
 			redirect(append_sid("{$this->root_path}index." . $this->php_ext));
 		}
 
-		// If guest viewing is not allowed...
+		// If guest viewing is not allowed, redirect to login box
 		if (!$formel_guests_allowed)
 		{
 			// Check if the user ist logged in.
 			if (!$this->user->data['is_registered'])
 			{
-				// Not logged in ? Redirect to the loginbox.
+				// Not logged in? Redirect to the loginbox.
 				login_box('', $this->language->lang('NO_AUTH_OPERATION'));
 			}
 		}
@@ -400,17 +400,16 @@ class main
 		// Creating breadcrumps
 		//
 		$this->template->assign_block_vars('navlinks', [
-			'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
-			'FORUM_NAME' => $this->language->lang('F1WEBTIP_PAGE'),
+			'U_VIEW_FORUM'	=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+			'FORUM_NAME'	=> $this->language->lang('F1WEBTIP_PAGE'),
 			]);
 
-		// Salting the form...yumyum ...
+		// Salting the form... yumyum...
 		add_form_key('drdeath/f1webtip');
 
 		//
-		// Switch to the selected modes....
+		// Switch to the selected modes...
 		//
-
 		switch ($name)
 		{
 
@@ -423,31 +422,31 @@ class main
 
 				// Creating breadcrumps rules
 				$this->template->assign_block_vars('navlinks', [
-					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'rules']),
-					'FORUM_NAME' => $this->language->lang('FORMEL_RULES'),
+					'U_VIEW_FORUM'	=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'rules']),
+					'FORUM_NAME'	=> $this->language->lang('FORMEL_RULES'),
 					]);
 
 				// Build rules
+				$points_fastest 	= $this->config['drdeath_f1webtip_points_fastest'];
 				$points_mentioned 	= $this->config['drdeath_f1webtip_points_mentioned'];
 				$points_placed 		= $this->config['drdeath_f1webtip_points_placed'];
-				$points_fastest 	= $this->config['drdeath_f1webtip_points_fastest'];
-				$points_tired 		= $this->config['drdeath_f1webtip_points_tired'];
 				$points_safetycar	= $this->config['drdeath_f1webtip_points_safety_car'];
+				$points_tired 		= $this->config['drdeath_f1webtip_points_tired'];
 
 				$points_total 		= 10 * ($points_mentioned + $points_placed) + $points_fastest + $points_tired + $points_safetycar;
 
+				$points_fastest		.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_fastest);
 				$points_mentioned	.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_mentioned);
 				$points_placed		.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_placed);
-				$points_fastest		.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_fastest);
-				$points_tired		.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_tired);
 				$points_safetycar	.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_safetycar);
+				$points_tired		.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_tired);
 				$points_total		.= ' ' . $this->language->lang('FORMEL_RULES_POINTS', (int) $points_total);
 
+				$rules_fastest 		= $this->language->lang('FORMEL_RULES_FASTEST'		, $points_fastest);
 				$rules_mentioned 	= $this->language->lang('FORMEL_RULES_MENTIONED'	, $points_mentioned);
 				$rules_placed 		= $this->language->lang('FORMEL_RULES_PLACED'		, $points_placed);
-				$rules_fastest 		= $this->language->lang('FORMEL_RULES_FASTEST'		, $points_fastest);
-				$rules_tired 		= $this->language->lang('FORMEL_RULES_TIRED'		, $points_tired);
 				$rules_safetycar	= $this->language->lang('FORMEL_RULES_SAFETYCAR'	, $points_safetycar);
+				$rules_tired 		= $this->language->lang('FORMEL_RULES_TIRED'		, $points_tired);
 				$rules_total 		= $this->language->lang('FORMEL_RULES_TOTAL'		, $points_total);
 
 				// Show headerbanner ?
@@ -457,18 +456,18 @@ class main
 				}
 
 				$this->template->assign_vars([
-					'S_RULES'					=> true,
-					'S_FORM_ACTION'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'EXT_PATH_IMAGES'			=> $ext_path . 'images/',
+					'FORMEL_RULES_FASTEST' 		=> $rules_fastest,
 					'FORMEL_RULES_MENTIONED' 	=> $rules_mentioned,
 					'FORMEL_RULES_PLACED' 		=> $rules_placed,
-					'FORMEL_RULES_FASTEST' 		=> $rules_fastest,
-					'FORMEL_RULES_TIRED' 		=> $rules_tired,
 					'FORMEL_RULES_SAFETYCAR' 	=> $rules_safetycar,
+					'FORMEL_RULES_TIRED' 		=> $rules_tired,
 					'FORMEL_RULES_TOTAL' 		=> $rules_total,
-					'HEADER_IMG' 				=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner2_img'],
 					'HEADER_HEIGHT' 			=> $this->config['drdeath_f1webtip_head_height'],
+					'HEADER_IMG' 				=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner2_img'],
 					'HEADER_WIDTH' 				=> $this->config['drdeath_f1webtip_head_width'],
-					'EXT_PATH_IMAGES'			=> $ext_path . 'images/',
+					'S_FORM_ACTION'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'S_RULES'					=> true,
 				]);
 
 			break;
@@ -482,8 +481,8 @@ class main
 
 				// Creating breadcrumps rules
 				$this->template->assign_block_vars('navlinks', [
-					'U_VIEW_FORUM' => $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
-					'FORUM_NAME' => $this->language->lang('FORMEL_STATISTICS'),
+					'U_VIEW_FORUM'	=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
+					'FORUM_NAME'	=> $this->language->lang('FORMEL_STATISTICS'),
 					]);
 
 				// Check buttons & data
@@ -541,16 +540,16 @@ class main
 						$wm_teamcar 	= ( $wm_teamcar == '' ) ? $this->config['drdeath_f1webtip_no_car_img']  : $wm_teamcar;
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', [
-							'RANK' 				=> $rank,
-							'WM_TEAMNAME' 		=> $wm_teamname,
-							'WM_TEAMIMG' 		=> $wm_teamimg,
-							'WM_TEAMIMG_WIDTH'	=> $this->config['drdeath_f1webtip_team_img_width'],
-							'WM_TEAMIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_team_img_height'],
-							'WM_TEAMCAR' 		=> $wm_teamcar,
-							'WM_TEAMCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
-							'WM_TEAMCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
-							'WM_POINTS' 		=> $wm_points,
 							'EXT_PATH'			=> $ext_path,
+							'RANK' 				=> $rank,
+							'WM_POINTS' 		=> $wm_points,
+							'WM_TEAMCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
+							'WM_TEAMCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
+							'WM_TEAMCAR' 		=> $wm_teamcar,
+							'WM_TEAMIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_team_img_height'],
+							'WM_TEAMIMG_WIDTH'	=> $this->config['drdeath_f1webtip_team_img_width'],
+							'WM_TEAMIMG' 		=> $wm_teamimg,
+							'WM_TEAMNAME' 		=> $wm_teamname,
 							]
 						);
 					}
@@ -560,10 +559,10 @@ class main
 					{
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', [
 							'RANK' 			=> '',
-							'WM_TEAMNAME' 	=> $this->language->lang('FORMEL_NO_RESULTS'),
-							'WM_TEAMIMG' 	=> '',
-							'WM_TEAMCAR' 	=> '',
 							'WM_POINTS' 	=> '',
+							'WM_TEAMCAR' 	=> '',
+							'WM_TEAMIMG' 	=> '',
+							'WM_TEAMNAME' 	=> $this->language->lang('FORMEL_NO_RESULTS'),
 							]
 						);
 					}
@@ -634,19 +633,19 @@ class main
 						$wm_driverteam 	= ( $wm_driverteam == '' ) ? $this->config['drdeath_f1webtip_no_team_img'] : $wm_driverteam;
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', [
-							'RANK' 					=> $rank,
-							'WM_DRIVERNAME' 		=> $wm_drivername,
-							'WM_DRIVERIMG' 			=> $wm_driverimg,
-							'WM_DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
-							'WM_DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
-							'WM_DRIVERCAR' 			=> $wm_drivercar,
-							'WM_DRIVERCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
-							'WM_DRIVERCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
-							'WM_DRIVERTEAM' 		=> $wm_driverteam,
-							'WM_DRIVERTEAM_WIDTH'	=> $this->config['drdeath_f1webtip_team_img_width'],
-							'WM_DRIVERTEAM_HEIGHT'	=> $this->config['drdeath_f1webtip_team_img_height'],
-							'WM_POINTS' 			=> $driver['total_points'],
 							'EXT_PATH'				=> $ext_path,
+							'RANK' 					=> $rank,
+							'WM_DRIVERCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
+							'WM_DRIVERCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
+							'WM_DRIVERCAR' 			=> $wm_drivercar,
+							'WM_DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
+							'WM_DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
+							'WM_DRIVERIMG' 			=> $wm_driverimg,
+							'WM_DRIVERNAME' 		=> $wm_drivername,
+							'WM_DRIVERTEAM_HEIGHT'	=> $this->config['drdeath_f1webtip_team_img_height'],
+							'WM_DRIVERTEAM_WIDTH'	=> $this->config['drdeath_f1webtip_team_img_width'],
+							'WM_DRIVERTEAM' 		=> $wm_driverteam,
+							'WM_POINTS' 			=> $driver['total_points'],
 							]
 						);
 					}
@@ -655,12 +654,12 @@ class main
 					if ($rank == 0)
 					{
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', [
-							'RANK' 				=> '',
-							'WM_DRIVERNAME' 	=> $this->language->lang('FORMEL_NO_RESULTS'),
-							'WM_DRIVERIMG' 		=> '',
-							'WM_DRIVERCAR' 		=> '',
-							'WM_DRIVERTEAM' 	=> '',
-							'WM_POINTS' 		=> '',
+							'RANK' 					=> '',
+							'WM_DRIVERCAR' 			=> '',
+							'WM_DRIVERIMG' 			=> '',
+							'WM_DRIVERNAME' 		=> $this->language->lang('FORMEL_NO_RESULTS'),
+							'WM_DRIVERTEAM' 		=> '',
+							'WM_POINTS' 			=> '',
 							]
 						);
 					}
@@ -701,6 +700,7 @@ class main
 						if ($this->config['drdeath_f1webtip_show_avatar'] == 1)
 						{
 								$tip_user_avatar = phpbb_get_user_avatar($tip_user_row);
+
 								// No User Avatar? Display the "no_avatar.gif" from the prosilver styles
 								if ($tip_user_avatar == '')
 								{
@@ -711,12 +711,13 @@ class main
 						}
 
 						$this->template->assign_block_vars('top_tippers', [
-							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
-							'TIPPER_AVATAR'			=> $tip_user_avatar,
-							'TIPPER_AVATAR_WIDTH'	=> $this->config['avatar_max_width'] + 10,
-							'TIPPER_AVATAR_HEIGHT'	=> $this->config['avatar_max_height'] + 10,
-							'TIPPER_NAME'			=> $tip_username_link,
+							'CORRECTED_PATH'		=> $corrected_path,
 							'RANK'					=> ($rank == 1 || $rank == 2 || $rank == 3) ? "<b>" . $rank . "</b>" : $rank,
+							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
+							'TIPPER_AVATAR_HEIGHT'	=> $this->config['avatar_max_height'] + 10,
+							'TIPPER_AVATAR_WIDTH'	=> $this->config['avatar_max_width'] + 10,
+							'TIPPER_AVATAR'			=> $tip_user_avatar,
+							'TIPPER_NAME'			=> $tip_username_link,
 							'TIPPER_POINTS'			=> $row['total_points'],
 							]
 						);
@@ -734,9 +735,9 @@ class main
 
 						$this->template->assign_block_vars('top_tippers', [
 							'S_AVATAR_SWITCH'		=> $show_avatar_switch,
-							'TIPPER_AVATAR'			=> '',
-							'TIPPER_AVATAR_WIDTH'	=> '0',
 							'TIPPER_AVATAR_HEIGHT'	=> '0',
+							'TIPPER_AVATAR_WIDTH'	=> '0',
+							'TIPPER_AVATAR'			=> '',
 							'TIPPER_NAME' 			=> $this->language->lang('FORMEL_NO_TIPPS'),
 							'TIPPER_POINTS' 		=> '',
 							]
@@ -753,16 +754,16 @@ class main
 				}
 
 				$this->template->assign_vars([
-					'S_STATS'				=> true,
-					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
-					'U_FORMEL_STATS' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
-					'HEADER_IMG' 			=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner3_img'],
+					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
 					'HEADER_HEIGHT' 		=> $this->config['drdeath_f1webtip_head_height'],
+					'HEADER_IMG' 			=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner3_img'],
 					'HEADER_WIDTH' 			=> $this->config['drdeath_f1webtip_head_width'],
 					'L_STAT_TABLE_TITLE' 	=> $stat_table_title,
-					'U_FORMEL' 				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
+					'S_STATS'				=> true,
 					'U_BACK_TO_TIPP' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
-					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
+					'U_FORMEL_STATS' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
+					'U_FORMEL' 				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					]
 				);
 
@@ -804,14 +805,14 @@ class main
 					$result_buttons 		= ($row['race_result'] == '0') 		? 'add' : 'edit';
 
 					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', [
-						'RACEIMG'			=> $race_img,
+						'EXT_PATH'			=> $ext_path,
 						'QUALI_BUTTONS'		=> $quali_buttons,
-						'RESULT_BUTTONS'	=> $result_buttons,
+						'RACEDEAD'			=> $this->user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
 						'RACEID'			=> $race_id,
+						'RACEIMG'			=> $race_img,
 						'RACENAME'			=> $row['race_name'],
 						'RACETIME'			=> $this->user->format_date($row['race_time'], false, true),
-						'RACEDEAD'			=> $this->user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
-						'EXT_PATH'			=> $ext_path,
+						'RESULT_BUTTONS'	=> $result_buttons,
 						]
 					);
 				}
@@ -819,11 +820,11 @@ class main
 				$this->db->sql_freeresult($result);
 
 				$this->template->assign_vars([
-					'S_RESULTS'				=> true,
-					'S_FORM_ACTION'			=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
-					'U_FORMEL'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
-					'U_FORMEL_RESULTS'		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
 					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
+					'S_FORM_ACTION'			=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
+					'S_RESULTS'				=> true,
+					'U_FORMEL_RESULTS'		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
+					'U_FORMEL'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					]
 				);
 
@@ -1239,8 +1240,8 @@ class main
 						}
 
 						$this->template->assign_block_vars('qualirows', [
-							'L_PLACE'				=> $position,
 							'BOX_NAME'				=> $box_name,
+							'L_PLACE'				=> $position,
 							'OPTION_LIST_DRIVER'	=> $option_list_driver,
 							]
 						);
@@ -1249,8 +1250,8 @@ class main
 					$this->template->assign_block_vars('qualifications', []);
 
 					$this->template->assign_vars([
-							'S_QUALI'		=> true,
 							'PLACES'		=> $places,
+							'S_QUALI'		=> true,
 							]
 						);
 				}
@@ -1315,8 +1316,8 @@ class main
 						}
 
 						$this->template->assign_block_vars('resultsrow', [
-							'L_PLACE'				=> $position,
 							'BOX_NAME'				=> $box_name,
+							'L_PLACE'				=> $position,
 							'OPTION_LIST_DRIVER'	=> $option_list_driver,
 							]
 						);
@@ -1380,21 +1381,21 @@ class main
 					$this->template->assign_block_vars('results', [
 						'MODE' 					=> $mode,
 						'OPTION_LIST_PACE' 		=> $option_list_pace,
-						'OPTION_LIST_TIRED' 	=> $option_list_tired,
 						'OPTION_LIST_SAFETYCAR'	=> $option_list_safetycar,
+						'OPTION_LIST_TIRED' 	=> $option_list_tired,
 						]
 					);
 				}
 
 				$this->template->assign_vars([
-					'S_ADDRESULTS'			=> true,
-					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
-					'U_FORMEL' 				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
-					'U_FORMEL_RESULTS' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
+					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
+					'PLACES'				=> $places,
 					'RACE_ID' 				=> $race_id,
 					'RACENAME' 				=> $racename,
-					'PLACES'				=> $places,
-					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
+					'S_ADDRESULTS'			=> true,
+					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
+					'U_FORMEL_RESULTS' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
+					'U_FORMEL' 				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					]
 				);
 
@@ -1546,15 +1547,15 @@ class main
 					}
 
 					$this->template->assign_block_vars('user_tipps', [
-						'TIPPER' 			=> $tipper_link,
-						'POINTS' 			=> $tipper_points,
 						'ALL_POINTS' 		=> $tipper_all_points,
 						'FASTEST_DRIVER' 	=> (isset($fastest_driver_name)) 	? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $fastest_driver_name : '',
-						'TIRED' 			=> (isset($tired)) 					? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $tired : '',
+						'POINTS' 			=> $tipper_points,
 						'SAFETYCAR' 		=> (isset($safetycar)) 				? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $safetycar : '',
 						'SINGLE_FASTEST' 	=> $single_fastest 					?? '',
-						'SINGLE_TIRED' 		=> $single_tired 					?? '',
 						'SINGLE_SAFETY_CAR' => $single_safety_car 				?? '',
+						'SINGLE_TIRED' 		=> $single_tired 					?? '',
+						'TIPPER' 			=> $tipper_link,
+						'TIRED' 			=> (isset($tired)) 					? ($is_hidden == true && $tipp_userdata['user_id'] != $this->user->data['user_id']) ? $this->language->lang('FORMEL_HIDDEN') : $tired : '',
 						]
 					);
 				}
@@ -1586,30 +1587,29 @@ class main
 				$page_title 	= $this->language->lang('FORMEL_TITLE');
 
 				// Check buttons & data
-				$next 			= $this->request->is_set_post('next');
-				$prev 			= $this->request->is_set_post('prev');
-				$place_my_tipp 	= $this->request->is_set_post('place_my_tipp');
-				$edit_my_tipp 	= $this->request->is_set_post('edit_my_tipp');
 				$del_tipp 		= $this->request->is_set_post('del_tipp');
-
-				$race_offset 	= $this->request->variable('race_offset'	, 0);
+				$edit_my_tipp 	= $this->request->is_set_post('edit_my_tipp');
+				$next 			= $this->request->is_set_post('next');
+				$place_my_tipp 	= $this->request->is_set_post('place_my_tipp');
+				$prev 			= $this->request->is_set_post('prev');
 				$race_id 		= $this->request->variable('race_id'		, 0);
+				$race_offset 	= $this->request->variable('race_offset'	, 0);
 				$racename 		= $this->request->variable('racename'		, '', true);
-				$user_id 		= $this->user->data['user_id'];
 				$tipp_time 		= $this->request->variable('tipp_time'		, 0);
+				$user_id 		= $this->user->data['user_id'];
 
 				//Define some vars
-				$my_tipp_array 		= [];
-				$my_tipp 			= '';
+				$chosen_race 		= '';
+				$countdown_stop 	= '';
 				$driverteamname 	= '';
 				$gfxdrivercar 		= '';
 				$gfxdrivercombo 	= '';
-				$single_fastest		= '';
-				$single_tired 		= '';
-				$single_safety_car 	= '';
-				$chosen_race 		= '';
+				$my_tipp 			= '';
+				$my_tipp_array 		= [];
 				$places				= 10;
-				$countdown_stop 	= '';
+				$single_fastest		= '';
+				$single_safety_car 	= '';
+				$single_tired 		= '';
 
 				$current_time = time();
 
@@ -2011,17 +2011,17 @@ class main
 				$race_img = ($race_img == '') ? $this->config['drdeath_f1webtip_no_race_img']: $race_img ;
 
 				$this->template->assign_block_vars('racerows', [
-					'RACEIMG'			=> $race_img,
-					'RACEIMG_WIDTH'		=> $this->config['drdeath_f1webtip_race_img_width'],
-					'RACEIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_race_img_height'],
-					'RACENAME'			=> $races[$chosen_race]['race_name'],
-					'RACELENGTH'		=> $races[$chosen_race]['race_length'],
+					'EXT_PATH'			=> $ext_path,
+					'RACEDEAD'			=> $this->user->format_date($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
 					'RACEDEBUT'			=> $races[$chosen_race]['race_debut'],
 					'RACEDISTANCE'		=> $races[$chosen_race]['race_distance'],
+					'RACEIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_race_img_height'],
+					'RACEIMG_WIDTH'		=> $this->config['drdeath_f1webtip_race_img_width'],
+					'RACEIMG'			=> $race_img,
 					'RACELAPS'			=> $races[$chosen_race]['race_laps'],
+					'RACELENGTH'		=> $races[$chosen_race]['race_length'],
+					'RACENAME'			=> $races[$chosen_race]['race_name'],
 					'RACETIME'			=> $this->user->format_date($races[$chosen_race]['race_time'], false, true),
-					'RACEDEAD'			=> $this->user->format_date($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
-					'EXT_PATH'			=> $ext_path,
 					]
 				);
 
@@ -2050,10 +2050,10 @@ class main
 					$separator					= ($cur_counter == $tippers_active) ? '': ', ';
 
 					$this->template->assign_block_vars('tipps_made', [
-						'USERTIPP'		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'usertipp', 'mode' => 'teams', 'tipp' => $current_tipp_id, 'race' => $chosen_race]),
 						'SEPARATOR'		=> $separator,
-						'USERNAME'		=> $current_tippers_username . ' (' . $row['tip_points'] . ')',
 						'STYLE'			=> ($current_tippers_colour) ? ' style="color: ' . $current_tippers_colour . '; font-weight: bold;"' : '',
+						'USERNAME'		=> $current_tippers_username . ' (' . $row['tip_points'] . ')',
+						'USERTIPP'		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'usertipp', 'mode' => 'teams', 'tipp' => $current_tipp_id, 'race' => $chosen_race]),
 						]
 					);
 
@@ -2161,16 +2161,16 @@ class main
 							{
 								//Race is over - Show driverimage and so on
 								$this->template->assign_block_vars('gfx_users_tipp', [
-									'S_RACE_OVER'			=>	true,
-									'L_PLACE'				=>	$position,
-									'DRIVERTEAMNAME'		=>	$driverteamname,
 									'DRIVERNAME'			=>	$drivername,
-									'GFXDRIVERCOMBO'		=>	$gfxdrivercombo,
-									'GFXDRIVERCOMBO_WIDTH'	=>	$this->config['drdeath_f1webtip_driver_img_width'],
-									'GFXDRIVERCOMBO_HEIGHT'	=>	$this->config['drdeath_f1webtip_driver_img_height'],
-									'GXFDRIVERCAR'			=>	$gfxdrivercar,
-									'SINGLE_POINTS'			=>	$single_points,
+									'DRIVERTEAMNAME'		=>	$driverteamname,
 									'EXT_PATH'				=>	$ext_path,
+									'GFXDRIVERCOMBO_HEIGHT'	=>	$this->config['drdeath_f1webtip_driver_img_height'],
+									'GFXDRIVERCOMBO_WIDTH'	=>	$this->config['drdeath_f1webtip_driver_img_width'],
+									'GFXDRIVERCOMBO'		=>	$gfxdrivercombo,
+									'GXFDRIVERCAR'			=>	$gfxdrivercar,
+									'L_PLACE'				=>	$position,
+									'S_RACE_OVER'			=>	true,
+									'SINGLE_POINTS'			=>	$single_points,
 									]
 								);
 							}
@@ -2178,14 +2178,14 @@ class main
 							{
 								// Race is not over - Show position instead of driverimage
 								$this->template->assign_block_vars('gfx_users_tipp', [
-									'S_RACE_OVER'			=>	false,
 									'BOX_NAME'				=>	$box_name,
-									'OPTION_LIST_DRIVER'	=>	$option_list_driver,
 									'DRIVERTEAMNAME'		=>	$driverteamname,
+									'EXT_PATH'				=>	$ext_path,
 									'GFXDRIVERCOMBO'		=>	$position,
 									'GXFDRIVERCAR'			=>	$gfxdrivercar,
+									'OPTION_LIST_DRIVER'	=>	$option_list_driver,
+									'S_RACE_OVER'			=>	false,
 									'SINGLE_POINTS'			=>	$single_points,
-									'EXT_PATH'				=>	$ext_path,
 									]
 								);
 							}
@@ -2201,11 +2201,11 @@ class main
 							}
 
 							$this->template->assign_block_vars('users_tipp', [
-								'S_RACE_OVER'			=>	$race_over,
-								'L_PLACE'				=>	$position,
 								'BOX_NAME'				=>	$box_name,
-								'OPTION_LIST_DRIVER'	=>	$option_list_driver,
 								'DRIVERNAME'			=>	$drivername,
+								'L_PLACE'				=>	$position,
+								'OPTION_LIST_DRIVER'	=>	$option_list_driver,
+								'S_RACE_OVER'			=>	$race_over,
 								'SINGLE_POINTS'			=>	$single_points,
 								]
 							);
@@ -2357,10 +2357,10 @@ class main
 							}
 
 							$this->template->assign_block_vars('extended_add_tipps', [
-								'S_GUEST'				=> false,
 								'OPTION_LIST_PACE' 		=> $option_list_pace,
-								'OPTION_LIST_TIRED' 	=> $option_list_tired,
 								'OPTION_LIST_SAFETYCAR'	=> $option_list_safetycar,
+								'OPTION_LIST_TIRED' 	=> $option_list_tired,
+								'S_GUEST'				=> false,
 								]
 							);
 						}
@@ -2387,14 +2387,14 @@ class main
 						$position = ($j == 0) ? $this->language->lang('FORMEL_POLE') . ': ' : $j + 1 . '. ' . $this->language->lang('FORMEL_PLACE') . ': ';
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'qualirows_gfx' : 'qualirows', [
-							'L_PLACE'			=> $position,
-							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
-							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
-							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
+							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
+							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
+							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
 							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name']		?? '',
 							'EXT_PATH'			=> $ext_path,
+							'L_PLACE'			=> $position,
 							]
 						);
 					}
@@ -2418,22 +2418,22 @@ class main
 						$position = ($j == 0) ? $this->language->lang('FORMEL_RACE_WINNER') . ': ' : $j + 1 . '. ' . $this->language->lang('FORMEL_PLACE') . ': ';
 
 						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'resultsrow_gfx' : 'resultsrow', [
-							'L_PLACE'			=> $position,
-							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
-							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
-							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
+							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
+							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
+							'DRIVERIMG'			=> $drivers[$current_driver_id]['driver_img'] 			?? '',
 							'DRIVERNAME'		=> $drivers[$current_driver_id]['driver_name'] 			?? '',
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name'] 	?? '',
 							'EXT_PATH'			=> $ext_path,
+							'L_PLACE'			=> $position,
 							]
 						);
 					}
 
 					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'extended_results_gfx' : 'extended_results', [
 						'PACE'				=> $drivers[$results['10']]['driver_name'] 	?? '',
-						'TIRED'				=> $results['11'] 							?? '',
 						'SAFETYCAR'			=> $results['12'] 							?? '',
+						'TIRED'				=> $results['11'] 							?? '',
 						'YOUR_POINTS'		=> $user_tipp_points,
 						]
 					);
@@ -2489,29 +2489,29 @@ class main
 				}
 
 				$this->template->assign_vars([
-					'S_INDEX'							=> true,
-					'S_COUNTDOWN'						=> ($this->config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
-					'S_FORM_ACTION'						=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'COUNTDOWN_STOP'					=> $countdown_stop,
+					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
+					'HEADER_HEIGHT' 					=> $this->config['drdeath_f1webtip_head_height'],
+					'HEADER_IMG' 						=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner1_img'],
+					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],
+					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
+					'PLACES'							=> $places,
+					'RACE_ID'							=> $races[$chosen_race]['race_id']   ?? 1,
+					'RACE_OFFSET'						=> $race_offset,
+					'RACE_TIME'							=> $races[$chosen_race]['race_time'] ?? 1,
+					'RACENAME'							=> $races[$chosen_race]['race_name'] ?? '',
 					'S_CALL_MOD'						=> ($this->user->data['is_registered'] == 1) ? true : false,
+					'S_COUNTDOWN'						=> ($this->config['drdeath_f1webtip_show_countdown'] == 1) ? true : false,
 					'S_DISCUSS_BUTTON'					=> ($formel_forum_id == 0) ? false : true,
+					'S_FORM_ACTION'						=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
+					'S_INDEX'							=> true,
 					'U_FORMEL_CALL_MOD'					=> $u_call_mod,
 					'U_FORMEL_FORUM'					=> append_sid($this->root_path . "viewforum." . $this->php_ext . "?f=$formel_forum_id"),
 					'U_FORMEL_RULES' 					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'rules']),
 					'U_FORMEL_STATISTICS'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats']),
-					'U_TOP_MORE_USERS'					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'users']),
 					'U_TOP_MORE_DRIVERS'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'drivers']),
 					'U_TOP_MORE_TEAMS'					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'teams']),
-					'HEADER_IMG' 						=> $ext_path . 'images/banners/' . $this->config['drdeath_f1webtip_headbanner1_img'],
-					'HEADER_HEIGHT' 					=> $this->config['drdeath_f1webtip_head_height'],
-					'HEADER_WIDTH' 						=> $this->config['drdeath_f1webtip_head_width'],
-					'L_FORMEL_CALL_MOD'					=> $l_call_mod,
-					'RACE_ID'							=> $races[$chosen_race]['race_id']   ?? 1,
-					'RACENAME'							=> $races[$chosen_race]['race_name'] ?? '',
-					'RACE_TIME'							=> $races[$chosen_race]['race_time'] ?? 1,
-					'RACE_OFFSET'						=> $race_offset,
-					'PLACES'							=> $places,
-					'COUNTDOWN_STOP'					=> $countdown_stop,
-					'EXT_PATH_IMAGES'					=> $ext_path . 'images/',
+					'U_TOP_MORE_USERS'					=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'stats', 'mode' => 'users']),
 				]);
 
 			break;

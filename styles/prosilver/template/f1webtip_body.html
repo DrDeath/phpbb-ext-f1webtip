@@ -917,7 +917,7 @@
 				{% endif %}
 					<td class="centerf1">{{ top_tipper.RANK }}</td>
 					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == false %}
-						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
+						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="{{ top_tipper.CORRECTED_PATH }}styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
 					{% endif %}
 					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == true %}
 						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>	

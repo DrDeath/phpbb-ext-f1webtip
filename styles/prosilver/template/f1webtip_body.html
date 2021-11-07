@@ -723,7 +723,7 @@
 					<tr class="bg3">
 					{% endif %}
 						<td class="halff1 rightf1">{{ qualirow.L_PLACE }}&nbsp;</td>
-						<td class="halff1">&nbsp;<select id="{{ qualirow.BOX_NAME }}" name="{{ qualirow.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ qualirow.OPTION_LIST_DRIVER }}</select>;</td>
+						<td class="halff1">&nbsp;<select id="{{ qualirow.BOX_NAME }}" name="{{ qualirow.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ qualirow.OPTION_LIST_DRIVER }}</select></td>
 					</tr>
 				{% endfor %}
 				{% if qualifications %}
@@ -746,7 +746,7 @@
 					<tr class="bg3">
 					{% endif %}
 						<td class="halff1 rightf1">{{ resultrow.L_PLACE }}&nbsp;</td>
-						<td class="halff1">&nbsp;<select id="{{ resultrow.BOX_NAME }}" name="{{ resultrow.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ resultrow.OPTION_LIST_DRIVER }}</select>;</td>
+						<td class="halff1">&nbsp;<select id="{{ resultrow.BOX_NAME }}" name="{{ resultrow.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ resultrow.OPTION_LIST_DRIVER }}</select></td>
 					</tr>
 					{% endfor %}
 					{% for result in results %}

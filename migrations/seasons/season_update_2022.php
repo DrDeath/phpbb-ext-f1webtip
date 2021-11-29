@@ -44,65 +44,6 @@ class season_update_2022 extends \phpbb\db\migration\container_aware_migration
 		$table_teams	= $this->table_prefix . 'f1webtip_teams';
 		$table_races 	= $this->table_prefix . 'f1webtip_races';
 
-		if ($this->db_tools->sql_table_exists($table_drivers))
-		{
-			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
-			switch ($db->get_sql_layer())
-			{
-				case 'sqlite3':
-					$db->sql_query('DELETE FROM ' . $table_drivers);
-				break;
-
-				default:
-					$db->sql_query('TRUNCATE TABLE ' . $table_drivers);
-				break;
-			}
-
-			$sql_ary = [];
-			# TBD in 2022
-			# -- Team 1 Mercedes F1 Team
-			$sql_ary[] = ['driver_name' => 'Hamilton, Lewis',		'driver_img' => '',	'driver_team' => 1,];
-			$sql_ary[] = ['driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 1,];
-
-			# -- Team 2 Scuderia Ferrari
-			$sql_ary[] = ['driver_name' => 'Sainz, Carlos',			'driver_img' => '',	'driver_team' => 2,];
-			$sql_ary[] = ['driver_name' => 'Leclerc, Charles',		'driver_img' => '',	'driver_team' => 2,];
-
-			# -- Team 3 Red Bull Racing
-			$sql_ary[] = ['driver_name' => 'Verstappen, Max',		'driver_img' => '',	'driver_team' => 3,];
-			$sql_ary[] = ['driver_name' => 'Perez, Sergio',			'driver_img' => '',	'driver_team' => 3,];
-
-			# -- Team 4 McLaren F1 Team
-			$sql_ary[] = ['driver_name' => 'Norris, Lando',			'driver_img' => '',	'driver_team' => 4,];
-			$sql_ary[] = ['driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 4,];
-
-			# -- Team 5 Alpine F1 Team
-			$sql_ary[] = ['driver_name' => 'Alonso, Fernandes',		'driver_img' => '',	'driver_team' => 5,];
-			$sql_ary[] = ['driver_name' => 'Ocon, Esteban',			'driver_img' => '',	'driver_team' => 5,];
-
-			# -- Team 6 Alpha Tauri F1 Team
-			$sql_ary[] = ['driver_name' => 'Gasly, Pierre',			'driver_img' => '',	'driver_team' => 6,];
-			$sql_ary[] = ['driver_name' => 'Tsunoda, Yuki',			'driver_img' => '',	'driver_team' => 6,];
-
-			# -- Team 7 Aston Martin F1 Team
-			$sql_ary[] = ['driver_name' => 'Vettel, Sebastian', 	'driver_img' => '', 'driver_team' => 7,];
-			$sql_ary[] = ['driver_name' => 'Stroll, Lance',			'driver_img' => '',	'driver_team' => 7,];
-
-			# -- Team 8 Alfa Romeo Racing
-			$sql_ary[] = ['driver_name' => 'Räikkönen, Kimi',		'driver_img' => '',	'driver_team' => 8,];
-			$sql_ary[] = ['driver_name' => 'Giovinazzi, Antonio',	'driver_img' => '',	'driver_team' => 8,];
-
-			# -- Team 9 Haas F1 Team
-			$sql_ary[] = ['driver_name' => 'Schumacher, Mick',		'driver_img' => '',	'driver_team' => 9,];
-			$sql_ary[] = ['driver_name' => 'Masepin, Nikita',		'driver_img' => '',	'driver_team' => 9,];
-
-			# -- Team 10 Williams Racing
-			$sql_ary[] = ['driver_name' => 'Russell, George',		'driver_img' => '',	'driver_team' => 10,];
-			$sql_ary[] = ['driver_name' => 'Latifi, Nicholas',		'driver_img' => '',	'driver_team' => 10,];
-
-			$db->sql_multi_insert($table_drivers, $sql_ary);
-		}
-
 		if ($this->db_tools->sql_table_exists($table_teams))
 		{
 			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
@@ -131,6 +72,65 @@ class season_update_2022 extends \phpbb\db\migration\container_aware_migration
 			$sql_ary[] = ['team_name' => 'Williams Racing',		'team_img' => '', 'team_car' => '',]; # 'team_id' => 10
 
 			$db->sql_multi_insert($table_teams, $sql_ary);
+		}
+
+		if ($this->db_tools->sql_table_exists($table_drivers))
+		{
+			// before we fill anything in this table, we delete the content. Maybe someone missed an old installation.
+			switch ($db->get_sql_layer())
+			{
+				case 'sqlite3':
+					$db->sql_query('DELETE FROM ' . $table_drivers);
+				break;
+
+				default:
+					$db->sql_query('TRUNCATE TABLE ' . $table_drivers);
+				break;
+			}
+
+			$sql_ary = [];
+			# TBD in 2022
+			# -- Team 1 Mercedes F1 Team
+			$sql_ary[] = ['driver_name' => 'Hamilton, Lewis',		'driver_img' => '',	'driver_team' => 1,];
+			$sql_ary[] = ['driver_name' => 'Russell, George',		'driver_img' => '',	'driver_team' => 1,];
+
+			# -- Team 2 Scuderia Ferrari
+			$sql_ary[] = ['driver_name' => 'Sainz, Carlos',			'driver_img' => '',	'driver_team' => 2,];
+			$sql_ary[] = ['driver_name' => 'Leclerc, Charles',		'driver_img' => '',	'driver_team' => 2,];
+
+			# -- Team 3 Red Bull Racing
+			$sql_ary[] = ['driver_name' => 'Verstappen, Max',		'driver_img' => '',	'driver_team' => 3,];
+			$sql_ary[] = ['driver_name' => 'Perez, Sergio',			'driver_img' => '',	'driver_team' => 3,];
+
+			# -- Team 4 McLaren F1 Team
+			$sql_ary[] = ['driver_name' => 'Norris, Lando',			'driver_img' => '',	'driver_team' => 4,];
+			$sql_ary[] = ['driver_name' => 'Ricciardo, Daniel',		'driver_img' => '',	'driver_team' => 4,];
+
+			# -- Team 5 Alpine F1 Team
+			$sql_ary[] = ['driver_name' => 'Alonso, Fernandes',		'driver_img' => '',	'driver_team' => 5,];
+			$sql_ary[] = ['driver_name' => 'Ocon, Esteban',			'driver_img' => '',	'driver_team' => 5,];
+
+			# -- Team 6 Alpha Tauri F1 Team
+			$sql_ary[] = ['driver_name' => 'Gasly, Pierre',			'driver_img' => '',	'driver_team' => 6,];
+			$sql_ary[] = ['driver_name' => 'Tsunoda, Yuki',			'driver_img' => '',	'driver_team' => 6,];
+
+			# -- Team 7 Aston Martin F1 Team
+			$sql_ary[] = ['driver_name' => 'Vettel, Sebastian', 	'driver_img' => '', 'driver_team' => 7,];
+			$sql_ary[] = ['driver_name' => 'Stroll, Lance',			'driver_img' => '',	'driver_team' => 7,];
+
+			# -- Team 8 Alfa Romeo Racing
+			$sql_ary[] = ['driver_name' => 'Bottas, Valtteri',		'driver_img' => '',	'driver_team' => 8,];
+			$sql_ary[] = ['driver_name' => 'Zhou, Guanyu',			'driver_img' => '',	'driver_team' => 8,];
+
+			# -- Team 9 Haas F1 Team
+			$sql_ary[] = ['driver_name' => 'Schumacher, Mick',		'driver_img' => '',	'driver_team' => 9,];
+			$sql_ary[] = ['driver_name' => 'Masepin, Nikita',		'driver_img' => '',	'driver_team' => 9,];
+
+			# -- Team 10 Williams Racing
+			$sql_ary[] = ['driver_name' => 'Albon, Alexander',		'driver_img' => '',	'driver_team' => 10,];
+			$sql_ary[] = ['driver_name' => 'Latifi, Nicholas',		'driver_img' => '',	'driver_team' => 10,];
+
+			$db->sql_multi_insert($table_drivers, $sql_ary);
 		}
 
 		if ($this->db_tools->sql_table_exists($table_races))

@@ -668,7 +668,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow.QUALI_BUTTONS }}&nbsp;
+								{% if racerow.QUALI_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="quali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow.QUALI_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editquali" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow.RACEID }}" />
 								{{ S_FORM_TOKEN }}
 							</div>
@@ -677,7 +681,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow.RESULT_BUTTONS }}&nbsp;
+								{% if racerow.RESULT_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="result" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow.RESULT_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editresult" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow.RACEID }}" />
 								{{ S_FORM_TOKEN }}
 							</div>

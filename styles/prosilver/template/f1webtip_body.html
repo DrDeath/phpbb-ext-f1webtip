@@ -5,7 +5,7 @@
 {% if S_INDEX %}
 
 {% INCLUDEJS '@drdeath_f1webtip/f1webtip_functions.js' %}
-{{ VAR_PLACES }}
+<script>var places = {{ PLACES }}</script>
 
 <form id="countdown" action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 	<h2>{{ lang('FORMEL_TITLE') }}</h2>
@@ -22,18 +22,20 @@
 				</div>
 				{% endif %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;
-					{{ U_FORMEL_FORUM }}
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_RULES }}'" value="{{ lang('FORMEL_RULES') }}" />&nbsp;
+					{% if S_DISCUSS_BUTTON %}
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_FORUM }}'" value="{{ lang('FORMEL_FORUM') }}" />&nbsp;
+					{% endif %}
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_STATISTICS }}'" value="{{ lang('FORMEL_STATISTICS') }}" />
 				</p>
 				{% if S_CALL_MOD %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
+					<input class="button" type="button" onclick="window.location.href='{{ U_FORMEL_CALL_MOD }}'" value="{{ lang('FORMEL_CALL_MOD') }}" />
 				</p>
 				{% endif %}
 				<p class="contentspacef1 centercontentf1">
-					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
-					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
+					<input class="button" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
+					<input class="button" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
 			</div>
 
@@ -140,7 +142,7 @@
 
 				<div class="responsive-hide">
 					<p class="contentspacef1 centercontentf1">
-						{{ racerow.RACEIMG }}
+						<img src="{{ racerow.EXT_PATH }}images/races/{{ racerow.RACEIMG }}" width="{{ racerow.RACEIMG_WIDTH }}" height="{{ racerow.RACEIMG_HEIGHT }}" alt="" />
 					</p>
 				</div>
 
@@ -182,7 +184,7 @@
 					</li>
 					{% if S_COUNTDOWN %}
 					{% INCLUDEJS '@drdeath_f1webtip/f1webtip_countdown.js' %}
-					{{ VAR_COUNTDOWN_STOP }}
+					<script>var countdown_stop = "{{ COUNTDOWN_STOP }}"</script>
 					<li class="row">
 						<dl class="text-strong">
 							<dt class="racef1" id="time_event">
@@ -206,7 +208,7 @@
 								{{ lang('FORMEL_RACELENGTH') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="racef1">
-								{{ racerow.RACELENGTH }}
+								{{ racerow.RACELENGTH }} {{ lang('FORMEL_DISTANCE_UNIT') }}
 							</dd>
 						</dl>
 						<dl class="text-strong">
@@ -222,7 +224,7 @@
 								{{ lang('FORMEL_RACEDISTANCE') }}{{ lang('COLON') }}
 							</dt>
 							<dd class="racef1">
-								{{ racerow.RACEDISTANCE }}
+								{{ racerow.RACEDISTANCE }} {{ lang('FORMEL_DISTANCE_UNIT') }}
 							</dd>
 						</dl>
 						<dl class="text-strong">
@@ -287,7 +289,7 @@
 								{% else %}
 								<tr class="bg3">
 								{% endif %}
-									<td class="rightf1">{{ qualirow_gfx.DRIVERIMG }}</td>
+									<td class="rightf1"><img src="{{ qualirow_gfx.EXT_PATH }}images/drivers/{{ qualirow_gfx.DRIVERIMG }}" width="{{ qualirow_gfx.DRIVERIMG_WIDTH }}" height="{{ qualirow_gfx.DRIVERIMG_HEIGHT }}" alt=""></td>
 									<td class="nowrapf1">
 										<strong>&nbsp;{{ qualirow_gfx.L_PLACE }}&nbsp;</strong>
 										<br>
@@ -331,7 +333,7 @@
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
-									<td class="rightf1">{{ resultrow_gfx.DRIVERIMG }}</td>
+									<td class="rightf1"><img src="{{ resultrow_gfx.EXT_PATH }}images/drivers/{{ resultrow_gfx.DRIVERIMG }}" width="{{ resultrow_gfx.DRIVERIMG_WIDTH }}" height="{{ resultrow_gfx.DRIVERIMG_HEIGHT }}" alt=""></td>
 									<td class="nowrapf1">
 										<strong>&nbsp;{{ resultrow_gfx.L_PLACE }}</strong>
 										<br>
@@ -409,7 +411,11 @@
 								<tr class="bg2">
 								{% endif %}
 									<td class="rightf1"><strong>&nbsp;{{ user_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
-									<td class="nowrapf1">&nbsp;{{ user_tipp.DRIVERCOMBO }}&nbsp;</td>
+									{% if not user_tipp.S_RACE_OVER %}
+									<td class="nowrapf1">&nbsp;<select id="{{ user_tipp.BOX_NAME }}" name="{{ user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">2{{ user_tipp.OPTION_LIST_DRIVER }}</select>&nbsp;</td>
+									{% else %}
+									<td class="nowrapf1">&nbsp;{{ user_tipp.DRIVERNAME }}</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ user_tipp.SINGLE_POINTS }}&nbsp;</td>
 								</tr>
 								{% endfor %}
@@ -419,11 +425,19 @@
 								{% else %}
 								<tr class="bg2">
 								{% endif %}
+								{% if not gfx_user_tipp.S_RACE_OVER %}
 									<td class="rightf1">{{ gfx_user_tipp.GFXDRIVERCOMBO }}</td>
+								{% else %}
+									<td class="rightf1"><img src="{{ gfx_user_tipp.EXT_PATH }}images/drivers/{{ gfx_user_tipp.GFXDRIVERCOMBO }}" width="{{ gfx_user_tipp.GFXDRIVERCOMBO_WIDTH }}" height="{{ gfx_user_tipp.GFXDRIVERCOMBO_HEIGHT }}" alt=""></td>
+								{% endif %}
 									<td class="nowrapf1">
-										<strong>{{ gfx_user_tipp.L_PLACE }}</strong>
-										&nbsp;{{ gfx_user_tipp.DRIVERCOMBO }}
-										{{ gfx_user_tipp.DRIVERTEAMNAME }}
+										<strong>{% if gfx_user_tipp.S_RACE_OVER %}&nbsp;{{ gfx_user_tipp.L_PLACE }}<br />{% endif %}</strong>
+										{% if not gfx_user_tipp.S_RACE_OVER %}
+										&nbsp;<select id="{{ gfx_user_tipp.BOX_NAME }}" name="{{ gfx_user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ gfx_user_tipp.OPTION_LIST_DRIVER }}</select>
+										{% else %}
+										&nbsp;{{ gfx_user_tipp.DRIVERNAME }}<br>
+										{% endif %}
+										{% if gfx_user_tipp.S_RACE_OVER %}&nbsp;{% endif %}{{ gfx_user_tipp.DRIVERTEAMNAME }}
 									</td>
 									<td class="responsive-hide centerf1">&nbsp;{{ gfx_user_tipp.SINGLE_POINTS }}&nbsp;</td>
 								</tr>
@@ -431,34 +445,58 @@
 								{% for extended_user_tipp in extended_users_tipp %}
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp.DRIVERCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp.S_RACE_OVER %}
+									<td>&nbsp;<select name="place11" size="1">{{ extended_user_tipp.OPTION_LIST_PACE }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp.DRIVER_FASTEST }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_FASTEST }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp.TIREDCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp.S_RACE_OVER %}
+									<td>&nbsp;<select name="place12" size="1">{{ extended_user_tipp.OPTION_LIST_TIRED }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp.TIRED_CARS }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp.SAFETYCARCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp.S_RACE_OVER %}
+									<td>&nbsp;<select name="place13" size="1">{{ extended_user_tipp.OPTION_LIST_SAFETYCAR }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp.SAFETYCARS }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_user_tipp_gfx in extended_users_tipp_gfx %}
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp_gfx.DRIVERCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp_gfx.S_RACE_OVER %}
+									<td>&nbsp;<select name="place11" size="1">{{ extended_user_tipp_gfx.OPTION_LIST_PACE }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp_gfx.DRIVER_FASTEST }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_FASTEST }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp_gfx.TIREDCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp_gfx.S_RACE_OVER %}
+									<td>&nbsp;<select name="place12" size="1">{{ extended_user_tipp_gfx.OPTION_LIST_TIRED }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp_gfx.TIRED_CARS }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_TIRED }}&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_user_tipp_gfx.SAFETYCARCOMBO }}&nbsp;</td>
+									{% if not extended_user_tipp_gfx.S_RACE_OVER %}
+									<td>&nbsp;<select name="place13" size="1">{{ extended_user_tipp_gfx.OPTION_LIST_SAFETYCAR }}</select>&nbsp;</td>
+									{% else %}
+									<td>&nbsp;{{ extended_user_tipp_gfx.SAFETYCARS }}&nbsp;</td>
+									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
@@ -469,25 +507,28 @@
 								<tr class="bg2">
 								{% endif %}
 									<td class="rightf1"><strong>&nbsp;{{ add_tipp.L_PLACE }}&nbsp;</strong></td>
-									<td>&nbsp;{{ add_tipp.DRIVERCOMBO }}</td>
+									{% if not add_tipp.S_GUEST %}
+									<td>&nbsp;<select id="{{ add_tipp.BOX_NAME }}" name="{{ add_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ add_tipp.OPTION_LIST_DRIVER }}</select></td>
+									{% else %}
+									<td><br />{{ lang('FORMEL_GUESTS_PLACE_NO_TIP') }}</td>
+									{% endif %}
 									<td>&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_add_tipp in extended_add_tipps %}
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
-
-									<td>&nbsp;{{ extended_add_tipp.DRIVERCOMBO }}&nbsp;</td>
+									<td>&nbsp;<select name="place11" size="1">{{ extended_add_tipp.OPTION_LIST_PACE }}</select>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_add_tipp.TIREDCOMBO }}&nbsp;</td>
+									<td>&nbsp;<select name="place12" size="1">{{ extended_add_tipp.OPTION_LIST_TIRED }}</select>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_add_tipp.SAFETYCARCOMBO }}&nbsp;</td>
+									<td>&nbsp;<select name="place13" size="1">{{ extended_add_tipp.OPTION_LIST_SAFETYCAR }}</select>&nbsp;</td>
 									<td>&nbsp;</td>
 								</tr>
 								{% endfor %}
@@ -524,14 +565,19 @@
 				<p class="contentspacef1 centercontentf1">
 					{{ lang('FORMEL_GAME_OVER') }}
 				</p>
+				{% else %}
+				<p class="centercontentf1 contentspacef1">
+					{% for place_tipp in place_tipps %}
+					<input class="button" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />
+					{% if place_tipp.DELETE_TIPP %}
+					&nbsp;<input class="button" type="submit" name="del_tipp" value="{{ lang('FORMEL_DEL_TIPP') }}" />&nbsp;&nbsp;
+					{% endif %}
+					{% endfor %}
+				</p>
 				{% endif %}
 				<p class="centercontentf1 contentspacef1">
-					<input class="button1" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
-					{% for place_tipp in place_tipps %}
-					<input class="button1" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />&nbsp;
-					{{ place_tipp.DELETE_TIPP }}
-					{% endfor %}
-					<input class="button1" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
+					<input class="button" type="submit" name="prev" value="{{ lang('FORMEL_PREV_RACE') }}" />&nbsp;
+					<input class="button" type="submit" name="next" value="{{ lang('FORMEL_NEXT_RACE') }}" />
 				</p>
 			</div>
 
@@ -567,7 +613,7 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="nowrapf1">
-						&nbsp;{{ racerow_gfxr.RACEIMG }}&nbsp;
+						&nbsp;<img src="{{ racerow_gfxr.EXT_PATH }}images/races/{{ racerow_gfxr.RACEIMG }}" width="94" height="54" alt="" />&nbsp;
 					</td>
 					<td class="nowrapfullf1">
 						<strong>{{ racerow_gfxr.RACENAME }}</strong>
@@ -579,7 +625,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow_gfxr.QUALI_BUTTONS }}&nbsp;
+								{% if racerow_gfxr.QUALI_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="quali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow_gfxr.QUALI_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editquali" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow_gfxr.RACEID }}" />
 								<input type="hidden" name="racename" value="{{ racerow_gfxr.RACENAME }}" />
 								{{ S_FORM_TOKEN }}
@@ -589,7 +639,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow_gfxr.RESULT_BUTTONS }}&nbsp;
+								{% if racerow_gfxr.RESULT_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="result" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow_gfxr.RESULT_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editresult" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow_gfxr.RACEID }}" />
 								<input type="hidden" name="racename" value="{{ racerow_gfxr.RACENAME }}" />
 								{{ S_FORM_TOKEN }}
@@ -614,7 +668,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow.QUALI_BUTTONS }}&nbsp;
+								{% if racerow.QUALI_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="quali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow.QUALI_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editquali" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow.RACEID }}" />
 								{{ S_FORM_TOKEN }}
 							</div>
@@ -623,7 +681,11 @@
 					<td class="nowrapf1 centerf1">
 						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 							<div>
-								&nbsp;{{ racerow.RESULT_BUTTONS }}&nbsp;
+								{% if racerow.RESULT_BUTTONS == 'add' %}
+								&nbsp;<input class="button" type="submit" name="result" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
+								{% elseif racerow.RESULT_BUTTONS == 'edit' %}
+								&nbsp;<input class="button" type="submit" name="editresult" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
+								{% endif %}
 								<input type="hidden" name="race_id" value="{{ racerow.RACEID }}" />
 								{{ S_FORM_TOKEN }}
 							</div>
@@ -642,7 +704,7 @@
 {% if S_ADDRESULTS %}
 
 {% INCLUDEJS '@drdeath_f1webtip/f1webtip_functions.js' %}
-{{ VAR_PLACES }}
+<script>var places = {{ PLACES }}</script>
 
 <h2>{{ lang('FORMEL_RESULTS_TITLE') }}</h2>
 {{ lang('FORMEL_RESULTS_TITLE_EXP') }}
@@ -669,12 +731,12 @@
 					<tr class="bg3">
 					{% endif %}
 						<td class="halff1 rightf1">{{ qualirow.L_PLACE }}&nbsp;</td>
-						<td class="halff1">&nbsp;{{ qualirow.DRIVERCOMBO }}</td>
+						<td class="halff1">&nbsp;<select id="{{ qualirow.BOX_NAME }}" name="{{ qualirow.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ qualirow.OPTION_LIST_DRIVER }}</select></td>
 					</tr>
 				{% endfor %}
 				{% if qualifications %}
 					<tr>
-						<td class="bg3 nowrapf1 centerf1" colspan="2">&nbsp;<input class="button1" type="submit" name="addquali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;</td>
+						<td class="bg3 nowrapf1 centerf1" colspan="2">&nbsp;<input class="button" type="submit" name="addquali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;</td>
 					</tr>
 				{% endif %}
 				{% if results %}
@@ -692,21 +754,21 @@
 					<tr class="bg3">
 					{% endif %}
 						<td class="halff1 rightf1">{{ resultrow.L_PLACE }}&nbsp;</td>
-						<td class="halff1">&nbsp;{{ resultrow.DRIVERCOMBO }}</td>
+						<td class="halff1">&nbsp;<select id="{{ resultrow.BOX_NAME }}" name="{{ resultrow.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ resultrow.OPTION_LIST_DRIVER }}</select></td>
 					</tr>
 					{% endfor %}
 					{% for result in results %}
 					<tr class="bg1">
 						<td class="halff1 rightf1">{{ lang('FORMEL_PACE') }}&nbsp;</td>
-						<td class="halff1">&nbsp;{{ result.PACECOMBO }}</td>
+						<td class="halff1">&nbsp;<select name="place11" size="1">{{ result.OPTION_LIST_PACE }}</select></td>
 					</tr>
 					<tr class="bg1">
 						<td class="halff1 rightf1">{{ lang('FORMEL_TIRED') }}&nbsp;</td>
-						<td class="halff1">&nbsp;{{ result.TIREDCOMBO }}</td>
+						<td class="halff1">&nbsp;<select name="place12" size="1">{{ result.OPTION_LIST_TIRED }}</select></td>
 					</tr>
 					<tr class="bg1">
 						<td class="halff1 rightf1">{{ lang('FORMEL_SAFETYCAR') }}&nbsp;</td>
-						<td class="halff1">&nbsp;{{ result.SAFETYCARCOMBO }}</td>
+						<td class="halff1">&nbsp;<select name="place13" size="1">{{ result.OPTION_LIST_SAFETYCAR }}</select></td>
 					</tr>
 					<tr class="bg1">
 						<td class="halff1 rightf1">{{ lang('FORMEL_RACE_ABORD') }}&nbsp;</td>
@@ -717,7 +779,7 @@
 						<td class="halff1">&nbsp;<input type="radio" name="race_double" value="1" />&nbsp;{{ lang('YES') }}&nbsp;&nbsp;<input type="radio" name="race_double" value="0" checked />&nbsp;{{ lang('NO') }}&nbsp;</td>
 					</tr>
 					<tr class="bg3">
-						<td class="centerf1" colspan="2"><input class="button1" type="submit" name="{{ result.MODE }}" value="{{ lang('FORMEL_RESULTS_ADD') }}" /></td>
+						<td class="centerf1" colspan="2"><input class="button" type="submit" name="{{ result.MODE }}" value="{{ lang('FORMEL_RESULTS_ADD') }}" /></td>
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -752,7 +814,7 @@
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
 					<p class="contentspacef1 centercontentf1">
-						<input class="button1" type="submit" name="rules" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
+						<input class="button" type="submit" name="rules" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />
 					</p>
 				</div>
 			</form>
@@ -824,10 +886,10 @@
 			<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
 				<div>
 					<p class="contentspacef1 centercontentf1">
-						<input class="button1" type="button" onclick="window.location.href='{{ U_BACK_TO_TIPP }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />&nbsp;&nbsp;
-						<input class="button1" type="submit" name="show_users" value="{{ lang('FORMEL_USER_STATS') }}" />&nbsp;&nbsp;
-						<input class="button1" type="submit" name="show_drivers" value="{{ lang('FORMEL_DRIVER_STATS') }}" />&nbsp;&nbsp;
-						<input class="button1" type="submit" name="show_teams" value="{{ lang('FORMEL_TEAM_STATS') }}" />
+						<input class="button" type="button" onclick="window.location.href='{{ U_BACK_TO_TIPP }}'" value="{{ lang('FORMEL_BACK_TO_TIPP') }}" />&nbsp;&nbsp;
+						<input class="button" type="submit" name="show_users" value="{{ lang('FORMEL_USER_STATS') }}" />&nbsp;&nbsp;
+						<input class="button" type="submit" name="show_drivers" value="{{ lang('FORMEL_DRIVER_STATS') }}" />&nbsp;&nbsp;
+						<input class="button" type="submit" name="show_teams" value="{{ lang('FORMEL_TEAM_STATS') }}" />
 					</p>
 				</div>
 			</form>
@@ -862,8 +924,11 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_tipper.RANK }}</td>
-					{% if top_tipper.S_AVATAR_SWITCH == true %}
-					<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>
+					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == false %}
+						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="{{ top_tipper.CORRECTED_PATH }}styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
+					{% endif %}
+					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == true %}
+						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>	
 					{% endif %}
 					<td class="nowrapf1 centerf1">{{ top_tipper.TIPPER_NAME }}</td>
 					<td class="centerf1">{{ top_tipper.TIPPER_POINTS }}</td>
@@ -890,9 +955,9 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_driver_gfx.RANK }}</td>
-					<td class="centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERTEAM }}&nbsp;</td>
-					<td class="centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERCAR }}&nbsp;</td>
-					<td class="centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERIMG }}&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/teams/{{ top_driver_gfx.WM_DRIVERTEAM }}"  alt="" width="{{ top_driver_gfx.WM_DRIVERTEAM_WIDTH }}" height="{{ top_driver_gfx.WM_DRIVERTEAM_HEIGHT }}">&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/cars/{{ top_driver_gfx.WM_DRIVERCAR }}"    alt="" width="{{ top_driver_gfx.WM_DRIVERCAR_WIDTH }}"  height="{{ top_driver_gfx.WM_DRIVERCAR_HEIGHT }}" >&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/drivers/{{ top_driver_gfx.WM_DRIVERIMG }}" alt="" width="{{ top_driver_gfx.WM_DRIVERIMG_WIDTH }}"  height="{{ top_driver_gfx.WM_DRIVERIMG_HEIGHT }}" >&nbsp;</td>
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERNAME }}</td>
 					<td class="centerf1">{{ top_driver_gfx.WM_POINTS }}</td>
 				</tr>
@@ -939,8 +1004,8 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_team_gfx.RANK }}</td>
-					<td class="centerf1">{{ top_team_gfx.WM_TEAMIMG }}</td>
-					<td class="centerf1">{{ top_team_gfx.WM_TEAMCAR }}</td>
+					<td class="centerf1"><img src="{{ top_team_gfx.EXT_PATH }}images/teams/{{ top_team_gfx.WM_TEAMIMG }}" alt="" width="{{ top_team_gfx.WM_TEAMIMG_WIDTH }}" height="{{ top_team_gfx.WM_TEAMIMG_HEIGHT }}"</td>
+					<td class="centerf1"><img src="{{ top_team_gfx.EXT_PATH }}images/cars/{{ top_team_gfx.WM_TEAMCAR }}"  alt="" width="{{ top_team_gfx.WM_TEAMCAR_WIDTH }}" height="{{ top_team_gfx.WM_TEAMCAR_HEIGHT }}"</td>
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_team_gfx.WM_TEAMNAME }}</td>
 					<td class="centerf1">{{ top_team_gfx.WM_POINTS }}</td>
 				</tr>
@@ -1067,7 +1132,7 @@ Please donate via paypal
 		</table>
 		<div style="text-align: center;">
 			<p class="contentspacef1 submit-buttons">
-				<input class="button1" id="submit" type="submit" onclick="javascript:window.close()" value="{{ lang('FORMEL_CLOSE_WINDOW') }}" />
+				<input class="button" id="submit" type="submit" onclick="javascript:window.close()" value="{{ lang('FORMEL_CLOSE_WINDOW') }}" />
 			</p>
 		</div>
 

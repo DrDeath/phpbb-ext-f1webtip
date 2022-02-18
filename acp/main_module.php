@@ -23,26 +23,37 @@ class main_module
 	* Reads all files in the given directory and scans for images
 	*
 	* Parameter: directory to scan
-	* Returns an array including all found images
+	* @param string			$dir
+	*
+	* Returns a file array including all found images
 	*/
 	public function load_files($dir)
 	{
-		$result = [];
-		$image_ary = preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
+		$file_ary	= [];
 
-		// recreate array, shoud start with 0 ;-)
-		foreach ($image_ary as $value)
+		if (is_dir($dir))
 		{
-			$result[] = $value;
+			$scan_ary 	= preg_grep('~\.(jpeg|jpg|gif|png)$~', scandir($dir));
+
+			// recreate array, should start with 0 ;-)
+			foreach ($scan_ary as $file)
+			{
+				$file_ary[] = $file;
+			}
 		}
 
-		return $result;
+		return $file_ary;
 	}
 
 	/*
 	* Creates dropdown boxes for image selection
 	*
 	* Parameters: directory to scan, default selection, selection name, optional: first option value
+	* @param string			$dir
+	* @param string			$select_default
+	* @param string			$name
+	* @param string			$default
+	*
 	* Returns a string as dropdown box with all found images in given directory
 	*/
 	public function create_dropdown($dir, $select_default, $name, $default = false)
@@ -114,12 +125,28 @@ class main_module
 					if (confirm_box(true))
 					{
 						// remove all user tips
-						$sql = 'DELETE FROM ' . $table_tips;
-						$db->sql_query($sql);
+						switch ($db->get_sql_layer())
+						{
+							case 'sqlite3':
+								$db->sql_query('DELETE FROM ' . $table_tips);
+							break;
+
+							default:
+								$db->sql_query('TRUNCATE TABLE ' . $table_tips);
+							break;
+						}
 
 						// remove all wm points
-						$sql = 'DELETE FROM ' . $table_wm;
-						$db->sql_query($sql);
+						switch ($db->get_sql_layer())
+						{
+							case 'sqlite3':
+								$db->sql_query('DELETE FROM ' . $table_wm);
+							break;
+
+							default:
+								$db->sql_query('TRUNCATE TABLE ' . $table_wm);
+							break;
+						}
 
 						// remove all race and qualifying results
 						$sql_ary = [
@@ -175,13 +202,13 @@ class main_module
 						trigger_error('FORM_INVALID');
 					}
 
-					$config->set('drdeath_f1webtip_headbanner1_img',	$request->variable('headbanner1_img',			$config['drdeath_f1webtip_headbanner1_img']));
-					$config->set('drdeath_f1webtip_headbanner2_img',	$request->variable('headbanner2_img',			$config['drdeath_f1webtip_headbanner2_img']));
-					$config->set('drdeath_f1webtip_headbanner3_img',	$request->variable('headbanner3_img',			$config['drdeath_f1webtip_headbanner3_img']));
-					$config->set('drdeath_f1webtip_no_car_img',			$request->variable('no_car_img',				$config['drdeath_f1webtip_no_car_img']));
-					$config->set('drdeath_f1webtip_no_driver_img',		$request->variable('no_driver_img',				$config['drdeath_f1webtip_no_driver_img']));
-					$config->set('drdeath_f1webtip_no_race_img',		$request->variable('no_race_img',				$config['drdeath_f1webtip_no_race_img']));
-					$config->set('drdeath_f1webtip_no_team_img',		$request->variable('no_team_img',				$config['drdeath_f1webtip_no_team_img']));
+					$config->set('drdeath_f1webtip_headbanner1_img',	$request->variable('headbanner1_img',			$config['drdeath_f1webtip_headbanner1_img'],	true));
+					$config->set('drdeath_f1webtip_headbanner2_img',	$request->variable('headbanner2_img',			$config['drdeath_f1webtip_headbanner2_img'],	true));
+					$config->set('drdeath_f1webtip_headbanner3_img',	$request->variable('headbanner3_img',			$config['drdeath_f1webtip_headbanner3_img'],	true));
+					$config->set('drdeath_f1webtip_no_car_img',			$request->variable('no_car_img',				$config['drdeath_f1webtip_no_car_img'],			true));
+					$config->set('drdeath_f1webtip_no_driver_img',		$request->variable('no_driver_img',				$config['drdeath_f1webtip_no_driver_img'],		true));
+					$config->set('drdeath_f1webtip_no_race_img',		$request->variable('no_race_img',				$config['drdeath_f1webtip_no_race_img'],		true));
+					$config->set('drdeath_f1webtip_no_team_img',		$request->variable('no_team_img',				$config['drdeath_f1webtip_no_team_img'],		true));
 
 					$config->set('drdeath_f1webtip_car_img_height',		(int) $request->variable('car_img_height',		$config['drdeath_f1webtip_car_img_height']));
 					$config->set('drdeath_f1webtip_car_img_width',		(int) $request->variable('car_img_width',		$config['drdeath_f1webtip_car_img_width']));
@@ -409,7 +436,7 @@ class main_module
 				$button_edit 		= $request->is_set_post('edit');
 
 				// Check data
-				$driverimg			= $request->variable('driverimg'		,	''	);
+				$driverimg			= $request->variable('driverimg'		,	''	,	true	);
 				$drivername			= $request->variable('drivername'		,	''	,	true	);
 				$driverteam			= $request->variable('driverteam'		,	0	);
 				$driver_id			= $request->variable('driver_id'		,	0	);
@@ -458,6 +485,12 @@ class main_module
 					if (!check_form_key('drdeath/f1webtip'))
 					{
 						trigger_error('FORM_INVALID');
+					}
+
+					if (!$driverteam)
+					{
+							$error = $language->lang('ACP_F1_DRIVERS_NOT_ADDED', $drivername);
+							trigger_error($error . adm_back_link($this->u_action), E_USER_WARNING);
 					}
 
 					if ($driver_id == 0)
@@ -637,7 +670,7 @@ class main_module
 							'DRIVERIMG'			=> $driverimg,
 							'DRIVERNAME'		=> $row['driver_name'],
 							'DRIVERPOINTS'		=> $points,
-							'DRIVERTEAM'		=> (isset($teams[$row['driver_team']])) ? $teams[$row['driver_team']] : '',
+							'DRIVERTEAM'		=> $teams[$row['driver_team']] ?? '',
 							]
 						);
 

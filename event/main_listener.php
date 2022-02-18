@@ -21,7 +21,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class main_listener implements EventSubscriberInterface
 {
-	static public function getSubscribedEvents()
+	public static function getSubscribedEvents()
 	{
 		return [
 			'core.user_setup'							=> 'load_language_on_setup',
@@ -180,7 +180,7 @@ class main_listener implements EventSubscriberInterface
 				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 
 				// Get tip data for this user
-				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
+				$sql = 'SELECT sum(tip_id), tip_user, sum(tip_points) as total_points, count(tip_points) as tips_made
 					FROM ' . $table_tips . '
 					GROUP BY tip_user
 					ORDER BY total_points DESC';
@@ -211,8 +211,8 @@ class main_listener implements EventSubscriberInterface
 
 				// Count total races with existing results
 				$sql = 'SELECT *
-					FROM ' . $table_races . '
-					WHERE race_result <> 0';
+					FROM ' . $table_races . "
+					WHERE race_result <> '0'";
 				$result = $this->db->sql_query($sql);
 
 				$race_total = $this->db->sql_affectedrows($result);
@@ -246,7 +246,7 @@ class main_listener implements EventSubscriberInterface
 				$table_races	= $this->phpbb_container->getParameter('tables.f1webtip.races');
 
 				// Get tipp data for this user
-				$sql = 'SELECT *, sum(tip_points) as total_points, count(tip_points) as tips_made
+				$sql = 'SELECT sum(tip_id), tip_user, sum(tip_points) as total_points, count(tip_points) as tips_made
 					FROM ' . $table_tips . '
 					GROUP BY tip_user
 					ORDER BY total_points DESC';
@@ -278,8 +278,8 @@ class main_listener implements EventSubscriberInterface
 
 				// Count total races with existing results
 				$sql = 'SELECT *
-					FROM ' . $table_races . '
-					WHERE race_result <> 0';
+					FROM ' . $table_races . "
+					WHERE race_result <> '0'";
 				$result = $this->db->sql_query($sql);
 
 				$race_total = $this->db->sql_affectedrows($result);

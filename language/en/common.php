@@ -51,6 +51,7 @@ $lang = array_merge($lang, [
 	'FORMEL_DEFINE'					=> 'Not placed',
 	'FORMEL_DEL_TIPP'				=> 'Delete tip',
 	'FORMEL_DELETE'					=> 'Delete',
+	'FORMEL_DISTANCE_UNIT'			=> 'km',
 	'FORMEL_DONATE'					=> 'Donate to my extensions: This extension, as with all of my extensions, is totally free of charge. If you have benefited from using it then please consider making a donation by clicking the PayPal donation button above - I would appreciate it. I promise that there will be no spam nor requests for further donations, although they would always be welcome.',
 	'FORMEL_DRIVER_STATS'			=> 'Driver',
 	'FORMEL_DUBLICATE_VALUES'		=> 'Error while sending your tip: You placed a driver more than once<br><br>Click %shere%s to go back to the Formula 1 WbTip overview<br><br>Click %shere%s to go back to forum',
@@ -79,7 +80,7 @@ $lang = array_merge($lang, [
 	'FORMEL_PREV_RACE'				=> 'Previous',
 	'FORMEL_PROFILE_NORANK'			=> 'No ranking',
 	'FORMEL_PROFILE_RANK'			=> '%s. Place',
-	'FORMEL_PROFILE_TIPSS'			=> '%s of %s races tiped',
+	'FORMEL_PROFILE_TIPSS'			=> '%s of %s races tipped so far',
 	'FORMEL_PROFILE_WEBTIPP'		=> 'Formula 1 points',
 	'FORMEL_RACE_ABORD'				=> 'Race aborted (half points!)',
 	'FORMEL_RACE_DOUBLE'			=> 'Race with double points',
@@ -135,9 +136,9 @@ $lang = array_merge($lang, [
 	'FORMEL_YOUR_TIPP'				=> 'Your tip',
 	'VIEWING_F1WEBTIPP'				=> 'Viewing Formula 1 WebTip',
 
-	'FORMEL_RULES_POINTS'			=> array(
+	'FORMEL_RULES_POINTS'			=> [
 		1	=> 'Point',
 		2	=> 'Points',
-	),
+	],
 
 ]);

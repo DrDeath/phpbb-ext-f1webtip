@@ -51,6 +51,7 @@ $lang = array_merge($lang, [
 	'FORMEL_DEFINE'					=> 'Niet geplaatst',
 	'FORMEL_DEL_TIPP'				=> 'Verwijder voorspelling',
 	'FORMEL_DELETE'					=> 'Delete',
+	'FORMEL_DISTANCE_UNIT'			=> 'km',
 	'FORMEL_DONATE'					=> 'Donatie voor de Formule 1-extensie: deze extensie is, net als al mijn extensies, volledig gratis. Als u hiervan hebt geprofiteerd, kunt u ook een donatie doen met de PayPal-donatieknop. Ik zou het waarderen. Ik beloof dat er geen spam of verzoeken om verdere donaties zullen zijn, hoewel ze altijd welkom zouden zijn.',
 	'FORMEL_DRIVER_STATS'			=> 'Coureur',
 	'FORMEL_DUBLICATE_VALUES'		=> 'Fout bij het versturen van jou voorspelling:Error while sending your tip: Je hebt een coureur meerdere keren voorspeld<br><br>Klik %shier%s om terug te gaan naar het overzicht van Formule 1 Voorspellingen<br><br>Klik %shier%s om terug te gaan naar het forum',
@@ -135,9 +136,9 @@ $lang = array_merge($lang, [
 	'FORMEL_YOUR_TIPP'				=> 'Jou voorspelling',
 	'VIEWING_F1WEBTIPP'				=> 'Bekijk Formule 1 Voorspellingen',
 
-	'FORMEL_RULES_POINTS'			=> array(
+	'FORMEL_RULES_POINTS'			=> [
 		1	=> 'Punt',
 		2	=> 'Punten',
-	),
+	],
 
 ]);

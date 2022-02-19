@@ -804,7 +804,8 @@ class main
 					$quali_buttons 			= ($row['race_quali']  == '0') 		? 'add' : 'edit';
 					$result_buttons 		= ($row['race_result'] == '0') 		? 'add' : 'edit';
 
-					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfxr'] == 1) ? 'racerows_gfxr' : 'racerows', [
+					$this->template->assign_block_vars('racerows', [
+						'SHOW_GFXR'			=> $this->config['drdeath_f1webtip_show_gfxr'],
 						'EXT_PATH'			=> $ext_path,
 						'QUALI_BUTTONS'		=> $quali_buttons,
 						'RACEDEAD'			=> $this->user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),

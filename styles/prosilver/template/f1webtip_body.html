@@ -606,57 +606,16 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% for racerow_gfxr in racerows_gfxr %}
-				{% if racerow_gfxr.S_ROW_COUNT is even %}
-				<tr class="bg1">
-				{% else %}
-				<tr class="bg2">
-				{% endif %}
-					<td class="nowrapf1">
-						&nbsp;<img src="{{ racerow_gfxr.EXT_PATH }}images/races/{{ racerow_gfxr.RACEIMG }}" width="94" height="54" alt="" />&nbsp;
-					</td>
-					<td class="nowrapfullf1">
-						<strong>{{ racerow_gfxr.RACENAME }}</strong>
-						<br>
-						<strong>{{ lang('TIME') }}{{ lang('COLON') }}</strong> {{ racerow_gfxr.RACETIME }}
-						<br>
-						<strong>{{ lang('FORMEL_RACEDEAD') }}{{ lang('COLON') }}</strong> {{ racerow_gfxr.RACEDEAD }}
-					</td>
-					<td class="nowrapf1 centerf1">
-						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
-							<div>
-								{% if racerow_gfxr.QUALI_BUTTONS == 'add' %}
-								&nbsp;<input class="button" type="submit" name="quali" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
-								{% elseif racerow_gfxr.QUALI_BUTTONS == 'edit' %}
-								&nbsp;<input class="button" type="submit" name="editquali" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetquali" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
-								{% endif %}
-								<input type="hidden" name="race_id" value="{{ racerow_gfxr.RACEID }}" />
-								<input type="hidden" name="racename" value="{{ racerow_gfxr.RACENAME }}" />
-								{{ S_FORM_TOKEN }}
-							</div>
-						</form>
-					</td>
-					<td class="nowrapf1 centerf1">
-						<form action="{{ S_FORM_ACTION }}" method="post" enctype="multipart/form-data">
-							<div>
-								{% if racerow_gfxr.RESULT_BUTTONS == 'add' %}
-								&nbsp;<input class="button" type="submit" name="result" value="{{ lang('FORMEL_RESULTS_ADD') }}" />&nbsp;
-								{% elseif racerow_gfxr.RESULT_BUTTONS == 'edit' %}
-								&nbsp;<input class="button" type="submit" name="editresult" value="{{ lang('FORMEL_EDIT') }}" />&nbsp;&nbsp;<input class="button" type="submit" name="resetresult" value="{{ lang('FORMEL_DELETE') }}" />&nbsp;
-								{% endif %}
-								<input type="hidden" name="race_id" value="{{ racerow_gfxr.RACEID }}" />
-								<input type="hidden" name="racename" value="{{ racerow_gfxr.RACENAME }}" />
-								{{ S_FORM_TOKEN }}
-							</div>
-						</form>
-					</td>
-				</tr>
-			{% endfor %}
 			{% for racerow in racerows %}
 				{% if racerow.S_ROW_COUNT is even %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
+				{% endif %}
+				{% if racerow.SHOW_GFXR == 1 %}
+					<td class="nowrapf1">
+						&nbsp;<img src="{{ racerow.EXT_PATH }}images/races/{{ racerow.RACEIMG }}" width="94" height="54" alt="" />&nbsp;
+					</td>
 				{% endif %}
 					<td class="nowrapfullf1" colspan="2">
 						<strong>{{ racerow.RACENAME }}</strong>

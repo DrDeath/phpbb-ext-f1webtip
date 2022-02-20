@@ -612,7 +612,7 @@
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-				{% if racerow.SHOW_GFXR == 1 %}
+				{% if racerow.SHOW_GFXR == true %}
 					<td class="nowrapf1">
 						&nbsp;<img src="{{ racerow.EXT_PATH }}images/races/{{ racerow.RACEIMG }}" width="94" height="54" alt="" />&nbsp;
 					</td>
@@ -883,42 +883,15 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_tipper.RANK }}</td>
-					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == false %}
-						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="{{ top_tipper.CORRECTED_PATH }}styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
-					{% endif %}
-					{% if top_tipper.S_AVATAR_SWITCH == true and top_tipper.TIPPER_AVATAR == true %}
+					{% if top_tipper.S_AVATAR_SWITCH == true %}
+						{% if top_tipper.TIPPER_AVATAR == true %}
 						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>	
+						{% else %}
+						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="{{ top_tipper.CORRECTED_PATH }}styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
+						{% endif %}
 					{% endif %}
 					<td class="nowrapf1 centerf1">{{ top_tipper.TIPPER_NAME }}</td>
 					<td class="centerf1">{{ top_tipper.TIPPER_POINTS }}</td>
-				</tr>
-			{% endfor %}
-
-			{% for top_driver_gfx in top_drivers_gfx %}
-			{% if top_driver_gfx.S_ROW_COUNT == 0 %}
-			<thead>
-				<tr>
-					<th><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
-					<th><strong>{{ lang('FORMEL_STATS_TEAMIMAGE') }}</strong></th>
-					<th><strong>{{ lang('FORMEL_STATS_TEAMCAR') }}</strong></th>
-					<th><strong>{{ lang('FORMEL_STATS_DRIVERIMAGE') }}</strong></th>
-					<th class="halff1"><strong>{{ lang('FORMEL_STATS_DRIVERNAME') }}</strong></th>
-					<th><strong>{{ lang('FORMEL_TOP_POINTS') }}</strong></th>
-				</tr>
-			</thead>
-			<tbody>
-			{% endif %}
-				{% if top_driver_gfx.S_ROW_COUNT < 3 %}
-				<tr class="bg1">
-				{% else %}
-				<tr class="bg2">
-				{% endif %}
-					<td class="centerf1">{{ top_driver_gfx.RANK }}</td>
-					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/teams/{{ top_driver_gfx.WM_DRIVERTEAM }}"  alt="" width="{{ top_driver_gfx.WM_DRIVERTEAM_WIDTH }}" height="{{ top_driver_gfx.WM_DRIVERTEAM_HEIGHT }}">&nbsp;</td>
-					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/cars/{{ top_driver_gfx.WM_DRIVERCAR }}"    alt="" width="{{ top_driver_gfx.WM_DRIVERCAR_WIDTH }}"  height="{{ top_driver_gfx.WM_DRIVERCAR_HEIGHT }}" >&nbsp;</td>
-					<td class="centerf1">&nbsp;<img src="{{ top_driver_gfx.EXT_PATH }}images/drivers/{{ top_driver_gfx.WM_DRIVERIMG }}" alt="" width="{{ top_driver_gfx.WM_DRIVERIMG_WIDTH }}"  height="{{ top_driver_gfx.WM_DRIVERIMG_HEIGHT }}" >&nbsp;</td>
-					<td class="nowraphalff1 centerf1">&nbsp;{{ top_driver_gfx.WM_DRIVERNAME }}</td>
-					<td class="centerf1">{{ top_driver_gfx.WM_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
@@ -926,9 +899,14 @@
 			{% if top_driver.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
-					<th class="centerf1"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
-					<th class="halff1 centerf1"><strong>Name</strong></th>
-					<th class="centerf1"><strong>{{ lang('FORMEL_TOP_POINTS') }}</strong></th>
+					<th><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
+					{% if top_driver.SHOW_GFX == true %}
+					<th><strong>{{ lang('FORMEL_STATS_TEAMIMAGE') }}</strong></th>
+					<th><strong>{{ lang('FORMEL_STATS_TEAMCAR') }}</strong></th>
+					<th><strong>{{ lang('FORMEL_STATS_DRIVERIMAGE') }}</strong></th>
+					{% endif %}
+					<th class="halff1"><strong>{{ lang('FORMEL_STATS_DRIVERNAME') }}</strong></th>
+					<th><strong>{{ lang('FORMEL_TOP_POINTS') }}</strong></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -939,34 +917,13 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_driver.RANK }}</td>
+					{% if top_driver.SHOW_GFX == true %}
+					<td class="centerf1">&nbsp;<img src="{{ top_driver.EXT_PATH }}images/teams/{{ top_driver.WM_DRIVERTEAM }}"  alt="" width="{{ top_driver.WM_DRIVERTEAM_WIDTH }}" height="{{ top_driver.WM_DRIVERTEAM_HEIGHT }}">&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver.EXT_PATH }}images/cars/{{ top_driver.WM_DRIVERCAR }}"    alt="" width="{{ top_driver.WM_DRIVERCAR_WIDTH }}"  height="{{ top_driver.WM_DRIVERCAR_HEIGHT }}" >&nbsp;</td>
+					<td class="centerf1">&nbsp;<img src="{{ top_driver.EXT_PATH }}images/drivers/{{ top_driver.WM_DRIVERIMG }}" alt="" width="{{ top_driver.WM_DRIVERIMG_WIDTH }}"  height="{{ top_driver.WM_DRIVERIMG_HEIGHT }}" >&nbsp;</td>
+					{% endif %}
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_driver.WM_DRIVERNAME }}</td>
 					<td class="centerf1">{{ top_driver.WM_POINTS }}</td>
-				</tr>
-			{% endfor %}
-
-			{% for top_team_gfx in top_teams_gfx %}
-			{% if top_team_gfx.S_ROW_COUNT == 0 %}
-			<thead>
-				<tr>
-					<th class="centerf1"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
-					<th class="centerf1"><strong>{{ lang('FORMEL_STATS_TEAMIMAGE') }}</strong></th>
-					<th class="centerf1"><strong>{{ lang('FORMEL_STATS_TEAMCAR') }}</strong></th>
-					<th class="halff1 centerf1"><strong>{{ lang('FORMEL_STATS_TEAMNAME') }}</strong></th>
-					<th class="centerf1"><strong>{{ lang('FORMEL_TOP_POINTS') }}</strong></th>
-				</tr>
-			</thead>
-			<tbody>
-			{% endif %}
-				{% if top_team_gfx.S_ROW_COUNT < 3 %}
-				<tr class="bg1">
-				{% else %}
-				<tr class="bg2">
-				{% endif %}
-					<td class="centerf1">{{ top_team_gfx.RANK }}</td>
-					<td class="centerf1"><img src="{{ top_team_gfx.EXT_PATH }}images/teams/{{ top_team_gfx.WM_TEAMIMG }}" alt="" width="{{ top_team_gfx.WM_TEAMIMG_WIDTH }}" height="{{ top_team_gfx.WM_TEAMIMG_HEIGHT }}"</td>
-					<td class="centerf1"><img src="{{ top_team_gfx.EXT_PATH }}images/cars/{{ top_team_gfx.WM_TEAMCAR }}"  alt="" width="{{ top_team_gfx.WM_TEAMCAR_WIDTH }}" height="{{ top_team_gfx.WM_TEAMCAR_HEIGHT }}"</td>
-					<td class="nowraphalff1 centerf1">&nbsp;{{ top_team_gfx.WM_TEAMNAME }}</td>
-					<td class="centerf1">{{ top_team_gfx.WM_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
@@ -975,6 +932,10 @@
 			<thead>
 				<tr>
 					<th class="centerf1"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
+					{% if top_team.SHOW_GFX == true %}
+					<th class="centerf1"><strong>{{ lang('FORMEL_STATS_TEAMIMAGE') }}</strong></th>
+					<th class="centerf1"><strong>{{ lang('FORMEL_STATS_TEAMCAR') }}</strong></th>
+					{% endif %}
 					<th class="halff1 centerf1"><strong>{{ lang('FORMEL_STATS_TEAMNAME') }}</strong></th>
 					<th class="centerf1"><strong>{{ lang('FORMEL_TOP_POINTS') }}</strong></th>
 				</tr>
@@ -987,6 +948,10 @@
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_team.RANK }}</td>
+					{% if top_team.SHOW_GFX == true %}
+					<td class="centerf1"><img src="{{ top_team.EXT_PATH }}images/teams/{{ top_team.WM_TEAMIMG }}" alt="" width="{{ top_team.WM_TEAMIMG_WIDTH }}" height="{{ top_team.WM_TEAMIMG_HEIGHT }}"</td>
+					<td class="centerf1"><img src="{{ top_team.EXT_PATH }}images/cars/{{ top_team.WM_TEAMCAR }}"  alt="" width="{{ top_team.WM_TEAMCAR_WIDTH }}" height="{{ top_team.WM_TEAMCAR_HEIGHT }}"</td>
+					{% endif %}
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_team.WM_TEAMNAME }}</td>
 					<td class="centerf1">{{ top_team.WM_POINTS }}</td>
 				</tr>

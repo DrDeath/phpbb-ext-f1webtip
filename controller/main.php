@@ -539,9 +539,10 @@ class main
 						$wm_teamimg 	= ( $wm_teamimg == '' ) ? $this->config['drdeath_f1webtip_no_team_img'] : $wm_teamimg;
 						$wm_teamcar 	= ( $wm_teamcar == '' ) ? $this->config['drdeath_f1webtip_no_car_img']  : $wm_teamcar;
 
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', [
+						$this->template->assign_block_vars('top_teams', [
 							'EXT_PATH'			=> $ext_path,
 							'RANK' 				=> $rank,
+							'SHOW_GFX'			=> $this->config['drdeath_f1webtip_show_gfx'],
 							'WM_POINTS' 		=> $wm_points,
 							'WM_TEAMCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
 							'WM_TEAMCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
@@ -557,8 +558,9 @@ class main
 					// Do we have some team points yet?
 					if ($real_rank == 0)
 					{
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_teams_gfx' : 'top_teams', [
+						$this->template->assign_block_vars('top_teams', [
 							'RANK' 			=> '',
+							'SHOW_GFX'		=> $this->config['drdeath_f1webtip_show_gfx'],
 							'WM_POINTS' 	=> '',
 							'WM_TEAMCAR' 	=> '',
 							'WM_TEAMIMG' 	=> '',
@@ -632,9 +634,10 @@ class main
 						$wm_driverteam 	= $driver['team_img'];
 						$wm_driverteam 	= ( $wm_driverteam == '' ) ? $this->config['drdeath_f1webtip_no_team_img'] : $wm_driverteam;
 
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', [
+						$this->template->assign_block_vars('top_drivers', [
 							'EXT_PATH'				=> $ext_path,
 							'RANK' 					=> $rank,
+							'SHOW_GFX'				=> $this->config['drdeath_f1webtip_show_gfx'],
 							'WM_DRIVERCAR_HEIGHT'	=> $this->config['drdeath_f1webtip_car_img_height'],
 							'WM_DRIVERCAR_WIDTH'	=> $this->config['drdeath_f1webtip_car_img_width'],
 							'WM_DRIVERCAR' 			=> $wm_drivercar,
@@ -653,8 +656,9 @@ class main
 					// Do we have some driver points yet?
 					if ($rank == 0)
 					{
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'top_drivers_gfx' : 'top_drivers', [
+						$this->template->assign_block_vars('top_drivers', [
 							'RANK' 					=> '',
+							'SHOW_GFX'				=> $this->config['drdeath_f1webtip_show_gfx'],
 							'WM_DRIVERCAR' 			=> '',
 							'WM_DRIVERIMG' 			=> '',
 							'WM_DRIVERNAME' 		=> $this->language->lang('FORMEL_NO_RESULTS'),

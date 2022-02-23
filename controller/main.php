@@ -809,7 +809,6 @@ class main
 					$result_buttons 		= ($row['race_result'] == '0') 		? 'add' : 'edit';
 
 					$this->template->assign_block_vars('racerows', [
-						'SHOW_GFXR'			=> $this->config['drdeath_f1webtip_show_gfxr'],
 						'EXT_PATH'			=> $ext_path,
 						'QUALI_BUTTONS'		=> $quali_buttons,
 						'RACEDEAD'			=> $this->user->format_date($row['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'], false, true),
@@ -818,6 +817,7 @@ class main
 						'RACENAME'			=> $row['race_name'],
 						'RACETIME'			=> $this->user->format_date($row['race_time'], false, true),
 						'RESULT_BUTTONS'	=> $result_buttons,
+						'SHOW_GFXR'			=> $this->config['drdeath_f1webtip_show_gfxr'],
 						]
 					);
 				}
@@ -2159,62 +2159,30 @@ class main
 							$single_points='';
 						}
 
-						if ($this->config['drdeath_f1webtip_show_gfx'] == 1)
-						{
-							//Layout cosmetic
-							if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
-							{
-								//Race is over - Show driverimage and so on
-								$this->template->assign_block_vars('gfx_users_tipp', [
-									'DRIVERNAME'			=>	$drivername,
-									'DRIVERTEAMNAME'		=>	$driverteamname,
-									'EXT_PATH'				=>	$ext_path,
-									'GFXDRIVERCOMBO_HEIGHT'	=>	$this->config['drdeath_f1webtip_driver_img_height'],
-									'GFXDRIVERCOMBO_WIDTH'	=>	$this->config['drdeath_f1webtip_driver_img_width'],
-									'GFXDRIVERCOMBO'		=>	$gfxdrivercombo,
-									'GXFDRIVERCAR'			=>	$gfxdrivercar,
-									'L_PLACE'				=>	$position,
-									'S_RACE_OVER'			=>	true,
-									'SINGLE_POINTS'			=>	$single_points,
-									]
-								);
-							}
-							else
-							{
-								// Race is not over - Show position instead of driverimage
-								$this->template->assign_block_vars('gfx_users_tipp', [
-									'BOX_NAME'				=>	$box_name,
-									'DRIVERTEAMNAME'		=>	$driverteamname,
-									'EXT_PATH'				=>	$ext_path,
-									'GFXDRIVERCOMBO'		=>	$position,
-									'GXFDRIVERCAR'			=>	$gfxdrivercar,
-									'OPTION_LIST_DRIVER'	=>	$option_list_driver,
-									'S_RACE_OVER'			=>	false,
-									'SINGLE_POINTS'			=>	$single_points,
-									]
-								);
-							}
-						}
-						else
-						{
-							// Simple layout without images
-							$race_over = false;
+						$race_over = false;
 
-							if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
-							{
-								$race_over = true;
-							}
-
-							$this->template->assign_block_vars('users_tipp', [
-								'BOX_NAME'				=>	$box_name,
-								'DRIVERNAME'			=>	$drivername,
-								'L_PLACE'				=>	$position,
-								'OPTION_LIST_DRIVER'	=>	$option_list_driver,
-								'S_RACE_OVER'			=>	$race_over,
-								'SINGLE_POINTS'			=>	$single_points,
-								]
-							);
+						if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
+						{
+							$race_over = true;
 						}
+
+						$this->template->assign_block_vars('users_tipp', [
+							'BOX_NAME'				=>	$box_name,
+							'DRIVERNAME'			=>	$drivername,
+							'DRIVERTEAMNAME'		=>	$driverteamname,
+							'EXT_PATH'				=>	$ext_path,
+							'GFXDRIVERCOMBO_HEIGHT'	=>	$this->config['drdeath_f1webtip_driver_img_height'],
+							'GFXDRIVERCOMBO_WIDTH'	=>	$this->config['drdeath_f1webtip_driver_img_width'],
+							'GFXDRIVERCOMBO'		=>	$gfxdrivercombo,
+							'GXFDRIVERCAR'			=>	$gfxdrivercar,
+							'L_PLACE'				=>	$position,
+							'OPTION_LIST_DRIVER'	=>	$option_list_driver,
+							'S_RACE_OVER'			=>	$race_over,
+							'SHOW_GFX'				=>	$this->config['drdeath_f1webtip_show_gfx'],
+							'SINGLE_POINTS'			=>	$single_points,
+							]
+						);
+
 					}
 
 					if ($races[$chosen_race]['race_time'] - $this->config['drdeath_f1webtip_deadline_offset'] < $current_time)
@@ -2287,14 +2255,14 @@ class main
 						}
 					}
 
-					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'extended_users_tipp_gfx' : 'extended_users_tipp', [
+					$this->template->assign_block_vars('extended_users_tipp', [
 						'DRIVER_FASTEST'		=> $driver_fastest,
-						'GFXDRIVERCOMBO'		=> $gfxdrivercombo,
 						'OPTION_LIST_PACE' 		=> $option_list_pace,
 						'OPTION_LIST_SAFETYCAR'	=> $option_list_safetycar,
 						'OPTION_LIST_TIRED' 	=> $option_list_tired,
 						'S_RACE_OVER'			=> $race_over,
 						'SAFETYCARS'			=> $safetycars,
+						'SHOW_GFX'				=>	$this->config['drdeath_f1webtip_show_gfx'],
 						'SINGLE_FASTEST'		=> $single_fastest,
 						'SINGLE_SAFETY_CAR'		=> $single_safety_car,
 						'SINGLE_TIRED'			=> $single_tired,
@@ -2391,7 +2359,7 @@ class main
 						$current_driver_id = $quali[$j];
 						$position = ($j == 0) ? $this->language->lang('FORMEL_POLE') . ': ' : $j + 1 . '. ' . $this->language->lang('FORMEL_PLACE') . ': ';
 
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'qualirows_gfx' : 'qualirows', [
+						$this->template->assign_block_vars('qualirows', [
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
 							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
 							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
@@ -2400,6 +2368,7 @@ class main
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name']		?? '',
 							'EXT_PATH'			=> $ext_path,
 							'L_PLACE'			=> $position,
+							'SHOW_GFX'			=> $this->config['drdeath_f1webtip_show_gfx'],
 							]
 						);
 					}
@@ -2422,7 +2391,7 @@ class main
 						$current_driver_id = $results[$j];
 						$position = ($j == 0) ? $this->language->lang('FORMEL_RACE_WINNER') . ': ' : $j + 1 . '. ' . $this->language->lang('FORMEL_PLACE') . ': ';
 
-						$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'resultsrow_gfx' : 'resultsrow', [
+						$this->template->assign_block_vars('resultsrow', [
 							'DRIVERCAR'			=> $drivers[$current_driver_id]['driver_car'] 			?? '',
 							'DRIVERIMG_HEIGHT'	=> $this->config['drdeath_f1webtip_driver_img_height'],
 							'DRIVERIMG_WIDTH'	=> $this->config['drdeath_f1webtip_driver_img_width'],
@@ -2431,11 +2400,12 @@ class main
 							'DRIVERTEAMNAME'	=> $drivers[$current_driver_id]['driver_team_name'] 	?? '',
 							'EXT_PATH'			=> $ext_path,
 							'L_PLACE'			=> $position,
+							'SHOW_GFX'			=> $this->config['drdeath_f1webtip_show_gfx'],
 							]
 						);
 					}
 
-					$this->template->assign_block_vars(($this->config['drdeath_f1webtip_show_gfx'] == 1) ? 'extended_results_gfx' : 'extended_results', [
+					$this->template->assign_block_vars('extended_results', [
 						'PACE'				=> $drivers[$results['10']]['driver_name'] 	?? '',
 						'SAFETYCAR'			=> $results['12'] 							?? '',
 						'TIRED'				=> $results['11'] 							?? '',

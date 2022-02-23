@@ -55,11 +55,11 @@
 					</thead>
 					<tbody>
 						{% for top_tipper in top_tippers %}
-						{% if top_tipper.S_ROW_COUNT is even %}
+							{% if top_tipper.S_ROW_COUNT is even %}
 						<tr class="bg1">
-						{% else %}
+							{% else %}
 						<tr class="bg2">
-						{% endif %}
+							{% endif %}
 							<td class="bg2 centerf1">&nbsp;{{ top_tipper.RANK }}&nbsp;</td>
 							<td class="panelnamesf1">&nbsp;{{ top_tipper.TIPPER_NAME }}&nbsp;</td>
 							<td class="bg2 centerf1">&nbsp;{{ top_tipper.TIPPER_POINTS }}&nbsp;</td>
@@ -82,11 +82,11 @@
 					</thead>
 					<tbody>
 						{% for top_team in top_teams %}
-						{% if top_team.S_ROW_COUNT is even %}
+							{% if top_team.S_ROW_COUNT is even %}
 						<tr class="bg1">
-						{% else %}
+							{% else %}
 						<tr class="bg2">
-						{% endif %}
+							{% endif %}
 							<td class="bg2 centerf1">&nbsp;{{ top_team.RANK }}&nbsp;</td>
 							<td class="panelnamesf1">&nbsp;{{ top_team.WM_TEAMNAME }}&nbsp;</td>
 							<td class="bg2 centerf1">&nbsp;{{ top_team.WM_POINTS }}&nbsp;</td>
@@ -109,11 +109,11 @@
 					</thead>
 					<tbody>
 						{% for top_driver in top_drivers %}
-						{% if top_driver.S_ROW_COUNT is even %}
+							{% if top_driver.S_ROW_COUNT is even %}
 						<tr class="bg1">
-						{% else %}
+							{% else %}
 						<tr class="bg2">
-						{% endif %}
+							{% endif %}
 							<td class="bg2 centerf1">&nbsp;{{ top_driver.RANK }}&nbsp;</td>
 							<td class="panelnamesf1">&nbsp;{{ top_driver.WM_DRIVERNAME }}&nbsp;</td>
 							<td class="bg2 centerf1">&nbsp;{{ top_driver.WM_POINTS }}&nbsp;</td>
@@ -281,34 +281,27 @@
 									 <td class="tablef1 centerf1" colspan="2">{{ lang('FORMEL_NO_QUALI') }}</td>
 								</tr>
 								{% endif %}
-								{% for qualirow_gfx in qualirows_gfx %}
-								{% if qualirow_gfx.S_ROW_COUNT < 10 %}
-								<tr class="bg1">
-								{% elseif qualirow_gfx.S_ROW_COUNT < 15 %}
-								<tr class="bg2">
-								{% else %}
-								<tr class="bg3">
-								{% endif %}
-									<td class="rightf1"><img src="{{ qualirow_gfx.EXT_PATH }}images/drivers/{{ qualirow_gfx.DRIVERIMG }}" width="{{ qualirow_gfx.DRIVERIMG_WIDTH }}" height="{{ qualirow_gfx.DRIVERIMG_HEIGHT }}" alt=""></td>
-									<td class="nowrapf1">
-										<strong>&nbsp;{{ qualirow_gfx.L_PLACE }}&nbsp;</strong>
-										<br>
-										&nbsp;{{ qualirow_gfx.DRIVERNAME }}&nbsp;
-										<br>
-										&nbsp;{{ qualirow_gfx.DRIVERTEAMNAME }}&nbsp;
-									</td>
-								</tr>
-								{% endfor %}
 								{% for qualirow in qualirows %}
-								{% if qualirow.S_ROW_COUNT < 10 %}
+									{% if qualirow.S_ROW_COUNT < 10 %}
 								<tr class="bg1">
-								{% elseif qualirow.S_ROW_COUNT < 15 %}
+									{% elseif qualirow.S_ROW_COUNT < 15 %}
 								<tr class="bg2">
-								{% else %}
+									{% else %}
 								<tr class="bg3">
-								{% endif %}
+									{% endif %}
+									{% if qualirow.SHOW_GFX %}
+									<td class="rightf1"><img src="{{ qualirow.EXT_PATH }}images/drivers/{{ qualirow.DRIVERIMG }}" width="{{ qualirow.DRIVERIMG_WIDTH }}" height="{{ qualirow.DRIVERIMG_HEIGHT }}" alt=""></td>
+									<td class="nowrapf1">
+										<strong>&nbsp;{{ qualirow.L_PLACE }}&nbsp;</strong>
+										<br>
+										&nbsp;{{ qualirow.DRIVERNAME }}&nbsp;
+										<br>
+										&nbsp;{{ qualirow.DRIVERTEAMNAME }}&nbsp;
+									</td>
+									{% else %}
 									 <td class="nowrapf1 rightf1"><strong>&nbsp;{{ qualirow.L_PLACE }}&nbsp;</strong></td>
 									 <td class="nowrapf1">&nbsp;{{ qualirow.DRIVERNAME }}&nbsp;</td>
+									{% endif %}
 								</tr>
 								{% endfor %}
 							</tbody>
@@ -327,30 +320,25 @@
 									<td class="centerf1" colspan="2">{{ lang('FORMEL_NO_RESULTS') }}</td>
 								</tr>
 								{% endif %}
-								{% for resultrow_gfx in resultsrow_gfx %}
-								{% if resultrow_gfx.S_ROW_COUNT < 3 %}
-								<tr class="bg1">
-								{% else %}
-								<tr class="bg2">
-								{% endif %}
-									<td class="rightf1"><img src="{{ resultrow_gfx.EXT_PATH }}images/drivers/{{ resultrow_gfx.DRIVERIMG }}" width="{{ resultrow_gfx.DRIVERIMG_WIDTH }}" height="{{ resultrow_gfx.DRIVERIMG_HEIGHT }}" alt=""></td>
-									<td class="nowrapf1">
-										<strong>&nbsp;{{ resultrow_gfx.L_PLACE }}</strong>
-										<br>
-										&nbsp;{{ resultrow_gfx.DRIVERNAME }}&nbsp;
-										<br>
-										&nbsp;{{ resultrow_gfx.DRIVERTEAMNAME }}&nbsp;
-									</td>
-								</tr>
-								{% endfor %}
 								{% for resultrow in resultsrow %}
-								{% if resultrow.S_ROW_COUNT < 3 %}
+									{% if resultrow.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
-								{% else %}
+									{% else %}
 								<tr class="bg2">
-								{% endif %}
+									{% endif %}
+									{% if resultrow.SHOW_GFX %}
+									<td class="rightf1"><img src="{{ resultrow.EXT_PATH }}images/drivers/{{ resultrow.DRIVERIMG }}" width="{{ resultrow.DRIVERIMG_WIDTH }}" height="{{ resultrow.DRIVERIMG_HEIGHT }}" alt=""></td>
+									<td class="nowrapf1">
+										<strong>&nbsp;{{ resultrow.L_PLACE }}</strong>
+										<br>
+										&nbsp;{{ resultrow.DRIVERNAME }}&nbsp;
+										<br>
+										&nbsp;{{ resultrow.DRIVERTEAMNAME }}&nbsp;
+									</td>
+									{% else %}
 									<td class="rightf1"><strong>&nbsp;{{ resultrow.L_PLACE }}</strong></td>
 									<td class="nowrapf1">&nbsp;{{ resultrow.DRIVERNAME }}&nbsp;</td>
+									{% endif %}
 								</tr>
 								{% endfor %}
 								{% for extended_result in extended_results %}
@@ -367,27 +355,7 @@
 									<td>&nbsp;{{ extended_result.SAFETYCAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_result_gfx in extended_results_gfx %}
-								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_result_gfx.PACE }}&nbsp;</td>
-								</tr>
-								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_result_gfx.TIRED }}&nbsp;</td>
-								</tr>
-								<tr class="bg1">
-									<td class="rightf1">&nbsp;<strong>{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
-									<td>&nbsp;{{ extended_result_gfx.SAFETYCAR }}&nbsp;</td>
-								</tr>
-								{% endfor %}
 								{% if extended_results %}
-								<tr class="bg1">
-									<td>&nbsp;</td>
-									<td>&nbsp;</td>
-								</tr>
-								{% endif %}
-								{% if extended_results_gfx %}
 								<tr class="bg1">
 									<td>&nbsp;</td>
 									<td>&nbsp;</td>
@@ -405,41 +373,37 @@
 							</thead>
 							<tbody>
 								{% for user_tipp in users_tipp %}
-								{% if user_tipp.S_ROW_COUNT < 3 %}
+									{% if user_tipp.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
-								{% else %}
-								<tr class="bg2">
-								{% endif %}
-									<td class="rightf1"><strong>&nbsp;{{ user_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
-									{% if not user_tipp.S_RACE_OVER %}
-									<td class="nowrapf1">&nbsp;<select id="{{ user_tipp.BOX_NAME }}" name="{{ user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">2{{ user_tipp.OPTION_LIST_DRIVER }}</select>&nbsp;</td>
 									{% else %}
+								<tr class="bg2">
+									{% endif %}
+									{% if user_tipp.SHOW_GFX %}
+										{% if not user_tipp.S_RACE_OVER %}
+									<td class="rightf1">{{ user_tipp.GFXDRIVERCOMBO }}</td>
+										{% else %}
+									<td class="rightf1"><img src="{{ user_tipp.EXT_PATH }}images/drivers/{{ user_tipp.GFXDRIVERCOMBO }}" width="{{ user_tipp.GFXDRIVERCOMBO_WIDTH }}" height="{{ user_tipp.GFXDRIVERCOMBO_HEIGHT }}" alt=""></td>
+										{% endif %}
+									{% endif %}
+									{% if user_tipp.SHOW_GFX %}
+									<td class="nowrapf1">
+										<strong>{% if user_tipp.S_RACE_OVER %}&nbsp;{{ user_tipp.L_PLACE }}<br />{% endif %}</strong>
+										{% if not user_tipp.S_RACE_OVER %}
+										&nbsp;<select id="{{ user_tipp.BOX_NAME }}" name="{{ user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ user_tipp.OPTION_LIST_DRIVER }}</select>
+										{% else %}
+										&nbsp;{{ user_tipp.DRIVERNAME }}<br>
+										{% endif %}
+										{% if user_tipp.S_RACE_OVER %}&nbsp;{% endif %}{{ user_tipp.DRIVERTEAMNAME }}
+									</td>
+									{% else %}
+									<td class="rightf1"><strong>&nbsp;{{ user_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
+										{% if not user_tipp.S_RACE_OVER %}
+									<td class="nowrapf1">&nbsp;<select id="{{ user_tipp.BOX_NAME }}" name="{{ user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">2{{ user_tipp.OPTION_LIST_DRIVER }}</select>&nbsp;</td>
+										{% else %}
 									<td class="nowrapf1">&nbsp;{{ user_tipp.DRIVERNAME }}</td>
+										{% endif %}
 									{% endif %}
 									<td class="responsive-hide centerf1">&nbsp;{{ user_tipp.SINGLE_POINTS }}&nbsp;</td>
-								</tr>
-								{% endfor %}
-								{% for gfx_user_tipp in gfx_users_tipp %}
-								{% if gfx_user_tipp.S_ROW_COUNT < 3 %}
-								<tr class="bg1">
-								{% else %}
-								<tr class="bg2">
-								{% endif %}
-								{% if not gfx_user_tipp.S_RACE_OVER %}
-									<td class="rightf1">{{ gfx_user_tipp.GFXDRIVERCOMBO }}</td>
-								{% else %}
-									<td class="rightf1"><img src="{{ gfx_user_tipp.EXT_PATH }}images/drivers/{{ gfx_user_tipp.GFXDRIVERCOMBO }}" width="{{ gfx_user_tipp.GFXDRIVERCOMBO_WIDTH }}" height="{{ gfx_user_tipp.GFXDRIVERCOMBO_HEIGHT }}" alt=""></td>
-								{% endif %}
-									<td class="nowrapf1">
-										<strong>{% if gfx_user_tipp.S_RACE_OVER %}&nbsp;{{ gfx_user_tipp.L_PLACE }}<br />{% endif %}</strong>
-										{% if not gfx_user_tipp.S_RACE_OVER %}
-										&nbsp;<select id="{{ gfx_user_tipp.BOX_NAME }}" name="{{ gfx_user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ gfx_user_tipp.OPTION_LIST_DRIVER }}</select>
-										{% else %}
-										&nbsp;{{ gfx_user_tipp.DRIVERNAME }}<br>
-										{% endif %}
-										{% if gfx_user_tipp.S_RACE_OVER %}&nbsp;{% endif %}{{ gfx_user_tipp.DRIVERTEAMNAME }}
-									</td>
-									<td class="responsive-hide centerf1">&nbsp;{{ gfx_user_tipp.SINGLE_POINTS }}&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_user_tipp in extended_users_tipp %}
@@ -471,41 +435,12 @@
 									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp.SINGLE_SAFETY_CAR }}&nbsp;</td>
 								</tr>
 								{% endfor %}
-								{% for extended_user_tipp_gfx in extended_users_tipp_gfx %}
-								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
-									{% if not extended_user_tipp_gfx.S_RACE_OVER %}
-									<td>&nbsp;<select name="place11" size="1">{{ extended_user_tipp_gfx.OPTION_LIST_PACE }}</select>&nbsp;</td>
-									{% else %}
-									<td>&nbsp;{{ extended_user_tipp_gfx.DRIVER_FASTEST }}&nbsp;</td>
-									{% endif %}
-									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_FASTEST }}&nbsp;</td>
-								</tr>
-								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
-									{% if not extended_user_tipp_gfx.S_RACE_OVER %}
-									<td>&nbsp;<select name="place12" size="1">{{ extended_user_tipp_gfx.OPTION_LIST_TIRED }}</select>&nbsp;</td>
-									{% else %}
-									<td>&nbsp;{{ extended_user_tipp_gfx.TIRED_CARS }}&nbsp;</td>
-									{% endif %}
-									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_TIRED }}&nbsp;</td>
-								</tr>
-								<tr class="bg1">
-									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
-									{% if not extended_user_tipp_gfx.S_RACE_OVER %}
-									<td>&nbsp;<select name="place13" size="1">{{ extended_user_tipp_gfx.OPTION_LIST_SAFETYCAR }}</select>&nbsp;</td>
-									{% else %}
-									<td>&nbsp;{{ extended_user_tipp_gfx.SAFETYCARS }}&nbsp;</td>
-									{% endif %}
-									<td class="responsive-hide centerf1">&nbsp;{{ extended_user_tipp_gfx.SINGLE_SAFETY_CAR }}&nbsp;</td>
-								</tr>
-								{% endfor %}
 								{% for add_tipp in add_tipps %}
-								{% if add_tipp.S_ROW_COUNT < 3 %}
+									{% if add_tipp.S_ROW_COUNT < 3 %}
 								<tr class="bg1">
-								{% else %}
+									{% else %}
 								<tr class="bg2">
-								{% endif %}
+									{% endif %}
 									<td class="rightf1"><strong>&nbsp;{{ add_tipp.L_PLACE }}&nbsp;</strong></td>
 									{% if not add_tipp.S_GUEST %}
 									<td>&nbsp;<select id="{{ add_tipp.BOX_NAME }}" name="{{ add_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ add_tipp.OPTION_LIST_DRIVER }}</select></td>
@@ -539,13 +474,6 @@
 									<td class="centerf1"><span class="pointsf1"><strong>&nbsp;{{ extended_result.YOUR_POINTS }}</strong></span></td>
 								</tr>
 								{% endfor %}
-								{% for extended_result_gfx in extended_results_gfx %}
-								<tr class="bg1">
-									<td class="rightf1"><span class="pointsf1"><strong>&nbsp;{{ lang('FORMEL_YOUR_POINTS') }}{{ lang('COLON') }}</strong></span></td>
-									<td class="responsive-hide">&nbsp;</td>
-									<td class="centerf1"><span class="pointsf1"><strong>&nbsp;{{ extended_result_gfx.YOUR_POINTS }}</strong></span></td>
-								</tr>
-								{% endfor %}
 							</tbody>
 						</table>
 					</td>
@@ -569,9 +497,9 @@
 				<p class="centercontentf1 contentspacef1">
 					{% for place_tipp in place_tipps %}
 					<input class="button" type="submit" name="{{ place_tipp.PLACE_TIPP }}" value="{{ place_tipp.L_PLACE_TIPP }}" />
-					{% if place_tipp.DELETE_TIPP %}
+						{% if place_tipp.DELETE_TIPP %}
 					&nbsp;<input class="button" type="submit" name="del_tipp" value="{{ lang('FORMEL_DEL_TIPP') }}" />&nbsp;&nbsp;
-					{% endif %}
+						{% endif %}
 					{% endfor %}
 				</p>
 				{% endif %}
@@ -612,7 +540,7 @@
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-				{% if racerow.SHOW_GFXR == true %}
+				{% if racerow.SHOW_GFXR %}
 					<td class="nowrapf1">
 						&nbsp;<img src="{{ racerow.EXT_PATH }}images/races/{{ racerow.RACEIMG }}" width="94" height="54" alt="" />&nbsp;
 					</td>
@@ -715,8 +643,8 @@
 						<td class="halff1 rightf1">{{ resultrow.L_PLACE }}&nbsp;</td>
 						<td class="halff1">&nbsp;<select id="{{ resultrow.BOX_NAME }}" name="{{ resultrow.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ resultrow.OPTION_LIST_DRIVER }}</select></td>
 					</tr>
-					{% endfor %}
-					{% for result in results %}
+				{% endfor %}
+				{% for result in results %}
 					<tr class="bg1">
 						<td class="halff1 rightf1">{{ lang('FORMEL_PACE') }}&nbsp;</td>
 						<td class="halff1">&nbsp;<select name="place11" size="1">{{ result.OPTION_LIST_PACE }}</select></td>
@@ -740,7 +668,7 @@
 					<tr class="bg3">
 						<td class="centerf1" colspan="2"><input class="button" type="submit" name="{{ result.MODE }}" value="{{ lang('FORMEL_RESULTS_ADD') }}" /></td>
 					</tr>
-					{% endfor %}
+				{% endfor %}
 				</tbody>
 			</table>
 			<div>
@@ -864,7 +792,7 @@
 
 		<table class="table1 tablef1">
 			{% for top_tipper in top_tippers %}
-			{% if top_tipper.S_ROW_COUNT == 0 %}
+				{% if top_tipper.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
@@ -876,31 +804,31 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% endif %}
+				{% endif %}
 				{% if top_tipper.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_tipper.RANK }}</td>
-					{% if top_tipper.S_AVATAR_SWITCH == true %}
-						{% if top_tipper.TIPPER_AVATAR == true %}
+				{% if top_tipper.S_AVATAR_SWITCH == true %}
+					{% if top_tipper.TIPPER_AVATAR == true %}
 						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};">{{ top_tipper.TIPPER_AVATAR }}</td>	
-						{% else %}
+					{% else %}
 						<td class="centerf1" style="width: {{ top_tipper.TIPPER_AVATAR_WIDTH }}px; height: {{ top_tipper.TIPPER_AVATAR_HEIGHT }};"><img src="{{ top_tipper.CORRECTED_PATH }}styles/prosilver/theme/images/no_avatar.gif" alt="" /></td>;
-						{% endif %}
 					{% endif %}
+				{% endif %}
 					<td class="nowrapf1 centerf1">{{ top_tipper.TIPPER_NAME }}</td>
 					<td class="centerf1">{{ top_tipper.TIPPER_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
 			{% for top_driver in top_drivers %}
-			{% if top_driver.S_ROW_COUNT == 0 %}
+				{% if top_driver.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
-					{% if top_driver.SHOW_GFX == true %}
+					{% if top_driver.SHOW_GFX %}
 					<th><strong>{{ lang('FORMEL_STATS_TEAMIMAGE') }}</strong></th>
 					<th><strong>{{ lang('FORMEL_STATS_TEAMCAR') }}</strong></th>
 					<th><strong>{{ lang('FORMEL_STATS_DRIVERIMAGE') }}</strong></th>
@@ -910,29 +838,29 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% endif %}
+				{% endif %}
 				{% if top_driver.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_driver.RANK }}</td>
-					{% if top_driver.SHOW_GFX == true %}
+				{% if top_driver.SHOW_GFX %}
 					<td class="centerf1">&nbsp;<img src="{{ top_driver.EXT_PATH }}images/teams/{{ top_driver.WM_DRIVERTEAM }}"  alt="" width="{{ top_driver.WM_DRIVERTEAM_WIDTH }}" height="{{ top_driver.WM_DRIVERTEAM_HEIGHT }}">&nbsp;</td>
 					<td class="centerf1">&nbsp;<img src="{{ top_driver.EXT_PATH }}images/cars/{{ top_driver.WM_DRIVERCAR }}"    alt="" width="{{ top_driver.WM_DRIVERCAR_WIDTH }}"  height="{{ top_driver.WM_DRIVERCAR_HEIGHT }}" >&nbsp;</td>
 					<td class="centerf1">&nbsp;<img src="{{ top_driver.EXT_PATH }}images/drivers/{{ top_driver.WM_DRIVERIMG }}" alt="" width="{{ top_driver.WM_DRIVERIMG_WIDTH }}"  height="{{ top_driver.WM_DRIVERIMG_HEIGHT }}" >&nbsp;</td>
-					{% endif %}
+				{% endif %}
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_driver.WM_DRIVERNAME }}</td>
 					<td class="centerf1">{{ top_driver.WM_POINTS }}</td>
 				</tr>
 			{% endfor %}
 
 			{% for top_team in top_teams %}
-			{% if top_team.S_ROW_COUNT == 0 %}
+				{% if top_team.S_ROW_COUNT == 0 %}
 			<thead>
 				<tr>
 					<th class="centerf1"><strong>{{ lang('FORMEL_PLACE') }}</strong></th>
-					{% if top_team.SHOW_GFX == true %}
+					{% if top_team.SHOW_GFX %}
 					<th class="centerf1"><strong>{{ lang('FORMEL_STATS_TEAMIMAGE') }}</strong></th>
 					<th class="centerf1"><strong>{{ lang('FORMEL_STATS_TEAMCAR') }}</strong></th>
 					{% endif %}
@@ -941,17 +869,17 @@
 				</tr>
 			</thead>
 			<tbody>
-			{% endif %}
+				{% endif %}
 				{% if top_team.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
 					<td class="centerf1">{{ top_team.RANK }}</td>
-					{% if top_team.SHOW_GFX == true %}
+				{% if top_team.SHOW_GFX %}
 					<td class="centerf1"><img src="{{ top_team.EXT_PATH }}images/teams/{{ top_team.WM_TEAMIMG }}" alt="" width="{{ top_team.WM_TEAMIMG_WIDTH }}" height="{{ top_team.WM_TEAMIMG_HEIGHT }}"</td>
 					<td class="centerf1"><img src="{{ top_team.EXT_PATH }}images/cars/{{ top_team.WM_TEAMCAR }}"  alt="" width="{{ top_team.WM_TEAMCAR_WIDTH }}" height="{{ top_team.WM_TEAMCAR_HEIGHT }}"</td>
-					{% endif %}
+				{% endif %}
 					<td class="nowraphalff1 centerf1">&nbsp;{{ top_team.WM_TEAMNAME }}</td>
 					<td class="centerf1">{{ top_team.WM_POINTS }}</td>
 				</tr>
@@ -1009,11 +937,11 @@ Please donate via paypal
 				</tr>
 				{% endfor %}
 				{% for user_driver in user_drivers %}
-				{% if user_driver.S_ROW_COUNT < 3 %}
+					{% if user_driver.S_ROW_COUNT < 3 %}
 				<tr class="bg1">
-				{% else %}
+					{% else %}
 				<tr class="bg2">
-				{% endif %}
+					{% endif %}
 					<td class="thirtyf1 rightf1"><strong>&nbsp;{{ user_driver.POSITION }}{{ lang('COLON') }}&nbsp;</strong></td>
 					<td class="halff1">&nbsp;{{ user_driver.DRIVER_PLACED }}&nbsp;</td>
 					<td class="twentyf1">&nbsp;{{ user_driver.SINGLE_POINTS }}&nbsp;</td>

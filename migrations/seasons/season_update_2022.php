@@ -124,7 +124,7 @@ class season_update_2022 extends \phpbb\db\migration\container_aware_migration
 
 			# -- Team 9 Haas F1 Team
 			$sql_ary[] = ['driver_name' => 'Schumacher, Mick',		'driver_img' => '',	'driver_team' => 9,];
-			$sql_ary[] = ['driver_name' => 'Masepin, Nikita',		'driver_img' => '',	'driver_team' => 9,];
+			$sql_ary[] = ['driver_name' => 'Magnussen, Kevin',		'driver_img' => '',	'driver_team' => 9,];
 
 			# -- Team 10 Williams Racing
 			$sql_ary[] = ['driver_name' => 'Albon, Alexander',		'driver_img' => '',	'driver_team' => 10,];

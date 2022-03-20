@@ -817,7 +817,6 @@ class main
 						'RACENAME'			=> $row['race_name'],
 						'RACETIME'			=> $this->user->format_date($row['race_time'], false, true),
 						'RESULT_BUTTONS'	=> $result_buttons,
-						'SHOW_GFXR'			=> $this->config['drdeath_f1webtip_show_gfxr'],
 						]
 					);
 				}
@@ -828,6 +827,7 @@ class main
 					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
 					'S_FORM_ACTION'			=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
 					'S_RESULTS'				=> true,
+					'SHOW_GFXR'				=> $this->config['drdeath_f1webtip_show_gfxr'],
 					'U_FORMEL_RESULTS'		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),
 					'U_FORMEL'				=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'index']),
 					]

@@ -528,7 +528,7 @@
 		<table class="table1 tablef1">
 			<thead>
 				<tr>
-					<th colspan="2"><strong>{{ lang('FORMEL_RACENAME') }}</strong></th>
+					<th colspan="{% if SHOW_GFXR %}3{% else %}2{% endif %}"><strong>{{ lang('FORMEL_RACENAME') }}</strong></th>
 					<th><strong>{{ lang('FORMEL_CURRENT_QUALI') }}</strong></th>
 					<th><strong>{{ lang('FORMEL_CURRENT_RESULT') }}</strong></th>
 				</tr>
@@ -540,7 +540,7 @@
 				{% else %}
 				<tr class="bg2">
 				{% endif %}
-				{% if racerow.SHOW_GFXR %}
+				{% if SHOW_GFXR %}
 					<td class="nowrapf1">
 						&nbsp;<img src="{{ racerow.EXT_PATH }}images/races/{{ racerow.RACEIMG }}" width="94" height="54" alt="" />&nbsp;
 					</td>

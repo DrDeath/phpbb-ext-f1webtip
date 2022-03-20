@@ -878,7 +878,9 @@ class main
 
 				// Init some vars
 				$quali_array	= [];
+				$quali_name		= '';
 				$result_array	= [];
+				$result_name	= '';
 
 				//We have 10 Teams with 2 cars each --> 20 drivers
 				$places			= ($quali||$addquali||$editquali) ? 20 : 10;
@@ -1187,18 +1189,16 @@ class main
 				// Load add/edit quali
 				if (($quali || $editquali) && $race_id != 0)
 				{
-					if ($editquali)
-					{
-						// Get the race
-						$sql = 'SELECT *
-							FROM ' . $table_races . '
-								WHERE race_id = ' . (int) $race_id;
-						$result = $this->db->sql_query($sql);
+					// Get the race
+					$sql = 'SELECT *
+						FROM ' . $table_races . '
+							WHERE race_id = ' . (int) $race_id;
+					$result = $this->db->sql_query($sql);
 
-						$row = $this->db->sql_fetchrow($result);
-						$quali_array = explode(',', $row['race_quali']);
-						$this->db->sql_freeresult($result);
-					}
+					$row = $this->db->sql_fetchrow($result);
+					$quali_array = explode(',', $row['race_quali']);
+					$quali_name = $row['race_name'];
+					$this->db->sql_freeresult($result);
 
 					// Fetch all available drivers
 					$sql = 'SELECT *
@@ -1256,7 +1256,6 @@ class main
 
 					$this->template->assign_vars([
 							'PLACES'		=> $places,
-							'S_QUALI'		=> true,
 							]
 						);
 				}
@@ -1264,18 +1263,16 @@ class main
 				// Load add or edit result
 				if (($results || $editresult) && $race_id != 0)
 				{
-					if ($editresult)
-					{
-						// Get the race
-						$sql = 'SELECT *
-							FROM ' . $table_races . '
-							WHERE race_id = ' . (int) $race_id;
-						$result = $this->db->sql_query($sql);
+					// Get the race
+					$sql = 'SELECT *
+						FROM ' . $table_races . '
+						WHERE race_id = ' . (int) $race_id;
+					$result = $this->db->sql_query($sql);
 
-						$row = $this->db->sql_fetchrow($result);
-						$result_array = explode(',', $row['race_result']);
-						$this->db->sql_freeresult($result);
-					}
+					$row = $this->db->sql_fetchrow($result);
+					$result_array = explode(',', $row['race_result']);
+					$result_name = $row['race_name'];
+					$this->db->sql_freeresult($result);
 
 					// Fetch all available drivers
 					$sql = 'SELECT *
@@ -1395,8 +1392,10 @@ class main
 				$this->template->assign_vars([
 					'EXT_PATH_IMAGES'		=> $ext_path . 'images/',
 					'PLACES'				=> $places,
+					'QUALI_NAME' 			=> $quali_name,
 					'RACE_ID' 				=> $race_id,
 					'RACENAME' 				=> $racename,
+					'RESULT_NAME' 			=> $result_name,
 					'S_ADDRESULTS'			=> true,
 					'S_FORM_ACTION' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'addresults']),
 					'U_FORMEL_RESULTS' 		=> $this->helper->route('drdeath_f1webtip_controller', ['name' => 'results']),

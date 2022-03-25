@@ -22,23 +22,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 		return ['\phpbb\db\migration\data\v310\gold'];
 	}
 
-	/**
-	 * Custom function query permission roles
-	 *
-	 * @return void
-	 * @access public
-	 */
-	private function role_exists($role)
-	{
-		$sql = 'SELECT role_id
-			FROM ' . ACL_ROLES_TABLE . "
-			WHERE role_name = '" . $this->db->sql_escape($role) . "'";
-		$result = $this->db->sql_query_limit($sql, 1);
-		$role_id = $this->db->sql_fetchfield('role_id');
-		$this->db->sql_freeresult($result);
-		return $role_id;
-	}
-
 	public function update_data()
 	{
 		$data = [
@@ -105,17 +88,25 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 			['permission.add', ['a_formel_teams']],		// New global admin permission a_formel_teams
 			['permission.add', ['a_formel_drivers']],	// New global admin permission a_formel_drivers
 			['permission.add', ['a_formel_settings']],	// New global admin permission a_formel_settings
-		];
 
-		// Before we add additional permissions to an existing standard role, we need to first check if this role actually exists.
-		if ($this->role_exists('ROLE_ADMIN_FULL'))
-		{
-			// How about we give some default permissions then as well?
-			$data[] = ['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_races']];		// Give ROLE_ADMIN_FULL a_formel_races permission
-			$data[] = ['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_teams']];		// Give ROLE_ADMIN_FULL a_formel_teams permission
-			$data[] = ['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_drivers']];	// Give ROLE_ADMIN_FULL a_formel_drivers permission
-			$data[] = ['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_settings']];	// Give ROLE_ADMIN_FULL a_formel_settings permission
-		}
+			// Set permission on role if it does exists
+			['if', [
+				['permission.role_exists', ['ROLE_ADMIN_FULL']],
+				['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_races']], 		// Give ROLE_ADMIN_FULL a_formel_races permission
+			]],
+			['if', [
+				['permission.role_exists', ['ROLE_ADMIN_FULL']],
+				['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_teams']],		// Give ROLE_ADMIN_FULL a_formel_teams permission
+			]],
+			['if', [
+				['permission.role_exists', ['ROLE_ADMIN_FULL']],
+				['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_drivers']],		// Give ROLE_ADMIN_FULL a_formel_drivers permission
+			]],
+			['if', [
+				['permission.role_exists', ['ROLE_ADMIN_FULL']],
+				['permission.permission_set', ['ROLE_ADMIN_FULL', 'a_formel_settings']],	// Give ROLE_ADMIN_FULL a_formel_settings permission
+			]],
+		];
 
 		return $data;
 	}
@@ -187,7 +178,6 @@ class release_1_0_0 extends \phpbb\db\migration\migration
 						],
 					'PRIMARY_KEY'	=> 'tip_id',
 				],
-
 			],
 		];
 	}

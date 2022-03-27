@@ -380,14 +380,14 @@
 									{% endif %}
 									{% if user_tipp.SHOW_GFX %}
 										{% if not user_tipp.S_RACE_OVER %}
-									<td class="rightf1">{{ user_tipp.GFXDRIVERCOMBO }}</td>
+									<td class="rightf1"><strong>&nbsp;{{ user_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
 										{% else %}
 									<td class="rightf1"><img src="{{ user_tipp.EXT_PATH }}images/drivers/{{ user_tipp.GFXDRIVERCOMBO }}" width="{{ user_tipp.GFXDRIVERCOMBO_WIDTH }}" height="{{ user_tipp.GFXDRIVERCOMBO_HEIGHT }}" alt=""></td>
 										{% endif %}
 									{% endif %}
 									{% if user_tipp.SHOW_GFX %}
 									<td class="nowrapf1">
-										<strong>{% if user_tipp.S_RACE_OVER %}&nbsp;{{ user_tipp.L_PLACE }}<br />{% endif %}</strong>
+										<strong>{% if user_tipp.S_RACE_OVER %}&nbsp;{{ user_tipp.L_PLACE }}{{ lang('COLON') }}<br />{% endif %}</strong>
 										{% if not user_tipp.S_RACE_OVER %}
 										&nbsp;<select id="{{ user_tipp.BOX_NAME }}" name="{{ user_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ user_tipp.OPTION_LIST_DRIVER }}</select>
 										{% else %}
@@ -441,30 +441,30 @@
 									{% else %}
 								<tr class="bg2">
 									{% endif %}
-									<td class="rightf1"><strong>&nbsp;{{ add_tipp.L_PLACE }}&nbsp;</strong></td>
+									<td class="rightf1"><strong>&nbsp;{{ add_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
 									{% if not add_tipp.S_GUEST %}
 									<td>&nbsp;<select id="{{ add_tipp.BOX_NAME }}" name="{{ add_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ add_tipp.OPTION_LIST_DRIVER }}</select></td>
 									{% else %}
 									<td><br />{{ lang('FORMEL_GUESTS_PLACE_NO_TIP') }}</td>
 									{% endif %}
-									<td>&nbsp;</td>
+									<td class="responsive-hide centerf1">&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_add_tipp in extended_add_tipps %}
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_PACE') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;<select name="place11" size="1">{{ extended_add_tipp.OPTION_LIST_PACE }}</select>&nbsp;</td>
-									<td>&nbsp;</td>
+									<td class="responsive-hide centerf1">&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_TIRED') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;<select name="place12" size="1">{{ extended_add_tipp.OPTION_LIST_TIRED }}</select>&nbsp;</td>
-									<td>&nbsp;</td>
+									<td class="responsive-hide centerf1">&nbsp;</td>
 								</tr>
 								<tr class="bg1">
 									<td class="rightf1"><strong>&nbsp;{{ lang('FORMEL_SAFETYCAR') }}{{ lang('COLON') }}</strong></td>
 									<td>&nbsp;<select name="place13" size="1">{{ extended_add_tipp.OPTION_LIST_SAFETYCAR }}</select>&nbsp;</td>
-									<td>&nbsp;</td>
+									<td class="responsive-hide centerf1">&nbsp;</td>
 								</tr>
 								{% endfor %}
 								{% for extended_result in extended_results %}

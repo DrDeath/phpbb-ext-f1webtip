@@ -441,7 +441,7 @@
 									{% else %}
 								<tr class="bg2">
 									{% endif %}
-									<td class="rightf1"><strong>&nbsp;{{ add_tipp.L_PLACE }}{{ lang('COLON') }}</strong></td>
+									<td class="rightf1">{% if not add_tipp.S_GUEST %}<strong>&nbsp;{{ add_tipp.L_PLACE }}{{ lang('COLON') }}</strong>{% endif %}</td>
 									{% if not add_tipp.S_GUEST %}
 									<td>&nbsp;<select id="{{ add_tipp.BOX_NAME }}" name="{{ add_tipp.BOX_NAME }}" onchange="javascript:drivers()" size="1">{{ add_tipp.OPTION_LIST_DRIVER }}</select></td>
 									{% else %}

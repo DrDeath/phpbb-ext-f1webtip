@@ -613,8 +613,8 @@ class main_module
 						'PREDEFINED_NAME'			=> $drivername,
 						'PREDEFINED_PENALTY'		=> $driver_penalty,
 						'S_ADDDRIVERS'				=> true,
-						'S_DRIVER_DISABLED'			=> ($driver_disabled == true) ? "checked=\"checked\"" : "",
-						'S_DRIVER_ENABLED'			=> ($driver_disabled == false) ? "checked=\"checked\"" : "",
+						'S_DRIVER_DISABLED'			=> ($driver_disabled == true) ? "checked" : "",
+						'S_DRIVER_ENABLED'			=> ($driver_disabled == false) ? "checked" : "",
 						'U_ACTION'					=> $this->u_action,
 						]
 					);

@@ -41,14 +41,14 @@
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTING_GUEST_VIEWING') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTING_GUEST_VIEWING_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="guest_viewing" value="1" {% if GUEST_VIEWING %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="guest_viewing" value="0" {% if not GUEST_VIEWING %}checked="checked"{% endif %} /> {{ lang('NO') }}
+					<td><input type="radio" class="radio" name="guest_viewing" value="1" {% if GUEST_VIEWING %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="guest_viewing" value="0" {% if not GUEST_VIEWING %}checked{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_REMINDER_ENABLED') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_REMINDER_ENABLED_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="reminder_enabled" value="1" {% if REMINDER_ENABLED %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="reminder_enabled" value="0" {% if not REMINDER_ENABLED %}checked="checked"{% endif %} /> {{ lang('NO') }}
+					<td><input type="radio" class="radio" name="reminder_enabled" value="1" {% if REMINDER_ENABLED %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="reminder_enabled" value="0" {% if not REMINDER_ENABLED %}checked{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row1">
@@ -71,20 +71,20 @@
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_PROFILE_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="show_in_profile" value="1" {% if SHOW_PROFILE %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="show_in_profile" value="0" {% if not SHOW_PROFILE %}checked="checked"{% endif %} /> {{ lang('NO') }}
+					<td><input type="radio" class="radio" name="show_in_profile" value="1" {% if SHOW_PROFILE %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="show_in_profile" value="0" {% if not SHOW_PROFILE %}checked{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_VIEWTOPIC') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_VIEWTOPIC_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="show_in_viewtopic" value="1" {% if SHOW_VIEWTOPIC %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="show_in_viewtopic" value="0" {% if not SHOW_VIEWTOPIC %}checked="checked"{% endif %} /> {{ lang('NO') }}
+					<td><input type="radio" class="radio" name="show_in_viewtopic" value="1" {% if SHOW_VIEWTOPIC %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="show_in_viewtopic" value="0" {% if not SHOW_VIEWTOPIC %}checked{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr class="row2">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_COUNTDOWN') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_COUNTDOWN_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="show_countdown" value="1" {% if SHOW_COUNTDOWN %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="show_countdown" value="0" {% if not SHOW_COUNTDOWN %}checked="checked"{% endif %} /> {{ lang('NO') }}
+					<td><input type="radio" class="radio" name="show_countdown" value="1" {% if SHOW_COUNTDOWN %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="show_countdown" value="0" {% if not SHOW_COUNTDOWN %}checked{% endif %} /> {{ lang('NO') }}
 					</td>
 				</tr>
 				<tr>
@@ -115,13 +115,13 @@
 				</tr>
 				<tr class="row1">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_AVATAR') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_AVATAR_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="show_avatar" value="1" {% if SHOW_AVATAR %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-					    <input type="radio" class="radio" name="show_avatar" value="0" {% if not SHOW_AVATAR %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
+					<td><input type="radio" class="radio" name="show_avatar" value="1" {% if SHOW_AVATAR %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+					    <input type="radio" class="radio" name="show_avatar" value="0" {% if not SHOW_AVATAR %}checked{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 				<tr class="row3">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_HEADBANNER') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_HEADBANNER_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="show_headbanner" value="1" {% if SHOW_HEADBANNER %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="show_headbanner" value="0" {% if not SHOW_HEADBANNER %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
+					<td><input type="radio" class="radio" name="show_headbanner" value="1" {% if SHOW_HEADBANNER %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="show_headbanner" value="0" {% if not SHOW_HEADBANNER %}checked{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 				{% if headbanner_on %}
 				<tr class="row1">
@@ -147,8 +147,8 @@
 				{% endif %}
 				<tr class="row3">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFXR') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFXR_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="show_gfxr" value="1" {% if SHOW_GFXR %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="show_gfxr" value="0" {% if not SHOW_GFXR %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
+					<td><input type="radio" class="radio" name="show_gfxr" value="1" {% if SHOW_GFXR %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="show_gfxr" value="0" {% if not SHOW_GFXR %}checked{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 
 				{% if gfxr_on %}
@@ -167,8 +167,8 @@
 				{% endif %}
 				<tr class="row3">
 					<td><strong>{{ lang('ACP_F1_SETTINGS_SHOW_GFX') }}{{ lang('COLON') }}</strong><br />{{ lang('ACP_F1_SETTINGS_SHOW_GFX_EXPLAIN') }}</td>
-					<td><input type="radio" class="radio" name="show_gfx" value="1" {% if SHOW_GFX %}checked="checked"{% endif %}/> {{ lang('YES') }} &nbsp;
-						<input type="radio" class="radio" name="show_gfx" value="0" {% if not SHOW_GFX %}checked="checked"{% endif %} /> {{ lang('NO') }}</td>
+					<td><input type="radio" class="radio" name="show_gfx" value="1" {% if SHOW_GFX %}checked{% endif %}/> {{ lang('YES') }} &nbsp;
+						<input type="radio" class="radio" name="show_gfx" value="0" {% if not SHOW_GFX %}checked{% endif %} /> {{ lang('NO') }}</td>
 				</tr>
 
 				{% if gfx_on %}

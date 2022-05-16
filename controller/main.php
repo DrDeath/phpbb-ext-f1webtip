@@ -1234,7 +1234,7 @@ class main
 
 							if (isset($quali_array[$i]))
 							{
-								$selected = ($this_driver_id == $quali_array[$i]) ? 'selected="selected"' : '';
+								$selected = ($this_driver_id == $quali_array[$i]) ? 'selected' : '';
 							}
 							else
 							{
@@ -1307,7 +1307,7 @@ class main
 
 							if (isset($result_array[$i]))
 							{
-								$selected = ($this_driver_id == $result_array[$i]) ? 'selected="selected"' : '';
+								$selected = ($this_driver_id == $result_array[$i]) ? 'selected' : '';
 							}
 							else
 							{
@@ -1334,7 +1334,7 @@ class main
 
 						if (isset($result_array['10']))
 						{
-							$selected = ( $this_driver_id == $result_array['10']) ? 'selected="selected"' : '';
+							$selected = ( $this_driver_id == $result_array['10']) ? 'selected' : '';
 						}
 						else
 						{
@@ -1351,7 +1351,7 @@ class main
 					{
 						if (isset($result_array['11']))
 						{
-							$selected = ( $k == $result_array['11']) ? 'selected="selected"' : '';
+							$selected = ( $k == $result_array['11']) ? 'selected' : '';
 						}
 						else
 						{
@@ -1368,7 +1368,7 @@ class main
 					{
 						if (isset($result_array['12']))
 						{
-							$selected = ($k == $result_array['12']) ? 'selected="selected"' : '';
+							$selected = ($k == $result_array['12']) ? 'selected' : '';
 						}
 						else
 						{

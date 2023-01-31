@@ -15,7 +15,7 @@ indent_style = tab
 indent_size = 4
 trim_trailing_whitespace = true
 
-[*.{html,txt,md,yml}]
+[*.{txt,md,yml}]
 trim_trailing_whitespace = false
 
 [*.yml]

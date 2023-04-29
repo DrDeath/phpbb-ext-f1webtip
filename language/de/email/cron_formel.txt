@@ -1,6 +1,6 @@
 Hallo {{ USERNAME }},
 
-vergiss bitte nicht Deinen Formel 1 WebTipp auf {{ SITENAME }}.
+vergiss bitte nicht Deinen Formel 1 WebTipp auf {{ SITENAME }}
 
 Das nächste Rennen findet an diesem Wochende statt !!!
 

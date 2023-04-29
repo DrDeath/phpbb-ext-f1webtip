@@ -1,6 +1,6 @@
 Hello {{ USERNAME }},
 
-Please don't forget your Formula 1 WebTip on {{ SITENAME }}.
+Please don't forget your Formula 1 WebTip on {{ SITENAME }}
 
 The next race will start this weekend !!!
 

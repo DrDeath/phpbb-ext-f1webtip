@@ -1,39 +1,39 @@
 {
-	"name": "drdeath/f1webtip",
-	"type": "phpbb-extension",
-	"description": "F1 WebTip for phpBB 3.3",
-	"homepage": "https://drdeath.github.io/phpbb-ext-f1webtip",
-	"version": "1.1.8",
-	"time": "2023-03-04",
-	"license": "GPL-2.0-only",
-	"authors": [{
-			"name": "Stefan Temath",
-			"email": "dr.death@lpi-clan.de",
-			"homepage": "http://www.lpi-clan.de",
-			"role": "Lead Developer"
-		},
-		{
-			"name": "Falk Seidel",
-			"email": "admin@un1matr1x.de",
-			"homepage": "http://un1matr1x.de",
-			"role": "Developer"
-		}],
-	"require": {
-		"php": ">=7.1.0",
-		"composer/installers": "~2.2"
-	},
-	"require-dev": {
-		"phpbb/epv": "dev-master"
-	},
-	"extra": {
-		"display-name": "F1 WebTip",
-		"soft-require": {
-			"phpbb/phpbb": ">=3.3,<3.4"
-		},
-		"version-check": {
-			"host": "lpi-clan.de",
-			"directory": "/updatecheck",
-			"filename": "phpbb-ext-f1webtipp-version.json"
-		}
-	}
+    "name": "drdeath/f1webtip",
+    "type": "phpbb-extension",
+    "description": "F1 WebTip for phpBB 3.3",
+    "homepage": "https://drdeath.github.io/phpbb-ext-f1webtip",
+    "version": "1.1.9",
+    "time": "2023-03-06",
+    "license": "GPL-2.0-only",
+    "authors": [{
+            "name": "Stefan Temath",
+            "email": "dr.death@lpi-clan.de",
+            "homepage": "http://www.lpi-clan.de",
+            "role": "Lead Developer"
+        },
+        {
+            "name": "Falk Seidel",
+            "email": "admin@un1matr1x.de",
+            "homepage": "http://un1matr1x.de",
+            "role": "Developer"
+        }],
+    "require": {
+        "php": ">=7.1.0",
+        "composer/installers": "~2.2"
+    },
+    "require-dev": {
+        "phpbb/epv": "dev-master"
+    },
+    "extra": {
+        "display-name": "F1 WebTip",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.3,<3.4"
+        },
+        "version-check": {
+            "host": "lpi-clan.de",
+            "directory": "/updatecheck",
+            "filename": "phpbb-ext-f1webtipp-version.json"
+        }
+    }
 }

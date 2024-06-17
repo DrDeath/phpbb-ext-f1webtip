@@ -211,7 +211,7 @@ class email_reminder extends \phpbb\cron\task\base
 			$messenger->headers('X-AntiAbuse: Board servername - ' . $this->config['server_name']);
 			$messenger->headers('X-AntiAbuse: User_id - ' . ANONYMOUS);
 			$messenger->headers('X-AntiAbuse: Username - CRON TASK F1 WebTip Email Reminder');
-			$messenger->subject(htmlspecialchars_decode($subject));
+			$messenger->subject(htmlspecialchars_decode($subject), ENT_COMPAT);
 			$messenger->set_mail_priority($priority);
 
 			while ($row = $this->db->sql_fetchrow($user_result))
@@ -256,7 +256,7 @@ class email_reminder extends \phpbb\cron\task\base
 				$subject 	= $this->language->lang('FORMEL_MAIL_ADMIN', $race_name);
 
 				$messenger->to($this->config['board_email'], $this->config['sitename']);
-				$messenger->subject(htmlspecialchars_decode($subject));
+				$messenger->subject(htmlspecialchars_decode($subject), ENT_COMPAT);
 				$messenger->template('admin_send_email', $user_lang);
 				$messenger->assign_vars([
 					'CONTACT_EMAIL' => $this->config['board_contact'],

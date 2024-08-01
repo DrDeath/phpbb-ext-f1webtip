@@ -10,7 +10,7 @@
 
 namespace drdeath\f1webtip\migrations\v11x;
 
-class release_1_1_8 extends \phpbb\db\migration\migration
+class release_1_1_9 extends \phpbb\db\migration\migration
 {
 	public function effectively_installed()
 	{
